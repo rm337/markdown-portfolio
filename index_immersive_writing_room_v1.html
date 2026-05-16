@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INKSPIRATIONS Studios — Robert Marleton</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600;900&family=Playfair+Display:wght@900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --ocean:#0174F3;
+  --white:rgba(255,255,255,.92);
+  --soft:rgba(255,255,255,.55);
+  --faint:rgba(255,255,255,.15);
+  --hero-image:url('hero-blue-texture.jpeg');
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Cormorant Garamond',serif;color:var(--white);overflow-x:hidden;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 6vw;background:rgba(1,10,40,.6);backdrop-filter:blur(14px);border-bottom:1px solid rgba(1,116,243,.15);}
+.nav-logo{font-family:'Cinzel',serif;font-size:.85rem;font-weight:600;letter-spacing:.22em;color:var(--white);text-decoration:none;}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.18em;color:var(--soft);text-decoration:none;transition:color .3s;}
+.nav-links a:hover{color:var(--white);}
+
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:0 7vw;position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(1,5,25,.18) 0%,rgba(1,13,74,.42) 55%,rgba(1,5,25,.86) 100%),var(--hero-image);background-size:cover;background-position:center;background-repeat:no-repeat;}
+#waveCanvas{position:absolute;inset:0;width:100%;height:100%;opacity:.5;pointer-events:none;}
+.hero-content{position:relative;z-index:2;}
+.hero-name{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.6rem,8vw,6.8rem);
+  font-weight:900;font-style:normal;
+  letter-spacing:-.02em;line-height:.92;
+  color:#ffffff;
+  text-shadow:0 5px 0 rgba(0,0,0,.35), 0 0 40px rgba(1,5,25,.65), 0 0 90px rgba(1,116,243,.45);
+}
+.hero-tagline{font-family:'Cormorant Garamond',serif;font-size:clamp(.9rem,2vw,1.3rem);font-style:italic;font-weight:300;letter-spacing:.14em;color:rgba(255,255,255,.75);margin-top:1rem;}
+.hero-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(.8rem,1.5vw,1rem);font-style:italic;color:rgba(255,255,255,.4);margin-top:.35rem;letter-spacing:.1em;}
+.hero-cta{display:inline-block;margin-top:2.8rem;font-family:'Cinzel',serif;font-size:.75rem;font-weight:600;letter-spacing:.22em;color:var(--white);border:1px solid rgba(255,255,255,.4);background:transparent;padding:.85rem 2.2rem;cursor:pointer;transition:background .3s,border-color .3s;text-decoration:none;}
+.hero-cta:hover{background:rgba(1,116,243,.3);border-color:rgba(1,116,243,.8);}
+
+.about{background:linear-gradient(180deg,#020d4a 0%,#061568 100%);padding:9rem 6vw;display:grid;grid-template-columns:1fr 1fr;gap:6vw;align-items:center;}
+@media(max-width:700px){.about,.contact{grid-template-columns:1fr;}}
+.section-label{font-family:'Cinzel',serif;font-size:.65rem;font-weight:600;letter-spacing:.3em;color:var(--ocean);margin-bottom:1.4rem;}
+.about-text h2{font-family:'Cinzel',serif;font-size:clamp(1.6rem,3.5vw,2.8rem);font-weight:400;line-height:1.2;margin-bottom:1.8rem;}
+.about-text p{font-size:1.1rem;line-height:1.9;color:var(--soft);font-weight:300;margin-bottom:1.2rem;}
+.about-ink{width:100%;aspect-ratio:1;background:radial-gradient(ellipse at 40% 40%,#0174F3 0%,#020d4a 60%,#010720 100%);display:flex;align-items:center;justify-content:center;}
+.about-ink span{font-family:'Cinzel',serif;font-size:5rem;font-weight:900;color:rgba(255,255,255,.07);}
+
+.work{background:linear-gradient(180deg,#061568 0%,#020840 100%);padding:9rem 6vw;}
+.work h2,.mediums h2,.agents-section h2,.contact h2{font-family:'Cinzel',serif;font-size:clamp(1.6rem,3.5vw,2.8rem);font-weight:400;margin-bottom:1rem;}
+.work-intro{color:var(--soft);font-size:1.1rem;font-style:italic;margin-bottom:3.5rem;}
+.filter-tabs{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:3rem;}
+.tab{font-family:'Cinzel',serif;font-size:.6rem;font-weight:600;letter-spacing:.2em;padding:.5rem 1.3rem;border:1px solid var(--faint);background:transparent;color:var(--soft);cursor:pointer;transition:all .3s;}
+.tab.active,.tab:hover{border-color:var(--ocean);color:var(--white);background:rgba(1,116,243,.15);}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem;}
+.piece{background:#07070f;cursor:pointer;transition:transform .35s;overflow:hidden;}
+.piece:hover{transform:translateY(-4px);}
+.piece-img{width:100%;aspect-ratio:4/3;background:linear-gradient(135deg,#0a1a5e 0%,#0174F3 50%,#020d40 100%);display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.2em;color:rgba(255,255,255,.25);}
+.piece-img img{width:100%;height:100%;object-fit:cover;display:block;}
+.piece-info{padding:1.3rem 1.5rem 1.7rem;}
+.piece-num{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.25em;color:var(--ocean);margin-bottom:.5rem;}
+.piece-title{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;margin-bottom:.3rem;}
+.piece-medium{font-size:.9rem;font-style:italic;color:var(--soft);}
+.piece-buy{display:inline-block;margin-top:1rem;font-family:'Cinzel',serif;font-size:.58rem;font-weight:600;letter-spacing:.18em;color:var(--white);text-decoration:none;border:1px solid rgba(1,116,243,.35);background:rgba(1,116,243,.12);padding:.55rem 1rem;transition:background .3s,border-color .3s;}
+.piece-buy:hover{background:rgba(1,116,243,.32);border-color:var(--ocean);}
+.piece-status{margin-top:.7rem;font-size:.82rem;font-style:italic;color:rgba(255,255,255,.45);}
+
+.lightbox{display:none;position:fixed;inset:0;z-index:200;background:rgba(1,3,15,.95);align-items:center;justify-content:center;backdrop-filter:blur(8px);}
+.lightbox.open{display:flex;}
+.lb-inner{max-width:900px;width:90vw;position:relative;}
+.lb-img{width:100%;aspect-ratio:4/3;background:linear-gradient(135deg,#0a1a5e,#0174F3,#020d40);display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.lb-img img{width:100%;height:100%;object-fit:contain;}
+.lb-meta{padding:2rem 0 1rem;}
+.lb-title{font-family:'Cinzel',serif;font-size:1.5rem;font-weight:400;margin-bottom:.5rem;}
+.lb-series{font-style:italic;color:var(--soft);margin-bottom:1rem;}
+.lb-desc{color:var(--soft);font-size:1rem;line-height:1.8;}
+.lb-close{position:absolute;top:-3rem;right:0;background:none;border:none;color:var(--soft);font-size:2rem;cursor:pointer;}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(1,116,243,.2);border:1px solid rgba(1,116,243,.3);color:var(--white);font-size:1.4rem;width:2.8rem;height:2.8rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .3s;}
+.lb-nav:hover{background:rgba(1,116,243,.5);}
+.lb-prev{left:-3.5rem;} .lb-next{right:-3.5rem;}
+@media(max-width:700px){.lb-prev{left:-.3rem;}.lb-next{right:-.3rem;}}
+.lb-guide-btn{margin-top:1.2rem;font-family:'Cinzel',serif;font-size:.6rem;font-weight:600;letter-spacing:.18em;color:var(--ocean);background:rgba(1,116,243,.08);border:1px solid rgba(1,116,243,.2);padding:.55rem 1.3rem;cursor:pointer;transition:background .3s;}
+.lb-guide-btn:hover{background:rgba(1,116,243,.2);}
+.lb-guide-response{margin-top:.8rem;padding:1rem;background:rgba(1,116,243,.08);border-left:2px solid var(--ocean);font-size:.9rem;line-height:1.8;color:var(--soft);display:none;}
+.lb-guide-response.visible{display:block;}
+
+
+.writing-room{
+  position:relative;
+  overflow:hidden;
+  min-height:92vh;
+  padding:9rem 6vw;
+  background:
+    radial-gradient(circle at 78% 24%,rgba(255,174,88,.18),transparent 26%),
+    radial-gradient(circle at 18% 80%,rgba(1,116,243,.22),transparent 34%),
+    linear-gradient(180deg,#020840 0%,#030714 55%,#01030b 100%);
+}
+.writing-room::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:.34;
+  background-image:
+    linear-gradient(115deg,transparent 0 47%,rgba(255,255,255,.18) 48%,transparent 50%),
+    linear-gradient(115deg,transparent 0 47%,rgba(255,255,255,.1) 48%,transparent 50%);
+  background-size:90px 160px,140px 220px;
+  animation:rainDrift 9s linear infinite;
+}
+.writing-room::after{
+  content:"";
+  position:absolute;
+  left:-10%;
+  right:-10%;
+  bottom:-4rem;
+  height:22rem;
+  background:
+    radial-gradient(ellipse at center,rgba(1,116,243,.26),transparent 62%);
+  filter:blur(18px);
+  animation:slowWave 8s ease-in-out infinite alternate;
+}
+@keyframes rainDrift{
+  from{background-position:0 0,0 0;}
+  to{background-position:-120px 280px,-160px 360px;}
+}
+@keyframes slowWave{
+  from{transform:translateY(0) scaleX(1);}
+  to{transform:translateY(-1.8rem) scaleX(1.08);}
+}
+.writing-inner{
+  position:relative;
+  z-index:2;
+  max-width:980px;
+}
+.writing-room h2{
+  font-family:'Cinzel',serif;
+  font-size:clamp(1.8rem,4vw,3.8rem);
+  font-weight:400;
+  margin-bottom:1rem;
+}
+.writing-intro{
+  max-width:680px;
+  color:var(--soft);
+  font-size:1.15rem;
+  line-height:1.9;
+  font-style:italic;
+  margin-bottom:2.5rem;
+}
+.scene-panel{
+  max-width:780px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(1,5,25,.62);
+  backdrop-filter:blur(14px);
+  padding:2rem;
+  box-shadow:0 0 70px rgba(1,116,243,.12);
+}
+.scene-buttons{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.8rem;
+  margin-bottom:1.8rem;
+}
+.scene-btn{
+  font-family:'Cinzel',serif;
+  font-size:.6rem;
+  font-weight:600;
+  letter-spacing:.16em;
+  color:var(--soft);
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.14);
+  padding:.7rem 1rem;
+  cursor:pointer;
+  transition:all .3s;
+}
+.scene-btn.active,.scene-btn:hover{
+  color:var(--white);
+  border-color:rgba(1,116,243,.65);
+  background:rgba(1,116,243,.18);
+}
+.scene-title{
+  font-family:'Cinzel',serif;
+  font-size:1.35rem;
+  font-weight:400;
+  margin-bottom:.7rem;
+}
+.scene-copy{
+  color:var(--soft);
+  font-size:1.05rem;
+  line-height:1.85;
+  max-width:620px;
+  margin-bottom:1.3rem;
+}
+.scene-links{
+  display:flex;
+  gap:.9rem;
+  flex-wrap:wrap;
+}
+.scene-link{
+  font-family:'Cinzel',serif;
+  font-size:.62rem;
+  font-weight:600;
+  letter-spacing:.15em;
+  color:var(--ocean);
+  text-decoration:none;
+  border-bottom:1px solid rgba(1,116,243,.35);
+  padding-bottom:.35rem;
+}
+.scene-note{
+  margin-top:1.4rem;
+  color:rgba(255,255,255,.35);
+  font-size:.88rem;
+  font-style:italic;
+}
+
+.mediums{background:linear-gradient(180deg,#020840 0%,#010520 100%);padding:9rem 6vw;}
+.mediums-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:2px;margin-top:3rem;}
+.medium-card{padding:3rem 2rem;border:1px solid var(--faint);transition:border-color .3s,background .3s;}
+.medium-card:hover{border-color:rgba(1,116,243,.4);background:rgba(1,116,243,.06);}
+.medium-icon{font-size:1.8rem;margin-bottom:1.2rem;opacity:.7;}
+.medium-name{font-family:'Cinzel',serif;font-size:.8rem;font-weight:600;letter-spacing:.15em;margin-bottom:.8rem;}
+.medium-desc{font-size:.95rem;color:var(--soft);font-style:italic;line-height:1.7;}
+
+.philosophy{background:linear-gradient(180deg,#010520 0%,#030308 100%);text-align:center;padding:10rem 6vw;}
+.phil-quote{font-family:'Cormorant Garamond',serif;font-size:clamp(1.5rem,3.2vw,2.6rem);font-weight:300;font-style:italic;line-height:1.5;max-width:780px;margin:0 auto 2rem;color:rgba(255,255,255,.85);}
+.phil-attr{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.25em;color:var(--ocean);}
+
+.agents-section{background:linear-gradient(180deg,#030308 0%,#010310 100%);padding:9rem 6vw;}
+.agents-intro{color:var(--soft);font-size:1.05rem;font-style:italic;margin-bottom:3rem;}
+.agent-hub{background:rgba(1,5,25,.97);border:1px solid rgba(1,116,243,.2);max-width:820px;}
+.agent-hub-header{padding:1.1rem 1.4rem;border-bottom:1px solid rgba(1,116,243,.12);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem;}
+.agent-hub-title{font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.22em;color:var(--ocean);}
+.agent-quick-btns{display:flex;gap:.5rem;flex-wrap:wrap;}
+.agent-quick-btn{font-family:'Cinzel',serif;font-size:.52rem;font-weight:600;letter-spacing:.1em;padding:.35rem .85rem;background:rgba(1,116,243,.08);border:1px solid rgba(1,116,243,.18);color:var(--soft);cursor:pointer;transition:all .3s;}
+.agent-quick-btn:hover{background:rgba(1,116,243,.25);color:var(--white);}
+.agent-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:1px;background:rgba(1,116,243,.06);border-bottom:1px solid rgba(1,116,243,.1);}
+.agent-card{padding:.9rem 1rem;background:rgba(1,5,25,.97);cursor:pointer;transition:background .3s;}
+.agent-card:hover,.agent-card.selected{background:rgba(1,116,243,.12);}
+.agent-card.selected{border-left:2px solid var(--ocean);}
+.agent-icon{font-size:1rem;margin-bottom:.25rem;}
+.agent-name{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.1em;color:var(--white);}
+.hub-messages{height:260px;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:.7rem;scrollbar-width:thin;scrollbar-color:rgba(1,116,243,.3) transparent;}
+.hub-msg{font-size:.88rem;line-height:1.7;padding:.75rem 1rem;max-width:88%;}
+.hub-msg.agent{background:rgba(1,116,243,.1);border-left:2px solid var(--ocean);color:var(--white);align-self:flex-start;}
+.hub-msg.user{background:rgba(255,255,255,.05);border-right:2px solid rgba(255,255,255,.2);color:var(--soft);align-self:flex-end;text-align:right;}
+.hub-msg.thinking{color:var(--ocean);font-style:italic;font-size:.78rem;align-self:flex-start;}
+.hub-input-row{display:flex;border-top:1px solid rgba(1,116,243,.12);}
+.hub-input{flex:1;background:transparent;border:none;color:var(--white);padding:.9rem 1.2rem;font-family:'Cormorant Garamond',serif;font-size:.95rem;outline:none;}
+.hub-input::placeholder{color:rgba(255,255,255,.28);}
+.hub-send{background:rgba(1,116,243,.18);border:none;border-left:1px solid rgba(1,116,243,.12);color:var(--ocean);padding:0 1.2rem;cursor:pointer;font-size:1.1rem;transition:background .3s;}
+.hub-send:hover{background:rgba(1,116,243,.4);}
+
+.contact{background:#020205;padding:9rem 6vw;display:grid;grid-template-columns:1fr 1fr;gap:6vw;align-items:start;}
+.contact p{color:var(--soft);font-size:1.1rem;line-height:1.9;font-weight:300;margin-bottom:2rem;}
+.contact-links{display:flex;flex-direction:column;gap:1rem;}
+.contact-link{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.18em;color:var(--soft);text-decoration:none;transition:color .3s;border-bottom:1px solid var(--faint);padding-bottom:1rem;}
+.contact-link:hover{color:var(--ocean);}
+.commission-chat{display:flex;flex-direction:column;gap:.8rem;}
+.cc-messages{display:flex;flex-direction:column;gap:.8rem;margin-bottom:1rem;min-height:80px;}
+.cc-msg{font-size:.95rem;line-height:1.8;padding:.75rem 1rem;max-width:90%;}
+.cc-msg.agent{background:rgba(1,116,243,.08);border-left:2px solid var(--ocean);color:var(--white);align-self:flex-start;}
+.cc-msg.user{background:rgba(255,255,255,.05);border-right:2px solid rgba(255,255,255,.15);color:var(--soft);align-self:flex-end;text-align:right;}
+.cc-msg.thinking{color:var(--ocean);font-style:italic;font-size:.82rem;}
+.cc-input-row{display:flex;border:1px solid var(--faint);}
+.cc-input{flex:1;background:transparent;border:none;color:var(--white);padding:.9rem 1.1rem;font-family:'Cormorant Garamond',serif;font-size:.95rem;outline:none;}
+.cc-input::placeholder{color:rgba(255,255,255,.28);}
+.cc-send{background:rgba(1,116,243,.18);border:none;border-left:1px solid var(--faint);color:var(--ocean);padding:0 1.1rem;cursor:pointer;font-size:1.1rem;transition:background .3s;}
+.cc-send:hover{background:rgba(1,116,243,.4);}
+
+footer{background:#010103;border-top:1px solid rgba(1,116,243,.07);padding:2.5rem 6vw;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+.footer-logo{font-family:'Cinzel',serif;font-size:.78rem;font-weight:600;letter-spacing:.2em;color:var(--soft);}
+.footer-copy{font-size:.78rem;color:rgba(255,255,255,.28);font-style:italic;}
+
+#inkBtn{position:fixed;bottom:2rem;right:2rem;z-index:300;width:3.4rem;height:3.4rem;border-radius:50%;background:linear-gradient(135deg,#0174F3,#020d4a);border:1px solid rgba(1,116,243,.5);box-shadow:0 0 28px rgba(1,116,243,.4);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.3rem;transition:transform .3s,box-shadow .3s;}
+#inkBtn:hover{transform:scale(1.1);box-shadow:0 0 50px rgba(1,116,243,.7);}
+#agentPanel{position:fixed;bottom:6.2rem;right:2rem;z-index:300;width:320px;max-height:500px;background:rgba(1,5,25,.97);border:1px solid rgba(1,116,243,.22);backdrop-filter:blur(20px);display:none;flex-direction:column;box-shadow:0 0 50px rgba(1,116,243,.18);}
+#agentPanel.open{display:flex;}
+.ap-header{padding:.9rem 1.1rem;border-bottom:1px solid rgba(1,116,243,.12);display:flex;justify-content:space-between;align-items:center;}
+.ap-title{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.2em;color:var(--ocean);}
+.ap-close{background:none;border:none;color:var(--soft);font-size:1.2rem;cursor:pointer;}
+.ap-messages{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:.7rem;scrollbar-width:thin;scrollbar-color:rgba(1,116,243,.3) transparent;}
+.ap-msg{font-size:.88rem;line-height:1.7;padding:.75rem 1rem;max-width:88%;}
+.ap-msg.agent{background:rgba(1,116,243,.1);border-left:2px solid var(--ocean);color:var(--white);align-self:flex-start;}
+.ap-msg.user{background:rgba(255,255,255,.05);border-right:2px solid rgba(255,255,255,.2);color:var(--soft);align-self:flex-end;text-align:right;}
+.ap-msg.thinking{color:var(--ocean);font-style:italic;font-size:.78rem;align-self:flex-start;}
+.ap-input-row{display:flex;border-top:1px solid rgba(1,116,243,.12);}
+.ap-input{flex:1;background:transparent;border:none;color:var(--white);padding:.85rem 1rem;font-family:'Cormorant Garamond',serif;font-size:.92rem;outline:none;}
+.ap-input::placeholder{color:rgba(255,255,255,.28);}
+.ap-send{background:rgba(1,116,243,.18);border:none;color:var(--ocean);padding:0 1rem;cursor:pointer;font-size:1.1rem;transition:background .3s;}
+.ap-send:hover{background:rgba(1,116,243,.4);}
+
+.r{opacity:0;transform:translateY(26px);transition:opacity .8s,transform .8s;}
+.r.on{opacity:1;transform:none;}
+</style>
+</head>
+<body id="top">
+
+<nav>
+  <a class="nav-logo" href="#top">INKSPIRATIONS STUDIOS</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#writing-room">Writing Room</a></li>
+    <li><a href="#mediums">Mediums</a></li>
+    <li><a href="#store">Store</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <canvas id="waveCanvas"></canvas>
+  <div class="hero-content">
+    <div class="hero-name">INKSPIRATIONS Studios</div>
+    
+<div class="hero-tagline">A Little Ink. A Lot of Soul.</div>
+<div class="hero-sub">The COLOR Blue.</div>
+
+    <a class="hero-cta" id="ctaBtn" href="#work">View the Work</a>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="about-text r">
+    <div class="section-label">About</div>
+    <h2>Where ink becomes soul</h2>
+    <p>INKSPIRATIONS Studios is the creative space of Robert Marleton — a place where ink is the language and blue is the feeling.</p>
+    <p>Every piece is made from the same place: the deep end. Where the light fades and something true rises to the surface.</p>
+  </div>
+  <div class="about-ink r"><span>INK</span></div>
+</section>
+
+<section class="work" id="work">
+  <div class="section-label r">Portfolio</div>
+  <h2 class="r">The Work</h2>
+  <p class="work-intro r">Each piece, a descent into something real.</p>
+  <div class="filter-tabs r" id="tabs">
+    <button class="tab active" data-cat="all">All</button>
+    <button class="tab" data-cat="abstract">Abstract</button>
+    <button class="tab" data-cat="typography">Typography</button>
+    <button class="tab" data-cat="burned">Burned</button>
+  </div>
+  <div class="gallery" id="gallery"></div>
+</section>
+
+
+<section class="writing-room" id="writing-room">
+  <div class="writing-inner">
+    <div class="section-label r">Immersion</div>
+    <h2 class="r">Enter the Writing Room</h2>
+    <p class="writing-intro r">A quiet place for rain, blue light, waves, memory, and unfinished letters. Choose the atmosphere and step into the mood behind the work.</p>
+    <div class="scene-panel r">
+      <div class="scene-buttons">
+        <button class="scene-btn active" data-scene="rain">Rain Room</button>
+        <button class="scene-btn" data-scene="ocean">Ocean Room</button>
+        <button class="scene-btn" data-scene="cafe">Midnight Café</button>
+        <button class="scene-btn" data-scene="blue">Blue Hour</button>
+        <button class="scene-btn" data-scene="silent">Silent</button>
+      </div>
+      <div class="scene-title" id="sceneTitle">Rain Room</div>
+      <div class="scene-copy" id="sceneCopy">Rain moves softly against the glass. The room is warm, the page is waiting, and every thought arrives like a letter that finally found its way home.</div>
+      <div class="scene-links">
+        <a class="scene-link" id="appleMusicLink" href="#" target="_blank" rel="noopener">Open Apple Music Playlist</a>
+        <a class="scene-link" id="spotifyLink" href="#" target="_blank" rel="noopener">Open Spotify Playlist</a>
+      </div>
+      <div class="scene-note">Music links open in the official apps/sites. No copyrighted music is hosted on this website.</div>
+    </div>
+  </div>
+</section>
+
+<section class="mediums" id="mediums">
+  <div class="section-label r">Craft</div>
+  <h2 class="r">The Mediums</h2>
+  <div class="mediums-grid">
+    <div class="medium-card r"><div class="medium-icon">&#9998;</div><div class="medium-name">Ink on Paper</div><div class="medium-desc">The original. Fluid, alive, unrepeatable. Every line a decision.</div></div>
+    <div class="medium-card r"><div class="medium-icon">&#9650;</div><div class="medium-name">Burned Wood</div><div class="medium-desc">Pyrography on reclaimed wood. Permanence with a raw, cinematic edge.</div></div>
+    <div class="medium-card r"><div class="medium-icon">&#9670;</div><div class="medium-name">Typography</div><div class="medium-desc">Fluid Soul lettering. Words that carry weight and bleed feeling.</div></div>
+    <div class="medium-card r"><div class="medium-icon">&#9711;</div><div class="medium-name">Mixed Media</div><div class="medium-desc">Ink meets surface meets story. Layers that reveal themselves slowly.</div></div>
+  </div>
+</section>
+
+<section class="philosophy" id="philosophy">
+  <div class="phil-quote r">"The ink does not lie. It goes where it must and stays where it lands. That is the only rule I follow."</div>
+  <div class="phil-attr r">Robert Marleton &mdash; INKSPIRATIONS Studios</div>
+</section>
+
+<section class="work" id="store">
+  <div class="section-label r">Storefront</div>
+  <h2 class="r">Available Work</h2>
+  <p class="work-intro r">Browse the collection here, then purchase securely through Pixels.</p>
+  <div class="gallery" id="storeGallery"></div>
+</section>
+
+<section class="agents-section" id="studio-guide">
+  <div class="section-label r">Studio Guide</div>
+  <h2 class="r">Ask the Studio Guide</h2>
+  <p class="agents-intro r">Not sure where to begin? Ask about Robert’s artwork, collections, commissions, or where to purchase prints.</p>
+  <div class="agent-hub r">
+    <div class="agent-hub-header">
+      <span class="agent-hub-title">INKSPIRATIONS CUSTOMER GUIDE</span>
+      <div class="agent-quick-btns">
+        <button class="agent-quick-btn" onclick="guideQuick('Where can I buy prints?')">Buy prints</button>
+        <button class="agent-quick-btn" onclick="guideQuick('Tell me about Burned Motion')">Burned Motion</button>
+        <button class="agent-quick-btn" onclick="guideQuick('Tell me about Fluid Soul')">Fluid Soul</button>
+        <button class="agent-quick-btn" onclick="guideQuick('How do I request a commission?')">Commissions</button>
+      </div>
+    </div>
+    <div class="hub-messages" id="guideMessages">
+      <div class="hub-msg agent">Welcome. I can help you explore the artwork, understand the collections, and find the best place to purchase or request a piece.</div>
+    </div>
+    <div class="hub-input-row">
+      <input class="hub-input" id="guideInput" type="text" placeholder="Ask about artwork, prints, or commissions..." />
+      <button class="hub-send" id="guideSend">&#8594;</button>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div>
+    <div class="section-label r">Contact</div>
+    <h2 class="r">Begin a conversation</h2>
+    <p class="r">Commissions, collaborations, and inquiries. If it involves ink, it belongs here.</p>
+    <div class="contact-links r">
+      <a class="contact-link" href="mailto:r.marleton@gmail.com">r.marleton@gmail.com</a>
+      <a class="contact-link" href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a>
+      <a class="contact-link" href="https://www.behance.net/" target="_blank" rel="noopener">Behance</a>
+    </div>
+  </div>
+  <div class="commission-chat r">
+    <div class="cc-messages" id="ccMessages">
+      <div class="cc-msg agent">Hello. Tell me about the piece you have in mind and I will take it from there.</div>
+    </div>
+    <div class="cc-input-row">
+      <input class="cc-input" id="ccInput" type="text" placeholder="Describe your commission idea..." />
+      <button class="cc-send" id="ccSend">&#8594;</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">INKSPIRATIONS STUDIOS</div>
+  <div class="footer-copy">A Little Ink. A Lot of Soul. The COLOR Blue.</div>
+</footer>
+
+<button id="inkBtn" title="Talk to the Ink Agent">&#9998;</button>
+<div id="agentPanel">
+  <div class="ap-header">
+    <span class="ap-title">INK AGENT</span>
+    <button class="ap-close" id="apClose">&times;</button>
+  </div>
+  <div class="ap-messages" id="apMessages">
+    <div class="ap-msg agent">Welcome. Ask me anything about Robert's work, process, or how to commission a piece.</div>
+  </div>
+  <div class="ap-input-row">
+    <input class="ap-input" id="apInput" type="text" placeholder="Ask anything..." />
+    <button class="ap-send" id="apSend">&#8594;</button>
+  </div>
+</div>
+
+<div class="lightbox" id="lightbox">
+  <div class="lb-inner">
+    <button class="lb-close" id="lbClose">&times;</button>
+    <button class="lb-nav lb-prev" id="lbPrev">&#8592;</button>
+    <button class="lb-nav lb-next" id="lbNext">&#8594;</button>
+    <div class="lb-img" id="lbImg"><span style="font-family:Cinzel,serif;font-size:.65rem;letter-spacing:.2em;color:rgba(255,255,255,.2)">YOUR IMAGE</span></div>
+    <div class="lb-meta">
+      <div class="lb-title" id="lbTitle"></div>
+      <div class="lb-series" id="lbSeries"></div>
+      <div class="lb-desc" id="lbDesc"></div>
+      <button class="lb-guide-btn" id="lbGuideBtn">&#9998; Tell me about this piece</button>
+      <div class="lb-guide-response" id="lbGuideResponse"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ALL JS — SINGLE BLOCK */
+
+/* WAVE CANVAS */
+(function(){
+  var c=document.getElementById('waveCanvas');
+  if(!c) return;
+  var ctx=c.getContext('2d'), t=0;
+  function resize(){ c.width=c.offsetWidth; c.height=c.offsetHeight; }
+  resize(); window.addEventListener('resize',resize);
+  var waves=[
+    {freq:.012,amp:28,speed:.004,phase:0,   alpha:.10,color:'rgba(1,116,243,'},
+    {freq:.018,amp:18,speed:.007,phase:2.1, alpha:.08,color:'rgba(80,160,255,'},
+    {freq:.009,amp:38,speed:.003,phase:4.4, alpha:.07,color:'rgba(1,50,180,'},
+    {freq:.025,amp:12,speed:.009,phase:1.3, alpha:.06,color:'rgba(120,190,255,'}
+  ];
+  var drops=[];
+  for(var i=0;i<10;i++) drops.push({x:Math.random(),y:.3+Math.random()*.6,r:30+Math.random()*80,alpha:.03+Math.random()*.07,phase:Math.random()*Math.PI*2,spd:.003+Math.random()*.005});
+  function draw(){
+    var w=c.width,h=c.height;
+    ctx.clearRect(0,0,w,h);
+    drops.forEach(function(d){
+      var p=(Math.sin(t*d.spd+d.phase)+1)*.5;
+      var g=ctx.createRadialGradient(d.x*w,d.y*h,0,d.x*w,d.y*h,d.r*(.8+p*.4));
+      g.addColorStop(0,'rgba(1,8,40,'+(d.alpha*p)+')'); g.addColorStop(1,'rgba(1,8,40,0)');
+      ctx.fillStyle=g; ctx.beginPath(); ctx.arc(d.x*w,d.y*h,d.r*(1+p*.4),0,Math.PI*2); ctx.fill();
+    });
+    waves.forEach(function(wv){
+      ctx.beginPath();
+      for(var x=0;x<=w;x+=3){
+        var y=h*.62+Math.sin(x*wv.freq+t*wv.speed*60+wv.phase)*wv.amp;
+        if(x===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+      }
+      ctx.strokeStyle=wv.color+wv.alpha+')'; ctx.lineWidth=1.5; ctx.stroke();
+    });
+    t++; requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* GALLERY DATA */
+var pieces=[
+  {cat:'abstract',  num:'001',title:'Undertow',       series:'Blue Essence Collection',medium:'Digital print available',desc:'Motion beneath a still surface. Blue atmospheres layered with texture.',img:null,buyLink:'#',availability:'Available through Pixels'},
+  {cat:'typography',num:'002',title:'Bleedthrough',   series:'Fluid Soul Series',medium:'Digital print / lettering work',desc:'Ink that refuses to stay inside the lines. The word becomes the feeling.',img:null,buyLink:'#',availability:'Coming soon'},
+  {cat:'burned',    num:'003',title:'Burned Motion I', series:'Burned Motion Series',medium:'Original wood art / print edition',desc:'Hand-burned into reclaimed wood. Cinematic movement. Aggressive texture.',img:null,buyLink:'#',availability:'Message for original / print link'},
+  {cat:'abstract',  num:'004',title:'Electric Bloom',  series:'Blue Essence Collection',medium:'Digital print available',desc:'That moment when something dormant ignites. Blue light through dark texture.',img:null,buyLink:'#',availability:'Available through Pixels'},
+  {cat:'typography',num:'005',title:'Love and Thorns', series:'Fluid Soul Series',medium:'Typography art',desc:'Two words that belong together and hurt together. Elegant enough to be honest.',img:null,buyLink:'#',availability:'Coming soon'},
+  {cat:'burned',    num:'006',title:'Current',          series:'Burned Motion Series',medium:'Original wood art / print edition',desc:'The force that moves beneath everything. Burned deep. Impossible to stop.',img:null,buyLink:'#',availability:'Message for availability'}
+];
+var gallery=document.getElementById('gallery');
+var currentCat='all', currentIdx=0;
+
+function renderGallery(cat){
+  gallery.innerHTML='';
+  pieces.forEach(function(p,i){
+    if(cat!=='all'&&p.cat!==cat) return;
+    var div=document.createElement('div'); div.className='piece'; div.setAttribute('data-index',i);
+    div.innerHTML='<div class="piece-img">'+(p.img?'<img src="'+p.img+'" alt="'+p.title+'">':'<span>YOUR IMAGE</span>')+'</div><div class="piece-info"><div class="piece-num">'+p.num+'</div><div class="piece-title">'+p.title+'</div><div class="piece-medium">'+p.medium+'</div><div class="piece-status">'+(p.availability||'Available')+'</div><a class="piece-buy" href="'+(p.buyLink||'#')+'" target="_blank" rel="noopener" onclick="event.stopPropagation();">Buy / View</a></div>';
+    div.addEventListener('click',function(){ openLightbox(parseInt(this.getAttribute('data-index'))); });
+    gallery.appendChild(div);
+  });
+}
+renderGallery('all');
+function renderStoreGallery(){
+  var store=document.getElementById('storeGallery');
+  if(!store) return;
+  store.innerHTML='';
+  pieces.forEach(function(p,i){
+    var div=document.createElement('div'); div.className='piece';
+    div.innerHTML='<div class="piece-img">'+(p.img?'<img src="'+p.img+'" alt="'+p.title+'">':'<span>YOUR IMAGE</span>')+'</div><div class="piece-info"><div class="piece-num">'+p.num+'</div><div class="piece-title">'+p.title+'</div><div class="piece-medium">'+p.series+'</div><div class="piece-status">'+(p.availability||'Available')+'</div><a class="piece-buy" href="'+(p.buyLink||'#')+'" target="_blank" rel="noopener">Buy / View on Pixels</a></div>';
+    store.appendChild(div);
+  });
+}
+renderStoreGallery();
+
+document.getElementById('tabs').addEventListener('click',function(e){
+  if(!e.target.classList.contains('tab')) return;
+  document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+  e.target.classList.add('active'); currentCat=e.target.getAttribute('data-cat'); renderGallery(currentCat);
+});
+
+/* LIGHTBOX */
+var lb=document.getElementById('lightbox');
+function openLightbox(idx){
+  currentIdx=idx; var p=pieces[idx];
+  document.getElementById('lbTitle').textContent=p.title;
+  document.getElementById('lbSeries').textContent=p.series+' — '+p.medium;
+  document.getElementById('lbDesc').textContent=p.desc;
+  document.getElementById('lbImg').innerHTML=p.img?'<img src="'+p.img+'" alt="'+p.title+'">':'<span style="font-family:Cinzel,serif;font-size:.65rem;letter-spacing:.2em;color:rgba(255,255,255,.2)">YOUR IMAGE</span>';
+  document.getElementById('lbGuideResponse').classList.remove('visible');
+  var gb=document.getElementById('lbGuideBtn'); gb.textContent='Tell me about this piece'; gb.disabled=false;
+  lb.classList.add('open');
+}
+document.getElementById('lbClose').addEventListener('click',function(){ lb.classList.remove('open'); });
+lb.addEventListener('click',function(e){ if(e.target===lb) lb.classList.remove('open'); });
+document.getElementById('lbPrev').addEventListener('click',function(e){ e.stopPropagation(); currentIdx=(currentIdx-1+pieces.length)%pieces.length; openLightbox(currentIdx); });
+document.getElementById('lbNext').addEventListener('click',function(e){ e.stopPropagation(); currentIdx=(currentIdx+1)%pieces.length; openLightbox(currentIdx); });
+document.addEventListener('keydown',function(e){
+  if(!lb.classList.contains('open')) return;
+  if(e.key==='Escape') lb.classList.remove('open');
+  if(e.key==='ArrowLeft'){ currentIdx=(currentIdx-1+pieces.length)%pieces.length; openLightbox(currentIdx); }
+  if(e.key==='ArrowRight'){ currentIdx=(currentIdx+1)%pieces.length; openLightbox(currentIdx); }
+});
+
+/* CTA */
+document.getElementById('ctaBtn').addEventListener('click',function(){
+  document.getElementById('work').scrollIntoView({behavior:'smooth'});
+});
+
+/* CUSTOMER GUIDE RESPONSE ENGINE — SAFE FRONT-END VERSION */
+function localGuideReply(text){
+  var q=(text||'').toLowerCase();
+  if(q.includes('buy')||q.includes('print')||q.includes('pixels')||q.includes('shop')) return 'Prints are purchased securely through Pixels. Choose a piece from the Storefront section and click “Buy / View on Pixels” to go directly to that artwork, so you do not have to search twice.';
+  if(q.includes('commission')||q.includes('custom')) return 'For commissions, share the feeling, subject, size, and preferred medium. Robert can create work around emotional blue abstracts, expressive typography, or burned wood pieces depending on the project.';
+  if(q.includes('burned')||q.includes('wood')) return 'Burned Motion is Robert’s hand-burned wood direction — raw, cinematic, textured, and built around movement. Originals may be available locally, while select pieces can also become print editions.';
+  if(q.includes('fluid')||q.includes('soul')||q.includes('letter')) return 'Fluid Soul is Robert’s expressive lettering style: modern calligraphy, emotional movement, and ink-like flow. It is where words become visual feeling.';
+  if(q.includes('blue')||q.includes('style')||q.includes('about')) return 'INKSPIRATIONS Studios is built around ink, soul, and the color blue. The work leans emotional, atmospheric, and cinematic — meant to feel like something rising from the deep end.';
+  return 'I can help you explore the artwork, understand the collections, find print links, or begin a commission request. Try asking about prints, Burned Motion, Fluid Soul, or custom work.';
+}
+function callAgent(system,messages,onDone){
+  var last=messages&&messages.length?messages[messages.length-1].content:'';
+  setTimeout(function(){ onDone(localGuideReply(last)); },450);
+}
+
+var INK_SYS='You are the INKSPIRATIONS Studios agent on Robert Marleton portfolio website. Robert is an ink artist. Tagline: A little ink. A lot of soul. The COLOR Blue. He creates abstract ink art, fluid soul typography, and burned wood pyrography. Answer visitor questions about his work, process, style, and commissions. Be warm and poetic. Keep replies to 2 to 4 sentences.';
+var CC_SYS='You are the commission intake agent for INKSPIRATIONS Studios. Robert Marleton is an ink artist. Have a warm conversational exchange to understand what the visitor wants commissioned. Ask about subject, feeling, medium, size, and intended use. After gathering detail, summarize the brief and say Robert will be in touch. Keep each reply to 2 to 3 sentences.';
+var GG_SYS='You are the gallery guide for INKSPIRATIONS Studios. When given a piece title, series, medium, and description, speak about that artwork with depth and passion. Cover the emotion, technique, and what makes it worth owning. Be poetic. Keep it to 3 to 5 sentences.';
+var MA_SYS='You are the INKSPIRATIONS Master Agent for Robert Marleton, founder of INKSPIRATIONS Studios. Tagline: A little ink. A lot of soul. The COLOR Blue. Robert sells digital prints, physical ink artwork, and custom commissions. You coordinate 15 agents: 1.Marketplace Scout 2.Social Seller 3.Gallery Finder 4.Local Venue Hunter 5.Commission Connector 6.Print Shop Locator 7.Trend Researcher 8.Competitor Analyst 9.Pitch Writer 10.Hashtag Strategist 11.Event Scout 12.Collab Hunter 13.Pricing Advisor 14.Opportunity Tracker 15.Employment Scout. Announce which agent you activate then deliver actionable results. Be specific and concise.';
+
+/* FLOATING AGENT */
+var apHistory=[], apMessages=document.getElementById('apMessages'), apInput=document.getElementById('apInput');
+document.getElementById('inkBtn').addEventListener('click',function(){ document.getElementById('agentPanel').classList.toggle('open'); });
+document.getElementById('apClose').addEventListener('click',function(){ document.getElementById('agentPanel').classList.remove('open'); });
+function apAddMsg(r,t){ var d=document.createElement('div'); d.className='ap-msg '+r; d.textContent=t; apMessages.appendChild(d); apMessages.scrollTop=apMessages.scrollHeight; return d; }
+function apSend(){ var t=apInput.value.trim(); if(!t) return; apInput.value=''; apAddMsg('user',t); apHistory.push({role:'user',content:t}); var th=apAddMsg('thinking','Thinking...'); callAgent(INK_SYS,apHistory,function(r){ th.remove(); apAddMsg('agent',r); apHistory.push({role:'assistant',content:r}); }); }
+document.getElementById('apSend').addEventListener('click',apSend);
+apInput.addEventListener('keydown',function(e){ if(e.key==='Enter') apSend(); });
+
+/* COMMISSION CHAT */
+var ccHistory=[], ccMessages=document.getElementById('ccMessages'), ccInput=document.getElementById('ccInput');
+function ccAddMsg(r,t){ var d=document.createElement('div'); d.className='cc-msg '+r; d.textContent=t; ccMessages.appendChild(d); ccMessages.scrollTop=ccMessages.scrollHeight; return d; }
+function ccSend(){ var t=ccInput.value.trim(); if(!t) return; ccInput.value=''; ccAddMsg('user',t); ccHistory.push({role:'user',content:t}); var th=ccAddMsg('thinking','Thinking...'); callAgent(CC_SYS,ccHistory,function(r){ th.remove(); ccAddMsg('agent',r); ccHistory.push({role:'assistant',content:r}); }); }
+document.getElementById('ccSend').addEventListener('click',ccSend);
+document.getElementById('ccInput').addEventListener('keydown',function(e){ if(e.key==='Enter') ccSend(); });
+
+/* GALLERY GUIDE */
+document.getElementById('lbGuideBtn').addEventListener('click',function(){
+  var p=pieces[currentIdx], btn=this;
+  btn.textContent='Loading...'; btn.disabled=true;
+  document.getElementById('lbGuideResponse').classList.remove('visible');
+  callAgent(GG_SYS,[{role:'user',content:'Piece: '+p.title+'. Series: '+p.series+'. Medium: '+p.medium+'. Description: '+p.desc+'. Tell me about this piece.'}],function(r){
+    var el=document.getElementById('lbGuideResponse'); el.textContent=r; el.classList.add('visible');
+    btn.textContent='Tell me about this piece'; btn.disabled=false;
+  });
+});
+
+/* CUSTOMER STUDIO GUIDE */
+var guideHistory=[], guideMessages=document.getElementById('guideMessages'), guideInput=document.getElementById('guideInput');
+function guideAddMsg(r,t){ var d=document.createElement('div'); d.className='hub-msg '+r; d.textContent=t; guideMessages.appendChild(d); guideMessages.scrollTop=guideMessages.scrollHeight; return d; }
+function guideSend(){ var t=guideInput.value.trim(); if(!t) return; guideInput.value=''; guideAddMsg('user',t); guideHistory.push({role:'user',content:t}); var th=guideAddMsg('thinking','Checking the studio guide...'); callAgent(INK_SYS,guideHistory,function(r){ th.remove(); guideAddMsg('agent',r); guideHistory.push({role:'assistant',content:r}); }); }
+function guideQuick(t){ guideInput.value=t; guideSend(); }
+document.getElementById('guideSend').addEventListener('click',guideSend);
+document.getElementById('guideInput').addEventListener('keydown',function(e){ if(e.key==='Enter') guideSend(); });
+
+
+/* WRITING ROOM SCENES */
+var SCENES={
+  rain:{
+    title:'Rain Room',
+    copy:'Rain moves softly against the glass. The room is warm, the page is waiting, and every thought arrives like a letter that finally found its way home.',
+    apple:'#',
+    spotify:'#'
+  },
+  ocean:{
+    title:'Ocean Room',
+    copy:'A low tide of blue light moves beneath the words. This is the place for memory, longing, and the kind of silence that sounds like water.',
+    apple:'#',
+    spotify:'#'
+  },
+  cafe:{
+    title:'Midnight Café',
+    copy:'Amber light. Dark windows. A cup cooling beside the page. The scene feels borrowed from a letter someone was almost brave enough to send.',
+    apple:'#',
+    spotify:'#'
+  },
+  blue:{
+    title:'Blue Hour',
+    copy:'The day fades into its deepest color. Everything softens. The work becomes less about showing and more about feeling what remains.',
+    apple:'#',
+    spotify:'#'
+  },
+  silent:{
+    title:'Silent Room',
+    copy:'No music. No rain. Just breath, blue shadow, and the page. Sometimes the quiet is the atmosphere.',
+    apple:'#',
+    spotify:'#'
+  }
+};
+document.querySelectorAll('.scene-btn').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('.scene-btn').forEach(function(b){b.classList.remove('active');});
+    btn.classList.add('active');
+    var s=SCENES[btn.getAttribute('data-scene')];
+    document.getElementById('sceneTitle').textContent=s.title;
+    document.getElementById('sceneCopy').textContent=s.copy;
+    document.getElementById('appleMusicLink').href=s.apple;
+    document.getElementById('spotifyLink').href=s.spotify;
+  });
+});
+
+/* SCROLL REVEAL */
+var obs=new IntersectionObserver(function(entries){ entries.forEach(function(entry,i){ if(entry.isIntersecting){ setTimeout(function(){ entry.target.classList.add('on'); },i*70); } }); },{threshold:0.1});
+document.querySelectorAll('.r').forEach(function(el){ obs.observe(el); });
+</script>
+</body>
+</html>
