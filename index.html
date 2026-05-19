@@ -94,6 +94,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content
 .scene-link{font-family:'Cinzel',serif;font-size:.62rem;font-weight:600;letter-spacing:.15em;color:var(--ocean);text-decoration:none;border-bottom:1px solid rgba(1,116,243,.35);padding-bottom:.35rem;transition:color .3s;}
 .scene-link:hover{color:var(--white);}
 .scene-note{margin-top:1.4rem;color:rgba(255,255,255,.35);font-size:.88rem;font-style:italic;}
+.auto-room-badge{display:inline-flex;align-items:center;gap:.5rem;font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.15em;color:rgba(1,116,243,.7);background:rgba(1,116,243,.08);border:1px solid rgba(1,116,243,.18);padding:.4rem .9rem;margin-bottom:1.6rem;}
+.auto-room-dot{width:6px;height:6px;border-radius:50%;background:var(--ocean);animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:.4;}50%{opacity:1;}}
 
 
 
@@ -218,6 +221,10 @@ footer{background:#010103;border-top:1px solid rgba(1,116,243,.07);padding:2.5re
     <h2 class="r">Enter the Writing Room</h2>
     <p class="writing-intro r">A quiet place for rain, blue light, waves, memory, and unfinished letters. Choose the atmosphere and step into the mood behind the work.</p>
 
+    <div class="auto-room-badge r" id="autoRoomBadge" style="display:none;">
+      <span class="auto-room-dot"></span>
+      <span id="autoRoomText">Detecting your atmosphere...</span>
+    </div>
     <div class="scene-panel r">
       <div class="scene-buttons">
         <button class="scene-btn active" data-scene="rain">Rain Room</button>
