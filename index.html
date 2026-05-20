@@ -10,692 +10,903 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
---ocean:#0174F3;
---white:rgba(255,255,255,.92);
---soft:rgba(255,255,255,.55);
---faint:rgba(255,255,255,.15);
---hero-image:url('hero-blue-texture.jpeg');
+  --ocean:#0174F3;
+  --royal:#2563EB;
+  --cobalt:#1E40AF;
+  --navy:#1E3A5F;
+  --midnight:#0F1C3F;
+  --ink:#01030b;
+  --white:rgba(255,255,255,.92);
+  --soft:rgba(255,255,255,.55);
+  --faint:rgba(255,255,255,.15);
+  --pixels-base:https://pixels.com/profiles/robert-marleton;
 }
 html{scroll-behavior:smooth;}
-body{font-family:'Cormorant Garamond',serif;color:var(--white);overflow-x:hidden;}
-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 6vw;background:rgba(1,10,40,.6);backdrop-filter:blur(14px);border-bottom:1px solid rgba(1,116,243,.15);}
-.nav-logo{font-family:'Cinzel',serif;font-size:.85rem;font-weight:600;letter-spacing:.22em;color:var(--white);text-decoration:none;}
-.nav-links{display:flex;gap:2rem;list-style:none;}
-.nav-links a{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.18em;color:var(--soft);text-decoration:none;transition:color .3s;}
+body{font-family:'Cormorant Garamond',serif;color:var(--white);overflow-x:hidden;background:var(--ink);}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 6vw;background:rgba(1,3,11,.7);backdrop-filter:blur(18px);border-bottom:1px solid rgba(1,116,243,.12);}
+.nav-logo{font-family:'Cinzel',serif;font-size:.82rem;font-weight:600;letter-spacing:.24em;color:var(--white);text-decoration:none;}
+.nav-links{display:flex;gap:2.2rem;list-style:none;}
+.nav-links a{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.2em;color:var(--soft);text-decoration:none;transition:color .3s;}
 .nav-links a:hover{color:var(--white);}
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:0 7vw;position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(1,5,25,.18) 0%,rgba(1,13,74,.42) 55%,rgba(1,5,25,.86) 100%),var(--hero-image);background-size:cover;background-position:center;background-repeat:no-repeat;}
-#waveCanvas{position:absolute;inset:0;width:100%;height:100%;opacity:.5;pointer-events:none;}
-.hero-content{position:relative;z-index:2;}
-.hero-name{font-family:'Playfair Display',serif;font-size:clamp(2.6rem,8vw,6.8rem);font-weight:900;font-style:normal;letter-spacing:-.02em;line-height:.92;color:#ffffff;text-shadow:0 5px 0 rgba(0,0,0,.35), 0 0 40px rgba(1,5,25,.65), 0 0 90px rgba(1,116,243,.45);}
-.hero-tagline{font-family:'Cormorant Garamond',serif;font-size:clamp(.9rem,2vw,1.3rem);font-style:italic;font-weight:300;letter-spacing:.14em;color:rgba(255,255,255,.75);margin-top:1rem;}
-.hero-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(.8rem,1.5vw,1rem);font-style:italic;color:rgba(255,255,255,.4);margin-top:.35rem;letter-spacing:.1em;}
-.hero-cta{display:inline-block;margin-top:2.8rem;font-family:'Cinzel',serif;font-size:.75rem;font-weight:600;letter-spacing:.22em;color:var(--white);border:1px solid rgba(255,255,255,.4);background:transparent;padding:.85rem 2.2rem;cursor:pointer;transition:background .3s,border-color .3s;text-decoration:none;}
-.hero-cta:hover{background:rgba(1,116,243,.3);border-color:rgba(1,116,243,.8);}
-.about{background:linear-gradient(180deg,#020d4a 0%,#061568 100%);padding:9rem 6vw;display:grid;grid-template-columns:1fr 1fr;gap:6vw;align-items:center;}
-@media(max-width:700px){.about,.contact{grid-template-columns:1fr;}}
-.section-label{font-family:'Cinzel',serif;font-size:.65rem;font-weight:600;letter-spacing:.3em;color:var(--ocean);margin-bottom:1.4rem;}
-.about-text h2{font-family:'Cinzel',serif;font-size:clamp(1.6rem,3.5vw,2.8rem);font-weight:400;line-height:1.2;margin-bottom:1.8rem;}
-.about-text p{font-size:1.1rem;line-height:1.9;color:var(--soft);font-weight:300;margin-bottom:1.2rem;}
-.about-ink{width:100%;aspect-ratio:1;background:radial-gradient(ellipse at 40% 40%,#0174F3 0%,#020d4a 60%,#010720 100%);display:flex;align-items:center;justify-content:center;}
-.about-ink span{font-family:'Cinzel',serif;font-size:5rem;font-weight:900;color:rgba(255,255,255,.07);}
-.work{background:linear-gradient(180deg,#061568 0%,#020840 100%);padding:9rem 6vw;}
-.work h2,.mediums h2,.agents-section h2,.contact h2{font-family:'Cinzel',serif;font-size:clamp(1.6rem,3.5vw,2.8rem);font-weight:400;margin-bottom:1rem;}
-.work-intro{color:var(--soft);font-size:1.1rem;font-style:italic;margin-bottom:3.5rem;}
-.filter-tabs{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:3rem;}
-.tab{font-family:'Cinzel',serif;font-size:.6rem;font-weight:600;letter-spacing:.2em;padding:.5rem 1.3rem;border:1px solid var(--faint);background:transparent;color:var(--soft);cursor:pointer;transition:all .3s;}
-.tab.active,.tab:hover{border-color:var(--ocean);color:var(--white);background:rgba(1,116,243,.15);}
-.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem;}
-.piece{background:#07070f;cursor:pointer;transition:transform .35s;overflow:hidden;}
-.piece:hover{transform:translateY(-4px);}
-.piece-img{width:100%;aspect-ratio:4/3;background:linear-gradient(135deg,#0a1a5e 0%,#0174F3 50%,#020d40 100%);display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.2em;color:rgba(255,255,255,.25);}
-.piece-img img{width:100%;height:100%;object-fit:cover;display:block;}
-.piece-info{padding:1.3rem 1.5rem 1.7rem;}
-.piece-num{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.25em;color:var(--ocean);margin-bottom:.5rem;}
-.piece-title{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;margin-bottom:.3rem;}
-.piece-medium{font-size:.9rem;font-style:italic;color:var(--soft);}
-.piece-buy{display:inline-block;margin-top:1rem;font-family:'Cinzel',serif;font-size:.58rem;font-weight:600;letter-spacing:.18em;color:var(--white);text-decoration:none;border:1px solid rgba(1,116,243,.35);background:rgba(1,116,243,.12);padding:.55rem 1rem;transition:background .3s,border-color .3s;}
-.piece-buy:hover{background:rgba(1,116,243,.32);border-color:var(--ocean);}
-.piece-status{margin-top:.7rem;font-size:.82rem;font-style:italic;color:rgba(255,255,255,.45);}
-.lightbox{display:none;position:fixed;inset:0;z-index:200;background:rgba(1,3,15,.95);align-items:center;justify-content:center;backdrop-filter:blur(8px);}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:0 7vw;position:relative;overflow:hidden;
+  background:linear-gradient(180deg,rgba(173,216,230,.18) 0%,rgba(1,116,243,.25) 30%,rgba(1,3,11,.92) 100%);
+}
+#waveCanvas{position:absolute;inset:0;width:100%;height:100%;opacity:.45;pointer-events:none;}
+#inkCanvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;mix-blend-mode:screen;}
+.ink-tendrils{display:none;}
+.hero-content{position:relative;z-index:2;padding-top:2rem;}
+.hero-eyebrow{font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.42em;color:rgba(1,116,243,.9);margin-bottom:2rem;text-transform:uppercase;}
+.hero-name{font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,7.5rem);font-weight:900;line-height:1.05;letter-spacing:-.01em;margin-bottom:2rem;
+  background:linear-gradient(135deg,#e8f4fd 0%,#a8d4f8 40%,#0174F3 70%,#01030b 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-tagline{font-style:italic;font-size:clamp(1.25rem,2.4vw,1.75rem);font-weight:300;color:var(--soft);margin-bottom:1rem;line-height:1.6;}
+.hero-sub{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.32em;color:rgba(1,116,243,.7);margin-bottom:3.5rem;}
+.hero-btns{display:flex;gap:1.2rem;flex-wrap:wrap;}
+.btn-primary{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.2em;padding:.9rem 2.4rem;background:var(--ocean);color:#fff;border:none;cursor:pointer;text-decoration:none;transition:all .3s;}
+.btn-primary:hover{background:#0561cc;transform:translateY(-2px);}
+.btn-secondary{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.2em;padding:.9rem 2.4rem;background:transparent;color:var(--soft);border:1px solid rgba(1,116,243,.4);cursor:pointer;text-decoration:none;transition:all .3s;}
+.btn-secondary:hover{border-color:var(--ocean);color:var(--white);}
+
+/* ── SECTIONS SHARED ── */
+section{padding:7rem 7vw;}
+.section-label{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.38em;color:var(--ocean);text-transform:uppercase;margin-bottom:1rem;}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:900;line-height:1.05;margin-bottom:1.6rem;}
+.section-body{font-size:1.15rem;font-weight:300;line-height:1.8;color:var(--soft);max-width:600px;}
+
+/* ── ABOUT ── */
+#about{background:linear-gradient(180deg,var(--ink) 0%,var(--midnight) 100%);}
+
+/* ── GALLERY ── */
+#gallery{background:linear-gradient(180deg,var(--midnight) 0%,var(--navy) 100%);}
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.4rem;margin-top:3rem;}
+.gallery-item{position:relative;aspect-ratio:1;overflow:hidden;cursor:pointer;background:rgba(1,116,243,.08);border:1px solid rgba(1,116,243,.15);transition:transform .3s,box-shadow .3s;}
+.gallery-item:hover{transform:translateY(-4px);box-shadow:0 20px 50px rgba(1,116,243,.25);}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .5s;}
+.gallery-item:hover img{transform:scale(1.05);}
+.gallery-item .overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(1,3,11,.85) 100%);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:1.2rem;}
+.gallery-item:hover .overlay{opacity:1;}
+.gallery-item .overlay-title{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.18em;color:var(--white);}
+.gallery-item .placeholder-art{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.8rem;padding:1.5rem;text-align:center;}
+.gallery-item .placeholder-art .art-icon{font-size:2.4rem;opacity:.4;}
+.gallery-item .placeholder-art .art-name{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.16em;color:var(--soft);}
+
+/* ── LIGHTBOX ── */
+.lightbox{display:none;position:fixed;inset:0;z-index:500;background:rgba(1,3,11,.95);backdrop-filter:blur(12px);align-items:center;justify-content:center;}
 .lightbox.open{display:flex;}
-.lb-inner{max-width:900px;width:90vw;position:relative;}
-.lb-img{width:100%;aspect-ratio:4/3;background:linear-gradient(135deg,#0a1a5e,#0174F3,#020d40);display:flex;align-items:center;justify-content:center;overflow:hidden;}
-.lb-img img{width:100%;height:100%;object-fit:contain;}
-.lb-meta{padding:2rem 0 1rem;}
-.lb-title{font-family:'Cinzel',serif;font-size:1.5rem;font-weight:400;margin-bottom:.5rem;}
-.lb-series{font-style:italic;color:var(--soft);margin-bottom:1rem;}
-.lb-desc{color:var(--soft);font-size:1rem;line-height:1.8;}
-.lb-close{position:absolute;top:-3rem;right:0;background:none;border:none;color:var(--soft);font-size:2rem;cursor:pointer;}
-.lb-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(1,116,243,.2);border:1px solid rgba(1,116,243,.3);color:var(--white);font-size:1.4rem;width:2.8rem;height:2.8rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .3s;}
-.lb-nav:hover{background:rgba(1,116,243,.5);}
-.lb-prev{left:-3.5rem;} .lb-next{right:-3.5rem;}
-@media(max-width:700px){.lb-prev{left:-.3rem;}.lb-next{right:-.3rem;}}
-.lb-guide-btn{margin-top:1.2rem;font-family:'Cinzel',serif;font-size:.6rem;font-weight:600;letter-spacing:.18em;color:var(--ocean);background:rgba(1,116,243,.08);border:1px solid rgba(1,116,243,.2);padding:.55rem 1.3rem;cursor:pointer;transition:background .3s;}
-.lb-guide-btn:hover{background:rgba(1,116,243,.2);}
-.lb-guide-response{margin-top:.8rem;padding:1rem;background:rgba(1,116,243,.08);border-left:2px solid var(--ocean);font-size:.9rem;line-height:1.8;color:var(--soft);display:none;}
-.lb-guide-response.visible{display:block;}
+.lightbox-inner{position:relative;max-width:90vw;max-height:90vh;display:flex;flex-direction:column;align-items:center;gap:1.2rem;animation:lbIn .35s ease;}
+@keyframes lbIn{from{opacity:0;transform:scale(.93);}to{opacity:1;transform:scale(1);}}
+.lightbox-img{max-width:75vw;max-height:65vh;object-fit:contain;border:1px solid rgba(1,116,243,.2);}
+.lightbox-info{text-align:center;}
+.lightbox-title{font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:.22em;margin-bottom:.4rem;}
+.lightbox-desc{font-size:1rem;font-weight:300;color:var(--soft);margin-bottom:1rem;}
+.lightbox-buy{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.2em;padding:.7rem 2rem;background:var(--ocean);color:#fff;border:none;cursor:pointer;text-decoration:none;display:inline-block;transition:background .3s;}
+.lightbox-buy:hover{background:#0561cc;}
+.lightbox-close{position:absolute;top:-2.5rem;right:0;background:none;border:none;color:var(--soft);font-size:1.6rem;cursor:pointer;line-height:1;}
+.lightbox-close:hover{color:var(--white);}
+.lb-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(1,116,243,.2);border:1px solid rgba(1,116,243,.35);color:var(--white);font-size:1.4rem;width:3rem;height:3rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .3s;}
+.lb-arrow:hover{background:rgba(1,116,243,.5);}
+.lb-prev{left:-4rem;}.lb-next{right:-4rem;}
 
 /* ── WRITING ROOM ── */
-.writing-room{position:relative;overflow:hidden;min-height:92vh;padding:9rem 6vw;background:radial-gradient(circle at 78% 24%,rgba(255,174,88,.18),transparent 26%),radial-gradient(circle at 18% 80%,rgba(1,116,243,.22),transparent 34%),linear-gradient(180deg,#020840 0%,#030714 55%,#01030b 100%);}
-.writing-room::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.34;background-image:linear-gradient(115deg,transparent 0 47%,rgba(255,255,255,.18) 48%,transparent 50%),linear-gradient(115deg,transparent 0 47%,rgba(255,255,255,.1) 48%,transparent 50%);background-size:90px 160px,140px 220px;animation:rainDrift 9s linear infinite;}
-.writing-room::after{content:"";position:absolute;left:-10%;right:-10%;bottom:-4rem;height:22rem;background:radial-gradient(ellipse at center,rgba(1,116,243,.26),transparent 62%);filter:blur(18px);animation:slowWave 8s ease-in-out infinite alternate;}
-@keyframes rainDrift{from{background-position:0 0,0 0;}to{background-position:-120px 280px,-160px 360px;}}
-@keyframes slowWave{from{transform:translateY(0) scaleX(1);}to{transform:translateY(-1.8rem) scaleX(1.08);}}
-.writing-inner{position:relative;z-index:2;max-width:980px;}
-.writing-room h2{font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,3.8rem);font-weight:400;margin-bottom:1rem;}
-.writing-intro{max-width:680px;color:var(--soft);font-size:1.15rem;line-height:1.9;font-style:italic;margin-bottom:2.5rem;}
-.scene-panel{max-width:780px;border:1px solid rgba(255,255,255,.12);background:rgba(1,5,25,.62);backdrop-filter:blur(14px);padding:2rem;box-shadow:0 0 70px rgba(1,116,243,.12);}
-.scene-buttons{display:flex;flex-wrap:wrap;gap:.8rem;margin-bottom:1.8rem;}
-.scene-btn{font-family:'Cinzel',serif;font-size:.6rem;font-weight:600;letter-spacing:.16em;color:var(--soft);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.14);padding:.7rem 1rem;cursor:pointer;transition:all .3s;}
-.scene-btn.active,.scene-btn:hover{color:var(--white);border-color:rgba(1,116,243,.65);background:rgba(1,116,243,.18);}
-.scene-title{font-family:'Cinzel',serif;font-size:1.35rem;font-weight:400;margin-bottom:.7rem;}
-.scene-copy{color:var(--soft);font-size:1.05rem;line-height:1.85;max-width:620px;margin-bottom:1.3rem;}
-.scene-links{display:flex;gap:.9rem;flex-wrap:wrap;}
-.scene-link{font-family:'Cinzel',serif;font-size:.62rem;font-weight:600;letter-spacing:.15em;color:var(--ocean);text-decoration:none;border-bottom:1px solid rgba(1,116,243,.35);padding-bottom:.35rem;transition:color .3s;}
-.scene-link:hover{color:var(--white);}
-.scene-note{margin-top:1.4rem;color:rgba(255,255,255,.35);font-size:.88rem;font-style:italic;}
+#writing-room{padding:0;position:relative;overflow:hidden;}
+.wr-selector{display:flex;gap:0;border-bottom:1px solid rgba(1,116,243,.15);background:rgba(1,3,11,.8);backdrop-filter:blur(12px);position:sticky;top:64px;z-index:100;flex-wrap:wrap;}
+.wr-tab{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.2em;padding:1.1rem 1.6rem;background:none;border:none;color:var(--soft);cursor:pointer;border-bottom:2px solid transparent;transition:all .3s;white-space:nowrap;}
+.wr-tab.active{color:var(--white);border-bottom-color:var(--ocean);}
+.wr-tab:hover{color:var(--white);}
 
+/* ROOM BASE */
+.wr-room{display:none;min-height:90vh;position:relative;overflow:hidden;padding:5rem 7vw;}
+.wr-room.active{display:flex;flex-direction:column;justify-content:space-between;}
 
+/* RAIN */
+.room-rain{background:linear-gradient(180deg,#0a0e1a 0%,#0d1521 50%,#060b12 100%);}
+.room-rain::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 30%,rgba(20,60,120,.3),transparent);pointer-events:none;}
+#rainCanvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.7;}
 
-.mediums{background:linear-gradient(180deg,#020840 0%,#010520 100%);padding:9rem 6vw;}
-.mediums-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:2px;margin-top:3rem;}
-.medium-card{padding:3rem 2rem;border:1px solid var(--faint);transition:border-color .3s,background .3s;}
-.medium-card:hover{border-color:rgba(1,116,243,.4);background:rgba(1,116,243,.06);}
-.medium-icon{font-size:1.8rem;margin-bottom:1.2rem;opacity:.7;}
-.medium-name{font-family:'Cinzel',serif;font-size:.8rem;font-weight:600;letter-spacing:.15em;margin-bottom:.8rem;}
-.medium-desc{font-size:.95rem;color:var(--soft);font-style:italic;line-height:1.7;}
-.philosophy{background:linear-gradient(180deg,#010520 0%,#030308 100%);text-align:center;padding:10rem 6vw;}
-.phil-quote{font-family:'Cormorant Garamond',serif;font-size:clamp(1.5rem,3.2vw,2.6rem);font-weight:300;font-style:italic;line-height:1.5;max-width:780px;margin:0 auto 2rem;color:rgba(255,255,255,.85);}
-.phil-attr{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.25em;color:var(--ocean);}
-.agents-section{background:linear-gradient(180deg,#030308 0%,#010310 100%);padding:9rem 6vw;}
-.agents-intro{color:var(--soft);font-size:1.05rem;font-style:italic;margin-bottom:3rem;}
-.agent-hub{background:rgba(1,5,25,.97);border:1px solid rgba(1,116,243,.2);max-width:820px;}
-.agent-hub-header{padding:1.1rem 1.4rem;border-bottom:1px solid rgba(1,116,243,.12);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem;}
-.agent-hub-title{font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.22em;color:var(--ocean);}
-.agent-quick-btns{display:flex;gap:.5rem;flex-wrap:wrap;}
-.agent-quick-btn{font-family:'Cinzel',serif;font-size:.52rem;font-weight:600;letter-spacing:.1em;padding:.35rem .85rem;background:rgba(1,116,243,.08);border:1px solid rgba(1,116,243,.18);color:var(--soft);cursor:pointer;transition:all .3s;}
-.agent-quick-btn:hover{background:rgba(1,116,243,.25);color:var(--white);}
-.hub-messages{height:260px;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:.7rem;scrollbar-width:thin;scrollbar-color:rgba(1,116,243,.3) transparent;}
-.hub-msg{font-size:.88rem;line-height:1.7;padding:.75rem 1rem;max-width:88%;}
-.hub-msg.agent{background:rgba(1,116,243,.1);border-left:2px solid var(--ocean);color:var(--white);align-self:flex-start;}
-.hub-msg.user{background:rgba(255,255,255,.05);border-right:2px solid rgba(255,255,255,.2);color:var(--soft);align-self:flex-end;text-align:right;}
-.hub-msg.thinking{color:var(--ocean);font-style:italic;font-size:.78rem;align-self:flex-start;}
-.hub-input-row{display:flex;border-top:1px solid rgba(1,116,243,.12);}
-.hub-input{flex:1;background:transparent;border:none;color:var(--white);padding:.9rem 1.2rem;font-family:'Cormorant Garamond',serif;font-size:.95rem;outline:none;}
-.hub-input::placeholder{color:rgba(255,255,255,.28);}
-.hub-send{background:rgba(1,116,243,.18);border:none;border-left:1px solid rgba(1,116,243,.12);color:var(--ocean);padding:0 1.2rem;cursor:pointer;font-size:1.1rem;transition:background .3s;}
-.hub-send:hover{background:rgba(1,116,243,.4);}
-.contact{background:#020205;padding:9rem 6vw;display:grid;grid-template-columns:1fr 1fr;gap:6vw;align-items:start;}
-.contact p{color:var(--soft);font-size:1.1rem;line-height:1.9;font-weight:300;margin-bottom:2rem;}
-.contact-links{display:flex;flex-direction:column;gap:1rem;}
-.contact-link{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.18em;color:var(--soft);text-decoration:none;transition:color .3s;border-bottom:1px solid var(--faint);padding-bottom:1rem;}
-.contact-link:hover{color:var(--ocean);}
-.commission-chat{display:flex;flex-direction:column;gap:.8rem;}
-.cc-messages{display:flex;flex-direction:column;gap:.8rem;margin-bottom:1rem;min-height:80px;}
-.cc-msg{font-size:.95rem;line-height:1.8;padding:.75rem 1rem;max-width:90%;}
-.cc-msg.agent{background:rgba(1,116,243,.08);border-left:2px solid var(--ocean);color:var(--white);align-self:flex-start;}
-.cc-msg.user{background:rgba(255,255,255,.05);border-right:2px solid rgba(255,255,255,.15);color:var(--soft);align-self:flex-end;text-align:right;}
-.cc-msg.thinking{color:var(--ocean);font-style:italic;font-size:.82rem;}
-.cc-input-row{display:flex;border:1px solid var(--faint);}
-.cc-input{flex:1;background:transparent;border:none;color:var(--white);padding:.9rem 1.1rem;font-family:'Cormorant Garamond',serif;font-size:.95rem;outline:none;}
-.cc-input::placeholder{color:rgba(255,255,255,.28);}
-.cc-send{background:rgba(1,116,243,.18);border:none;border-left:1px solid var(--faint);color:var(--ocean);padding:0 1.1rem;cursor:pointer;font-size:1.1rem;transition:background .3s;}
-.cc-send:hover{background:rgba(1,116,243,.4);}
-footer{background:#010103;border-top:1px solid rgba(1,116,243,.07);padding:2.5rem 6vw;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
-.footer-logo{font-family:'Cinzel',serif;font-size:.78rem;font-weight:600;letter-spacing:.2em;color:var(--soft);}
-.footer-copy{font-size:.78rem;color:rgba(255,255,255,.28);font-style:italic;}
-#inkBtn{position:fixed;bottom:2rem;right:2rem;z-index:300;width:3.4rem;height:3.4rem;border-radius:50%;background:linear-gradient(135deg,#0174F3,#020d4a);border:1px solid rgba(1,116,243,.5);box-shadow:0 0 28px rgba(1,116,243,.4);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.3rem;transition:transform .3s,box-shadow .3s;}
-#inkBtn:hover{transform:scale(1.1);box-shadow:0 0 50px rgba(1,116,243,.7);}
-#agentPanel{position:fixed;bottom:6.2rem;right:2rem;z-index:300;width:320px;max-height:500px;background:rgba(1,5,25,.97);border:1px solid rgba(1,116,243,.22);backdrop-filter:blur(20px);display:none;flex-direction:column;box-shadow:0 0 50px rgba(1,116,243,.18);}
-#agentPanel.open{display:flex;}
-.ap-header{padding:.9rem 1.1rem;border-bottom:1px solid rgba(1,116,243,.12);display:flex;justify-content:space-between;align-items:center;}
-.ap-title{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.2em;color:var(--ocean);}
-.ap-close{background:none;border:none;color:var(--soft);font-size:1.2rem;cursor:pointer;}
-.ap-messages{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:.7rem;scrollbar-width:thin;scrollbar-color:rgba(1,116,243,.3) transparent;}
-.ap-msg{font-size:.88rem;line-height:1.7;padding:.75rem 1rem;max-width:88%;}
-.ap-msg.agent{background:rgba(1,116,243,.1);border-left:2px solid var(--ocean);color:var(--white);align-self:flex-start;}
-.ap-msg.user{background:rgba(255,255,255,.05);border-right:2px solid rgba(255,255,255,.2);color:var(--soft);align-self:flex-end;text-align:right;}
-.ap-msg.thinking{color:var(--ocean);font-style:italic;font-size:.78rem;align-self:flex-start;}
-.ap-input-row{display:flex;border-top:1px solid rgba(1,116,243,.12);}
-.ap-input{flex:1;background:transparent;border:none;color:var(--white);padding:.85rem 1rem;font-family:'Cormorant Garamond',serif;font-size:.92rem;outline:none;}
-.ap-input::placeholder{color:rgba(255,255,255,.28);}
-.ap-send{background:rgba(1,116,243,.18);border:none;color:var(--ocean);padding:0 1rem;cursor:pointer;font-size:1.1rem;transition:background .3s;}
-.ap-send:hover{background:rgba(1,116,243,.4);}
-.r{opacity:0;transform:translateY(26px);transition:opacity .8s,transform .8s;}
-.r.on{opacity:1;transform:none;}
+/* OCEAN */
+.room-ocean{background:linear-gradient(180deg,#020d2a 0%,#0174F3 40%,#01050f 100%);}
+.room-ocean::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(1,116,243,.25),transparent);pointer-events:none;}
+.ocean-shimmer{position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(1,116,243,.04) 3px,rgba(1,116,243,.04) 4px);pointer-events:none;animation:shimmerScroll 8s linear infinite;}
+@keyframes shimmerScroll{from{transform:translateY(0);}to{transform:translateY(60px);}}
+
+/* CAFÉ */
+.room-cafe{background:linear-gradient(180deg,#1a0e05 0%,#2d1a0a 50%,#0f0805 100%);}
+.room-cafe::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 35% 40%,rgba(180,100,30,.18),transparent),radial-gradient(circle at 80% 20%,rgba(255,160,60,.08),transparent);pointer-events:none;}
+.cafe-dust{position:absolute;inset:0;pointer-events:none;}
+.dust-mote{position:absolute;width:2px;height:2px;border-radius:50%;background:rgba(255,200,100,.4);animation:floatDust linear infinite;}
+@keyframes floatDust{0%{transform:translate(0,100vh);opacity:0;}10%{opacity:1;}90%{opacity:.5;}100%{transform:translate(var(--dx),0);opacity:0;}}
+
+/* BLUE HOUR */
+.room-bluehour{background:linear-gradient(180deg,#040818 0%,#0a1535 35%,#0174F3 65%,#f4a460 85%,#1a0a02 100%);}
+.room-bluehour::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 100% 40% at 50% 65%,rgba(244,164,96,.12),transparent),radial-gradient(ellipse 80% 50% at 50% 40%,rgba(1,116,243,.2),transparent);pointer-events:none;}
+
+/* SILENT */
+.room-silent{background:linear-gradient(180deg,#000305 0%,#010510 50%,#000205 100%);}
+.room-silent::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 40% at 50% 50%,rgba(1,40,120,.08),transparent);pointer-events:none;}
+.silent-particle{position:absolute;width:1px;height:1px;background:rgba(1,116,243,.6);border-radius:50%;animation:silentFloat linear infinite;}
+@keyframes silentFloat{0%{transform:translate(0,0);opacity:0;}20%{opacity:1;}80%{opacity:.3;}100%{transform:translate(var(--tx),var(--ty));opacity:0;}}
+
+/* ROOM CONTENT */
+.wr-room-content{position:relative;z-index:2;display:flex;gap:3rem;align-items:flex-start;flex-wrap:wrap;}
+.wr-room-text{flex:1;min-width:260px;}
+.wr-room-name{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.4em;color:var(--ocean);margin-bottom:1rem;}
+.wr-room-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:900;line-height:1.05;margin-bottom:1.2rem;}
+.wr-room-desc{font-size:1.05rem;font-weight:300;line-height:1.9;color:var(--soft);margin-bottom:2rem;}
+
+/* MUSIC BUTTONS */
+.wr-music{display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:1.5rem;}
+.music-btn{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.18em;padding:.6rem 1.3rem;background:rgba(1,116,243,.12);border:1px solid rgba(1,116,243,.3);color:var(--soft);text-decoration:none;transition:all .3s;white-space:nowrap;}
+.music-btn:hover{background:rgba(1,116,243,.25);color:var(--white);border-color:var(--ocean);}
+.music-btn .music-icon{margin-right:.4rem;}
+
+/* SCREEN SIZE */
+.wr-size-selector{display:flex;gap:.5rem;margin-bottom:1.5rem;}
+.size-btn{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.16em;padding:.5rem 1rem;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:var(--soft);cursor:pointer;transition:all .3s;}
+.size-btn.active,.size-btn:hover{background:rgba(1,116,243,.2);border-color:rgba(1,116,243,.5);color:var(--white);}
+
+/* SLIDESHOW */
+.wr-slideshow{flex:0 0 auto;width:340px;position:relative;}
+.wr-slideshow.size-small .slideshow-frame{width:240px;height:240px;}
+.wr-slideshow.size-cinema .slideshow-frame{width:480px;height:380px;}
+.wr-slideshow.size-full .slideshow-frame{width:min(70vw,700px);height:min(55vw,540px);}
+.slideshow-frame{width:340px;height:280px;position:relative;overflow:hidden;border:1px solid rgba(1,116,243,.2);transition:all .4s;background:rgba(1,116,243,.05);}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity .8s ease;display:flex;align-items:center;justify-content:center;}
+.slide.active{opacity:1;}
+.slide img{width:100%;height:100%;object-fit:cover;}
+.slide .slide-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6rem;width:100%;height:100%;}
+.slide .slide-placeholder .sp-icon{font-size:2.8rem;opacity:.25;}
+.slide .slide-placeholder .sp-name{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.16em;color:var(--soft);opacity:.6;}
+.slideshow-controls{display:flex;gap:.5rem;margin-top:.8rem;align-items:center;justify-content:center;}
+.ss-btn{background:rgba(1,116,243,.15);border:1px solid rgba(1,116,243,.25);color:var(--soft);width:2.2rem;height:2.2rem;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.9rem;transition:all .3s;}
+.ss-btn:hover{background:rgba(1,116,243,.35);color:var(--white);}
+.ss-dots{display:flex;gap:.4rem;align-items:center;}
+.ss-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.2);cursor:pointer;transition:background .3s;}
+.ss-dot.active{background:var(--ocean);}
+
+/* ROOM AGENT */
+.wr-agent{position:fixed;bottom:2rem;right:2rem;z-index:300;}
+.agent-trigger{width:52px;height:52px;border-radius:50%;background:rgba(1,116,243,.2);border:1px solid rgba(1,116,243,.4);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;backdrop-filter:blur(10px);}
+.agent-trigger:hover{background:rgba(1,116,243,.35);}
+.agent-trigger svg{width:22px;height:22px;opacity:.8;}
+.agent-panel{display:none;position:absolute;bottom:4.5rem;right:0;width:300px;background:rgba(1,3,20,.92);border:1px solid rgba(1,116,243,.2);backdrop-filter:blur(20px);padding:1.4rem;}
+.agent-panel.open{display:flex;flex-direction:column;gap:.8rem;}
+.agent-messages{max-height:200px;overflow-y:auto;display:flex;flex-direction:column;gap:.6rem;}
+.agent-msg{font-size:.88rem;font-weight:300;line-height:1.6;color:var(--soft);padding:.5rem .7rem;background:rgba(1,116,243,.06);border-left:2px solid rgba(1,116,243,.3);}
+.agent-msg.user{background:rgba(255,255,255,.05);border-left-color:rgba(255,255,255,.2);color:var(--white);}
+.agent-input-row{display:flex;gap:.5rem;}
+.agent-input{flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(1,116,243,.2);color:var(--white);font-family:'Cormorant Garamond',serif;font-size:.9rem;padding:.5rem .8rem;outline:none;}
+.agent-input::placeholder{color:var(--soft);opacity:.6;}
+.agent-send{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.15em;padding:.5rem .9rem;background:var(--ocean);border:none;color:#fff;cursor:pointer;transition:background .3s;}
+.agent-send:hover{background:#0561cc;}
+.agent-loading{font-size:.8rem;color:var(--soft);opacity:.6;font-style:italic;display:none;}
+
+/* ── COMMISSION ── */
+#commission{background:linear-gradient(180deg,var(--navy) 0%,var(--cobalt) 100%);}
+.commission-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-top:3rem;align-items:start;}
+.commission-form{display:flex;flex-direction:column;gap:1rem;}
+.form-field{display:flex;flex-direction:column;gap:.4rem;}
+.form-label{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.2em;color:var(--soft);}
+.form-input,.form-textarea{background:rgba(255,255,255,.05);border:1px solid rgba(1,116,243,.2);color:var(--white);font-family:'Cormorant Garamond',serif;font-size:1rem;padding:.8rem 1rem;outline:none;transition:border-color .3s;resize:none;}
+.form-input:focus,.form-textarea:focus{border-color:rgba(1,116,243,.6);}
+.form-input::placeholder,.form-textarea::placeholder{color:var(--soft);opacity:.5;}
+.form-textarea{height:120px;}
+.form-submit{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.2em;padding:1rem 2.4rem;background:var(--ocean);color:#fff;border:none;cursor:pointer;transition:all .3s;margin-top:.5rem;align-self:flex-start;}
+.form-submit:hover{background:#0561cc;}
+.commission-info h3{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;margin-bottom:1.2rem;}
+.commission-info p{font-size:1.05rem;font-weight:300;line-height:1.8;color:var(--soft);margin-bottom:1.2rem;}
+
+/* ── CONTACT ── */
+#contact{background:linear-gradient(180deg,var(--cobalt) 0%,var(--midnight) 50%,var(--ink) 100%);}
+.contact-links{display:flex;gap:1.5rem;flex-wrap:wrap;margin-top:2rem;}
+.contact-link{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.2em;padding:.8rem 1.8rem;border:1px solid rgba(1,116,243,.35);color:var(--soft);text-decoration:none;transition:all .3s;}
+.contact-link:hover{background:rgba(1,116,243,.15);border-color:var(--ocean);color:var(--white);}
+
+/* ── FOOTER ── */
+footer{padding:3rem 7vw;background:var(--ink);display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(1,116,243,.08);flex-wrap:wrap;gap:1rem;}
+.footer-logo{font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.28em;color:var(--soft);}
+.footer-tagline{font-style:italic;font-size:.95rem;color:rgba(1,116,243,.6);}
+.footer-copy{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.16em;color:rgba(255,255,255,.2);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:700px){
+  .commission-grid{grid-template-columns:1fr;}
+  .wr-room-content{flex-direction:column;}
+  .wr-slideshow{width:100%!important;}
+  .slideshow-frame{width:100%!important;height:200px!important;}
+  .lb-prev{left:-2rem;}.lb-next{right:-2rem;}
+}
 </style>
 </head>
-<body id="top">
+<body>
 
+<!-- NAV -->
 <nav>
-  <a class="nav-logo" href="#top">INKSPIRATIONS STUDIOS</a>
+  <a href="#" class="nav-logo">INKSPIRATIONS STUDIOS</a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
-    <li><a href="#work">Work</a></li>
+    <li><a href="#gallery">Gallery</a></li>
     <li><a href="#writing-room">Writing Room</a></li>
-    <li><a href="#mediums">Mediums</a></li>
-    <li><a href="#store">Store</a></li>
+    <li><a href="#commission">Commission</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
 
+<!-- HERO -->
 <section class="hero">
   <canvas id="waveCanvas"></canvas>
+  <canvas id="inkCanvas"></canvas>
   <div class="hero-content">
-    <div class="hero-name">INKSPIRATIONS Studios</div>
-    <div class="hero-tagline">A Little Ink. A Lot of Soul.</div>
-    <div class="hero-sub">The COLOR Blue.</div>
-    <a class="hero-cta" id="ctaBtn" href="#work">View the Work</a>
-  </div>
-</section>
-
-<section class="about" id="about">
-  <div class="about-text r">
-    <div class="section-label">About</div>
-    <h2>Where ink becomes soul</h2>
-    <p>INKSPIRATIONS Studios is the creative space of Robert Marleton — a place where ink is the language and blue is the feeling.</p>
-    <p>Every piece is made from the same place: the deep end. Where the light fades and something true rises to the surface.</p>
-  </div>
-  <div class="about-ink r"><span>INK</span></div>
-</section>
-
-<section class="work" id="work">
-  <div class="section-label r">Portfolio</div>
-  <h2 class="r">The Work</h2>
-  <p class="work-intro r">Each piece, a descent into something real.</p>
-  <div class="filter-tabs r" id="tabs">
-    <button class="tab active" data-cat="all">All</button>
-    <button class="tab" data-cat="abstract">Abstract</button>
-    <button class="tab" data-cat="typography">Typography</button>
-    <button class="tab" data-cat="burned">Burned</button>
-  </div>
-  <div class="gallery" id="gallery"></div>
-</section>
-
-<section class="writing-room" id="writing-room">
-  <div class="writing-inner">
-    <div class="section-label r">Immersion</div>
-    <h2 class="r">Enter the Writing Room</h2>
-    <p class="writing-intro r">A quiet place for rain, blue light, waves, memory, and unfinished letters. Choose the atmosphere and step into the mood behind the work.</p>
-
-    <div class="scene-panel r">
-      <div class="scene-buttons">
-        <button class="scene-btn active" data-scene="rain">Rain Room</button>
-        <button class="scene-btn" data-scene="ocean">Ocean Room</button>
-        <button class="scene-btn" data-scene="cafe">Midnight Café</button>
-        <button class="scene-btn" data-scene="blue">Blue Hour</button>
-        <button class="scene-btn" data-scene="silent">Silent</button>
-      </div>
-      <div class="scene-title" id="sceneTitle">Rain Room</div>
-      <div class="scene-copy" id="sceneCopy">Rain moves softly against the glass. The room is warm, the page is waiting, and every thought arrives like a letter that finally found its way home.</div>
-      <div class="scene-links" id="sceneLinks">
-        <a class="scene-link" id="appleMusicLink" href="https://music.apple.com/us/playlist/beatstrumentals/pl.f54198ad42404535be13eabf3835fb22" target="_blank" rel="noopener">Open in Apple Music</a>
-      </div>
-      <div class="scene-note">Music links open in Apple Music. No copyrighted audio is hosted on this site.</div>
+    <div class="hero-eyebrow">Robert Marleton</div>
+    <h1 class="hero-name">INKSPIRATIONS<br>STUDIOS</h1>
+    <p class="hero-tagline">A little ink. A lot of soul. The color blue.</p>
+    <p class="hero-sub">I BLEED INK NOT BLOOD</p>
+    <div class="hero-btns">
+      <a href="#gallery" class="btn-primary">View Gallery</a>
+      <a href="#writing-room" class="btn-secondary">Enter Writing Room</a>
     </div>
   </div>
 </section>
 
-<section class="mediums" id="mediums">
-  <div class="section-label r">Craft</div>
-  <h2 class="r">The Mediums</h2>
-  <div class="mediums-grid">
-    <div class="medium-card r"><div class="medium-icon">&#9998;</div><div class="medium-name">Ink on Paper</div><div class="medium-desc">The original. Fluid, alive, unrepeatable. Every line a decision.</div></div>
-    <div class="medium-card r"><div class="medium-icon">&#9650;</div><div class="medium-name">Burned Wood</div><div class="medium-desc">Pyrography on reclaimed wood. Permanence with a raw, cinematic edge.</div></div>
-    <div class="medium-card r"><div class="medium-icon">&#9670;</div><div class="medium-name">Typography</div><div class="medium-desc">Fluid Soul lettering. Words that carry weight and bleed feeling.</div></div>
-    <div class="medium-card r"><div class="medium-icon">&#9711;</div><div class="medium-name">Mixed Media</div><div class="medium-desc">Ink meets surface meets story. Layers that reveal themselves slowly.</div></div>
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">The Artist</div>
+  <h2 class="section-title">Where Ink Meets Soul</h2>
+  <p class="section-body">Every piece begins with the same thing: ink. Not as a medium but as a philosophy. The way it spreads, settles, bleeds into paper — that's not accident. That's the work. INKSPIRATIONS Studios is where that philosophy becomes art you can live with.</p>
+  <p class="section-body" style="margin-top:1.2rem;">Fine prints available through Pixels. Commissions open. The Writing Room is always lit.</p>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="section-label">Portfolio</div>
+  <h2 class="section-title">The Work</h2>
+  <p class="section-body">Each piece ships as a fine art print through Pixels.com. Click any work to view and purchase.</p>
+
+  <div class="gallery-grid" id="galleryGrid"></div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+  <button class="lb-arrow lb-prev" id="lbPrev" aria-label="Previous">&#8592;</button>
+  <div class="lightbox-inner">
+    <button class="lightbox-close" id="lbClose" aria-label="Close">&times;</button>
+    <img class="lightbox-img" id="lbImg" src="" alt="">
+    <div class="lightbox-info">
+      <div class="lightbox-title" id="lbTitle"></div>
+      <div class="lightbox-desc" id="lbDesc"></div>
+      <a class="lightbox-buy" id="lbBuy" href="https://pixels.com/profiles/robert-marleton" target="_blank" rel="noopener">Purchase Print on Pixels →</a>
+    </div>
   </div>
-</section>
+  <button class="lb-arrow lb-next" id="lbNext" aria-label="Next">&#8594;</button>
+</div>
 
-<section class="philosophy" id="philosophy">
-  <div class="phil-quote r">"The ink does not lie. It goes where it must and stays where it lands. That is the only rule I follow."</div>
-  <div class="phil-attr r">Robert Marleton &mdash; INKSPIRATIONS Studios</div>
-</section>
+<!-- WRITING ROOM -->
+<section id="writing-room">
+  <div class="wr-selector" id="wrTabs">
+    <button class="wr-tab active" data-room="rain">&#127783; Rain</button>
+    <button class="wr-tab" data-room="ocean">&#127754; Ocean</button>
+    <button class="wr-tab" data-room="cafe">&#9749; Café</button>
+    <button class="wr-tab" data-room="bluehour">&#127774; Blue Hour</button>
+    <button class="wr-tab" data-room="silent">&#9737; Silent</button>
+  </div>
 
-<section class="work" id="store">
-  <div class="section-label r">Storefront</div>
-  <h2 class="r">Available Work</h2>
-  <p class="work-intro r">Browse the collection here, then purchase securely through Pixels.</p>
-  <div class="gallery" id="storeGallery"></div>
-</section>
-
-<section class="agents-section" id="studio-guide">
-  <div class="section-label r">Studio Guide</div>
-  <h2 class="r">Ask the Studio Guide</h2>
-  <p class="agents-intro r">Not sure where to begin? Ask about Robert's artwork, collections, commissions, or where to purchase prints.</p>
-  <div class="agent-hub r">
-    <div class="agent-hub-header">
-      <span class="agent-hub-title">INKSPIRATIONS CUSTOMER GUIDE</span>
-      <div class="agent-quick-btns">
-        <button class="agent-quick-btn" onclick="guideQuick('Where can I buy prints?')">Buy prints</button>
-        <button class="agent-quick-btn" onclick="guideQuick('Tell me about Burned Motion')">Burned Motion</button>
-        <button class="agent-quick-btn" onclick="guideQuick('Tell me about Fluid Soul')">Fluid Soul</button>
-        <button class="agent-quick-btn" onclick="guideQuick('How do I request a commission?')">Commissions</button>
+  <!-- RAIN ROOM -->
+  <div class="wr-room room-rain active" id="room-rain">
+    <canvas id="rainCanvas"></canvas>
+    <div class="wr-room-content" style="position:relative;z-index:2;">
+      <div class="wr-room-text">
+        <div class="wr-room-name">Writing Room — Rain</div>
+        <h2 class="wr-room-title">The kind of quiet<br>only rain makes.</h2>
+        <p class="wr-room-desc">The window fogs. The city disappears. Whatever you're carrying — put it down here. Rain room asks nothing of you except that you stay.</p>
+        <div class="wr-size-selector">
+          <button class="size-btn active" data-size="normal" data-target="ss-rain">Normal</button>
+          <button class="size-btn" data-size="cinema" data-target="ss-rain">Cinema</button>
+          <button class="size-btn" data-size="full" data-target="ss-rain">Full</button>
+        </div>
+        <div class="wr-music">
+          <a class="music-btn" href="https://music.apple.com/us/playlist/beatstrumentals/pl.f54198ad42404535be13eabf3835fb22" target="_blank" rel="noopener"><span class="music-icon">♪</span>Beatstrumentals</a>
+        </div>
+      </div>
+      <div class="wr-slideshow" id="ss-rain">
+        <div class="slideshow-frame" id="sf-rain"></div>
+        <div class="slideshow-controls">
+          <button class="ss-btn" onclick="slideStep('rain',-1)">&#8592;</button>
+          <div class="ss-dots" id="dots-rain"></div>
+          <button class="ss-btn" onclick="slideStep('rain',1)">&#8594;</button>
+        </div>
       </div>
     </div>
-    <div class="hub-messages" id="guideMessages">
-      <div class="hub-msg agent">Welcome. I can help you explore the artwork, understand the collections, and find the best place to purchase or request a piece.</div>
+  </div>
+
+  <!-- OCEAN ROOM -->
+  <div class="wr-room room-ocean" id="room-ocean">
+    <div class="ocean-shimmer"></div>
+    <div class="wr-room-content" style="position:relative;z-index:2;">
+      <div class="wr-room-text">
+        <div class="wr-room-name">Writing Room — Ocean</div>
+        <h2 class="wr-room-title">Time moves<br>like the tide.</h2>
+        <p class="wr-room-desc">No rush. No deadline. The ocean doesn't care about your word count. It just keeps moving, and eventually, so do you.</p>
+        <div class="wr-size-selector">
+          <button class="size-btn active" data-size="normal" data-target="ss-ocean">Normal</button>
+          <button class="size-btn" data-size="cinema" data-target="ss-ocean">Cinema</button>
+          <button class="size-btn" data-size="full" data-target="ss-ocean">Full</button>
+        </div>
+        <div class="wr-music">
+          <a class="music-btn" href="https://music.apple.com/us/playlist/bossa-nova/pl.de347e6151924768b1a3c173cf5f64c4" target="_blank" rel="noopener"><span class="music-icon">♪</span>Bossa Nova</a>
+          <a class="music-btn" href="https://music.apple.com/us/playlist/astrud-gilberto-essentials/pl.c354c1b7c66f46ccbc95742864c97454" target="_blank" rel="noopener"><span class="music-icon">♪</span>Astrud Gilberto</a>
+          <a class="music-btn" href="https://music.apple.com/us/album/bossa-nova-instrumental/1476151305" target="_blank" rel="noopener"><span class="music-icon">♪</span>BN Instrumental</a>
+          <a class="music-btn" href="https://music.apple.com/us/album/bossa-nova/1524084230" target="_blank" rel="noopener"><span class="music-icon">♪</span>Bossa Nova Album</a>
+        </div>
+      </div>
+      <div class="wr-slideshow" id="ss-ocean">
+        <div class="slideshow-frame" id="sf-ocean"></div>
+        <div class="slideshow-controls">
+          <button class="ss-btn" onclick="slideStep('ocean',-1)">&#8592;</button>
+          <div class="ss-dots" id="dots-ocean"></div>
+          <button class="ss-btn" onclick="slideStep('ocean',1)">&#8594;</button>
+        </div>
+      </div>
     </div>
-    <div class="hub-input-row">
-      <input class="hub-input" id="guideInput" type="text" placeholder="Ask about artwork, prints, or commissions..." />
-      <button class="hub-send" id="guideSend">&#8594;</button>
+  </div>
+
+  <!-- CAFÉ ROOM -->
+  <div class="wr-room room-cafe" id="room-cafe">
+    <div class="cafe-dust" id="cafeDust"></div>
+    <div class="wr-room-content" style="position:relative;z-index:2;">
+      <div class="wr-room-text">
+        <div class="wr-room-name">Writing Room — Café</div>
+        <h2 class="wr-room-title" style="color:#f5deb3;">The corner table<br>was always yours.</h2>
+        <p class="wr-room-desc" style="color:rgba(245,222,179,.6);">Steam rises. Someone laughs two tables over. The notebook is open. You are the only one here who knows what happens next.</p>
+        <div class="wr-size-selector">
+          <button class="size-btn active" data-size="normal" data-target="ss-cafe">Normal</button>
+          <button class="size-btn" data-size="cinema" data-target="ss-cafe">Cinema</button>
+          <button class="size-btn" data-size="full" data-target="ss-cafe">Full</button>
+        </div>
+        <div class="wr-music">
+          <a class="music-btn" href="https://music.apple.com/us/playlist/bossa-nova/pl.de347e6151924768b1a3c173cf5f64c4" target="_blank" rel="noopener"><span class="music-icon">♪</span>Bossa Nova</a>
+          <a class="music-btn" href="https://music.apple.com/us/album/bossa-nova/1524084230" target="_blank" rel="noopener"><span class="music-icon">♪</span>Bossa Nova Album</a>
+        </div>
+      </div>
+      <div class="wr-slideshow" id="ss-cafe">
+        <div class="slideshow-frame" id="sf-cafe"></div>
+        <div class="slideshow-controls">
+          <button class="ss-btn" onclick="slideStep('cafe',-1)">&#8592;</button>
+          <div class="ss-dots" id="dots-cafe"></div>
+          <button class="ss-btn" onclick="slideStep('cafe',1)">&#8594;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLUE HOUR ROOM -->
+  <div class="wr-room room-bluehour" id="room-bluehour">
+    <div class="wr-room-content" style="position:relative;z-index:2;">
+      <div class="wr-room-text">
+        <div class="wr-room-name">Writing Room — Blue Hour</div>
+        <h2 class="wr-room-title">Between the last<br>light and the first star.</h2>
+        <p class="wr-room-desc">Six minutes. The sky is doing something it will never do again in exactly this way. You are watching it. That's enough for now.</p>
+        <div class="wr-size-selector">
+          <button class="size-btn active" data-size="normal" data-target="ss-bluehour">Normal</button>
+          <button class="size-btn" data-size="cinema" data-target="ss-bluehour">Cinema</button>
+          <button class="size-btn" data-size="full" data-target="ss-bluehour">Full</button>
+        </div>
+        <div class="wr-music">
+          <a class="music-btn" href="https://music.apple.com/us/playlist/beatstrumentals/pl.f54198ad42404535be13eabf3835fb22" target="_blank" rel="noopener"><span class="music-icon">♪</span>Beatstrumentals</a>
+          <a class="music-btn" href="https://music.apple.com/us/playlist/astrud-gilberto-essentials/pl.c354c1b7c66f46ccbc95742864c97454" target="_blank" rel="noopener"><span class="music-icon">♪</span>Astrud Gilberto</a>
+        </div>
+      </div>
+      <div class="wr-slideshow" id="ss-bluehour">
+        <div class="slideshow-frame" id="sf-bluehour"></div>
+        <div class="slideshow-controls">
+          <button class="ss-btn" onclick="slideStep('bluehour',-1)">&#8592;</button>
+          <div class="ss-dots" id="dots-bluehour"></div>
+          <button class="ss-btn" onclick="slideStep('bluehour',1)">&#8594;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SILENT ROOM -->
+  <div class="wr-room room-silent" id="room-silent">
+    <div id="silentParticles"></div>
+    <div class="wr-room-content" style="position:relative;z-index:2;">
+      <div class="wr-room-text">
+        <div class="wr-room-name">Writing Room — Silent</div>
+        <h2 class="wr-room-title" style="color:rgba(255,255,255,.5);">.</h2>
+        <p class="wr-room-desc" style="color:rgba(255,255,255,.25);">Nothing plays here. Nothing needs to.</p>
+        <div class="wr-size-selector">
+          <button class="size-btn active" data-size="normal" data-target="ss-silent">Normal</button>
+          <button class="size-btn" data-size="cinema" data-target="ss-silent">Cinema</button>
+          <button class="size-btn" data-size="full" data-target="ss-silent">Full</button>
+        </div>
+      </div>
+      <div class="wr-slideshow" id="ss-silent">
+        <div class="slideshow-frame" id="sf-silent"></div>
+        <div class="slideshow-controls">
+          <button class="ss-btn" onclick="slideStep('silent',-1)">&#8592;</button>
+          <div class="ss-dots" id="dots-silent"></div>
+          <button class="ss-btn" onclick="slideStep('silent',1)">&#8594;</button>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="contact" id="contact">
-  <div>
-    <div class="section-label r">Contact</div>
-    <h2 class="r">Begin a conversation</h2>
-    <p class="r">Commissions, collaborations, and inquiries. If it involves ink, it belongs here.</p>
-    <div class="contact-links r">
-      <a class="contact-link" href="mailto:r.marleton@gmail.com">r.marleton@gmail.com</a>
-      <a class="contact-link" href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a>
-      <a class="contact-link" href="https://www.behance.net/" target="_blank" rel="noopener">Behance</a>
+<!-- ROOM AGENT -->
+<div class="wr-agent" id="wrAgent">
+  <button class="agent-trigger" id="agentTrigger" aria-label="Open Writing Room guide">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <circle cx="12" cy="12" r="9" stroke="rgba(1,116,243,.8)"/>
+      <path d="M8 12c0-2.2 1.8-4 4-4s4 1.8 4 4-1.8 4-4 4" stroke="rgba(1,116,243,.8)"/>
+      <circle cx="12" cy="12" r="1.5" fill="rgba(1,116,243,.8)"/>
+    </svg>
+  </button>
+  <div class="agent-panel" id="agentPanel">
+    <div class="agent-messages" id="agentMessages">
+      <div class="agent-msg" id="agentGreeting">...</div>
+    </div>
+    <div class="agent-loading" id="agentLoading">thinking...</div>
+    <div class="agent-input-row">
+      <input class="agent-input" id="agentInput" placeholder="Ask anything..." />
+      <button class="agent-send" id="agentSend">Send</button>
     </div>
   </div>
-  <div class="commission-chat r">
-    <div class="cc-messages" id="ccMessages">
-      <div class="cc-msg agent">Hello. Tell me about the piece you have in mind and I will take it from there.</div>
+</div>
+
+<!-- COMMISSION -->
+<section id="commission">
+  <div class="section-label">Commission</div>
+  <h2 class="section-title">Let's Make Something</h2>
+  <div class="commission-grid">
+    <div class="commission-form">
+      <div class="form-field">
+        <label class="form-label">Name</label>
+        <input class="form-input" type="text" placeholder="Your name">
+      </div>
+      <div class="form-field">
+        <label class="form-label">Email</label>
+        <input class="form-input" type="email" placeholder="your@email.com">
+      </div>
+      <div class="form-field">
+        <label class="form-label">Tell me about the piece</label>
+        <textarea class="form-textarea" placeholder="What are you envisioning? Colors, size, mood, intent..."></textarea>
+      </div>
+      <button class="form-submit" type="button">Send Inquiry</button>
     </div>
-    <div class="cc-input-row">
-      <input class="cc-input" id="ccInput" type="text" placeholder="Describe your commission idea..." />
-      <button class="cc-send" id="ccSend">&#8594;</button>
+    <div class="commission-info">
+      <h3>Original work,<br>made for you.</h3>
+      <p>Every commission starts with a conversation. Tell me what you're carrying — what you want to look at every morning — and we'll build something that's entirely yours.</p>
+      <p>Ink. Texture. The color blue. Whatever the piece needs, that's what it gets.</p>
     </div>
   </div>
 </section>
 
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Find the Work</div>
+  <h2 class="section-title">Connect</h2>
+  <p class="section-body">Prints available on Pixels. Follow the work wherever it goes.</p>
+  <div class="contact-links">
+    <a class="contact-link" href="https://pixels.com/profiles/robert-marleton" target="_blank" rel="noopener">Pixels Store</a>
+    <a class="contact-link" href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a>
+    <a class="contact-link" href="https://www.behance.net/" target="_blank" rel="noopener">Behance</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
 <footer>
   <div class="footer-logo">INKSPIRATIONS STUDIOS</div>
-  <div class="footer-copy">A Little Ink. A Lot of Soul. The COLOR Blue.</div>
+  <div class="footer-tagline">A little ink. A lot of soul. The color blue.</div>
+  <div class="footer-copy">&copy; 2025 Robert Marleton</div>
 </footer>
 
-<button id="inkBtn" title="Talk to the Ink Agent">&#9998;</button>
-<div id="agentPanel">
-  <div class="ap-header">
-    <span class="ap-title">INK AGENT</span>
-    <button class="ap-close" id="apClose">&times;</button>
-  </div>
-  <div class="ap-messages" id="apMessages">
-    <div class="ap-msg agent">Welcome. Ask me anything about Robert's work, process, or how to commission a piece.</div>
-  </div>
-  <div class="ap-input-row">
-    <input class="ap-input" id="apInput" type="text" placeholder="Ask anything..." />
-    <button class="ap-send" id="apSend">&#8594;</button>
-  </div>
-</div>
-
-<div class="lightbox" id="lightbox">
-  <div class="lb-inner">
-    <button class="lb-close" id="lbClose">&times;</button>
-    <button class="lb-nav lb-prev" id="lbPrev">&#8592;</button>
-    <button class="lb-nav lb-next" id="lbNext">&#8594;</button>
-    <div class="lb-img" id="lbImg"><span style="font-family:Cinzel,serif;font-size:.65rem;letter-spacing:.2em;color:rgba(255,255,255,.2)">YOUR IMAGE</span></div>
-    <div class="lb-meta">
-      <div class="lb-title" id="lbTitle"></div>
-      <div class="lb-series" id="lbSeries"></div>
-      <div class="lb-desc" id="lbDesc"></div>
-      <button class="lb-guide-btn" id="lbGuideBtn">&#9998; Tell me about this piece</button>
-      <div class="lb-guide-response" id="lbGuideResponse"></div>
-    </div>
-  </div>
-</div>
-
 <script>
-/* ═══════════════════════════════════════════
-   WAVE CANVAS
-═══════════════════════════════════════════ */
+// ── GALLERY DATA ──────────────────────────────────────────────
+const pieces = [
+  {id:1,title:"Ink Study No. 1",desc:"Ink on paper — the first mark.",pixels:"https://pixels.com/profiles/robert-marleton",img:null},
+  {id:2,title:"Cobalt Drift",desc:"Where the blue begins.",pixels:"https://pixels.com/profiles/robert-marleton",img:null},
+  {id:3,title:"Midnight Spread",desc:"Ink finds its own level.",pixels:"https://pixels.com/profiles/robert-marleton",img:null},
+  {id:4,title:"The Tendril",desc:"Organic form, deliberate mark.",pixels:"https://pixels.com/profiles/robert-marleton",img:null},
+  {id:5,title:"Ocean Memory",desc:"Salt and pigment.",pixels:"https://pixels.com/profiles/robert-marleton",img:null},
+  {id:6,title:"Blue Hour Study",desc:"The last light, caught.",pixels:"https://pixels.com/profiles/robert-marleton",img:null},
+  {id:7,title:"Silent Work",desc:"Made in quiet.",pixels:"https://pixels.com/profiles/robert-marleton",img:null},
+  {id:8,title:"Rain Series I",desc:"Water and ink — collaboration.",pixels:"https://pixels.com/profiles/robert-marleton",img:null},
+];
+
+// Build gallery
+const grid = document.getElementById('galleryGrid');
+pieces.forEach((p,i) => {
+  const el = document.createElement('div');
+  el.className = 'gallery-item';
+  el.setAttribute('data-index',i);
+  if(p.img){
+    el.innerHTML = `<img src="${p.img}" alt="${p.title}" loading="lazy"><div class="overlay"><span class="overlay-title">${p.title}</span></div>`;
+  } else {
+    const icons = ['◉','⊕','◈','◎','⊗','◆','◇','▣'];
+    el.innerHTML = `<div class="placeholder-art"><span class="art-icon">${icons[i%icons.length]}</span><span class="art-name">${p.title}</span></div><div class="overlay"><span class="overlay-title">${p.title}</span></div>`;
+  }
+  el.addEventListener('click',()=>openLightbox(i));
+  grid.appendChild(el);
+});
+
+// ── LIGHTBOX ──────────────────────────────────────────────────
+let lbIndex = 0;
+const lb = document.getElementById('lightbox');
+const lbImg = document.getElementById('lbImg');
+const lbTitle = document.getElementById('lbTitle');
+const lbDesc = document.getElementById('lbDesc');
+const lbBuy = document.getElementById('lbBuy');
+
+function openLightbox(i){
+  lbIndex = i;
+  renderLightbox();
+  lb.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeLightbox(){
+  lb.classList.remove('open');
+  document.body.style.overflow='';
+}
+function renderLightbox(){
+  const p = pieces[lbIndex];
+  if(p.img){ lbImg.src=p.img; lbImg.style.display='block'; }
+  else { lbImg.style.display='none'; }
+  lbTitle.textContent = p.title;
+  lbDesc.textContent = p.desc;
+  lbBuy.href = p.pixels;
+}
+document.getElementById('lbClose').addEventListener('click',closeLightbox);
+document.getElementById('lbPrev').addEventListener('click',()=>{lbIndex=(lbIndex-1+pieces.length)%pieces.length;renderLightbox();});
+document.getElementById('lbNext').addEventListener('click',()=>{lbIndex=(lbIndex+1)%pieces.length;renderLightbox();});
+lb.addEventListener('click',(e)=>{if(e.target===lb)closeLightbox();});
+document.addEventListener('keydown',(e)=>{
+  if(!lb.classList.contains('open'))return;
+  if(e.key==='Escape')closeLightbox();
+  if(e.key==='ArrowLeft'){lbIndex=(lbIndex-1+pieces.length)%pieces.length;renderLightbox();}
+  if(e.key==='ArrowRight'){lbIndex=(lbIndex+1)%pieces.length;renderLightbox();}
+});
+
+// ── WRITING ROOM TABS ─────────────────────────────────────────
+document.querySelectorAll('.wr-tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    document.querySelectorAll('.wr-tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.wr-room').forEach(r=>r.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('room-'+tab.dataset.room).classList.add('active');
+    setAgentRoom(tab.dataset.room);
+  });
+});
+
+// ── SLIDESHOW ─────────────────────────────────────────────────
+const slideshowData = {};
+const rooms = ['rain','ocean','cafe','bluehour','silent'];
+const slidePieces = pieces.map(p=>({title:p.title,img:p.img}));
+const icons2 = ['◉','⊕','◈','◎','⊗','◆','◇','▣'];
+
+rooms.forEach(room=>{
+  const frame = document.getElementById('sf-'+room);
+  const dotsEl = document.getElementById('dots-'+room);
+  slideshowData[room] = {current:0,total:slidePieces.length,interval:null};
+
+  slidePieces.forEach((p,i)=>{
+    const slide = document.createElement('div');
+    slide.className = 'slide'+(i===0?' active':'');
+    if(p.img){
+      slide.innerHTML = `<img src="${p.img}" alt="${p.title}">`;
+    } else {
+      slide.innerHTML = `<div class="slide-placeholder"><span class="sp-icon">${icons2[i%icons2.length]}</span><span class="sp-name">${p.title}</span></div>`;
+    }
+    frame.appendChild(slide);
+
+    const dot = document.createElement('div');
+    dot.className = 'ss-dot'+(i===0?' active':'');
+    dot.addEventListener('click',()=>goSlide(room,i));
+    dotsEl.appendChild(dot);
+  });
+
+  slideshowData[room].interval = setInterval(()=>slideStep(room,1),4500);
+});
+
+function goSlide(room,i){
+  const d = slideshowData[room];
+  const frame = document.getElementById('sf-'+room);
+  const dots = document.getElementById('dots-'+room);
+  frame.querySelectorAll('.slide')[d.current].classList.remove('active');
+  dots.querySelectorAll('.ss-dot')[d.current].classList.remove('active');
+  d.current = (i+d.total)%d.total;
+  frame.querySelectorAll('.slide')[d.current].classList.add('active');
+  dots.querySelectorAll('.ss-dot')[d.current].classList.add('active');
+}
+function slideStep(room,dir){
+  const d = slideshowData[room];
+  goSlide(room,d.current+dir);
+}
+
+// Screen size selector
+document.querySelectorAll('.size-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const target = btn.dataset.target;
+    const ss = document.getElementById(target);
+    btn.closest('.wr-size-selector').querySelectorAll('.size-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    ss.classList.remove('size-small','size-cinema','size-full');
+    const map = {normal:'',cinema:'size-cinema',full:'size-full',small:'size-small'};
+    if(map[btn.dataset.size]) ss.classList.add(map[btn.dataset.size]);
+  });
+});
+
+// ── WAVE CANVAS ───────────────────────────────────────────────
 (function(){
-  var c=document.getElementById('waveCanvas');
-  if(!c) return;
-  var ctx=c.getContext('2d'), t=0;
-  function resize(){ c.width=c.offsetWidth; c.height=c.offsetHeight; }
-  resize(); window.addEventListener('resize',resize);
-  var waves=[
-    {freq:.012,amp:28,speed:.004,phase:0,   alpha:.10,color:'rgba(1,116,243,'},
-    {freq:.018,amp:18,speed:.007,phase:2.1, alpha:.08,color:'rgba(80,160,255,'},
-    {freq:.009,amp:38,speed:.003,phase:4.4, alpha:.07,color:'rgba(1,50,180,'},
-    {freq:.025,amp:12,speed:.009,phase:1.3, alpha:.06,color:'rgba(120,190,255,'}
-  ];
-  var drops=[];
-  for(var i=0;i<10;i++) drops.push({x:Math.random(),y:.3+Math.random()*.6,r:30+Math.random()*80,alpha:.03+Math.random()*.07,phase:Math.random()*Math.PI*2,spd:.003+Math.random()*.005});
+  const canvas = document.getElementById('waveCanvas');
+  const ctx = canvas.getContext('2d');
+  let W,H,t=0;
+  function resize(){W=canvas.width=canvas.offsetWidth;H=canvas.height=canvas.offsetHeight;}
+  resize();
+  window.addEventListener('resize',resize);
   function draw(){
-    var w=c.width,h=c.height;
-    ctx.clearRect(0,0,w,h);
-    drops.forEach(function(d){
-      var p=(Math.sin(t*d.spd+d.phase)+1)*.5;
-      var g=ctx.createRadialGradient(d.x*w,d.y*h,0,d.x*w,d.y*h,d.r*(.8+p*.4));
-      g.addColorStop(0,'rgba(1,8,40,'+(d.alpha*p)+')'); g.addColorStop(1,'rgba(1,8,40,0)');
-      ctx.fillStyle=g; ctx.beginPath(); ctx.arc(d.x*w,d.y*h,d.r*(1+p*.4),0,Math.PI*2); ctx.fill();
-    });
-    waves.forEach(function(wv){
+    ctx.clearRect(0,0,W,H);
+    for(let w=0;w<3;w++){
       ctx.beginPath();
-      for(var x=0;x<=w;x+=3){
-        var y=h*.62+Math.sin(x*wv.freq+t*wv.speed*60+wv.phase)*wv.amp;
-        if(x===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+      const amp=30+w*18,freq=0.004+w*0.002,speed=0.012+w*0.008,alpha=0.08-w*0.02;
+      ctx.strokeStyle=`rgba(1,116,243,${alpha})`;
+      ctx.lineWidth=1.2;
+      for(let x=0;x<=W;x+=3){
+        const y=H*0.5+amp*Math.sin(x*freq+t*(speed+w*0.003))+amp*0.5*Math.sin(x*freq*2.1+t*(speed*1.3));
+        x===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
       }
-      ctx.strokeStyle=wv.color+wv.alpha+')'; ctx.lineWidth=1.5; ctx.stroke();
-    });
-    t++; requestAnimationFrame(draw);
+      ctx.stroke();
+    }
+    t++;
+    requestAnimationFrame(draw);
   }
   draw();
 })();
 
-/* ═══════════════════════════════════════════
-   GALLERY DATA
-═══════════════════════════════════════════ */
-var pieces=[
-  {cat:'abstract',  num:'001',title:'Undertow',       series:'Blue Essence Collection',  medium:'Digital print available',         desc:'Motion beneath a still surface. Blue atmospheres layered with texture.',                                     img:null,buyLink:'#',availability:'Available through Pixels'},
-  {cat:'typography',num:'002',title:'Bleedthrough',   series:'Fluid Soul Series',        medium:'Digital print / lettering work',  desc:'Ink that refuses to stay inside the lines. The word becomes the feeling.',                                  img:null,buyLink:'#',availability:'Coming soon'},
-  {cat:'burned',    num:'003',title:'Burned Motion I', series:'Burned Motion Series',    medium:'Original wood art / print edition',desc:'Hand-burned into reclaimed wood. Cinematic movement. Aggressive texture.',                                 img:null,buyLink:'#',availability:'Message for original / print link'},
-  {cat:'abstract',  num:'004',title:'Electric Bloom', series:'Blue Essence Collection',  medium:'Digital print available',         desc:'That moment when something dormant ignites. Blue light through dark texture.',                               img:null,buyLink:'#',availability:'Available through Pixels'},
-  {cat:'typography',num:'005',title:'Love and Thorns',series:'Fluid Soul Series',        medium:'Typography art',                  desc:'Two words that belong together and hurt together. Elegant enough to be honest.',                              img:null,buyLink:'#',availability:'Coming soon'},
-  {cat:'burned',    num:'006',title:'Current',        series:'Burned Motion Series',     medium:'Original wood art / print edition',desc:'The force that moves beneath everything. Burned deep. Impossible to stop.',                               img:null,buyLink:'#',availability:'Message for availability'}
-];
+// ── LIQUID INK ANIMATION ─────────────────────────────────────
+(function(){
+  const canvas = document.getElementById('inkCanvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H;
+  function resize(){ W = canvas.width = canvas.offsetWidth; H = canvas.height = canvas.offsetHeight; }
+  resize();
+  window.addEventListener('resize', resize);
 
-var gallery=document.getElementById('gallery');
-var currentCat='all', currentIdx=0;
-
-function renderGallery(cat){
-  gallery.innerHTML='';
-  pieces.forEach(function(p,i){
-    if(cat!=='all'&&p.cat!==cat) return;
-    var div=document.createElement('div'); div.className='piece'; div.setAttribute('data-index',i);
-    div.innerHTML='<div class="piece-img">'+(p.img?'<img src="'+p.img+'" alt="'+p.title+'">':'<span>YOUR IMAGE</span>')+'</div><div class="piece-info"><div class="piece-num">'+p.num+'</div><div class="piece-title">'+p.title+'</div><div class="piece-medium">'+p.medium+'</div><div class="piece-status">'+(p.availability||'Available')+'</div><a class="piece-buy" href="'+(p.buyLink||'#')+'" target="_blank" rel="noopener" onclick="event.stopPropagation();">Buy / View</a></div>';
-    div.addEventListener('click',function(){ openLightbox(parseInt(this.getAttribute('data-index'))); });
-    gallery.appendChild(div);
-  });
-}
-renderGallery('all');
-
-function renderStoreGallery(){
-  var store=document.getElementById('storeGallery');
-  if(!store) return;
-  store.innerHTML='';
-  pieces.forEach(function(p){
-    var div=document.createElement('div'); div.className='piece';
-    div.innerHTML='<div class="piece-img">'+(p.img?'<img src="'+p.img+'" alt="'+p.title+'">':'<span>YOUR IMAGE</span>')+'</div><div class="piece-info"><div class="piece-num">'+p.num+'</div><div class="piece-title">'+p.title+'</div><div class="piece-medium">'+p.series+'</div><div class="piece-status">'+(p.availability||'Available')+'</div><a class="piece-buy" href="'+(p.buyLink||'#')+'" target="_blank" rel="noopener">Buy / View on Pixels</a></div>';
-    store.appendChild(div);
-  });
-}
-renderStoreGallery();
-
-document.getElementById('tabs').addEventListener('click',function(e){
-  if(!e.target.classList.contains('tab')) return;
-  document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
-  e.target.classList.add('active'); currentCat=e.target.getAttribute('data-cat'); renderGallery(currentCat);
-});
-
-/* ═══════════════════════════════════════════
-   LIGHTBOX
-═══════════════════════════════════════════ */
-var lb=document.getElementById('lightbox');
-function openLightbox(idx){
-  currentIdx=idx; var p=pieces[idx];
-  document.getElementById('lbTitle').textContent=p.title;
-  document.getElementById('lbSeries').textContent=p.series+' — '+p.medium;
-  document.getElementById('lbDesc').textContent=p.desc;
-  document.getElementById('lbImg').innerHTML=p.img?'<img src="'+p.img+'" alt="'+p.title+'">':'<span style="font-family:Cinzel,serif;font-size:.65rem;letter-spacing:.2em;color:rgba(255,255,255,.2)">YOUR IMAGE</span>';
-  document.getElementById('lbGuideResponse').classList.remove('visible');
-  var gb=document.getElementById('lbGuideBtn'); gb.textContent='Tell me about this piece'; gb.disabled=false;
-  lb.classList.add('open');
-}
-document.getElementById('lbClose').addEventListener('click',function(){ lb.classList.remove('open'); });
-lb.addEventListener('click',function(e){ if(e.target===lb) lb.classList.remove('open'); });
-document.getElementById('lbPrev').addEventListener('click',function(e){ e.stopPropagation(); currentIdx=(currentIdx-1+pieces.length)%pieces.length; openLightbox(currentIdx); });
-document.getElementById('lbNext').addEventListener('click',function(e){ e.stopPropagation(); currentIdx=(currentIdx+1)%pieces.length; openLightbox(currentIdx); });
-document.addEventListener('keydown',function(e){
-  if(!lb.classList.contains('open')) return;
-  if(e.key==='Escape') lb.classList.remove('open');
-  if(e.key==='ArrowLeft'){ currentIdx=(currentIdx-1+pieces.length)%pieces.length; openLightbox(currentIdx); }
-  if(e.key==='ArrowRight'){ currentIdx=(currentIdx+1)%pieces.length; openLightbox(currentIdx); }
-});
-
-/* ═══════════════════════════════════════════
-   CTA BUTTON
-═══════════════════════════════════════════ */
-document.getElementById('ctaBtn').addEventListener('click',function(){
-  document.getElementById('work').scrollIntoView({behavior:'smooth'});
-});
-
-/* ═══════════════════════════════════════════
-   WRITING ROOM — SCENE DATA
-═══════════════════════════════════════════ */
-var SCENES={
-  rain:{
-    title:'Rain Room',
-    copy:'Rain moves softly against the glass. The room is warm, the page is waiting, and every thought arrives like a letter that finally found its way home.',
-    apple:'https://music.apple.com/us/playlist/beatstrumentals/pl.f54198ad42404535be13eabf3835fb22',
-    appleLabel:'Beatstrumentals on Apple Music'
-  },
-  ocean:{
-    title:'Ocean Room',
-    copy:'A low tide of blue light moves beneath the words. This is the place for memory, longing, and the kind of silence that sounds like water.',
-    apple:'https://music.apple.com/us/album/bossa-nova-instrumental/1476151305',
-    appleLabel:'Bossa Nova Instrumental on Apple Music'
-  },
-  cafe:{
-    title:'Midnight Café',
-    copy:'Amber light. Dark windows. A cup cooling beside the page. The scene feels borrowed from a letter someone was almost brave enough to send.',
-    apple:'https://music.apple.com/us/playlist/astrud-gilberto-essentials/pl.c354c1b7c66f46ccbc95742864c97454',
-    appleLabel:'Astrud Gilberto Essentials on Apple Music'
-  },
-  blue:{
-    title:'Blue Hour',
-    copy:'The day fades into its deepest color. Everything softens. The work becomes less about showing and more about feeling what remains.',
-    apple:'https://music.apple.com/us/album/bossa-nova/1524084230',
-    appleLabel:'Bossa Nova on Apple Music'
-  },
-  silent:{
-    title:'Silent Room',
-    copy:'No music. No rain. Just breath, blue shadow, and the page. Sometimes the quiet is the atmosphere.',
-    apple:null,
-    appleLabel:null
+  // Each blob is a metaball-style ink drop that swims slowly
+  const blobs = [];
+  const NUM = 6;
+  for(let i = 0; i < NUM; i++){
+    blobs.push({
+      x: Math.random() * 1200,
+      y: Math.random() * 800,
+      vx: (Math.random() - 0.5) * 0.35,
+      vy: (Math.random() - 0.5) * 0.25,
+      r: 90 + Math.random() * 160,
+      phase: Math.random() * Math.PI * 2,
+      phaseSpeed: 0.003 + Math.random() * 0.004,
+      // alternating ink blue and deep cobalt
+      color: i % 2 === 0 ? [1,116,243] : [10,40,120],
+      alpha: 0.06 + Math.random() * 0.08,
+    });
   }
+
+  // Offscreen canvas — ink persists and slowly fades
+  const off = document.createElement('canvas');
+  const octx = off.getContext('2d');
+  function resizeOff(){ off.width = W; off.height = H; }
+  resizeOff();
+  window.addEventListener('resize', ()=>{ resizeOff(); });
+
+  // Spawn ink drops that bloom and dissolve
+  const drops = [];
+  function spawnDrop(){
+    drops.push({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      r: 2,
+      maxR: 60 + Math.random() * 120,
+      speed: 0.4 + Math.random() * 0.5,
+      alpha: 0.12 + Math.random() * 0.1,
+      color: Math.random() > 0.5 ? [1,80,200] : [0,20,80],
+    });
+  }
+  spawnDrop();
+  setInterval(spawnDrop, 2800);
+
+  function draw(){
+    // Fade offscreen canvas slightly each frame — ink dissolves slowly
+    octx.fillStyle = 'rgba(1,3,11,0.012)';
+    octx.fillRect(0, 0, W, H);
+
+    // Draw blooming drops onto offscreen
+    for(let i = drops.length - 1; i >= 0; i--){
+      const d = drops[i];
+      d.r += d.speed;
+      const progress = d.r / d.maxR;
+      const a = d.alpha * (1 - progress * progress);
+      if(a <= 0.002){ drops.splice(i, 1); continue; }
+      const grad = octx.createRadialGradient(d.x, d.y, 0, d.x, d.y, d.r);
+      grad.addColorStop(0, `rgba(${d.color[0]},${d.color[1]},${d.color[2]},${a})`);
+      grad.addColorStop(0.5, `rgba(${d.color[0]},${d.color[1]},${d.color[2]},${a*0.4})`);
+      grad.addColorStop(1, `rgba(${d.color[0]},${d.color[1]},${d.color[2]},0)`);
+      octx.beginPath();
+      octx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+      octx.fillStyle = grad;
+      octx.fill();
+    }
+
+    // Draw swimming blobs onto offscreen
+    blobs.forEach(b => {
+      b.phase += b.phaseSpeed;
+      b.x += b.vx + Math.sin(b.phase * 0.7) * 0.3;
+      b.y += b.vy + Math.cos(b.phase * 0.5) * 0.2;
+      // Bounce gently off edges
+      if(b.x < -b.r) b.x = W + b.r;
+      if(b.x > W + b.r) b.x = -b.r;
+      if(b.y < -b.r) b.y = H + b.r;
+      if(b.y > H + b.r) b.y = -b.r;
+
+      const wobble = b.r + Math.sin(b.phase) * 18;
+      const grad = octx.createRadialGradient(b.x, b.y, 0, b.x, b.y, wobble);
+      grad.addColorStop(0, `rgba(${b.color[0]},${b.color[1]},${b.color[2]},${b.alpha})`);
+      grad.addColorStop(0.6, `rgba(${b.color[0]},${b.color[1]},${b.color[2]},${b.alpha*0.3})`);
+      grad.addColorStop(1, `rgba(${b.color[0]},${b.color[1]},${b.color[2]},0)`);
+      octx.beginPath();
+      octx.arc(b.x, b.y, wobble, 0, Math.PI * 2);
+      octx.fillStyle = grad;
+      octx.fill();
+    });
+
+    // Render offscreen to main canvas
+    ctx.clearRect(0, 0, W, H);
+    ctx.drawImage(off, 0, 0);
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ── RAIN CANVAS ───────────────────────────────────────────────
+(function(){
+  const canvas = document.getElementById('rainCanvas');
+  const ctx = canvas.getContext('2d');
+  let W,H;
+  const drops = [];
+  function resize(){W=canvas.width=canvas.offsetWidth;H=canvas.height=canvas.offsetHeight;}
+  resize();
+  window.addEventListener('resize',resize);
+  for(let i=0;i<120;i++){
+    drops.push({x:Math.random()*2000,y:Math.random()*1200,speed:8+Math.random()*8,len:12+Math.random()*20,alpha:0.05+Math.random()*0.1});
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    drops.forEach(d=>{
+      ctx.beginPath();
+      ctx.strokeStyle=`rgba(100,160,220,${d.alpha})`;
+      ctx.lineWidth=0.8;
+      ctx.moveTo(d.x,d.y);
+      ctx.lineTo(d.x-2,d.y+d.len);
+      ctx.stroke();
+      d.y+=d.speed;
+      if(d.y>H){d.y=-d.len;d.x=Math.random()*W;}
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ── CAFÉ DUST MOTES ───────────────────────────────────────────
+(function(){
+  const container = document.getElementById('cafeDust');
+  for(let i=0;i<18;i++){
+    const m = document.createElement('div');
+    m.className = 'dust-mote';
+    const dur = 12+Math.random()*20;
+    const dx = (Math.random()-0.5)*200;
+    m.style.cssText = `left:${Math.random()*100}%;animation-duration:${dur}s;animation-delay:-${Math.random()*dur}s;--dx:${dx}px;opacity:${0.2+Math.random()*0.5};`;
+    container.appendChild(m);
+  }
+})();
+
+// ── SILENT PARTICLES ─────────────────────────────────────────
+(function(){
+  const container = document.getElementById('silentParticles');
+  for(let i=0;i<25;i++){
+    const p = document.createElement('div');
+    p.className = 'silent-particle';
+    const dur = 18+Math.random()*30;
+    const tx = (Math.random()-0.5)*300;
+    const ty = (Math.random()-0.5)*300;
+    p.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*100}%;animation-duration:${dur}s;animation-delay:-${Math.random()*dur}s;--tx:${tx}px;--ty:${ty}px;`;
+    container.appendChild(p);
+  }
+})();
+
+// ── WRITING ROOM AGENT ────────────────────────────────────────
+const roomPrompts = {
+  rain:"You are the voice of the Rain Writing Room at INKSPIRATIONS Studios. You speak slowly, with long pauses implied in your words. Melancholy but not sad. Atmospheric. You guide visitors gently toward discovering the art and commissions. Keep responses short — 1 to 3 sentences.",
+  ocean:"You are the voice of the Ocean Writing Room. Expansive, unhurried. You speak as if you have all the time in the world. Occasionally poetic. Guide visitors toward the art and prints on Pixels. Keep responses short — 2 to 3 sentences.",
+  cafe:"You are the voice of the Café Writing Room. Warm, playful, curious. A little witty. Like a favorite barista who also knows too much about art. Guide visitors toward the gallery and commissions. Keep responses to 2 to 3 sentences.",
+  bluehour:"You are the voice of the Blue Hour Writing Room. Wistful, cinematic. You speak as if the light is about to change. Guide visitors toward the art with a sense of quiet urgency. Keep responses short — 1 to 3 sentences.",
+  silent:"You are the voice of the Silent Writing Room. You barely speak. When you do, it is exact and spare. One sentence. Sometimes less. Guide only if asked directly.",
+};
+const roomGreetings = {
+  rain:"The rain asked me to say hello. Is there something drawing you here?",
+  ocean:"Come in. The tide will wait. What are you looking for today?",
+  cafe:"Oh good, you found the corner table. What can I get you — a look at the gallery, maybe?",
+  bluehour:"You came at the right moment. What brought you here?",
+  silent:"...",
 };
 
-function activateScene(key){
-  var s=SCENES[key];
-  document.getElementById('sceneTitle').textContent=s.title;
-  document.getElementById('sceneCopy').textContent=s.copy;
-  var linksEl=document.getElementById('sceneLinks');
-  if(s.apple){
-    linksEl.innerHTML='<a class="scene-link" href="'+s.apple+'" target="_blank" rel="noopener">'+s.appleLabel+'</a>';
-  } else {
-    linksEl.innerHTML='<span style="font-family:Cinzel,serif;font-size:.6rem;letter-spacing:.15em;color:rgba(255,255,255,.25);font-style:italic;">Silence is the music here.</span>';
-  }
-  document.querySelectorAll('.scene-btn').forEach(function(b){ b.classList.remove('active'); });
-  var btn=document.querySelector('.scene-btn[data-scene="'+key+'"]');
-  if(btn) btn.classList.add('active');
+let currentRoom = 'rain';
+let agentHistory = [];
+
+function setAgentRoom(room){
+  currentRoom = room;
+  agentHistory = [];
+  document.getElementById('agentGreeting').textContent = roomGreetings[room];
+  const msgs = document.getElementById('agentMessages');
+  while(msgs.children.length > 1){ msgs.removeChild(msgs.lastChild); }
 }
 
-document.querySelectorAll('.scene-btn').forEach(function(btn){
-  btn.addEventListener('click',function(){
-    activateScene(btn.getAttribute('data-scene'));
-  });
+document.getElementById('agentTrigger').addEventListener('click',()=>{
+  document.getElementById('agentPanel').classList.toggle('open');
 });
 
-/* ═══════════════════════════════════════════
-   WEATHER + TIME → AUTO ROOM SELECTION
-   Uses OpenWeatherMap free tier (current weather by coords)
-   API key: replace OWM_KEY with your own key
-═══════════════════════════════════════════ */
-var OWM_KEY = '5ff1eb6a3dd89dcd08e036d7d43f36f2'; // ← paste your key here
+async function sendAgentMessage(){
+  const input = document.getElementById('agentInput');
+  const msg = input.value.trim();
+  if(!msg) return;
+  input.value = '';
 
-function getHourBlock(hour){
-  // Blue Hour = dusk/dawn (5-7am, 17-20)
-  // Night/Rain comfort zone = late night (20-23, 0-5)
-  if(hour>=5 && hour<8)  return 'blue';   // dawn
-  if(hour>=8 && hour<17) return 'ocean';  // day → open / expansive
-  if(hour>=17 && hour<20) return 'blue';  // dusk
-  return 'silent';                         // deep night default
-}
+  const msgs = document.getElementById('agentMessages');
+  const userEl = document.createElement('div');
+  userEl.className = 'agent-msg user';
+  userEl.textContent = msg;
+  msgs.appendChild(userEl);
 
-function weatherToScene(weatherId, hour){
-  // OpenWeatherMap condition codes: https://openweathermap.org/weather-conditions
-  // 2xx = thunderstorm, 3xx = drizzle, 5xx = rain, 6xx = snow, 7xx = atmosphere (fog/mist)
-  // 800 = clear, 80x = clouds
-  if(weatherId >= 200 && weatherId < 700) return 'rain';   // any precip or storm
-  if(weatherId >= 700 && weatherId < 800) return 'rain';   // mist/fog/smoke
-  if(weatherId === 800){
-    // clear sky — use time of day
-    return getHourBlock(hour);
-  }
-  // cloudy (801-804)
-  if(hour>=17 && hour<20) return 'blue';   // cloudy dusk = blue hour
-  if(hour>=20 || hour<6)  return 'silent'; // cloudy night = silent
-  return 'cafe';                            // overcast day = café warmth
-}
+  agentHistory.push({role:'user',content:msg});
+  document.getElementById('agentLoading').style.display = 'block';
 
-function autoSelectRoom(lat, lon){
-  var url='https://api.openweathermap.org/data/2.5/weather?lat='+lat+'&lon='+lon+'&appid='+OWM_KEY+'&units=metric';
-  fetch(url)
-    .then(function(r){ return r.json(); })
-    .then(function(data){
-      if(!data || !data.weather || !data.weather[0]) return;
-      var weatherId = data.weather[0].id;
-      var desc      = data.weather[0].description;
-      var hour      = new Date().getHours();
-      var scene     = weatherToScene(weatherId, hour);
-      activateScene(scene);
-
-      // Show the badge
-      var badge = document.getElementById('autoRoomBadge');
-      var text  = document.getElementById('autoRoomText');
-      badge.style.display = 'inline-flex';
-      text.textContent = 'Auto-selected: '+SCENES[scene].title+' — '+desc+' outside';
-    })
-    .catch(function(){ /* silently fail — manual selection still works */ });
-}
-
-function initWeatherRoom(){
-  if(OWM_KEY === 'YOUR_OPENWEATHERMAP_API_KEY') return; // key not set yet
-  if(!navigator.geolocation) return;
-  navigator.geolocation.getCurrentPosition(
-    function(pos){ autoSelectRoom(pos.coords.latitude, pos.coords.longitude); },
-    function(){ /* permission denied — leave default active */ }
-  );
-}
-
-initWeatherRoom();
-
-/* ═══════════════════════════════════════════
-   ANTHROPIC API — shared caller
-   All three agents (floating, studio guide, commission) use this
-═══════════════════════════════════════════ */
-async function callClaude(systemPrompt, messages, onDone){
   try {
-    var payload = {
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: 1000,
-      system: systemPrompt,
-      messages: messages
-    };
-    var res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
+    const res = await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        system: roomPrompts[currentRoom] + " You represent INKSPIRATIONS Studios by Robert Marleton. Prints are available at https://pixels.com/profiles/robert-marleton. Commissions are open — direct interested visitors to the commission section of the site.",
+        messages: agentHistory,
+      })
     });
-    var data = await res.json();
-    var text = (data.content || []).map(function(b){ return b.type==='text'?b.text:''; }).join('');
-    onDone(text || 'Something went quiet. Try again.');
+    const data = await res.json();
+    const reply = data.content.map(c=>c.text||'').join('');
+    agentHistory.push({role:'assistant',content:reply});
+    const replyEl = document.createElement('div');
+    replyEl.className = 'agent-msg';
+    replyEl.textContent = reply;
+    msgs.appendChild(replyEl);
+    msgs.scrollTop = msgs.scrollHeight;
   } catch(e) {
-    onDone('The ink stilled for a moment. Please try again.');
+    const errEl = document.createElement('div');
+    errEl.className = 'agent-msg';
+    errEl.textContent = 'Something wavered. Try again.';
+    msgs.appendChild(errEl);
   }
+
+  document.getElementById('agentLoading').style.display = 'none';
 }
 
-/* System prompts */
-var INK_SYS = 'You are the INKSPIRATIONS Studios agent on Robert Marleton\'s portfolio website. Robert is an ink artist whose tagline is: A little ink. A lot of soul. The COLOR Blue. He creates abstract ink art, fluid soul typography, and burned wood pyrography. He sells prints through Pixels.com. Answer visitor questions about his work, process, style, and commissions. Be warm, poetic, and concise. Keep replies to 2 to 4 sentences.';
-
-var CC_SYS = 'You are the commission intake agent for INKSPIRATIONS Studios. Robert Marleton is an ink artist specializing in abstract ink, fluid soul typography, and burned wood pyrography. Have a warm conversational exchange to understand what the visitor wants commissioned. Ask about subject, feeling, medium preferred, size, and intended use. After gathering detail, summarize the commission brief and say Robert will be in touch via r.marleton@gmail.com. Keep each reply to 2 to 3 sentences.';
-
-var GG_SYS = 'You are the gallery guide for INKSPIRATIONS Studios. When given a piece title, series, medium, and description, speak about that artwork with depth and passion. Cover the emotion, technique, and what makes it worth owning. Be poetic. Keep it to 3 to 5 sentences.';
-
-/* ═══════════════════════════════════════════
-   FLOATING INK AGENT
-═══════════════════════════════════════════ */
-var apHistory=[], apMessages=document.getElementById('apMessages'), apInput=document.getElementById('apInput');
-document.getElementById('inkBtn').addEventListener('click',function(){ document.getElementById('agentPanel').classList.toggle('open'); });
-document.getElementById('apClose').addEventListener('click',function(){ document.getElementById('agentPanel').classList.remove('open'); });
-
-function apAddMsg(r,t){ var d=document.createElement('div'); d.className='ap-msg '+r; d.textContent=t; apMessages.appendChild(d); apMessages.scrollTop=apMessages.scrollHeight; return d; }
-
-function apSend(){
-  var t=apInput.value.trim(); if(!t) return;
-  apInput.value=''; apAddMsg('user',t);
-  apHistory.push({role:'user',content:t});
-  var th=apAddMsg('thinking','Thinking...');
-  callClaude(INK_SYS, apHistory, function(r){
-    th.remove(); apAddMsg('agent',r);
-    apHistory.push({role:'assistant',content:r});
-  });
-}
-document.getElementById('apSend').addEventListener('click',apSend);
-apInput.addEventListener('keydown',function(e){ if(e.key==='Enter') apSend(); });
-
-/* ═══════════════════════════════════════════
-   COMMISSION CHAT
-═══════════════════════════════════════════ */
-var ccHistory=[], ccMessages=document.getElementById('ccMessages'), ccInput=document.getElementById('ccInput');
-
-function ccAddMsg(r,t){ var d=document.createElement('div'); d.className='cc-msg '+r; d.textContent=t; ccMessages.appendChild(d); ccMessages.scrollTop=ccMessages.scrollHeight; return d; }
-
-function ccSend(){
-  var t=ccInput.value.trim(); if(!t) return;
-  ccInput.value=''; ccAddMsg('user',t);
-  ccHistory.push({role:'user',content:t});
-  var th=ccAddMsg('thinking','Thinking...');
-  callClaude(CC_SYS, ccHistory, function(r){
-    th.remove(); ccAddMsg('agent',r);
-    ccHistory.push({role:'assistant',content:r});
-  });
-}
-document.getElementById('ccSend').addEventListener('click',ccSend);
-document.getElementById('ccInput').addEventListener('keydown',function(e){ if(e.key==='Enter') ccSend(); });
-
-/* ═══════════════════════════════════════════
-   GALLERY GUIDE (lightbox)
-═══════════════════════════════════════════ */
-document.getElementById('lbGuideBtn').addEventListener('click',function(){
-  var p=pieces[currentIdx], btn=this;
-  btn.textContent='Loading...'; btn.disabled=true;
-  document.getElementById('lbGuideResponse').classList.remove('visible');
-  callClaude(GG_SYS,[{role:'user',content:'Piece: '+p.title+'. Series: '+p.series+'. Medium: '+p.medium+'. Description: '+p.desc+'. Tell me about this piece.'}],function(r){
-    var el=document.getElementById('lbGuideResponse'); el.textContent=r; el.classList.add('visible');
-    btn.textContent='Tell me about this piece'; btn.disabled=false;
-  });
+document.getElementById('agentSend').addEventListener('click', sendAgentMessage);
+document.getElementById('agentInput').addEventListener('keydown',(e)=>{
+  if(e.key==='Enter') sendAgentMessage();
 });
 
-/* ═══════════════════════════════════════════
-   STUDIO GUIDE (hub)
-═══════════════════════════════════════════ */
-var guideHistory=[], guideMessages=document.getElementById('guideMessages'), guideInput=document.getElementById('guideInput');
-
-function guideAddMsg(r,t){ var d=document.createElement('div'); d.className='hub-msg '+r; d.textContent=t; guideMessages.appendChild(d); guideMessages.scrollTop=guideMessages.scrollHeight; return d; }
-
-function guideSend(){
-  var t=guideInput.value.trim(); if(!t) return;
-  guideInput.value=''; guideAddMsg('user',t);
-  guideHistory.push({role:'user',content:t});
-  var th=guideAddMsg('thinking','Checking the studio guide...');
-  callClaude(INK_SYS, guideHistory, function(r){
-    th.remove(); guideAddMsg('agent',r);
-    guideHistory.push({role:'assistant',content:r});
-  });
-}
-function guideQuick(t){ guideInput.value=t; guideSend(); }
-document.getElementById('guideSend').addEventListener('click',guideSend);
-document.getElementById('guideInput').addEventListener('keydown',function(e){ if(e.key==='Enter') guideSend(); });
-
-/* ═══════════════════════════════════════════
-   SCROLL REVEAL
-═══════════════════════════════════════════ */
-var obs=new IntersectionObserver(function(entries){
-  entries.forEach(function(entry,i){
-    if(entry.isIntersecting){ setTimeout(function(){ entry.target.classList.add('on'); },i*70); }
-  });
-},{threshold:0.1});
-document.querySelectorAll('.r').forEach(function(el){ obs.observe(el); });
+// Initialize agent greeting
+setAgentRoom('rain');
 </script>
 </body>
 </html>
