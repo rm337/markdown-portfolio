@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Music Room — INKSPIRATIONS Studios</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet" />
+<style>
+  /* ============================================================
+     TOKENS
+  ============================================================ */
+  :root {
+    --blue:        #0174F3;
+    --blue-deep:   #0051CC;
+    --blue-dark:   #001B4D;
+    --blue-black:  #000A1A;
+    --amber:       #F5A623;
+    --sky:         #B8DCFF;
+    --electric:    #FF2D55;
+    --white:       #F0F4FF;
+    --dim:         rgba(255,255,255,0.08);
+    --cinzel:      'Cinzel', serif;
+    --spectral:    'Spectral', serif;
+    --transition:  0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  /* ============================================================
+     RESET & BASE
+  ============================================================ */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--blue-black);
+    color: var(--white);
+    font-family: var(--spectral);
+    font-weight: 300;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* ============================================================
+     PARTICLE CANVAS
+  ============================================================ */
+  #particle-canvas {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.55;
+  }
+
+  /* ============================================================
+     NAV
+  ============================================================ */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 2.4rem;
+    background: linear-gradient(to bottom, rgba(0,10,26,0.95), transparent);
+    backdrop-filter: blur(4px);
+  }
+
+  .nav-brand {
+    font-family: var(--cinzel);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--sky);
+    opacity: 0.85;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: var(--cinzel);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(240,244,255,0.5);
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--white); }
+
+  /* ============================================================
+     HERO — DJ BOOTH
+  ============================================================ */
+  #hero {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  /* Radial glow behind booth */
+  #hero::before {
+    content: '';
+    position: absolute;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(1,116,243,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: pulse-glow 4s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
+
+  @keyframes pulse-glow {
+    from { transform: scale(0.95); opacity: 0.6; }
+    to   { transform: scale(1.05); opacity: 1; }
+  }
+
+  /* DJ Ring */
+  .dj-ring {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    margin-bottom: 2.5rem;
+    flex-shrink: 0;
+  }
+
+  .dj-ring-outer {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 2px solid rgba(1,116,243,0.4);
+    animation: ring-spin 12s linear infinite;
+    box-shadow: 0 0 30px rgba(1,116,243,0.3), inset 0 0 30px rgba(1,116,243,0.1);
+  }
+
+  .dj-ring-outer::before {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: var(--blue);
+    border-radius: 50%;
+    top: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 12px var(--blue), 0 0 24px var(--blue);
+  }
+
+  @keyframes ring-spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  .dj-ring-inner {
+    position: absolute;
+    inset: 20px;
+    border-radius: 50%;
+    border: 1px solid rgba(1,116,243,0.2);
+    animation: ring-spin 8s linear infinite reverse;
+  }
+
+  .dj-ring-center {
+    position: absolute;
+    inset: 50px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(1,116,243,0.15) 0%, transparent 70%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--cinzel);
+    font-size: 0.5rem;
+    letter-spacing: 0.3em;
+    color: var(--sky);
+    opacity: 0.7;
+  }
+
+  /* Visualizer bars */
+  .visualizer {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 4px;
+    height: 60px;
+    margin-bottom: 2.5rem;
+  }
+
+  .viz-bar {
+    width: 4px;
+    border-radius: 2px 2px 0 0;
+    background: linear-gradient(to top, var(--blue-deep), var(--blue), var(--sky));
+    animation: viz-pulse var(--dur, 1.2s) ease-in-out infinite alternate;
+    animation-delay: var(--delay, 0s);
+    transform-origin: bottom;
+  }
+
+  @keyframes viz-pulse {
+    from { height: 4px;  opacity: 0.4; }
+    to   { height: var(--peak, 40px); opacity: 1; }
+  }
+
+  /* Hero text */
+  .hero-eyebrow {
+    font-family: var(--cinzel);
+    font-size: 0.6rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 0.8rem;
+    opacity: 0.85;
+  }
+
+  .hero-title {
+    font-family: var(--cinzel);
+    font-size: clamp(2rem, 6vw, 4rem);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: 0.02em;
+    background: linear-gradient(135deg, var(--white) 30%, var(--sky) 70%, var(--blue) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+  }
+
+  .hero-sub {
+    font-family: var(--spectral);
+    font-style: italic;
+    font-size: clamp(0.95rem, 2vw, 1.15rem);
+    color: rgba(240,244,255,0.5);
+    margin-bottom: 3rem;
+    max-width: 420px;
+  }
+
+  /* District nav pills */
+  .district-pills {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .district-pill {
+    font-family: var(--cinzel);
+    font-size: 0.58rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.7rem 1.4rem;
+    border-radius: 2px;
+    border: 1px solid rgba(1,116,243,0.4);
+    background: rgba(1,116,243,0.08);
+    color: var(--sky);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .district-pill:hover,
+  .district-pill.active {
+    background: rgba(1,116,243,0.2);
+    border-color: var(--blue);
+    color: var(--white);
+    box-shadow: 0 0 20px rgba(1,116,243,0.3);
+  }
+
+  /* ============================================================
+     DISTRICT SECTIONS
+  ============================================================ */
+  .district-section {
+    position: relative;
+    z-index: 1;
+    padding: 7rem 2rem 5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* District lighting overlays */
+  .district-section::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 300px;
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0.06;
+    filter: blur(80px);
+  }
+
+  #memory-lanterns::before  { background: var(--amber); }
+  #daylight-district::before { background: var(--sky); }
+  #c4-territory::before     { background: var(--electric); }
+
+  /* Section header */
+  .section-label {
+    font-family: var(--cinzel);
+    font-size: 0.58rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+
+  #memory-lanterns  .section-label { color: var(--amber); }
+  #daylight-district .section-label { color: var(--sky); }
+  #c4-territory     .section-label { color: var(--electric); }
+
+  .section-title {
+    font-family: var(--cinzel);
+    font-size: clamp(1.6rem, 4vw, 2.6rem);
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    line-height: 1.15;
+  }
+
+  .section-desc {
+    font-family: var(--spectral);
+    font-style: italic;
+    font-size: 1rem;
+    color: rgba(240,244,255,0.5);
+    max-width: 500px;
+    margin-bottom: 3rem;
+    line-height: 1.7;
+  }
+
+  /* Playlist wall */
+  .playlist-wall {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+
+  .playlist-card {
+    position: relative;
+    border-radius: 4px;
+    padding: 1.5rem;
+    background: var(--dim);
+    border: 1px solid rgba(255,255,255,0.06);
+    transition: var(--transition);
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .playlist-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  #memory-lanterns  .playlist-card::before { background: linear-gradient(135deg, rgba(245,166,35,0.08), transparent); }
+  #daylight-district .playlist-card::before { background: linear-gradient(135deg, rgba(184,220,255,0.08), transparent); }
+  #c4-territory     .playlist-card::before { background: linear-gradient(135deg, rgba(255,45,85,0.08), transparent); }
+
+  .playlist-card:hover { transform: translateY(-3px); border-color: rgba(255,255,255,0.15); }
+  .playlist-card:hover::before { opacity: 1; }
+
+  .card-icon {
+    font-size: 1.4rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .card-title {
+    font-family: var(--cinzel);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--white);
+  }
+
+  .card-meta {
+    font-family: var(--spectral);
+    font-size: 0.78rem;
+    color: rgba(240,244,255,0.4);
+    font-style: italic;
+  }
+
+  .card-link {
+    display: inline-block;
+    margin-top: 0.8rem;
+    font-family: var(--cinzel);
+    font-size: 0.55rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.9rem;
+    border-radius: 2px;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: var(--sky);
+    transition: all 0.3s;
+    align-self: flex-start;
+  }
+
+  .card-link:hover {
+    background: rgba(1,116,243,0.2);
+    border-color: var(--blue);
+    color: var(--white);
+  }
+
+  /* Pulse dot — live energy indicator */
+  .live-dot {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--cinzel);
+    font-size: 0.52rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(240,244,255,0.35);
+    margin-bottom: 2rem;
+  }
+
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    animation: dot-pulse 2s ease-in-out infinite;
+  }
+
+  #memory-lanterns  .dot { background: var(--amber); box-shadow: 0 0 8px var(--amber); }
+  #daylight-district .dot { background: var(--sky);   box-shadow: 0 0 8px var(--sky); }
+  #c4-territory     .dot { background: var(--electric); box-shadow: 0 0 8px var(--electric); }
+
+  @keyframes dot-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.3; transform: scale(0.7); }
+  }
+
+  /* Divider */
+  .district-divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(1,116,243,0.2), transparent);
+    margin: 0 auto;
+    max-width: 1100px;
+  }
+
+  /* ============================================================
+     INFLUENCES WALL
+  ============================================================ */
+  #influences {
+    position: relative;
+    z-index: 1;
+    padding: 7rem 2rem 5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .influences-title {
+    font-family: var(--cinzel);
+    font-size: clamp(1rem, 3vw, 1.4rem);
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(240,244,255,0.3);
+    margin-bottom: 3rem;
+  }
+
+  .influence-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .influence-tag {
+    font-family: var(--cinzel);
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    padding: 0.6rem 1.2rem;
+    border: 1px solid rgba(1,116,243,0.25);
+    color: var(--sky);
+    border-radius: 2px;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+  }
+
+  .influence-tag:hover { opacity: 1; }
+
+  .influence-name {
+    font-family: var(--cinzel);
+    font-size: clamp(2rem, 7vw, 5rem);
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    background: linear-gradient(135deg, rgba(240,244,255,0.15) 0%, rgba(1,116,243,0.5) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+  }
+
+  /* ============================================================
+     FOOTER
+  ============================================================ */
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 4rem 2rem;
+    border-top: 1px solid rgba(1,116,243,0.1);
+  }
+
+  .footer-brand {
+    font-family: var(--cinzel);
+    font-size: 0.6rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: rgba(240,244,255,0.25);
+    margin-bottom: 0.8rem;
+  }
+
+  .footer-tagline {
+    font-family: var(--spectral);
+    font-style: italic;
+    font-size: 0.85rem;
+    color: rgba(240,244,255,0.2);
+    margin-bottom: 1.5rem;
+  }
+
+  .footer-back {
+    font-family: var(--cinzel);
+    font-size: 0.55rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--blue);
+    opacity: 0.6;
+    transition: opacity 0.3s;
+    cursor: pointer;
+  }
+
+  .footer-back:hover { opacity: 1; }
+
+  /* ============================================================
+     RESPONSIVE
+  ============================================================ */
+  @media (max-width: 640px) {
+    nav { padding: 1rem 1.2rem; }
+    .nav-links { gap: 1.2rem; }
+    .dj-ring { width: 160px; height: 160px; }
+    .dj-ring-center { inset: 38px; font-size: 0.42rem; }
+    .district-pills { gap: 0.6rem; }
+    .district-pill { font-size: 0.52rem; padding: 0.6rem 1rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Particle canvas -->
+<canvas id="particle-canvas"></canvas>
+
+<!-- Nav -->
+<nav>
+  <div class="nav-brand">INKSPIRATIONS Studios</div>
+  <ul class="nav-links">
+    <li><a onclick="scrollTo('memory-lanterns')">Memory Lanterns</a></li>
+    <li><a onclick="scrollTo('daylight-district')">Daylight</a></li>
+    <li><a onclick="scrollTo('c4-territory')">C4</a></li>
+  </ul>
+</nav>
+
+<!-- ============================================================
+     HERO
+============================================================ -->
+<section id="hero">
+
+  <!-- DJ Ring -->
+  <div class="dj-ring">
+    <div class="dj-ring-outer"></div>
+    <div class="dj-ring-inner"></div>
+    <div class="dj-ring-center">BOOTH</div>
+  </div>
+
+  <!-- Visualizer -->
+  <div class="visualizer" id="visualizer"></div>
+
+  <div class="hero-eyebrow">Music Room — INKSPIRATIONS Studios</div>
+  <h1 class="hero-title">You Are<br/>In The Booth.</h1>
+  <p class="hero-sub">Three districts. One frequency. Infinite depth.</p>
+
+  <div class="district-pills">
+    <div class="district-pill active" onclick="scrollTo('memory-lanterns')">Memory Lanterns</div>
+    <div class="district-pill" onclick="scrollTo('daylight-district')">Daylight District</div>
+    <div class="district-pill" onclick="scrollTo('c4-territory')">C4 Territory</div>
+  </div>
+
+</section>
+
+<!-- ============================================================
+     MEMORY LANTERNS
+============================================================ -->
+<div class="district-divider"></div>
+<section class="district-section" id="memory-lanterns">
+
+  <div class="section-label">District 01</div>
+  <h2 class="section-title">Memory Lanterns</h2>
+  <p class="section-desc">Songs that carry weight. Music that knows where you've been and still walks with you.</p>
+  <div class="live-dot"><span class="dot"></span>Emotional Depth — Reflective</div>
+
+  <div class="playlist-wall">
+    <div class="playlist-card">
+      <div class="card-icon">🏮</div>
+      <div class="card-title">Melodic House Depths</div>
+      <div class="card-meta">YOTTO · Long-form journeys</div>
+      <a class="card-link" href="https://music.apple.com" target="_blank">Open on Apple Music ↗</a>
+    </div>
+    <div class="playlist-card">
+      <div class="card-icon">🌊</div>
+      <div class="card-title">Progressive Tides</div>
+      <div class="card-meta">Late night · Slow builds</div>
+      <a class="card-link" href="https://music.apple.com" target="_blank">Open on Apple Music ↗</a>
+    </div>
+    <div class="playlist-card">
+      <div class="card-icon">🕯️</div>
+      <div class="card-title">When It Hits</div>
+      <div class="card-meta">Moments · Memory anchors</div>
+      <a class="card-link" href="https://music.apple.com" target="_blank">Open on Apple Music ↗</a>
+    </div>
+  </div>
+
+</section>
+
+<!-- ============================================================
+     DAYLIGHT DISTRICT
+============================================================ -->
+<div class="district-divider"></div>
+<section class="district-section" id="daylight-district">
+
+  <div class="section-label">District 02</div>
+  <h2 class="section-title">Daylight District</h2>
+  <p class="section-desc">Open windows. Clear skies. Music that makes the work feel effortless.</p>
+  <div class="live-dot"><span class="dot"></span>Uplifting Energy — Creative Flow</div>
+
+  <div class="playlist-wall">
+    <div class="playlist-card">
+      <div class="card-icon">☀️</div>
+      <div class="card-title">Bossa Nova Morning</div>
+      <div class="card-meta">Smooth · Warm · Moving</div>
+      <a class="card-link" href="https://music.apple.com/album/1476151305" target="_blank">Open on Apple Music ↗</a>
+    </div>
+    <div class="playlist-card">
+      <div class="card-icon">🎵</div>
+      <div class="card-title">Daylight Sessions</div>
+      <div class="card-meta">Flow state · Studio ready</div>
+      <a class="card-link" href="https://music.apple.com/album/1524084230" target="_blank">Open on Apple Music ↗</a>
+    </div>
+    <div class="playlist-card">
+      <div class="card-icon">🌤️</div>
+      <div class="card-title">Beatstrumentals</div>
+      <div class="card-meta">Instrumental · Ink fuel</div>
+      <a class="card-link" href="https://music.apple.com/playlist/pl.f54198ad42404535be13eabf3835fb22" target="_blank">Open on Apple Music ↗</a>
+    </div>
+  </div>
+
+</section>
+
+<!-- ============================================================
+     C4 TERRITORY
+============================================================ -->
+<div class="district-divider"></div>
+<section class="district-section" id="c4-territory">
+
+  <div class="section-label">District 03</div>
+  <h2 class="section-title">C4 Territory</h2>
+  <p class="section-desc">Maximum energy. Controlled detonation. Music that doesn't ask permission.</p>
+  <div class="live-dot"><span class="dot"></span>High Energy — Adrenaline</div>
+
+  <div class="playlist-wall">
+    <div class="playlist-card">
+      <div class="card-icon">⚡</div>
+      <div class="card-title">Melodic Techno Drive</div>
+      <div class="card-meta">YOTTO · Peak hours</div>
+      <a class="card-link" href="https://music.apple.com" target="_blank">Open on Apple Music ↗</a>
+    </div>
+    <div class="playlist-card">
+      <div class="card-icon">🔴</div>
+      <div class="card-title">The Red Zone</div>
+      <div class="card-meta">No brakes · Full speed</div>
+      <a class="card-link" href="https://music.apple.com" target="_blank">Open on Apple Music ↗</a>
+    </div>
+    <div class="playlist-card">
+      <div class="card-icon">💣</div>
+      <div class="card-title">Detonation Set</div>
+      <div class="card-meta">When the ink runs electric</div>
+      <a class="card-link" href="https://music.apple.com" target="_blank">Open on Apple Music ↗</a>
+    </div>
+  </div>
+
+</section>
+
+<!-- ============================================================
+     INFLUENCES
+============================================================ -->
+<div class="district-divider"></div>
+<section id="influences">
+
+  <div class="influences-title">Sonic Blueprint</div>
+  <div class="influence-name">YOTTO</div>
+  <div class="influence-grid">
+    <div class="influence-tag">Melodic House</div>
+    <div class="influence-tag">Progressive House</div>
+    <div class="influence-tag">Melodic Techno</div>
+    <div class="influence-tag">Long Sets</div>
+    <div class="influence-tag">Emotional Builds</div>
+    <div class="influence-tag">Dark Atmospherics</div>
+    <div class="influence-tag">Dance Floor Poetry</div>
+  </div>
+
+</section>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer>
+  <div class="footer-brand">INKSPIRATIONS Studios</div>
+  <div class="footer-tagline">"A Little Ink. A Lot Of Soul. The Color Blue."</div>
+  <div class="footer-back" onclick="window.location.href='index.html'">← Return to the Ocean of Ink</div>
+</footer>
+
+<!-- ============================================================
+     SCRIPTS
+============================================================ -->
+<script>
+/* ---- Smooth scroll ---- */
+function scrollTo(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+/* ---- Visualizer bars ---- */
+(function buildVisualizer() {
+  const viz = document.getElementById('visualizer');
+  const count = 28;
+  const peaks = [8,14,20,28,36,44,50,54,56,58,56,52,48,44,42,44,48,52,56,58,56,54,50,44,36,28,20,12];
+  const durs  = [1.1,1.3,0.9,1.4,1.0,1.2,0.8,1.5,1.1,1.3,0.9,1.2,1.4,1.0,1.1,0.9,1.3,1.0,1.2,0.8,1.4,1.1,1.0,1.3,0.9,1.2,1.0,1.4];
+  for (let i = 0; i < count; i++) {
+    const bar = document.createElement('div');
+    bar.className = 'viz-bar';
+    bar.style.setProperty('--peak',  (peaks[i] || 30) + 'px');
+    bar.style.setProperty('--dur',   (durs[i]  || 1.2) + 's');
+    bar.style.setProperty('--delay', (i * 0.04) + 's');
+    viz.appendChild(bar);
+  }
+})();
+
+/* ---- Particle system ---- */
+(function initParticles() {
+  const canvas = document.getElementById('particle-canvas');
+  const ctx    = canvas.getContext('2d');
+  let W, H, particles = [];
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function rand(min, max) { return min + Math.random() * (max - min); }
+
+  const BLUE = '1,116,243';
+
+  function Particle() {
+    this.reset = function() {
+      this.x    = rand(0, W);
+      this.y    = rand(0, H);
+      this.r    = rand(0.5, 2.2);
+      this.vx   = rand(-0.18, 0.18);
+      this.vy   = rand(-0.22, -0.05);
+      this.life = rand(0.3, 1);
+      this.fade = rand(0.002, 0.006);
+    };
+    this.reset();
+    // scatter initial y so not all start at bottom
+    this.y = rand(0, H);
+    this.life = rand(0.1, 1);
+  }
+
+  for (let i = 0; i < 120; i++) particles.push(new Particle());
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    particles.forEach(p => {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${BLUE},${p.life.toFixed(2)})`;
+      ctx.fill();
+      p.x    += p.vx;
+      p.y    += p.vy;
+      p.life -= p.fade;
+      if (p.life <= 0 || p.y < -10) p.reset();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ---- District pill active state on scroll ---- */
+(function trackScroll() {
+  const sections = ['memory-lanterns','daylight-district','c4-territory'];
+  const pills    = document.querySelectorAll('.district-pill');
+  window.addEventListener('scroll', () => {
+    let current = -1;
+    sections.forEach((id, i) => {
+      const el = document.getElementById(id);
+      if (el && window.scrollY >= el.offsetTop - 200) current = i;
+    });
+    pills.forEach((p, i) => {
+      p.classList.toggle('active', i === current);
+    });
+  }, { passive: true });
+})();
+</script>
+</body>
+</html>
