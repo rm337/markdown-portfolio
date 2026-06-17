@@ -476,6 +476,7 @@ const works = [
   {type:"Ink Study",title:"Cobalt Drift",desc:"A blue movement study for the gallery foundation."},
   {type:"Digital Tool",title:"Fluid Soul Brushes",desc:"A brush set built from texture, flow, and luminous mark making."},
   {type:"Interactive Tool",title:"BeatForge Studio",desc:"A browser music maker with channel rack, playlist, automation, pads, mixer controls, effects, and visualizer."},
+  {type:"Immersive Performance",title:"Flight Deck",desc:"An animated DJ cockpit with vinyl mixing, radar visuals, ocean fog, and melodic techno navigation."},
   {type:"Immersive World",title:"Ocean Of Ink",desc:"A splash-world of blue light, code fragments, particles, and breathing ink motion."},
   {type:"Typography",title:"Bleedthrough",desc:"Fluid Soul lettering where the word becomes the feeling."},
   {type:"Burned Wood",title:"Burned Motion I",desc:"Pyrography on wood with aggressive texture and cinematic movement."},
@@ -489,6 +490,7 @@ const rooms = [
   {name:"Rain",line:"Soft focus, slow thoughts, first sentences.",reply:"Rain is best for starting. Choose one image, one memory, and one line. Let the first version be quiet."},
   {name:"Ocean",line:"Longer attention, wider blue, patient motion.",reply:"Ocean is best for browsing the portfolio. Move through the work slowly and notice which piece keeps calling you back."},
   {name:"Beat Lab",line:"Rhythm, pattern, pressure, and play.",reply:"Beat Lab opens BeatForge Studio: a room for making rhythm before the words arrive.",href:"beats.html"},
+  {name:"Flight Deck",line:"Vinyl, altitude, radar, and melodic-techno navigation.",reply:"Flight Deck opens the DJ cockpit: the performer pilots the room with records, signals, and motion.",href:"flight-deck.html"},
   {name:"Cafe",line:"Warmth, conversation, a table by the window.",reply:"Cafe is best for commissions. Bring the mood, the colors, and the story. The piece can grow from there."},
   {name:"Blue Hour",line:"A cinematic pause between day and night.",reply:"Blue Hour is best for print selection. Look for the piece that feels like it already belongs in the room."},
   {name:"Silent",line:"Less language, more looking.",reply:"Silent says: stay with the mark."}
@@ -511,6 +513,7 @@ const agents = [
       purchase:"Paid digital files are delivered privately after purchase. They are not public downloads.",
       commission:"Commissions and originals start at $150 and scale by size, detail, medium, deadline, and usage.",
       beatforge:"BeatForge Studio is a free playable browser music maker with a channel rack, playlist, automation section, pads, mixer, effects, and visualizer.",
+      flight:"Flight Deck is the animated DJ cockpit: spinning vinyl, moving hands, radar, altitude, fog, bubbles, and melodic techno navigation.",
       fluid:"Fluid Soul Mini Brush Set is a $9 expressive digital brush product. Use the purchase/inquiry button so delivery happens privately.",
       ocean:"Ocean of Ink is the immersive blue world layer of the studio: light, motion, bubbles, and atmosphere."
     }
@@ -618,6 +621,7 @@ function getAgentReply(text){
   if(q.includes("email") || q.includes("reply")) return answers.brush || answers.commission || answers.default;
   if(q.includes("seo") || q.includes("keyword")) return answers.homepage || answers.product || answers.default;
   if(q.includes("fluid") || q.includes("brush")) return answers.fluid || answers.explain || answers.default;
+  if(q.includes("flight") || q.includes("dj") || q.includes("deck")) return answers.flight || answers.default;
   if(q.includes("beat") || q.includes("forge") || q.includes("music")) return answers.beat || answers.beatforge || answers.default;
   if(q.includes("trap")) return answers.trap || answers.default;
   if(q.includes("ambient")) return answers.ambient || answers.default;

@@ -60,6 +60,11 @@ canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
 .song-card:nth-child(2){animation-delay:-1.7s}.song-card:nth-child(3){animation-delay:-3.2s}
 .song-card strong{display:block;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);margin-bottom:.25rem}
 .song-card span{display:block;color:rgba(223,248,255,.68);font-family:Georgia,"Times New Roman",serif;font-style:italic}
+.zones{position:absolute;z-index:7;left:clamp(1rem,4vw,3rem);top:18%;display:grid;gap:.55rem;width:min(270px,30vw)}
+.zone{border-left:2px solid rgba(73,217,255,.45);background:rgba(6,14,28,.5);backdrop-filter:blur(14px);padding:.72rem .85rem;box-shadow:0 18px 42px rgba(0,0,0,.22)}
+.zone strong{display:block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ice)}
+.zone span{display:block;margin-top:.18rem;color:rgba(223,248,255,.58);font-size:.86rem;line-height:1.35}
+.bubble{position:absolute;z-index:3;left:var(--x);bottom:-9vh;width:var(--s);height:var(--s);border-radius:50%;border:1px solid rgba(223,248,255,.55);background:rgba(73,217,255,.12);box-shadow:0 0 14px rgba(73,217,255,.5);opacity:0;animation:bubbleRise var(--d) linear infinite;animation-delay:var(--delay);pointer-events:none}
 .performance{position:relative;z-index:8;width:min(1120px,96vw);height:min(680px,78vh);min-height:520px;display:grid;place-items:end center}
 .dj{position:absolute;z-index:5;left:50%;bottom:240px;width:260px;height:350px;transform:translateX(-50%);animation:bodyGroove 1.45s ease-in-out infinite}
 .head{position:absolute;left:50%;top:0;width:88px;height:102px;transform:translateX(-50%);border-radius:44% 44% 48% 48%;background:linear-gradient(180deg,#d9a47a,#8f5d44);box-shadow:inset -12px -16px 22px rgba(0,0,0,.22)}
@@ -88,6 +93,8 @@ canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
 .vinyl::after{content:"";position:absolute;left:50%;top:18px;width:2px;height:46px;background:rgba(223,248,255,.45);transform-origin:50% 92px}
 .tonearm{position:absolute;right:12%;top:18%;width:88px;height:8px;border-radius:8px;background:#c5d6e9;transform-origin:82px 50%;transform:rotate(24deg);box-shadow:0 0 10px rgba(223,248,255,.38)}
 .tonearm::after{content:"";position:absolute;left:-12px;top:-5px;width:20px;height:18px;border-radius:3px;background:#1b2434}
+.cue-light{position:absolute;left:15%;bottom:16%;width:14px;height:14px;border-radius:50%;background:var(--green);box-shadow:0 0 18px var(--green);animation:cuePulse 2.9s ease-in-out infinite}
+.scratch-label{position:absolute;right:12%;bottom:12%;font-size:.62rem;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:rgba(223,248,255,.42);animation:scratchFlash 6.4s ease-in-out infinite}
 .mixer{padding:1rem;display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;align-items:end}
 .channel-strip{display:grid;justify-items:center;gap:.55rem}
 .knobs{display:grid;gap:.35rem}
@@ -117,11 +124,14 @@ canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
 @keyframes eqBounce{0%,100%{height:20px}50%{height:var(--h)}}
 @keyframes pulseGlow{0%,100%{opacity:.5}50%{opacity:1}}
 @keyframes floatCard{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes bubbleRise{0%{transform:translate3d(0,0,0) scale(.7);opacity:0}12%{opacity:.55}80%{opacity:.32}100%{transform:translate3d(var(--sway),-108vh,0) scale(1.2);opacity:0}}
+@keyframes cuePulse{0%,100%{opacity:.35;transform:scale(.8)}50%{opacity:1;transform:scale(1.18)}}
+@keyframes scratchFlash{0%,60%,100%{opacity:.18}64%,72%{opacity:.75}}
 @media(max-width:900px){
   body{overflow:auto}
   .flight-deck{min-height:1050px}
   .top-hud{position:fixed}
-  .song-cards,.radar{display:none}
+  .song-cards,.radar,.zones{display:none}
   .performance{height:700px;min-height:700px;align-items:end}
   .dj{width:210px;bottom:210px;transform:translateX(-50%) scale(.82)}
   .booth{height:245px;grid-template-columns:1fr 1.15fr 1fr;padding:.75rem;gap:.45rem}
@@ -151,6 +161,12 @@ canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
     <div class="song-card"><strong>Navigation</strong><span>Melody locked. Destination unknown.</span></div>
     <div class="song-card"><strong>Discovery</strong><span>Signal found in the low end.</span></div>
   </aside>
+  <aside class="zones" aria-label="Flight Deck environment zones">
+    <div class="zone"><strong>Memory Lanterns</strong><span>Warm signals from tracks that feel half remembered.</span></div>
+    <div class="zone"><strong>Daylight District</strong><span>Cyan haze breaking over the booth like morning over water.</span></div>
+    <div class="zone"><strong>C4 Territory</strong><span>The pressure zone: gain, EQ, crossfader, and low-end navigation.</span></div>
+    <div class="zone"><strong>Ocean Current</strong><span>Deep blue motion under the records, carrying the whole room forward.</span></div>
+  </aside>
   <aside class="radar" aria-label="Radar display"><i class="blip a"></i><i class="blip b"></i><i class="blip c"></i></aside>
   <section class="stage" aria-label="Animated DJ Flight Deck performance">
     <div class="performance">
@@ -170,11 +186,15 @@ canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
         <div class="turntable">
           <div class="platter"><div class="vinyl"></div></div>
           <div class="tonearm"></div>
+          <div class="cue-light"></div>
+          <div class="scratch-label">Cue / Scratch</div>
         </div>
         <div class="mixer" id="mixer"></div>
         <div class="turntable">
           <div class="platter" style="animation-duration:.82s"><div class="vinyl"></div></div>
           <div class="tonearm" style="left:12%;right:auto;transform:rotate(156deg)"></div>
+          <div class="cue-light" style="left:auto;right:15%;animation-delay:-1.4s"></div>
+          <div class="scratch-label" style="right:auto;left:12%;animation-delay:-2.1s">Gain / Cue</div>
         </div>
       </div>
     </div>
@@ -190,6 +210,16 @@ canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
   const bpmRead = document.getElementById("bpm");
   let width = 0, height = 0, tick = 0;
   const particles = Array.from({length:170},()=>({x:Math.random(),y:Math.random(),z:.2+Math.random(),r:.5+Math.random()*2,s:.15+Math.random()*1.2}));
+  for(let i=0;i<58;i++){
+    const bubble = document.createElement("i");
+    bubble.className = "bubble";
+    bubble.style.setProperty("--x", `${Math.random()*100}%`);
+    bubble.style.setProperty("--s", `${3+Math.random()*8}px`);
+    bubble.style.setProperty("--d", `${9+Math.random()*15}s`);
+    bubble.style.setProperty("--delay", `${Math.random()*-22}s`);
+    bubble.style.setProperty("--sway", `${Math.random()*160-80}px`);
+    document.querySelector(".flight-deck").appendChild(bubble);
+  }
   for(let i=0;i<28;i++){
     const bar = document.createElement("span");
     bar.style.setProperty("--h",`${24+Math.random()*62}px`);
