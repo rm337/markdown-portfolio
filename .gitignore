@@ -1,0 +1,18 @@
+# Private / paid digital products
+*.brushset
+*.brush
+*.zip
+*.psd
+*.procreate
+
+# Local-only working files
+working-copies/
+studio-agents-private.html
+Inkspirations-private/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+desktop.ini
+*.tmp
+*.bak
