@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Merch Concept Foundry | Inkspirations Studios</title>
+<meta name="description" content="A creative command room for developing Inkspirations Studios custom work, T-shirt ideas, Robertisms, product concepts, and future merch collections.">
+<link rel="stylesheet" href="rooms.css">
+<style>
+*{box-sizing:border-box}
+:root{
+  --ink:#050711;
+  --deep:#071427;
+  --azure:#0174F3;
+  --cyan:#56d9ff;
+  --paper:#f5efe5;
+  --mint:#83f3ba;
+  --amber:#ffb45c;
+  --coral:#f28a6b;
+  --white:#f8fbff;
+  --soft:rgba(248,251,255,.74);
+  --muted:rgba(248,251,255,.5);
+  --line:rgba(248,251,255,.15);
+  --panel:rgba(6,14,28,.74);
+  --shadow:0 28px 90px rgba(0,0,0,.4);
+}
+html,body{min-height:100%}
+body{margin:0;background:var(--ink);color:var(--white);font-family:Georgia,"Times New Roman",serif;line-height:1.55;overflow-x:hidden;padding-bottom:122px}
+body::before{content:"";position:fixed;inset:0;z-index:-3;background:
+  radial-gradient(circle at 18% 12%,rgba(86,217,255,.2),transparent 26%),
+  radial-gradient(circle at 72% 16%,rgba(1,116,243,.24),transparent 28%),
+  radial-gradient(circle at 82% 82%,rgba(255,180,92,.1),transparent 30%),
+  linear-gradient(160deg,#050711 0%,#071427 54%,#02040a 100%)}
+body::after{content:"";position:fixed;inset:0;z-index:-2;opacity:.2;background-image:
+  linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:76px 76px;mask-image:linear-gradient(to bottom,black,transparent 72%)}
+button,input,select,textarea{font:inherit}
+a{color:inherit}
+.foundry-atmosphere{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.foundry-note{position:absolute;left:var(--x);top:var(--y);width:var(--s);height:var(--s);border:1px solid rgba(248,251,255,.18);background:rgba(86,217,255,.08);box-shadow:0 0 24px rgba(1,116,243,.28);transform:rotate(var(--r));animation:drift var(--d) ease-in-out infinite alternate}
+.foundry-spark{position:absolute;left:var(--x);bottom:-10vh;width:var(--s);height:var(--s);border-radius:50%;background:rgba(248,251,255,.58);box-shadow:0 0 14px rgba(86,217,255,.58);opacity:0;animation:rise var(--d) linear infinite;animation-delay:var(--delay)}
+.shell{position:relative;z-index:2;padding:5rem clamp(1rem,4vw,3rem) 2rem}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.45fr);gap:clamp(1.5rem,4vw,3rem);align-items:end;margin-bottom:1.25rem}
+.kicker,.status,.btn,.field label,.pill,.idea-card small,.board-card small,.protocol{font-family:Arial,sans-serif;font-weight:900;letter-spacing:.13em;text-transform:uppercase}
+.kicker{font-size:.72rem;color:var(--cyan);margin:0 0 .8rem}
+h1,h2,h3,p{margin-top:0}
+h1{font-size:clamp(3rem,7.6vw,6.8rem);line-height:.9;margin-bottom:1rem}
+.hero-copy{max-width:860px;color:var(--soft);font-size:clamp(1.08rem,2vw,1.34rem)}
+.mission{border:1px solid var(--line);background:var(--panel);padding:1rem;box-shadow:var(--shadow)}
+.mission strong{display:block;color:var(--paper);margin-bottom:.35rem}
+.mission p{color:var(--soft);margin:0}
+.foundry-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(320px,.62fr);gap:1rem;align-items:start}
+.panel{border:1px solid var(--line);background:rgba(6,14,28,.72);box-shadow:var(--shadow);backdrop-filter:blur(16px)}
+.panel-head{display:flex;justify-content:space-between;gap:1rem;align-items:end;padding:1rem;border-bottom:1px solid var(--line)}
+.panel-head h2{font-size:1.55rem;margin:0}
+.filters{display:flex;gap:.5rem;flex-wrap:wrap;padding:1rem;border-bottom:1px solid var(--line)}
+.field{display:grid;gap:.3rem}
+.field label{font-size:.62rem;color:var(--paper)}
+.field select{min-height:38px;border:1px solid var(--line);background:rgba(255,255,255,.07);color:var(--white);padding:.55rem .65rem}
+.field select:focus,.btn:focus,.idea-card:focus{outline:2px solid rgba(86,217,255,.68);outline-offset:2px}
+.field option{background:#071427;color:var(--white)}
+.intake-wall{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem;padding:1rem}
+.idea-card{min-height:218px;text-align:left;color:var(--white);border:1px solid var(--line);background:
+  radial-gradient(circle at 32% 18%,color-mix(in srgb,var(--accent,var(--cyan)) 30%,transparent),transparent 30%),
+  linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.025));padding:1rem;display:flex;flex-direction:column;cursor:pointer}
+.idea-card:hover,.idea-card.active{border-color:var(--accent,var(--cyan));transform:translateY(-2px)}
+.idea-card small{font-size:.6rem;color:var(--accent,var(--cyan))}
+.idea-card h3{font-size:1.28rem;line-height:1.08;margin:.5rem 0 .35rem}
+.idea-card p{color:var(--soft);margin:0 0 .85rem}
+.card-meta{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:auto}
+.status,.pill,.protocol{display:inline-flex;align-items:center;min-height:26px;padding:.34rem .48rem;border:1px solid var(--line);background:rgba(255,255,255,.045);font-size:.58rem;color:var(--muted)}
+.status{color:var(--paper)}
+.detail{position:sticky;top:1rem}
+.detail-body{padding:1rem;display:grid;gap:1rem}
+.spark-box{border:1px solid rgba(86,217,255,.28);background:rgba(1,116,243,.12);padding:1rem}
+.spark-box strong{display:block;color:var(--paper);margin-bottom:.35rem}
+.spark-box p{color:var(--soft);margin:0}
+.detail-grid{display:grid;gap:.75rem}
+.detail-item{border-left:2px solid var(--accent,var(--cyan));padding-left:.85rem}
+.detail-item strong{display:block;color:var(--paper);margin-bottom:.2rem}
+.detail-item p{color:var(--soft);margin:0}
+.actions{display:flex;gap:.6rem;flex-wrap:wrap}
+.btn{min-height:42px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--white);padding:.72rem .85rem;font-size:.65rem;cursor:pointer}
+.btn.primary{background:var(--azure);border-color:rgba(86,217,255,.45)}
+.btn:hover{border-color:rgba(86,217,255,.72);transform:translateY(-1px)}
+.message{color:var(--mint);min-height:1.35rem;margin:0}
+.section-row{margin-top:1rem;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}
+.board-card{border:1px solid var(--line);background:rgba(6,14,28,.68);padding:1rem;min-height:250px}
+.board-card small{display:block;font-size:.6rem;color:var(--cyan);margin-bottom:.65rem}
+.shirt-list,.archive-list,.custom-list,.protocol-list{display:grid;gap:.6rem;padding:0;margin:0;list-style:none;color:var(--soft)}
+.shirt-list li,.archive-list li,.custom-list li,.protocol-list li{border-left:2px solid rgba(86,217,255,.35);padding-left:.75rem}
+.score{color:var(--paper);font-family:Arial,sans-serif;font-size:.74rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
+.protocol-list strong{color:var(--paper)}
+@keyframes rise{0%{transform:translate3d(0,0,0) scale(.6);opacity:0}12%{opacity:.5}78%{opacity:.34}100%{transform:translate3d(var(--sway),-116vh,0) scale(1.15);opacity:0}}
+@keyframes drift{from{transform:translateY(-8px) rotate(var(--r));opacity:.3}to{transform:translateY(10px) rotate(calc(var(--r) + 6deg));opacity:.75}}
+@media(max-width:1120px){
+  .hero,.foundry-grid{grid-template-columns:1fr}
+  .detail{position:static}
+  .section-row{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:700px){
+  body{padding-bottom:190px}
+  .shell{padding-top:3rem}
+  .intake-wall,.section-row{grid-template-columns:1fr}
+  .filters{display:grid}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}
+  .foundry-atmosphere{display:none}
+}
+</style>
+</head>
+<body data-room-id="merch-concept-foundry">
+<div class="foundry-atmosphere" id="foundryAtmosphere" aria-hidden="true"></div>
+<div data-room-nav></div>
+<main class="shell">
+  <header class="hero">
+    <div>
+      <p class="kicker">Creative Room / Merch Concept Foundry</p>
+      <h1>Where chaotic ideas become candidates.</h1>
+      <p class="hero-copy">A command room for developing custom work, T-shirt ideas, Robertisms, product concepts, and future merch collections before they become public products.</p>
+    </div>
+    <aside class="mission" aria-label="Foundry mission">
+      <strong>Not a store yet</strong>
+      <p>This is a creative foundry: part sketchbook, part workshop, part decision room. Ideas are forged here before they ever reach a product page.</p>
+    </aside>
+  </header>
+
+  <section class="foundry-grid">
+    <div class="panel">
+      <div class="panel-head">
+        <div>
+          <p class="kicker">Idea Intake Wall</p>
+          <h2>Raw ideas and product candidates</h2>
+        </div>
+        <span class="status" id="ideaCount">0 Ideas</span>
+      </div>
+      <div class="filters" aria-label="Idea filters">
+        <div class="field">
+          <label for="categoryFilter">Category</label>
+          <select id="categoryFilter"></select>
+        </div>
+        <div class="field">
+          <label for="statusFilter">Status</label>
+          <select id="statusFilter"></select>
+        </div>
+      </div>
+      <div class="intake-wall" id="ideaWall" aria-label="Merch concept idea cards"></div>
+    </div>
+
+    <aside class="panel detail" aria-live="polite">
+      <div class="panel-head">
+        <div>
+          <p class="kicker">Detail Panel</p>
+          <h2 id="detailTitle">Select an idea</h2>
+        </div>
+        <span class="status" id="detailStatus">Seed</span>
+      </div>
+      <div class="detail-body">
+        <div class="spark-box">
+          <strong>Idea Spark</strong>
+          <p id="sparkText">Press the spark button to surface one concept prompt.</p>
+        </div>
+        <div class="actions">
+          <button class="btn primary" type="button" id="sparkButton">Random Idea Spark</button>
+        </div>
+        <div class="detail-grid">
+          <div class="detail-item"><strong>Phrase</strong><p id="detailPhrase"></p></div>
+          <div class="detail-item"><strong>Notes</strong><p id="detailNotes"></p></div>
+          <div class="detail-item"><strong>Possible Product Type</strong><p id="detailProduct"></p></div>
+          <div class="detail-item"><strong>Review Labels</strong><p id="detailReviews"></p></div>
+        </div>
+        <div class="actions" aria-label="Product path actions">
+          <button class="btn" type="button" data-mark="Seed">Mark Seed</button>
+          <button class="btn" type="button" data-mark="Exploring">Mark Exploring</button>
+          <button class="btn" type="button" data-mark="Ready for Store">Mark Ready</button>
+          <button class="btn" type="button" data-mark="Archived">Archive</button>
+        </div>
+        <p class="message" id="actionMessage"></p>
+      </div>
+    </aside>
+  </section>
+
+  <section class="section-row" aria-label="Foundry boards">
+    <article class="board-card">
+      <small>T-Shirt Design Lab</small>
+      <ul class="shirt-list" id="shirtList"></ul>
+    </article>
+    <article class="board-card">
+      <small>Robertisms Archive</small>
+      <ul class="archive-list" id="archiveList"></ul>
+    </article>
+    <article class="board-card">
+      <small>Custom Work Board</small>
+      <ul class="custom-list">
+        <li>Custom shirts <span class="score">Seed</span></li>
+        <li>Custom art prints <span class="score">Worth Saving</span></li>
+        <li>Personalized quote designs <span class="score">Exploring</span></li>
+        <li>Music-inspired designs <span class="score">Exploring</span></li>
+        <li>Ocean of Ink themed products <span class="score">Ready for Mockup</span></li>
+        <li>Data Zoology themed products <span class="score">Worth Saving</span></li>
+      </ul>
+    </article>
+  </section>
+
+  <section class="section-row" aria-label="Review protocols and path system">
+    <article class="board-card">
+      <small>Product Path System</small>
+      <ul class="protocol-list">
+        <li>Seed</li>
+        <li>Worth Saving</li>
+        <li>Exploring</li>
+        <li>Designing</li>
+        <li>Ready for Mockup</li>
+        <li>Ready for Store</li>
+        <li>Archived</li>
+      </ul>
+    </article>
+    <article class="board-card">
+      <small>Review Protocols</small>
+      <ul class="protocol-list">
+        <li><strong>MVR:</strong> Merch Viability Review</li>
+        <li><strong>VJR:</strong> Visitor Journey Review</li>
+        <li><strong>QCP:</strong> Quality Control Protocol</li>
+        <li><strong>SBI:</strong> Seed Bank Index</li>
+      </ul>
+    </article>
+    <article class="board-card">
+      <small>Future Expansion</small>
+      <ul class="protocol-list">
+        <li>Mockup image slots</li>
+        <li>Print-on-demand integration</li>
+        <li>Merch viability scoring</li>
+        <li>AI-generated concept expansion</li>
+      </ul>
+    </article>
+  </section>
+</main>
+
+<script>
+(() => {
+  const categories = ["All","Robertisms","Tech Humor","Data Zoology","Music","Flight","Ocean of Ink","Creative Thinking","Custom Work"];
+  const statuses = ["All","Seed","Worth Saving","Exploring","Designing","Ready for Mockup","Ready for Store","Archived"];
+  const reviews = ["MVR","VJR","QCP","SBI"];
+  const ideas = [
+    {title:"All My PUPS Are On A Leash",phrase:"All My PUPS Are On A Leash",category:"Tech Humor",notes:"Tech phrase with controlled-chaos energy. Could become a minimal front phrase with a process-control badge.",status:"Exploring",product:"T-shirt / sticker",front:"Bold phrase, small leash-line motif",back:"Process control, but make it wearable.",visual:"Terminal-clean with cyan micro labels",audience:"Developers and automation people",humor:"High",wearability:82,reviews:["MVR","QCP"]},
+    {title:"FLITLE Deck",phrase:"FLITLE Deck",category:"Flight",notes:"Playful Flight Deck cousin. Keep it as an intentional studio oddity, not an accident.",status:"Seed",product:"Limited shirt / room badge",front:"FLITLE DECK",back:"Altitude uncertain. Signal beautiful.",visual:"Flight tag, radar line, tiny typo-glow",audience:"Flight Deck fans",humor:"Medium",wearability:68,reviews:["SBI"]},
+    {title:"Browser Wars",phrase:"Browser Wars",category:"Tech Humor",notes:"Broad tech joke with strong visual potential. Browser tabs, error codes, compatibility battle marks.",status:"Designing",product:"T-shirt / poster",front:"Browser Wars",back:"May the cached force be with you.",visual:"Layered browser-tab grid",audience:"Web builders and QA people",humor:"High",wearability:88,reviews:["MVR","QCP","VJR"]},
+    {title:"Cheese Burglar",phrase:"Cheese Burglar",category:"Creative Thinking",notes:"Absurd phrase with mascot potential. Needs tasteful restraint to avoid novelty overload.",status:"Worth Saving",product:"Sticker / casual tee",front:"Cheese Burglar",back:"No crumbs. No witnesses.",visual:"Sketch-card character placeholder",audience:"Odd humor people",humor:"Very high",wearability:70,reviews:["SBI","MVR"]},
+    {title:"Data Zoology Research Institute",phrase:"Data Zoology Research Institute",category:"Data Zoology",notes:"Strongest institutional-world candidate. Feels like a full collection, not just one shirt.",status:"Ready for Mockup",product:"T-shirt / poster / sticker pack",front:"Institute seal and title",back:"Classifying rare metrics since the last dashboard refresh.",visual:"Field badge, specimen tags, archive labels",audience:"Analysts, data scientists, dashboard builders",humor:"Medium",wearability:94,reviews:["MVR","QCP","VJR"]},
+    {title:"Someone Licking A Shadow",phrase:"Someone Licking A Shadow",category:"Robertisms",notes:"Surreal Robertism. Best as quiet type plus one strange ink mark.",status:"Seed",product:"Shirt / hidden clue later",front:"Someone Licking A Shadow",back:"Evidence of imagination found at the scene.",visual:"Minimal serif phrase, blue ink smear",audience:"Artists and surreal humor fans",humor:"Strange",wearability:61,reviews:["SBI"]},
+    {title:"My Code Turned Into $pagetti",phrase:"My Code Turned Into $pagetti",category:"Tech Humor",notes:"Great typo-symbol phrase. Could use code-string typography and a tiny noodle-line visual.",status:"Exploring",product:"T-shirt / mug later",front:"My Code Turned Into $pagetti",back:"Refactor sauce not included.",visual:"Code snippet with noodle contour",audience:"Coders and debugging survivors",humor:"High",wearability:86,reviews:["MVR","QCP"]},
+    {title:"Completion Through Expansion",phrase:"Completion Through Expansion",category:"Robertisms",notes:"More poetic, less joke. Premium creative philosophy shirt candidate.",status:"Designing",product:"Premium tee / print",front:"Completion Through Expansion",back:"The work grows until it knows what it is.",visual:"Serif phrase, studio mark, calm spacing",audience:"Artists, writers, builders",humor:"Low",wearability:90,reviews:["VJR","MVR"]},
+    {title:"Future Factors",phrase:"Future Factors",category:"Creative Thinking",notes:"Sounds like a collection title. Could connect to planning, risk, and creative forecasting.",status:"Worth Saving",product:"Collection label / shirt",front:"Future Factors",back:"Variables not yet visible.",visual:"Data-grid meets sketchbook",audience:"Thinkers, planners, creative operators",humor:"Low",wearability:78,reviews:["SBI"]},
+    {title:"Casa Ruckus",phrase:"Casa Ruckus",category:"Music",notes:"Feels like a music-room phrase or lively studio-house identity.",status:"Seed",product:"Shirt / music room badge",front:"Casa Ruckus",back:"Quiet was never on the lease.",visual:"Warm house mark plus blue signal",audience:"Music people, studio friends",humor:"Medium",wearability:76,reviews:["SBI","VJR"]},
+    {title:"Very Polite Dictionary",phrase:"Very Polite Dictionary",category:"Creative Thinking",notes:"Odd and gentle. Could become a typographic poster or understated shirt.",status:"Worth Saving",product:"T-shirt / poster",front:"Very Polite Dictionary",back:"Definitions that knock first.",visual:"Dictionary entry layout, soft paper texture",audience:"Writers and word nerds",humor:"Medium",wearability:84,reviews:["MVR","SBI"]}
+  ];
+  let selected = 0;
+  const ideaWall = document.getElementById("ideaWall");
+  const categoryFilter = document.getElementById("categoryFilter");
+  const statusFilter = document.getElementById("statusFilter");
+  const ideaCount = document.getElementById("ideaCount");
+  const actionMessage = document.getElementById("actionMessage");
+
+  function escapeHtml(value){
+    return String(value).replace(/[&<>"']/g, char => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[char]));
+  }
+  function fillSelect(select, values){
+    select.innerHTML = values.map(value => `<option>${escapeHtml(value)}</option>`).join("");
+  }
+  function accentFor(category){
+    return {
+      "Robertisms":"#f5efe5",
+      "Tech Humor":"#56d9ff",
+      "Data Zoology":"#83f3ba",
+      "Music":"#ff8a1f",
+      "Flight":"#9ed0ff",
+      "Ocean of Ink":"#0174F3",
+      "Creative Thinking":"#f28a6b",
+      "Custom Work":"#83f3ba"
+    }[category] || "#56d9ff";
+  }
+  function filteredIdeas(){
+    return ideas.filter(item => (categoryFilter.value === "All" || item.category === categoryFilter.value) && (statusFilter.value === "All" || item.status === statusFilter.value));
+  }
+  function renderIdeas(){
+    const items = filteredIdeas();
+    ideaCount.textContent = `${items.length} ${items.length === 1 ? "Idea" : "Ideas"}`;
+    ideaWall.innerHTML = items.map(item => {
+      const index = ideas.indexOf(item);
+      return `<button class="idea-card${selected === index ? " active" : ""}" type="button" data-index="${index}" style="--accent:${accentFor(item.category)}">
+        <small>${escapeHtml(item.category)} / ${escapeHtml(item.product)}</small>
+        <h3>${escapeHtml(item.title)}</h3>
+        <p>${escapeHtml(item.notes)}</p>
+        <div class="card-meta"><span class="status">${escapeHtml(item.status)}</span><span class="pill">${escapeHtml(item.phrase)}</span></div>
+      </button>`;
+    }).join("");
+    ideaWall.querySelectorAll(".idea-card").forEach(card => {
+      card.addEventListener("click",() => {
+        selected = Number(card.dataset.index);
+        renderIdeas();
+        renderDetail();
+      });
+    });
+  }
+  function renderDetail(){
+    const item = ideas[selected];
+    document.documentElement.style.setProperty("--accent", accentFor(item.category));
+    document.getElementById("detailTitle").textContent = item.title;
+    document.getElementById("detailStatus").textContent = item.status;
+    document.getElementById("detailPhrase").textContent = item.phrase;
+    document.getElementById("detailNotes").textContent = `${item.front} / ${item.back}. Visual direction: ${item.visual}. Audience: ${item.audience}. Humor level: ${item.humor}. Wearability score: ${item.wearability}/100.`;
+    document.getElementById("detailProduct").textContent = item.product;
+    document.getElementById("detailReviews").textContent = item.reviews.join(", ");
+  }
+  function renderBoards(){
+    const shirtList = document.getElementById("shirtList");
+    const archiveList = document.getElementById("archiveList");
+    shirtList.innerHTML = ideas.filter(item => item.product.toLowerCase().includes("shirt") || item.product.toLowerCase().includes("tee")).slice(0,6).map(item => `<li><strong>${escapeHtml(item.title)}</strong><br>${escapeHtml(item.front)} <span class="score">Wearability ${item.wearability}</span></li>`).join("");
+    archiveList.innerHTML = ideas.filter(item => item.category === "Robertisms" || item.category === "Creative Thinking").map(item => `<li>${escapeHtml(item.phrase)} <span class="score">${escapeHtml(item.status)}</span></li>`).join("");
+  }
+  function markStatus(status){
+    ideas[selected].status = status;
+    const key = "inkMerchFoundryActions";
+    const saved = JSON.parse(localStorage.getItem(key) || "[]");
+    saved.unshift({title:ideas[selected].title,status,date:new Date().toLocaleString()});
+    localStorage.setItem(key, JSON.stringify(saved.slice(0,30)));
+    actionMessage.textContent = `${ideas[selected].title} marked ${status}.`;
+    renderIdeas();
+    renderDetail();
+    renderBoards();
+  }
+  function spark(){
+    const item = ideas[Math.floor(Math.random() * ideas.length)];
+    const review = reviews[Math.floor(Math.random() * reviews.length)];
+    document.getElementById("sparkText").textContent = `${item.phrase}: run ${review}, then test whether this wants to be a shirt, sticker, poster, or custom-work seed.`;
+  }
+  function buildAtmosphere(){
+    if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const wrap = document.getElementById("foundryAtmosphere");
+    let html = "";
+    for(let i=0;i<14;i++){
+      html += `<span class="foundry-note" style="--x:${Math.random()*92}%;--y:${Math.random()*88}%;--s:${26+Math.random()*44}px;--r:${Math.random()*30-15}deg;--d:${5+Math.random()*7}s"></span>`;
+    }
+    for(let i=0;i<72;i++){
+      html += `<span class="foundry-spark" style="--x:${Math.random()*100}%;--s:${2+Math.random()*5}px;--d:${9+Math.random()*17}s;--delay:${Math.random()*-24}s;--sway:${Math.random()*170-85}px"></span>`;
+    }
+    wrap.innerHTML = html;
+  }
+  categoryFilter.addEventListener("change",renderIdeas);
+  statusFilter.addEventListener("change",renderIdeas);
+  document.querySelectorAll("[data-mark]").forEach(button => button.addEventListener("click",() => markStatus(button.dataset.mark)));
+  document.getElementById("sparkButton").addEventListener("click",spark);
+  fillSelect(categoryFilter,categories);
+  fillSelect(statusFilter,statuses);
+  renderIdeas();
+  renderDetail();
+  renderBoards();
+  spark();
+  buildAtmosphere();
+})();
+</script>
+<script src="rooms.js"></script>
+</body>
+</html>

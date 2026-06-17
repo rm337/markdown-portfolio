@@ -122,6 +122,23 @@
       atmosphere:{particles:true,bubbles:true,lightBeams:true,reducedMotion:true}
     },
     {
+      id:"merch-concept-foundry",
+      title:"Merch Concept Foundry",
+      subtitle:"A command room for shaping future merch ideas.",
+      description:"A creative foundry for organizing Robertisms, custom work, shirt ideas, product concepts, and future collection candidates before anything becomes a public product.",
+      url:"merch-foundry.html",
+      theme:"foundry",
+      accent:"#0174F3",
+      status:"Draft",
+      category:"Creative Lab",
+      tags:["merch","concepts","robertisms","custom-work"],
+      hidden:false,
+      unlockType:null,
+      unlockHint:null,
+      discovered:false,
+      atmosphere:{particles:true,bubbles:true,lightBeams:true,reducedMotion:true}
+    },
+    {
       id:"room-hub",
       title:"Room Hub / Map",
       subtitle:"The visible map of core rooms.",
