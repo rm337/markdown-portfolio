@@ -3,6 +3,23 @@
 
   const rooms = [
     {
+      id:"home",
+      title:"Home",
+      subtitle:"The public portfolio starting point.",
+      description:"The main Inkspirations Studios portfolio with selected work, Ocean of Ink, pricing, guide, and contact paths.",
+      url:"index.html",
+      theme:"home",
+      accent:"#0174F3",
+      status:"Live",
+      category:"Core",
+      tags:["portfolio","home","studio"],
+      hidden:false,
+      unlockType:null,
+      unlockHint:null,
+      discovered:false,
+      atmosphere:{particles:true,bubbles:true,lightBeams:true,reducedMotion:true}
+    },
+    {
       id:"ocean-of-ink",
       title:"Ocean of Ink",
       subtitle:"Blue motion, water, light, and intention.",
@@ -13,6 +30,10 @@
       status:"Live",
       category:"Immersive World",
       tags:["ink","water","blue","portfolio"],
+      hidden:false,
+      unlockType:null,
+      unlockHint:null,
+      discovered:false,
       atmosphere:{bubbles:true,particles:true,lightBeams:true,reducedMotion:true}
     },
     {
@@ -26,6 +47,10 @@
       status:"Live",
       category:"Performance Room",
       tags:["dj","vinyl","flight","radar"],
+      hidden:false,
+      unlockType:null,
+      unlockHint:null,
+      discovered:false,
       atmosphere:{particles:true,lightBeams:true,radarSweep:true,musicPulse:true,reducedMotion:true}
     },
     {
@@ -39,6 +64,10 @@
       status:"Draft",
       category:"Writing Space",
       tags:["writing","memory","focus"],
+      hidden:false,
+      unlockType:null,
+      unlockHint:null,
+      discovered:false,
       atmosphere:{particles:true,reducedMotion:true}
     },
     {
@@ -52,6 +81,10 @@
       status:"Draft",
       category:"Sound Space",
       tags:["music","listening","mood"],
+      hidden:false,
+      unlockType:null,
+      unlockHint:null,
+      discovered:false,
       atmosphere:{particles:true,musicPulse:true,reducedMotion:true}
     },
     {
@@ -65,48 +98,34 @@
       status:"Live",
       category:"Creative Tool",
       tags:["beats","tool","automation","mixer"],
+      hidden:false,
+      unlockType:null,
+      unlockHint:null,
+      discovered:false,
       atmosphere:{particles:true,musicPulse:true,reducedMotion:true}
     },
     {
-      id:"memory-lanterns",
-      title:"Memory Lanterns",
-      subtitle:"Small lights for remembered moments.",
-      description:"A future emotional gallery zone for pieces, notes, and fragments that feel half remembered.",
-      url:"rooms.html#memory-lanterns",
-      theme:"memory",
-      accent:"#ffb45c",
-      status:"Coming Soon",
-      category:"Gallery Zone",
-      tags:["memory","light","story"],
-      atmosphere:{particles:true,bubbles:true,reducedMotion:true}
-    },
-    {
-      id:"daylight-district",
-      title:"Daylight District",
-      subtitle:"The bright edge of the blue world.",
-      description:"A future zone for clearer, lighter work: morning color, clean presentation, and open-air studio energy.",
-      url:"rooms.html#daylight-district",
-      theme:"daylight",
+      id:"room-hub",
+      title:"Room Hub / Map",
+      subtitle:"The visible map of core rooms.",
+      description:"The clean Phase 1 map for moving between Home, Ocean of Ink, Flight Deck, Writing Room, Music Room, and BeatForge Studio.",
+      url:"rooms.html",
+      theme:"map",
       accent:"#9ed0ff",
-      status:"Coming Soon",
-      category:"Gallery Zone",
-      tags:["daylight","gallery","prints"],
-      atmosphere:{particles:true,lightBeams:true,reducedMotion:true}
-    },
-    {
-      id:"c4-territory",
-      title:"C4 Territory",
-      subtitle:"Pressure, signal, and controlled impact.",
-      description:"A future high-energy zone for bold marks, strong contrast, sound pressure, and intense creative direction.",
-      url:"rooms.html#c4-territory",
-      theme:"pressure",
-      accent:"#ff6b9d",
-      status:"Coming Soon",
-      category:"Experimental Zone",
-      tags:["energy","signal","impact"],
-      atmosphere:{particles:true,radarSweep:true,musicPulse:true,reducedMotion:true}
+      status:"Live",
+      category:"Core",
+      tags:["map","rooms","navigation"],
+      hidden:false,
+      unlockType:null,
+      unlockHint:null,
+      discovered:false,
+      atmosphere:{particles:true,bubbles:true,lightBeams:true,reducedMotion:true}
     }
   ];
+
+  function visibleRooms(){
+    return rooms.filter(room => !room.hidden);
+  }
 
   function byId(id){
     return rooms.find(room => room.id === id);
@@ -117,7 +136,7 @@
     if(explicit && byId(explicit)) return explicit;
     const path = window.location.pathname.split("/").pop() || "index.html";
     const hash = window.location.hash || "";
-    const match = rooms.find(room => {
+    const match = visibleRooms().find(room => {
       const parts = room.url.split("#");
       const roomPath = parts[0] || "index.html";
       const roomHash = parts[1] ? "#" + parts[1] : "";
@@ -143,7 +162,8 @@
   function renderCards(target, options){
     const activeId = detectActiveRoom();
     const filter = options && options.category;
-    const items = filter ? rooms.filter(room => room.category === filter) : rooms;
+    const publicRooms = visibleRooms();
+    const items = filter ? publicRooms.filter(room => room.category === filter) : publicRooms;
     target.innerHTML = items.map(room => {
       const tags = room.tags.slice(0,4).map(tag => `<span class="room-tag">${escapeHtml(tag)}</span>`).join("");
       const active = room.id === activeId ? " is-active" : "";
@@ -157,11 +177,12 @@
   }
 
   function renderNav(target){
-    const activeId = detectActiveRoom() || "ocean-of-ink";
-    const activeIndex = Math.max(0, rooms.findIndex(room => room.id === activeId));
-    const room = rooms[activeIndex];
-    const prev = rooms[(activeIndex - 1 + rooms.length) % rooms.length];
-    const next = rooms[(activeIndex + 1) % rooms.length];
+    const publicRooms = visibleRooms();
+    const activeId = detectActiveRoom() || "home";
+    const activeIndex = Math.max(0, publicRooms.findIndex(room => room.id === activeId));
+    const room = publicRooms[activeIndex] || publicRooms[0];
+    const prev = publicRooms[(activeIndex - 1 + publicRooms.length) % publicRooms.length];
+    const next = publicRooms[(activeIndex + 1) % publicRooms.length];
     target.innerHTML = `<nav class="room-global-nav" aria-label="Global room navigation" style="--room-accent:${escapeHtml(room.accent)}">
       <div class="room-nav-main">
         ${statusMarkup(room.status)}
@@ -174,7 +195,7 @@
       <div class="room-nav-links">
         <a class="room-nav-link" href="index.html">Home</a>
         <a class="room-nav-link" href="${escapeHtml(prev.url)}">Previous</a>
-        <select class="room-select" id="roomJump" aria-label="Choose room">${rooms.map(item => `<option value="${escapeHtml(item.url)}"${item.id === room.id ? " selected" : ""}>${escapeHtml(item.title)}</option>`).join("")}</select>
+        <select class="room-select" id="roomJump" aria-label="Choose room">${publicRooms.map(item => `<option value="${escapeHtml(item.url)}"${item.id === room.id ? " selected" : ""}>${escapeHtml(item.title)}</option>`).join("")}</select>
         <a class="room-nav-link" href="${escapeHtml(next.url)}">Next</a>
       </div>
     </nav>`;
@@ -185,7 +206,7 @@
   }
 
   function renderAtmosphere(target){
-    const active = byId(detectActiveRoom()) || rooms[0];
+    const active = byId(detectActiveRoom()) || visibleRooms()[0];
     const settings = active.atmosphere || {};
     const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     target.classList.add("room-atmosphere");
@@ -218,7 +239,7 @@
     document.querySelectorAll("[data-room-atmosphere]").forEach(renderAtmosphere);
   }
 
-  window.InkRooms = {rooms, byId, detectActiveRoom, renderCards, renderNav, renderAtmosphere, init};
+  window.InkRooms = {rooms, visibleRooms, byId, detectActiveRoom, renderCards, renderNav, renderAtmosphere, init};
   if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
   else init();
 })();
