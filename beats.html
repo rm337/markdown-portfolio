@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BeatForge Studio | Inkspirations Studios</title>
+<link rel="stylesheet" href="rooms.css">
 <style>
 *{box-sizing:border-box}
 :root{
@@ -90,7 +91,8 @@ canvas{display:block;width:100%;height:100%;flex:1}
 @media(max-width:1040px){body{overflow:auto;height:auto}.app{grid-template-columns:1fr}.browser,.right{border:0}.center{min-height:75vh}.steps,.auto-steps{grid-template-columns:repeat(var(--steps),22px)}}
 </style>
 </head>
-<body>
+<body data-room-id="beatforge-studio">
+<div data-room-nav></div>
 <header class="topbar">
   <div class="logo">BeatForge Studio</div>
   <div class="tag">Pattern lab</div>
@@ -336,5 +338,6 @@ canvas{display:block;width:100%;height:100%;flex:1}
   baseTracks.forEach(([n,t])=>addTrack(n,t)); bind(); seed(); resizeCanvas(); drawViz();
 })();
 </script>
+<script src="rooms.js"></script>
 </body>
 </html>

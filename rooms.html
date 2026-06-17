@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Room Hub | Inkspirations Studios</title>
+<meta name="description" content="Global room hub for Inkspirations Studios: Ocean of Ink, Flight Deck, Writing Room, Music Room, BeatForge Studio, Memory Lanterns, Daylight District, and C4 Territory.">
+<link rel="stylesheet" href="rooms.css">
+</head>
+<body class="room-system-page">
+<div data-room-atmosphere></div>
+<nav class="room-hub-nav">
+  <a class="room-brand" href="index.html">Inkspirations Studios</a>
+  <div class="room-hub-links" aria-label="Primary navigation">
+    <a href="landing.html">Landing</a>
+    <a href="index.html">Home</a>
+    <a href="site-map.html">Site Map</a>
+    <a href="guest-registry.html">Registry</a>
+  </div>
+</nav>
+<main>
+  <header class="room-hub-hero">
+    <p class="room-kicker">Global Room System</p>
+    <h1>A creative home map for every room.</h1>
+    <p>Each room below is generated from one JavaScript room array. Add a new room by adding one object: title, URL, status, tags, accent color, and atmosphere settings.</p>
+    <div class="room-hub-actions">
+      <a class="room-nav-link" href="index.html">Back To Home</a>
+      <a class="room-nav-link" href="flight-deck.html">Enter Flight Deck</a>
+      <a class="room-nav-link" href="beats.html">Open BeatForge</a>
+    </div>
+  </header>
+  <section class="room-hub-grid" data-room-cards aria-label="Inkspirations Studios room cards"></section>
+</main>
+<script src="rooms.js"></script>
+</body>
+</html>
