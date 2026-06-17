@@ -105,6 +105,23 @@
       atmosphere:{particles:true,musicPulse:true,reducedMotion:true}
     },
     {
+      id:"t-shirt-design-lab",
+      title:"T-Shirt Design Lab",
+      subtitle:"A creative workshop for shirt concepts.",
+      description:"A studio lab for collecting, reviewing, and developing future T-shirt ideas before they become finished designs.",
+      url:"t-shirt-design-lab.html",
+      theme:"design-lab",
+      accent:"#56d9ff",
+      status:"Draft",
+      category:"Creative Lab",
+      tags:["shirts","ideas","sketchbook","workshop"],
+      hidden:false,
+      unlockType:null,
+      unlockHint:null,
+      discovered:false,
+      atmosphere:{particles:true,bubbles:true,lightBeams:true,reducedMotion:true}
+    },
+    {
       id:"room-hub",
       title:"Room Hub / Map",
       subtitle:"The visible map of core rooms.",

@@ -13,6 +13,7 @@ Public portfolio site for Robert Marleton / Inkspirations Studios.
 - `rooms.js` - reusable room data, cards, active-room detection, and atmosphere controls
 - `beats.html` - BeatForge Studio / Beat Lab room
 - `flight-deck.html` - immersive animated Flight Deck performance page
+- `t-shirt-design-lab.html` - creative workshop for future T-shirt concepts
 
 ## Public assets
 

@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>T-Shirt Design Lab | Inkspirations Studios</title>
+<meta name="description" content="A creative design laboratory for Inkspirations Studios T-shirt concepts, idea review, and future merch development.">
+<link rel="stylesheet" href="rooms.css">
+<style>
+*{box-sizing:border-box}
+:root{
+  --ink:#050711;
+  --deep:#071427;
+  --blue:#0174F3;
+  --cyan:#56d9ff;
+  --paper:#f5efe5;
+  --mint:#83f3ba;
+  --coral:#f28a6b;
+  --white:#f8fbff;
+  --soft:rgba(248,251,255,.74);
+  --muted:rgba(248,251,255,.48);
+  --line:rgba(248,251,255,.15);
+  --panel:rgba(6,14,28,.72);
+  --shadow:0 28px 90px rgba(0,0,0,.38);
+}
+html,body{min-height:100%}
+body{margin:0;background:var(--ink);color:var(--white);font-family:Georgia,"Times New Roman",serif;line-height:1.55;overflow-x:hidden;padding-bottom:118px}
+body::before{content:"";position:fixed;inset:0;z-index:-3;background:
+  radial-gradient(circle at 18% 16%,rgba(86,217,255,.2),transparent 26%),
+  radial-gradient(circle at 76% 18%,rgba(1,116,243,.22),transparent 26%),
+  radial-gradient(circle at 70% 82%,rgba(245,239,229,.1),transparent 30%),
+  linear-gradient(160deg,#050711 0%,#071427 52%,#02040a 100%)}
+body::after{content:"";position:fixed;inset:0;z-index:-2;opacity:.2;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:76px 76px;mask-image:linear-gradient(to bottom,black,transparent 72%)}
+button,input,select,textarea{font:inherit}
+a{color:inherit}
+.lab-particles{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.lab-particle{position:absolute;left:var(--x);bottom:-10vh;width:var(--s);height:var(--s);border-radius:50%;background:rgba(248,251,255,.58);box-shadow:0 0 14px rgba(86,217,255,.58);opacity:0;animation:floatUp var(--d) linear infinite;animation-delay:var(--delay)}
+.lab-shell{position:relative;z-index:2;padding:5rem clamp(1rem,4vw,3rem) 2rem}
+.lab-hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.46fr);gap:clamp(1.5rem,4vw,3rem);align-items:end;margin-bottom:1.5rem}
+.kicker,.meta,.status,.btn,.field label,.tag,.concept-card small,.board-card small{font-family:Arial,sans-serif;font-weight:900;letter-spacing:.13em;text-transform:uppercase}
+.kicker{font-size:.72rem;color:var(--cyan);margin:0 0 .8rem}
+h1,h2,h3,p{margin-top:0}
+h1{font-size:clamp(3rem,7.8vw,6.8rem);line-height:.9;margin-bottom:1rem}
+.hero-copy{max-width:800px;color:var(--soft);font-size:clamp(1.08rem,2vw,1.35rem)}
+.lab-note{border:1px solid var(--line);background:var(--panel);padding:1rem;box-shadow:var(--shadow)}
+.lab-note strong{display:block;color:var(--paper);margin-bottom:.4rem}
+.lab-note p{color:var(--soft);margin:0}
+.lab-layout{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(320px,.62fr);gap:1rem;align-items:start}
+.panel{border:1px solid var(--line);background:rgba(6,14,28,.7);box-shadow:var(--shadow);backdrop-filter:blur(16px)}
+.panel-head{display:flex;justify-content:space-between;gap:1rem;align-items:end;padding:1rem;border-bottom:1px solid var(--line)}
+.panel-head h2{font-size:1.55rem;margin:0}
+.filters{display:flex;gap:.5rem;flex-wrap:wrap;padding:1rem;border-bottom:1px solid var(--line)}
+.field{display:grid;gap:.3rem}
+.field label{font-size:.62rem;color:var(--paper)}
+.field select{min-height:38px;border:1px solid var(--line);background:rgba(255,255,255,.07);color:var(--white);padding:.55rem .65rem}
+.field select:focus,.btn:focus,.concept-card:focus{outline:2px solid rgba(86,217,255,.68);outline-offset:2px}
+.field option{background:#071427;color:var(--white)}
+.concept-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem;padding:1rem}
+.concept-card{min-height:220px;text-align:left;color:var(--white);border:1px solid var(--line);background:
+  radial-gradient(circle at 32% 20%,rgba(86,217,255,.22),transparent 28%),
+  linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.025));padding:1rem;display:flex;flex-direction:column;cursor:pointer}
+.concept-card:hover,.concept-card.active{border-color:var(--accent,var(--cyan));transform:translateY(-2px)}
+.concept-card small{font-size:.6rem;color:var(--accent,var(--cyan))}
+.concept-card h3{font-size:1.35rem;line-height:1.08;margin:.55rem 0 .45rem}
+.concept-card p{color:var(--soft);margin:0 0 1rem}
+.concept-meta{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:auto}
+.status,.tag{display:inline-flex;align-items:center;min-height:26px;padding:.34rem .48rem;border:1px solid var(--line);background:rgba(255,255,255,.045);font-size:.58rem;color:var(--muted)}
+.status{color:var(--paper)}
+.detail{position:sticky;top:1rem}
+.detail-body{padding:1rem;display:grid;gap:1rem}
+.shirt-board{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.shirt-panel{min-height:170px;border:1px solid var(--line);background:rgba(255,255,255,.04);padding:1rem;display:grid;align-content:center;text-align:center}
+.shirt-panel strong{display:block;font-size:1.4rem;line-height:1.05;color:var(--white)}
+.shirt-panel span{display:block;margin-top:.7rem;color:var(--muted);font-family:Arial,sans-serif;font-size:.66rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+.detail-grid{display:grid;gap:.75rem}
+.detail-item{border-left:2px solid var(--accent,var(--cyan));padding-left:.85rem}
+.detail-item strong{display:block;color:var(--paper);margin-bottom:.2rem}
+.detail-item p{color:var(--soft);margin:0}
+.actions{display:flex;gap:.6rem;flex-wrap:wrap}
+.btn{min-height:42px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--white);padding:.72rem .85rem;font-size:.65rem;cursor:pointer}
+.btn.primary{background:var(--blue);border-color:rgba(86,217,255,.45)}
+.btn:hover{border-color:rgba(86,217,255,.72);transform:translateY(-1px)}
+.board{margin-top:1rem;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem}
+.board-card{border:1px solid var(--line);background:rgba(6,14,28,.66);padding:1rem;min-height:220px}
+.board-card small{display:block;font-size:.6rem;color:var(--cyan);margin-bottom:.6rem}
+.quote-list,.idea-list{display:grid;gap:.55rem;color:var(--soft);padding:0;margin:0;list-style:none}
+.quote-list li,.idea-list li{border-left:2px solid rgba(86,217,255,.35);padding-left:.7rem}
+.swatches{display:flex;gap:.5rem;flex-wrap:wrap}
+.swatch{width:44px;height:44px;border:1px solid var(--line);background:var(--color);box-shadow:0 0 18px color-mix(in srgb,var(--color) 45%,transparent)}
+.saved-line{color:var(--mint);min-height:1.4rem;margin:0;font-size:.95rem}
+@keyframes floatUp{0%{transform:translate3d(0,0,0) scale(.6);opacity:0}12%{opacity:.5}78%{opacity:.34}100%{transform:translate3d(var(--sway),-116vh,0) scale(1.15);opacity:0}}
+@media(max-width:1080px){
+  .lab-hero,.lab-layout{grid-template-columns:1fr}
+  .detail{position:static}
+  .board{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:680px){
+  body{padding-bottom:190px}
+  .lab-shell{padding-top:3rem}
+  .concept-grid,.shirt-board,.board{grid-template-columns:1fr}
+  .filters{display:grid}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}
+  .lab-particles{display:none}
+}
+</style>
+</head>
+<body data-room-id="t-shirt-design-lab">
+<div class="lab-particles" id="labParticles" aria-hidden="true"></div>
+<div data-room-nav></div>
+<main class="lab-shell">
+  <header class="lab-hero">
+    <div>
+      <p class="kicker">Creative Room / T-Shirt Design Lab</p>
+      <h1>Shirt ideas before they become products.</h1>
+      <p class="hero-copy">This room is a workshop, not a store. Concepts can be collected, compared, promoted, archived, and developed into future Inkspirations Studios T-shirt designs.</p>
+    </div>
+    <aside class="lab-note" aria-label="Lab purpose">
+      <strong>Phase 1 Focus</strong>
+      <p>Keep the ideas visible, organized, and easy to review. Mockups, print-on-demand tools, AI concepts, and viability scoring can come later.</p>
+    </aside>
+  </header>
+
+  <section class="lab-layout">
+    <div class="panel">
+      <div class="panel-head">
+        <div>
+          <p class="kicker">Design Wall</p>
+          <h2>Concept cards</h2>
+        </div>
+        <span class="status" id="conceptCount">0 Concepts</span>
+      </div>
+      <div class="filters" aria-label="Design wall filters">
+        <div class="field">
+          <label for="categoryFilter">Category</label>
+          <select id="categoryFilter"></select>
+        </div>
+        <div class="field">
+          <label for="statusFilter">Status</label>
+          <select id="statusFilter"></select>
+        </div>
+      </div>
+      <div class="concept-grid" id="conceptGrid" aria-label="T-shirt design concepts"></div>
+    </div>
+
+    <aside class="panel detail" aria-live="polite">
+      <div class="panel-head">
+        <div>
+          <p class="kicker">Detail View</p>
+          <h2 id="detailTitle">Select a concept</h2>
+        </div>
+        <span class="status" id="detailStatus">Seed</span>
+      </div>
+      <div class="detail-body">
+        <div class="shirt-board">
+          <div class="shirt-panel"><strong id="frontIdea">Front idea</strong><span>Front Design</span></div>
+          <div class="shirt-panel"><strong id="backIdea">Back idea</strong><span>Back Design</span></div>
+        </div>
+        <div class="detail-grid">
+          <div class="detail-item"><strong>Notes</strong><p id="detailNotes"></p></div>
+          <div class="detail-item"><strong>Audience</strong><p id="detailAudience"></p></div>
+          <div class="detail-item"><strong>Estimated Appeal</strong><p id="detailAppeal"></p></div>
+        </div>
+        <div class="actions" aria-label="Review tools">
+          <button class="btn primary" type="button" id="saveIdea">Save Idea</button>
+          <button class="btn" type="button" id="promoteIdea">Promote To Active Project</button>
+          <button class="btn" type="button" id="archiveIdea">Archive Idea</button>
+        </div>
+        <p class="saved-line" id="actionMessage"></p>
+      </div>
+    </aside>
+  </section>
+
+  <section class="board" aria-label="Inspiration board">
+    <article class="board-card">
+      <small>Random Quote Wall</small>
+      <ul class="quote-list" id="quoteWall"></ul>
+    </article>
+    <article class="board-card">
+      <small>Sketch Placeholders</small>
+      <ul class="idea-list">
+        <li>Front chest mark with quiet back punchline.</li>
+        <li>One-line Robertism with small Ocean of Ink signature.</li>
+        <li>Workshop badge layout for invented institutes.</li>
+      </ul>
+    </article>
+    <article class="board-card">
+      <small>Color Ideas</small>
+      <div class="swatches">
+        <span class="swatch" style="--color:#0174F3" title="Azure"></span>
+        <span class="swatch" style="--color:#56d9ff" title="Cyan"></span>
+        <span class="swatch" style="--color:#050711" title="Deep black"></span>
+        <span class="swatch" style="--color:#f5efe5" title="Warm ink paper"></span>
+        <span class="swatch" style="--color:#f28a6b" title="Coral accent"></span>
+      </div>
+    </article>
+    <article class="board-card">
+      <small>Typography Ideas</small>
+      <ul class="idea-list">
+        <li>Serif phrase with technical micro-labels.</li>
+        <li>Bold workshop stamp with clean grid spacing.</li>
+        <li>Handwritten concept note paired with small badge text.</li>
+      </ul>
+    </article>
+  </section>
+</main>
+
+<script>
+(() => {
+  const statuses = ["Seed","Exploring","Designing","Ready","Released"];
+  const categories = ["Robertisms","Tech Humor","Data Zoology","Music","Flight","Ocean of Ink","Creative Thinking"];
+  const concepts = [
+    {
+      title:"All My PUPS Are On A Leash",
+      concept:"A tech-humor shirt about controlled processes, tidy chaos, and keeping every little system from running wild.",
+      category:"Tech Humor",
+      status:"Exploring",
+      front:"All My PUPS Are On A Leash",
+      back:"Process control, but make it wearable.",
+      notes:"Could use small terminal-style details, a leash line motif, and a clean badge on the sleeve.",
+      audience:"Developers, automation people, troubleshooters, and anyone who likes technical wordplay.",
+      appeal:"Medium-high: funny, specific, and memorable for tech-minded buyers."
+    },
+    {
+      title:"Flitle Deck",
+      concept:"A playful typo-adjacent cousin of Flight Deck that feels like a studio inside joke waiting for the right visual.",
+      category:"Flight",
+      status:"Seed",
+      front:"FLITLE DECK",
+      back:"Altitude uncertain. Signal beautiful.",
+      notes:"Keep this one loose. It may become a limited concept or a handwritten sketch-style shirt.",
+      audience:"Flight Deck fans, music-room visitors, and people who enjoy strange little phrases.",
+      appeal:"Niche but charming: best if the visual makes the word feel intentional."
+    },
+    {
+      title:"Browser Wars",
+      concept:"A shirt about tabs, crashes, compatibility, and the daily comedy of living inside too many windows.",
+      category:"Tech Humor",
+      status:"Designing",
+      front:"Browser Wars",
+      back:"May the cached force be with you.",
+      notes:"Could use browser-tab geometry, small error badges, and a restrained cyan/orange palette.",
+      audience:"Web builders, designers, QA testers, and anyone who has fought CSS at midnight.",
+      appeal:"High: broad tech recognition and easy joke clarity."
+    },
+    {
+      title:"Cheese Burglar",
+      concept:"A strange, funny character phrase that could become a bold graphic tee or sketchbook-style mascot concept.",
+      category:"Creative Thinking",
+      status:"Seed",
+      front:"Cheese Burglar",
+      back:"No crumbs. No witnesses.",
+      notes:"Needs visual exploration. Strong name, but it needs the right tone to avoid feeling random.",
+      audience:"People who like absurdist humor, casual statement tees, and oddball studio characters.",
+      appeal:"Medium: memorable if the art direction is strong."
+    },
+    {
+      title:"Data Zoology Research Institute",
+      concept:"A fictional institute shirt for studying strange datasets, unruly metrics, and wild patterns.",
+      category:"Data Zoology",
+      status:"Ready",
+      front:"Data Zoology Research Institute",
+      back:"Classifying rare metrics since the last dashboard refresh.",
+      notes:"This wants a premium badge treatment: institute seal, specimen tags, small field-note typography.",
+      audience:"Analysts, data scientists, dashboard builders, researchers, and nerdy gift buyers.",
+      appeal:"Very high: feels like a whole brand world, not only a joke."
+    },
+    {
+      title:"Completion Through Expansion",
+      concept:"A Robertism-style creative philosophy shirt about finishing by making the idea bigger and more alive.",
+      category:"Robertisms",
+      status:"Exploring",
+      front:"Completion Through Expansion",
+      back:"The work grows until it knows what it is.",
+      notes:"Should feel more poetic than funny. Strong candidate for a quiet premium shirt.",
+      audience:"Artists, writers, builders, and creative thinkers who like philosophy in wearable form.",
+      appeal:"Medium-high: emotionally resonant and aligned with Inkspirations."
+    },
+    {
+      title:"Someone Licking A Shadow",
+      concept:"A surreal phrase that feels like a dream fragment, a drawing prompt, and a strange conversation starter.",
+      category:"Creative Thinking",
+      status:"Seed",
+      front:"Someone Licking A Shadow",
+      back:"Evidence of imagination found at the scene.",
+      notes:"Needs careful visual restraint. Best with tiny typography and a mysterious ink mark.",
+      audience:"Surreal humor fans, artists, poets, and people who like shirts that make others ask questions.",
+      appeal:"Niche but memorable: not for everyone, which may be the point."
+    }
+  ];
+  const quoteBank = [
+    "A shirt can start as a sentence and become a signal.",
+    "The idea is not finished. It is asking for a better surface.",
+    "Ink first. Product later.",
+    "Some jokes are concepts wearing work clothes.",
+    "Make it strange enough to remember, clear enough to wear."
+  ];
+  const grid = document.getElementById("conceptGrid");
+  const categoryFilter = document.getElementById("categoryFilter");
+  const statusFilter = document.getElementById("statusFilter");
+  const count = document.getElementById("conceptCount");
+  const message = document.getElementById("actionMessage");
+  let selected = 0;
+
+  function fillSelect(select, label, values){
+    select.innerHTML = [`<option value="">All ${label}</option>`].concat(values.map(value => `<option>${value}</option>`)).join("");
+  }
+  function filteredConcepts(){
+    return concepts.filter(item => (!categoryFilter.value || item.category === categoryFilter.value) && (!statusFilter.value || item.status === statusFilter.value));
+  }
+  function renderCards(){
+    const items = filteredConcepts();
+    count.textContent = `${items.length} ${items.length === 1 ? "Concept" : "Concepts"}`;
+    grid.innerHTML = items.map((item,index) => `<button class="concept-card${concepts.indexOf(item) === selected ? " active" : ""}" type="button" style="--accent:${accentFor(item.category)}" data-index="${concepts.indexOf(item)}">
+      <small>${item.category}</small>
+      <h3>${item.title}</h3>
+      <p>${item.concept}</p>
+      <div class="concept-meta"><span class="status">${item.status}</span><span class="tag">${item.category}</span></div>
+    </button>`).join("");
+    grid.querySelectorAll(".concept-card").forEach(card => {
+      card.addEventListener("click",() => {
+        selected = Number(card.dataset.index);
+        renderCards();
+        renderDetail();
+      });
+    });
+  }
+  function renderDetail(){
+    const item = concepts[selected];
+    document.documentElement.style.setProperty("--accent", accentFor(item.category));
+    document.getElementById("detailTitle").textContent = item.title;
+    document.getElementById("detailStatus").textContent = item.status;
+    document.getElementById("frontIdea").textContent = item.front;
+    document.getElementById("backIdea").textContent = item.back;
+    document.getElementById("detailNotes").textContent = item.notes;
+    document.getElementById("detailAudience").textContent = item.audience;
+    document.getElementById("detailAppeal").textContent = item.appeal;
+  }
+  function renderQuotes(){
+    const wall = document.getElementById("quoteWall");
+    const picks = quoteBank.slice().sort(() => Math.random() - .5).slice(0,3);
+    wall.innerHTML = picks.map(quote => `<li>${quote}</li>`).join("");
+  }
+  function accentFor(category){
+    return {
+      "Robertisms":"#f5efe5",
+      "Tech Humor":"#56d9ff",
+      "Data Zoology":"#83f3ba",
+      "Music":"#ff8a1f",
+      "Flight":"#9ed0ff",
+      "Ocean of Ink":"#0174F3",
+      "Creative Thinking":"#f28a6b"
+    }[category] || "#56d9ff";
+  }
+  function markAction(action){
+    const item = concepts[selected];
+    const key = "inkTshirtLabActions";
+    const saved = JSON.parse(localStorage.getItem(key) || "[]");
+    saved.unshift({title:item.title,action,date:new Date().toLocaleString()});
+    localStorage.setItem(key, JSON.stringify(saved.slice(0,20)));
+    message.textContent = `${action}: ${item.title}`;
+  }
+  document.getElementById("saveIdea").addEventListener("click",() => markAction("Saved idea"));
+  document.getElementById("promoteIdea").addEventListener("click",() => markAction("Promoted to active project"));
+  document.getElementById("archiveIdea").addEventListener("click",() => markAction("Archived idea"));
+  categoryFilter.addEventListener("change",renderCards);
+  statusFilter.addEventListener("change",renderCards);
+  fillSelect(categoryFilter,"Categories",categories);
+  fillSelect(statusFilter,"Statuses",statuses);
+  renderCards();
+  renderDetail();
+  renderQuotes();
+  const particles = document.getElementById("labParticles");
+  if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+    for(let i=0;i<62;i++){
+      const dot = document.createElement("span");
+      dot.className = "lab-particle";
+      dot.style.setProperty("--x", `${Math.random()*100}%`);
+      dot.style.setProperty("--s", `${2+Math.random()*5}px`);
+      dot.style.setProperty("--d", `${9+Math.random()*17}s`);
+      dot.style.setProperty("--delay", `${Math.random()*-24}s`);
+      dot.style.setProperty("--sway", `${Math.random()*170-85}px`);
+      particles.appendChild(dot);
+    }
+  }
+})();
+</script>
+<script src="rooms.js"></script>
+</body>
+</html>
