@@ -7,6 +7,7 @@ Public portfolio site for Robert Marleton / Inkspirations Studios.
 - `index.html` - main portfolio homepage
 - `landing.html` - cinematic front door for the public portfolio
 - `guest-registry.html` - static guest registry and studio logbook
+- `site-map.html` - visitor-facing navigation map for all public pages
 - `beats.html` - BeatForge Studio / Beat Lab room
 - `flight-deck.html` - immersive animated Flight Deck performance page
 
