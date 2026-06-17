@@ -6,6 +6,7 @@ Public portfolio site for Robert Marleton / Inkspirations Studios.
 
 - `index.html` - main portfolio homepage
 - `landing.html` - cinematic front door for the public portfolio
+- `identity-card.html` - digital business card and personal discovery hub
 - `guest-registry.html` - static guest registry and studio logbook
 - `site-map.html` - visitor-facing navigation map for all public pages
 - `rooms.html` - global room hub generated from shared room data
