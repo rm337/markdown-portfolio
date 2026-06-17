@@ -139,6 +139,23 @@
       atmosphere:{particles:true,bubbles:true,lightBeams:true,reducedMotion:true}
     },
     {
+      id:"systems-i-built",
+      title:"Systems I Built",
+      subtitle:"Blueprints for creative systems and protocols.",
+      description:"A systems showcase for the frameworks, workflows, review protocols, and creative operating structures behind Inkspirations Studios.",
+      url:"systems-i-built.html",
+      theme:"blueprint",
+      accent:"#56d9ff",
+      status:"Draft",
+      category:"Systems Showcase",
+      tags:["systems","protocols","workflows","blueprints"],
+      hidden:false,
+      unlockType:null,
+      unlockHint:null,
+      discovered:false,
+      atmosphere:{particles:true,lightBeams:true,reducedMotion:true}
+    },
+    {
       id:"room-hub",
       title:"Room Hub / Map",
       subtitle:"The visible map of core rooms.",

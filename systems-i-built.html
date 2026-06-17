@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Systems I Built | Inkspirations Studios</title>
+<meta name="description" content="Systems I Built is an Inkspirations Studios room showcasing Robert Marleton's creative frameworks, protocols, workflows, and organizational systems.">
+<link rel="stylesheet" href="rooms.css">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --ink:#02040a;
+  --deep:#071427;
+  --blue:#0174F3;
+  --cyan:#56d9ff;
+  --paper:#f5efe5;
+  --white:#f8fbff;
+  --soft:rgba(248,251,255,.76);
+  --muted:rgba(248,251,255,.52);
+  --line:rgba(248,251,255,.16);
+  --panel:rgba(4,13,28,.76);
+  --shadow:0 28px 90px rgba(0,0,0,.45);
+}
+html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;background:var(--ink);color:var(--white);font-family:Georgia,"Times New Roman",serif;line-height:1.6;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:-4;background:
+  radial-gradient(circle at 18% 16%,rgba(86,217,255,.2),transparent 25%),
+  radial-gradient(circle at 80% 18%,rgba(1,116,243,.22),transparent 24%),
+  radial-gradient(circle at 52% 80%,rgba(245,239,229,.08),transparent 32%),
+  linear-gradient(160deg,#02040a 0%,#071427 52%,#02040a 100%)}
+body::after{content:"";position:fixed;inset:0;z-index:-3;opacity:.28;background-image:
+  linear-gradient(rgba(86,217,255,.11) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(86,217,255,.11) 1px,transparent 1px),
+  linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:96px 96px,96px 96px,24px 24px,24px 24px;mask-image:linear-gradient(to bottom,black 0 68%,transparent)}
+a{color:inherit}
+button,input{font:inherit}
+.system-particles{position:fixed;inset:0;z-index:-2;pointer-events:none;overflow:hidden}
+.system-particle{position:absolute;left:var(--x);top:var(--y);width:var(--s);height:var(--s);border-radius:50%;background:rgba(86,217,255,.62);box-shadow:0 0 18px rgba(86,217,255,.6);animation:drift var(--d) ease-in-out infinite alternate;animation-delay:var(--delay)}
+.system-beam{position:fixed;inset:-20%;z-index:-2;pointer-events:none;background:conic-gradient(from 210deg at 50% 0%,transparent 0deg,rgba(86,217,255,.12) 12deg,transparent 25deg,transparent 60deg,rgba(1,116,243,.14) 74deg,transparent 90deg,transparent 360deg);filter:blur(12px);opacity:.58;animation:beam 12s ease-in-out infinite alternate}
+.top-nav{position:fixed;top:0;left:0;right:0;z-index:70;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem clamp(1rem,4vw,3rem);border-bottom:1px solid var(--line);background:rgba(2,4,10,.78);backdrop-filter:blur(16px)}
+.brand,.top-links a,.kicker,.btn,.status-pill,.system-card small,.detail-label,.map-node,.flow-step span,.metric span,.filter-btn{font-family:Arial,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:.13em}
+.brand{font-size:.76rem;text-decoration:none}
+.top-links{display:flex;gap:1rem;flex-wrap:wrap;justify-content:flex-end}
+.top-links a{font-size:.68rem;color:var(--soft);text-decoration:none}
+.top-links a:hover,.top-links a:focus{color:var(--white)}
+main{position:relative;z-index:1}
+.hero{min-height:88vh;display:grid;grid-template-columns:minmax(0,1fr) minmax(310px,.78fr);gap:clamp(2rem,6vw,5rem);align-items:center;padding:8rem clamp(1.2rem,6vw,5rem) 3rem}
+.kicker{font-size:.72rem;color:var(--cyan);margin:0 0 1rem}
+h1,h2,h3,p{margin-top:0}
+h1{font-size:clamp(3.2rem,8vw,7.6rem);line-height:.88;margin:0 0 1rem;letter-spacing:0}
+.hero-copy{max-width:800px;color:var(--soft);font-size:clamp(1.1rem,2.1vw,1.48rem)}
+.hero-actions{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:2rem}
+.btn,.filter-btn{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:.72rem .92rem;border:1px solid var(--line);background:rgba(255,255,255,.055);color:var(--white);text-decoration:none;cursor:pointer;font-size:.68rem}
+.btn.primary,.filter-btn.is-active{background:var(--blue);border-color:rgba(86,217,255,.55)}
+.btn:hover,.btn:focus,.filter-btn:hover,.filter-btn:focus{border-color:rgba(86,217,255,.74);outline:none;transform:translateY(-1px)}
+.blueprint-orb{position:relative;min-height:420px;display:grid;place-items:center}
+.diagram-ring{position:absolute;width:min(38vw,430px);height:min(38vw,430px);min-width:280px;min-height:280px;border-radius:50%;border:1px solid rgba(86,217,255,.36);box-shadow:0 0 60px rgba(86,217,255,.18),inset 0 0 40px rgba(86,217,255,.09);animation:pulse 4s ease-in-out infinite}
+.diagram-ring::before,.diagram-ring::after{content:"";position:absolute;inset:11%;border-radius:50%;border:1px dashed rgba(245,239,229,.32);animation:spin 24s linear infinite}
+.diagram-ring::after{inset:26%;border-color:rgba(86,217,255,.34);animation-duration:12s;animation-direction:reverse}
+.core-node{position:relative;width:min(27vw,300px);min-width:220px;aspect-ratio:1;border:1px solid rgba(86,217,255,.42);background:radial-gradient(circle,rgba(86,217,255,.26),rgba(1,116,243,.1) 48%,rgba(2,4,10,.28));display:grid;place-items:center;text-align:center;box-shadow:var(--shadow)}
+.core-node strong{font-size:clamp(1.35rem,3vw,2.2rem);line-height:1.08}
+.map-node{position:absolute;padding:.55rem .65rem;border:1px solid rgba(86,217,255,.3);background:rgba(4,13,28,.78);font-size:.58rem;color:var(--soft);box-shadow:0 0 20px rgba(1,116,243,.18)}
+.node-a{top:7%;left:2%}.node-b{top:16%;right:0}.node-c{bottom:14%;left:8%}.node-d{bottom:6%;right:12%}
+.section{padding:3rem clamp(1.2rem,6vw,5rem)}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1.2rem}
+.section-head h2{font-size:clamp(2rem,4vw,4rem);line-height:.95;margin:0}
+.section-head p{max-width:660px;color:var(--soft);margin:0}
+.filters{display:flex;gap:.55rem;flex-wrap:wrap}
+.workbench{display:grid;grid-template-columns:minmax(280px,.85fr) minmax(0,1.15fr);gap:1rem;align-items:start}
+.system-grid{display:grid;gap:.8rem}
+.system-card{width:100%;text-align:left;color:var(--white);border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.025));padding:1rem;cursor:pointer;box-shadow:0 18px 48px rgba(0,0,0,.24);transition:transform .22s,border-color .22s,background .22s}
+.system-card:hover,.system-card:focus{transform:translateY(-2px);border-color:rgba(86,217,255,.68);outline:none}
+.system-card.is-active{border-color:var(--cyan);background:radial-gradient(circle at 18% 18%,rgba(86,217,255,.18),transparent 34%),linear-gradient(180deg,rgba(1,116,243,.18),rgba(255,255,255,.03))}
+.system-card small{display:block;color:var(--cyan);font-size:.58rem;margin-bottom:.45rem}
+.system-card h3{font-size:1.4rem;line-height:1.08;margin:0 0 .45rem}
+.system-card p{color:var(--soft);margin:0}
+.status-pill{display:inline-flex;margin-top:.85rem;padding:.35rem .5rem;border:1px solid var(--line);background:rgba(255,255,255,.04);font-size:.56rem;color:var(--paper)}
+.detail-panel{position:sticky;top:5.8rem;border:1px solid rgba(86,217,255,.24);background:var(--panel);box-shadow:var(--shadow);padding:1.2rem;overflow:hidden}
+.detail-panel::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(rgba(86,217,255,.08) 1px,transparent 1px);background-size:100% 34px;opacity:.42}
+.detail-inner{position:relative;z-index:1}
+.detail-label{font-size:.62rem;color:var(--cyan);margin:0 0 .5rem}
+.detail-panel h2{font-size:clamp(2rem,4vw,3.5rem);line-height:.96;margin:0 0 .7rem}
+.purpose{font-size:1.08rem;color:var(--soft);max-width:720px}
+.detail-meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem;margin:1rem 0}
+.metric{border:1px solid var(--line);background:rgba(255,255,255,.045);padding:.75rem}
+.metric span{display:block;font-size:.56rem;color:var(--cyan);margin-bottom:.2rem}
+.metric strong{font-size:.95rem}
+.detail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem}
+.detail-card{border:1px solid var(--line);background:rgba(2,4,10,.42);padding:.9rem}
+.detail-card h3{font-family:Arial,sans-serif;font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;color:var(--cyan);margin:0 0 .45rem}
+.detail-card p,.detail-card li{color:var(--soft)}
+.detail-card ul{margin:.4rem 0 0;padding-left:1.1rem}
+.flow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.75rem;margin-top:1.2rem}
+.flow-step{position:relative;min-height:120px;border:1px solid var(--line);background:rgba(255,255,255,.045);padding:.85rem}
+.flow-step:not(:last-child)::after{content:"";position:absolute;right:-.75rem;top:50%;width:.75rem;height:1px;background:rgba(86,217,255,.46)}
+.flow-step span{display:block;font-size:.56rem;color:var(--cyan);margin-bottom:.55rem}
+.flow-step strong{font-size:1.02rem}
+.connection-map{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.8rem}
+.connection-card{min-height:210px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.025));padding:1rem}
+.connection-card h3{font-size:1.35rem;line-height:1.08;margin:.2rem 0 .45rem}
+.connection-card p{color:var(--soft)}
+.connector-list{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:1rem}
+.connector-list span{border:1px solid rgba(86,217,255,.24);background:rgba(86,217,255,.07);padding:.36rem .5rem;color:var(--soft);font-family:Arial,sans-serif;font-size:.64rem;text-transform:uppercase;letter-spacing:.09em}
+.footer{padding:2rem clamp(1.2rem,6vw,5rem) 7rem;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;color:var(--muted);font-family:Arial,sans-serif;font-size:.7rem;text-transform:uppercase;letter-spacing:.12em}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{transform:scale(.98);opacity:.72}50%{transform:scale(1.04);opacity:1}}
+@keyframes drift{from{transform:translate3d(0,0,0);opacity:.3}to{transform:translate3d(var(--move),-18px,0);opacity:.72}}
+@keyframes beam{from{transform:translateX(-2%) rotate(-2deg)}to{transform:translateX(2%) rotate(2deg)}}
+@media(max-width:1040px){
+  .hero,.workbench{grid-template-columns:1fr}
+  .detail-panel{position:relative;top:auto}
+  .connection-map{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .flow{grid-template-columns:1fr}
+  .flow-step:not(:last-child)::after{display:none}
+}
+@media(max-width:680px){
+  .top-nav{position:absolute;align-items:flex-start}
+  .top-links{gap:.75rem}
+  .hero{padding-top:9rem;min-height:auto}
+  .detail-meta,.detail-grid,.connection-map{grid-template-columns:1fr}
+  .blueprint-orb{min-height:360px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}
+  .system-particles,.system-beam{display:none}
+}
+</style>
+</head>
+<body data-room-id="systems-i-built">
+<div data-room-atmosphere></div>
+<div class="system-beam" aria-hidden="true"></div>
+<div class="system-particles" id="systemParticles" aria-hidden="true"></div>
+<nav class="top-nav" aria-label="Primary navigation">
+  <a class="brand" href="index.html">Inkspirations Studios</a>
+  <div class="top-links">
+    <a href="landing.html">Landing</a>
+    <a href="rooms.html">Rooms</a>
+    <a href="site-map.html">Map</a>
+    <a href="identity-card.html">Card</a>
+  </div>
+</nav>
+<main>
+  <header class="hero">
+    <div>
+      <p class="kicker">Systems Showcase / Blueprint Room</p>
+      <h1>Systems I Built</h1>
+      <p class="hero-copy">A workshop behind the portfolio: the frameworks, protocols, workflows, and structures Robert Marleton uses to turn creative chaos into rooms, reviews, products, and repeatable decisions.</p>
+      <div class="hero-actions">
+        <a class="btn primary" href="#workbench">Open The Workbench</a>
+        <a class="btn" href="rooms.html">Room Hub</a>
+        <a class="btn" href="site-map.html">Site Map</a>
+      </div>
+    </div>
+    <div class="blueprint-orb" aria-label="Blueprint relationship diagram">
+      <div class="diagram-ring"></div>
+      <div class="core-node"><strong>Think<br>Organize<br>Build</strong></div>
+      <span class="map-node node-a">Protocols</span>
+      <span class="map-node node-b">Rooms</span>
+      <span class="map-node node-c">Products</span>
+      <span class="map-node node-d">Reviews</span>
+    </div>
+  </header>
+
+  <section class="section" aria-labelledby="blueprint-title">
+    <div class="section-head">
+      <div>
+        <p class="kicker">Operating Blueprint</p>
+        <h2 id="blueprint-title">From idea to usable system.</h2>
+      </div>
+      <p>Each system follows the same visible logic: define the problem, shape the solution, turn it into a process, measure the outcome, and capture the lesson.</p>
+    </div>
+    <div class="flow" aria-label="Systems workflow">
+      <div class="flow-step"><span>01</span><strong>Capture</strong><p>Collect raw ideas, friction points, and unfinished patterns.</p></div>
+      <div class="flow-step"><span>02</span><strong>Structure</strong><p>Name the parts, categories, statuses, and relationships.</p></div>
+      <div class="flow-step"><span>03</span><strong>Review</strong><p>Apply QCP, VJR, MVR, SBI, or another clear lens.</p></div>
+      <div class="flow-step"><span>04</span><strong>Publish</strong><p>Turn the system into a room, page, tool, or public guide.</p></div>
+      <div class="flow-step"><span>05</span><strong>Expand</strong><p>Leave room for future additions without losing the core map.</p></div>
+    </div>
+  </section>
+
+  <section class="section" id="workbench" aria-labelledby="workbench-title">
+    <div class="section-head">
+      <div>
+        <p class="kicker">Interactive Workbench</p>
+        <h2 id="workbench-title">Select a system.</h2>
+      </div>
+      <div class="filters" aria-label="Filter systems">
+        <button class="filter-btn is-active" type="button" data-filter="all">All</button>
+        <button class="filter-btn" type="button" data-filter="Architecture">Architecture</button>
+        <button class="filter-btn" type="button" data-filter="Protocol">Protocols</button>
+        <button class="filter-btn" type="button" data-filter="Product">Product</button>
+      </div>
+    </div>
+    <div class="workbench">
+      <div class="system-grid" id="systemGrid" aria-label="System cards"></div>
+      <article class="detail-panel" aria-live="polite">
+        <div class="detail-inner" id="detailPanel"></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="connections-title">
+    <div class="section-head">
+      <div>
+        <p class="kicker">Connection Map</p>
+        <h2 id="connections-title">How the systems talk to each other.</h2>
+      </div>
+      <p>This room is meant to prove the portfolio is not random. The rooms, protocols, product ideas, and visitor paths are all parts of one creative operating system.</p>
+    </div>
+    <div class="connection-map">
+      <article class="connection-card"><h3>Rooms</h3><p>Immersive pages give visitors places to explore, while the Global Room System keeps navigation understandable.</p><div class="connector-list"><span>Ocean</span><span>Flight</span><span>Writing</span><span>Music</span></div></article>
+      <article class="connection-card"><h3>Reviews</h3><p>QCP, VJR, MVR, and SBI turn instinct into repeatable evaluation instead of one-time guesses.</p><div class="connector-list"><span>Quality</span><span>Journey</span><span>Merch</span><span>Seeds</span></div></article>
+      <article class="connection-card"><h3>Products</h3><p>Brushes, prints, shirts, and custom work can move from raw idea into organized candidates before going public.</p><div class="connector-list"><span>Fluid Soul</span><span>Merch</span><span>Pixels</span><span>Etsy</span></div></article>
+      <article class="connection-card"><h3>Identity</h3><p>The Digital Identity Card and site map connect the creative world to real discovery, contact, and opportunity paths.</p><div class="connector-list"><span>Contact</span><span>Portfolio</span><span>Client</span><span>Career</span></div></article>
+    </div>
+  </section>
+</main>
+<footer class="footer">
+  <span>Inkspirations Studios</span>
+  <span>Robert Marleton</span>
+  <span>Systems I Built, 2026</span>
+</footer>
+<div data-room-nav></div>
+<script src="rooms.js"></script>
+<script>
+(() => {
+  const systems = [
+    {
+      name:"Global Room System",
+      type:"Architecture",
+      purpose:"A reusable navigation and room data structure for the whole portfolio.",
+      problem:"Each new room risked becoming a separate one-off page with its own disconnected navigation.",
+      solution:"Create a shared room array, reusable cards, active-room detection, room status labels, and global Previous / Next controls.",
+      process:"Define visible core rooms first, keep future hidden-room fields inactive, then generate cards and navigation from one source.",
+      outcome:"New rooms can be added by extending one room object instead of rebuilding the portfolio map.",
+      lessons:"A creative site stays easier to expand when the map is treated as a system, not decoration.",
+      components:["Room data","Room cards","Room menu","Active detection","Atmosphere settings"],
+      status:"Live",
+      future:"Add private discovery features later without disturbing the clean public map."
+    },
+    {
+      name:"QCP",
+      type:"Protocol",
+      purpose:"Quality Control Protocol for checking pages before publishing.",
+      problem:"Fast creative building can leave broken links, missing assets, layout issues, and accessibility gaps.",
+      solution:"Use a repeatable checklist covering function, navigation, visual layout, performance, accessibility, consistency, and expansion.",
+      process:"Review the page as a release candidate, list exact issues, fix stability problems, then publish only when it passes or passes with notes.",
+      outcome:"The portfolio gets a practical safety gate before new work goes live.",
+      lessons:"Quality improves when checking becomes a habit instead of a rescue mission.",
+      components:["Function check","Navigation check","Visual check","Performance check","Accessibility check"],
+      status:"Active Protocol",
+      future:"Turn QCP into a reusable checklist page or lightweight site-health dashboard."
+    },
+    {
+      name:"VJR",
+      type:"Protocol",
+      purpose:"Visitor Journey Review for judging how the site feels to a first-time visitor.",
+      problem:"A page can be technically correct but still feel confusing, flat, or emotionally unclear.",
+      solution:"Review first impression, visual hierarchy, navigation, emotional tone, identity fit, and room purpose.",
+      process:"Step into the visitor's viewpoint after technical QA and score the experience from 1 to 10.",
+      outcome:"Design decisions become tied to curiosity, clarity, memorability, and emotional flow.",
+      lessons:"A portfolio is not just a folder of work. It is a guided experience.",
+      components:["First impression","Visual journey","Navigation journey","Emotional journey","Identity check"],
+      status:"Active Protocol",
+      future:"Use VJR results to prioritize the next round of page refinements."
+    },
+    {
+      name:"MVR",
+      type:"Protocol",
+      purpose:"Merch Viability Review for judging whether an idea can become a real product.",
+      problem:"Funny or personal ideas are easy to collect but harder to rank for customer appeal.",
+      solution:"Score recognition, memorability, wearability, visual potential, audience size, humor, brand fit, and product expansion.",
+      process:"Review as a customer, not the creator, then choose Design, Refine, Save, or Archive.",
+      outcome:"Merch ideas can move from chaotic phrase pile into clear product candidates.",
+      lessons:"The strongest idea is not always the strangest one. It is the one people understand and want to keep.",
+      components:["Recognition score","Wearability score","Audience size","Product paths","Recommendation"],
+      status:"Active Protocol",
+      future:"Connect MVR scores to Merch Concept Foundry sorting and product readiness."
+    },
+    {
+      name:"SBI",
+      type:"Protocol",
+      purpose:"Seed Bank Index for preserving early ideas before they are ready.",
+      problem:"Unfinished phrases, room concepts, and fragments can disappear before their future value is visible.",
+      solution:"Store ideas as seeds with enough context to revisit, sort, review, and promote later.",
+      process:"Capture the fragment, add category and status, then decide whether it belongs in merch, rooms, writing, or product development.",
+      outcome:"Creative fragments become searchable future material instead of forgotten notes.",
+      lessons:"Not every idea needs to become a product immediately. Some need a place to wait.",
+      components:["Idea seed","Category","Status","Review path","Promotion path"],
+      status:"Draft Protocol",
+      future:"Build a formal seed archive for Robertisms, Data Zoology, field notes, and room fragments."
+    },
+    {
+      name:"Ocean of Ink Architecture",
+      type:"Architecture",
+      purpose:"The visual and emotional foundation for the Inkspirations Studios ecosystem.",
+      problem:"The portfolio needed a recognizable atmosphere that could connect art, writing, music, and tools.",
+      solution:"Use deep black, ocean blue, azure, cyan glow, bubbles, particles, ink movement, and soft luminous borders as a shared language.",
+      process:"Define the atmosphere first, then let each room adapt it to its own purpose.",
+      outcome:"Ocean of Ink became the connective tissue for the portfolio instead of one isolated section.",
+      lessons:"A strong world gives separate projects a common home.",
+      components:["Color language","Water motion","Glow system","Atmospheric particles","Room tone"],
+      status:"Live",
+      future:"Create formal design tokens and image placement standards for the whole site."
+    },
+    {
+      name:"Creative Operating System",
+      type:"Architecture",
+      purpose:"A larger way to organize rooms, protocols, products, ideas, identity, and opportunity.",
+      problem:"The ecosystem was growing in many directions at once: portfolio, merch, music, agents, stores, career paths, and reviews.",
+      solution:"Treat the platform as a connected operating system with clear bridges between discovery, interest, engagement, contact, and purchase.",
+      process:"Map systems, identify duplicate functions, define protocols, and create room-to-room relationships.",
+      outcome:"Separate projects begin to behave like one creative home instead of scattered experiments.",
+      lessons:"Growth needs architecture before it needs more features.",
+      components:["Rooms","Protocols","Products","Identity","Visitor paths"],
+      status:"Expanding",
+      future:"Add search, system tags, source notes, and a private dashboard for planning."
+    },
+    {
+      name:"Merch Concept Foundry",
+      type:"Product",
+      purpose:"A command room for shaping custom work, Robertisms, shirt concepts, and future products.",
+      problem:"Merch ideas were mixing jokes, phrases, custom services, products, and future collections without a clear path.",
+      solution:"Create a foundry with idea intake, shirt concepts, Robertisms, custom work, product paths, review labels, filters, and detail panels.",
+      process:"Separate raw ideas from active candidates, then use statuses and review protocols to decide what moves forward.",
+      outcome:"Creative chaos becomes a product development pipeline without becoming a public store too early.",
+      lessons:"A store should come after the system that decides what deserves to be sold.",
+      components:["Idea intake","T-shirt lab","Robertisms archive","Custom work board","Product statuses"],
+      status:"Draft Room",
+      future:"Add mockups, MVR scoring, print-on-demand planning, and collection readiness."
+    },
+    {
+      name:"Flight Deck Framework",
+      type:"Architecture",
+      purpose:"A cinematic room framework for performance, music, navigation, and motion.",
+      problem:"A music room could easily become a generic rave page instead of a believable immersive listening environment.",
+      solution:"Center the room on an active DJ performance with vinyl motion, mixer actions, radar, flight paths, altitude, fog, particles, and navigation UI.",
+      process:"Combine music performance details with flight-deck metaphor so the DJ becomes the pilot of the experience.",
+      outcome:"Flight Deck becomes a distinct room with movement, theme, and purpose inside the larger portfolio.",
+      lessons:"A room becomes memorable when its metaphor controls the interaction, not just the visuals.",
+      components:["DJ booth","Turntables","Mixer LEDs","Radar graphics","Flight-path motion"],
+      status:"Live",
+      future:"Connect track cards, music notes, room zones, and future audio-reactive behavior."
+    }
+  ];
+
+  const grid = document.getElementById("systemGrid");
+  const panel = document.getElementById("detailPanel");
+  const filters = Array.from(document.querySelectorAll("[data-filter]"));
+  let activeName = systems[0].name;
+  let activeFilter = "all";
+
+  function escapeHtml(value){
+    return String(value).replace(/[&<>"']/g, char => ({
+      "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"
+    }[char]));
+  }
+
+  function visibleSystems(){
+    return activeFilter === "all" ? systems : systems.filter(system => system.type === activeFilter);
+  }
+
+  function renderCards(){
+    const items = visibleSystems();
+    if(!items.some(system => system.name === activeName)) activeName = items[0].name;
+    grid.innerHTML = items.map(system => `<button class="system-card${system.name === activeName ? " is-active" : ""}" type="button" data-system="${escapeHtml(system.name)}">
+      <small>${escapeHtml(system.type)} / ${escapeHtml(system.status)}</small>
+      <h3>${escapeHtml(system.name)}</h3>
+      <p>${escapeHtml(system.problem)}</p>
+      <span class="status-pill">${escapeHtml(system.status)}</span>
+    </button>`).join("");
+    grid.querySelectorAll("[data-system]").forEach(card => {
+      card.addEventListener("click", () => {
+        activeName = card.dataset.system;
+        render();
+      });
+    });
+  }
+
+  function renderDetail(){
+    const system = systems.find(item => item.name === activeName) || systems[0];
+    panel.innerHTML = `<p class="detail-label">${escapeHtml(system.type)} Blueprint</p>
+      <h2>${escapeHtml(system.name)}</h2>
+      <p class="purpose">${escapeHtml(system.purpose)}</p>
+      <div class="detail-meta">
+        <div class="metric"><span>Status</span><strong>${escapeHtml(system.status)}</strong></div>
+        <div class="metric"><span>Future Expansion</span><strong>${escapeHtml(system.future)}</strong></div>
+      </div>
+      <div class="detail-grid">
+        <section class="detail-card"><h3>Problem</h3><p>${escapeHtml(system.problem)}</p></section>
+        <section class="detail-card"><h3>Solution</h3><p>${escapeHtml(system.solution)}</p></section>
+        <section class="detail-card"><h3>Process</h3><p>${escapeHtml(system.process)}</p></section>
+        <section class="detail-card"><h3>Outcome</h3><p>${escapeHtml(system.outcome)}</p></section>
+        <section class="detail-card"><h3>Components</h3><ul>${system.components.map(component => `<li>${escapeHtml(component)}</li>`).join("")}</ul></section>
+        <section class="detail-card"><h3>Lessons Learned</h3><p>${escapeHtml(system.lessons)}</p></section>
+      </div>`;
+  }
+
+  function renderFilters(){
+    filters.forEach(button => {
+      button.classList.toggle("is-active", button.dataset.filter === activeFilter);
+      button.setAttribute("aria-pressed", String(button.dataset.filter === activeFilter));
+    });
+  }
+
+  function render(){
+    renderFilters();
+    renderCards();
+    renderDetail();
+  }
+
+  filters.forEach(button => {
+    button.addEventListener("click", () => {
+      activeFilter = button.dataset.filter;
+      render();
+    });
+  });
+
+  const particleWrap = document.getElementById("systemParticles");
+  const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(!reduce){
+    for(let i = 0; i < 54; i++){
+      const particle = document.createElement("span");
+      particle.className = "system-particle";
+      particle.style.setProperty("--x", `${Math.random() * 100}%`);
+      particle.style.setProperty("--y", `${Math.random() * 100}%`);
+      particle.style.setProperty("--s", `${2 + Math.random() * 4}px`);
+      particle.style.setProperty("--d", `${4 + Math.random() * 9}s`);
+      particle.style.setProperty("--delay", `${Math.random() * -10}s`);
+      particle.style.setProperty("--move", `${Math.random() * 80 - 40}px`);
+      particleWrap.appendChild(particle);
+    }
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>

@@ -16,6 +16,7 @@ Public portfolio site for Robert Marleton / Inkspirations Studios.
 - `flight-deck.html` - immersive animated Flight Deck performance page
 - `t-shirt-design-lab.html` - creative workshop for future T-shirt concepts
 - `merch-foundry.html` - creative command room for merch and custom-work concepts
+- `systems-i-built.html` - systems showcase for frameworks, protocols, workflows, and creative operating structures
 
 ## Public assets
 
