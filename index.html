@@ -173,11 +173,14 @@ section{padding:6rem clamp(1.2rem,6vw,5rem)}
   <a class="brand" href="#top">Inkspirations Studios</a>
   <div class="nav-links" aria-label="Primary navigation">
     <a href="#work">Work</a>
+    <a href="landing.html">Landing</a>
     <a href="#ocean">Ocean</a>
     <a href="#brushes">Brushes</a>
     <a href="#beatforge">Beats</a>
+    <a href="flight-deck.html">Flight</a>
     <a href="#mediums">Mediums</a>
     <a href="#rooms">Rooms</a>
+    <a href="guest-registry.html">Registry</a>
     <a href="#pricing">Pricing</a>
     <a href="#pixels-pricing">Pixels</a>
     <a href="#studio-guide">Guide</a>
@@ -193,6 +196,8 @@ section{padding:6rem clamp(1.2rem,6vw,5rem)}
       <p class="hero-copy">A portfolio for blue ink work, digital brush tools, immersive writing spaces, and commissions from Inkspirations Studios.</p>
       <div class="hero-actions">
         <a class="btn primary" href="#work">View Work</a>
+        <a class="btn" href="landing.html">Enter Landing</a>
+        <a class="btn" href="flight-deck.html">Flight Deck</a>
         <a class="btn" href="#studio-guide">Ask The Studio</a>
         <a class="btn" href="https://pixels.com/profiles/robert-marleton" target="_blank" rel="noopener">Pixels Store</a>
       </div>
@@ -304,6 +309,26 @@ section{padding:6rem clamp(1.2rem,6vw,5rem)}
       <p>This keeps the strongest idea from the alternate homepage without making the site depend on a fragile live AI call.</p>
     </div>
     <div class="rooms" id="roomGrid"></div>
+  </section>
+
+  <section id="guest-registry">
+    <div class="section-head">
+      <p class="section-kicker">Guest Registry</p>
+      <h2>A quiet logbook for visitors entering the studio world.</h2>
+      <p>The registry gives guests a place to leave a name, mood, favorite room, and message. On this static portfolio it saves locally in the visitor's browser, with a button to send the note directly to the studio.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <h3>Open the guest registry</h3>
+        <p>Use this as the public guestbook layer for Ocean of Ink, Beat Lab, Flight Deck, and future rooms.</p>
+        <a class="btn primary" href="guest-registry.html">Sign The Registry</a>
+      </div>
+      <div class="contact-card">
+        <h3>Launch from the landing page</h3>
+        <p>The landing page works like the front door: visitors can choose the portfolio, Flight Deck, BeatForge, the registry, or the Pixels store.</p>
+        <a class="btn" href="landing.html">View Landing Page</a>
+      </div>
+    </div>
   </section>
 
   <section id="pricing">
@@ -514,6 +539,8 @@ const agents = [
       commission:"Commissions and originals start at $150 and scale by size, detail, medium, deadline, and usage.",
       beatforge:"BeatForge Studio is a free playable browser music maker with a channel rack, playlist, automation section, pads, mixer, effects, and visualizer.",
       flight:"Flight Deck is the animated DJ cockpit: spinning vinyl, moving hands, radar, altitude, fog, bubbles, and melodic techno navigation.",
+      registry:"The Guest Registry is a public-facing logbook. It saves entries on the visitor's device and can send notes to the studio by email.",
+      landing:"The Landing page is the cinematic front door for the portfolio, with paths into Ocean of Ink, Flight Deck, BeatForge, the registry, and Pixels.",
       fluid:"Fluid Soul Mini Brush Set is a $9 expressive digital brush product. Use the purchase/inquiry button so delivery happens privately.",
       ocean:"Ocean of Ink is the immersive blue world layer of the studio: light, motion, bubbles, and atmosphere."
     }
@@ -622,6 +649,8 @@ function getAgentReply(text){
   if(q.includes("seo") || q.includes("keyword")) return answers.homepage || answers.product || answers.default;
   if(q.includes("fluid") || q.includes("brush")) return answers.fluid || answers.explain || answers.default;
   if(q.includes("flight") || q.includes("dj") || q.includes("deck")) return answers.flight || answers.default;
+  if(q.includes("registry") || q.includes("guest") || q.includes("logbook")) return answers.registry || answers.default;
+  if(q.includes("landing") || q.includes("front door")) return answers.landing || answers.default;
   if(q.includes("beat") || q.includes("forge") || q.includes("music")) return answers.beat || answers.beatforge || answers.default;
   if(q.includes("trap")) return answers.trap || answers.default;
   if(q.includes("ambient")) return answers.ambient || answers.default;

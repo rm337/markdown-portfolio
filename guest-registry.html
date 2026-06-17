@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guest Registry | Inkspirations Studios</title>
+<meta name="description" content="Sign the Inkspirations Studios guest registry and leave a note from the portfolio rooms.">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --ink:#050711;
+  --deep:#071427;
+  --blue:#0877f2;
+  --cyan:#55dcff;
+  --paper:#f5efe5;
+  --coral:#f28a6b;
+  --soft:rgba(248,251,255,.72);
+  --muted:rgba(248,251,255,.48);
+  --line:rgba(248,251,255,.16);
+  --glass:rgba(6,14,28,.72);
+}
+html,body{min-height:100%}
+body{margin:0;background:var(--ink);color:#f8fbff;font-family:Georgia,"Times New Roman",serif;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:-3;background:
+  radial-gradient(circle at 24% 16%,rgba(85,220,255,.19),transparent 28%),
+  radial-gradient(circle at 74% 28%,rgba(8,119,242,.24),transparent 30%),
+  radial-gradient(circle at 60% 88%,rgba(242,138,107,.12),transparent 26%),
+  linear-gradient(180deg,#050711 0%,#071427 56%,#02040a 100%)}
+body::after{content:"";position:fixed;inset:0;z-index:-2;opacity:.2;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:76px 76px;mask-image:linear-gradient(to bottom,black,transparent 70%)}
+a{color:inherit}
+button,input,textarea,select{font:inherit}
+.nav{position:fixed;z-index:20;left:0;right:0;top:0;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1rem clamp(1rem,4vw,3rem);border-bottom:1px solid var(--line);background:rgba(5,7,17,.75);backdrop-filter:blur(16px)}
+.brand,.nav a,.kicker,.btn,label,.entry small,.pill{font-family:Arial,sans-serif;text-transform:uppercase;letter-spacing:.13em;font-weight:900}
+.brand{font-size:.74rem;text-decoration:none}
+.nav-links{display:flex;gap:1rem;flex-wrap:wrap;justify-content:flex-end}
+.nav a{font-size:.68rem;text-decoration:none;color:var(--soft)}
+.nav a:hover{color:#fff}
+.shell{padding:8rem clamp(1.2rem,6vw,5rem) 4rem}
+.hero{max-width:920px;margin-bottom:2.5rem}
+.kicker{font-size:.72rem;color:var(--cyan);margin:0 0 1rem}
+h1,h2,h3,p{margin-top:0}
+h1{font-size:clamp(3rem,7vw,6.7rem);line-height:.9;margin-bottom:1rem}
+.hero p{max-width:760px;color:var(--soft);font-size:clamp(1.08rem,2vw,1.32rem);line-height:1.55}
+.registry{display:grid;grid-template-columns:minmax(300px,.82fr) minmax(0,1fr);gap:1rem;align-items:start}
+.panel{border:1px solid var(--line);background:var(--glass);backdrop-filter:blur(18px);box-shadow:0 28px 80px rgba(0,0,0,.34)}
+.form-panel{padding:1.1rem}
+.field{display:grid;gap:.35rem;margin-bottom:.85rem}
+label{font-size:.64rem;color:var(--paper)}
+input,textarea,select{width:100%;border:1px solid var(--line);background:rgba(255,255,255,.07);color:#f8fbff;padding:.82rem .9rem;outline:none}
+textarea{min-height:132px;resize:vertical}
+input:focus,textarea:focus,select:focus{border-color:rgba(85,220,255,.72);box-shadow:0 0 0 3px rgba(85,220,255,.12)}
+select option{background:#071427;color:#f8fbff}
+.actions{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:.8rem 1rem;border:1px solid var(--line);background:rgba(255,255,255,.06);color:#f8fbff;text-decoration:none;font-size:.68rem;cursor:pointer}
+.btn.primary{background:var(--blue);border-color:rgba(85,220,255,.46)}
+.btn.warn{border-color:rgba(242,138,107,.45);color:var(--paper)}
+.btn:hover{transform:translateY(-1px);border-color:rgba(85,220,255,.68)}
+.note{color:var(--muted);font-size:.92rem;line-height:1.45;margin:.9rem 0 0}
+.entries{padding:1.1rem;min-height:520px}
+.entries-head{display:flex;justify-content:space-between;gap:1rem;align-items:flex-end;border-bottom:1px solid var(--line);padding-bottom:1rem;margin-bottom:1rem}
+.entries-head h2{font-size:1.7rem;margin:0}
+.pill{font-size:.62rem;color:var(--cyan);border:1px solid var(--line);padding:.45rem .6rem;background:rgba(255,255,255,.04)}
+.entry-list{display:grid;gap:.75rem}
+.entry{border:1px solid var(--line);background:rgba(255,255,255,.045);padding:1rem}
+.entry strong{display:block;font-size:1.25rem;margin-bottom:.25rem}
+.entry small{display:block;color:var(--cyan);font-size:.58rem;margin-bottom:.65rem}
+.entry p{color:var(--soft);line-height:1.5;margin:0}
+.empty{padding:2rem;border:1px dashed rgba(248,251,255,.2);color:var(--muted);text-align:center}
+.lanterns{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.lantern{position:absolute;left:var(--x);bottom:-12vh;width:var(--s);height:var(--s);border-radius:50%;background:rgba(85,220,255,.12);border:1px solid rgba(248,251,255,.46);box-shadow:0 0 20px rgba(85,220,255,.42),0 0 46px rgba(8,119,242,.28);animation:rise var(--d) linear infinite;animation-delay:var(--delay);opacity:0}
+@keyframes rise{0%{transform:translate3d(0,0,0) scale(.72);opacity:0}12%{opacity:.5}78%{opacity:.32}100%{transform:translate3d(var(--sway),-116vh,0) scale(1.18);opacity:0}}
+@media(max-width:900px){
+  .registry{grid-template-columns:1fr}
+  .nav{position:absolute;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+<div class="lanterns" id="lanterns" aria-hidden="true"></div>
+<nav class="nav">
+  <a class="brand" href="index.html">Inkspirations Studios</a>
+  <div class="nav-links">
+    <a href="landing.html">Landing</a>
+    <a href="index.html">Portfolio</a>
+    <a href="flight-deck.html">Flight Deck</a>
+    <a href="beats.html">BeatForge</a>
+  </div>
+</nav>
+<main class="shell">
+  <section class="hero">
+    <p class="kicker">Guest Registry / Studio Logbook</p>
+    <h1>Leave a signal in the blue.</h1>
+    <p>Sign the Inkspirations Studios registry after visiting Ocean of Ink, Flight Deck, BeatForge, or the portfolio. This page is safe for a static GitHub Pages site: entries stay on this device unless the guest sends the note to the studio by email.</p>
+  </section>
+  <section class="registry">
+    <form class="panel form-panel" id="registryForm">
+      <div class="field">
+        <label for="guestName">Name</label>
+        <input id="guestName" name="guestName" maxlength="60" placeholder="Your name" required>
+      </div>
+      <div class="field">
+        <label for="guestPlace">Location</label>
+        <input id="guestPlace" name="guestPlace" maxlength="80" placeholder="City, state, or somewhere in the blue">
+      </div>
+      <div class="field">
+        <label for="guestRoom">Room Visited</label>
+        <select id="guestRoom" name="guestRoom">
+          <option>Ocean Of Ink</option>
+          <option>Flight Deck</option>
+          <option>BeatForge Studio</option>
+          <option>Selected Work</option>
+          <option>Fluid Soul Brushes</option>
+          <option>Commission Path</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="guestMood">Mood</label>
+        <input id="guestMood" name="guestMood" maxlength="60" placeholder="Calm, electric, curious, inspired">
+      </div>
+      <div class="field">
+        <label for="guestMessage">Message</label>
+        <textarea id="guestMessage" name="guestMessage" maxlength="700" placeholder="What did the room make you feel?" required></textarea>
+      </div>
+      <div class="actions">
+        <button class="btn primary" type="submit">Add To Registry</button>
+        <button class="btn" type="button" id="sendEmail">Send To Studio</button>
+        <button class="btn warn" type="button" id="clearEntries">Clear Local</button>
+      </div>
+      <p class="note">For a public registry that collects every guest entry online, this can later connect to a form service or database. This version keeps the portfolio secure and simple.</p>
+    </form>
+    <section class="panel entries" aria-live="polite">
+      <div class="entries-head">
+        <div>
+          <p class="kicker">Recent Signals</p>
+          <h2>Local registry</h2>
+        </div>
+        <span class="pill" id="entryCount">0 Entries</span>
+      </div>
+      <div class="entry-list" id="entryList"></div>
+    </section>
+  </section>
+</main>
+<script>
+(() => {
+  const storageKey = "inkspirationsGuestRegistry";
+  const form = document.getElementById("registryForm");
+  const list = document.getElementById("entryList");
+  const count = document.getElementById("entryCount");
+  const emailButton = document.getElementById("sendEmail");
+  const clearButton = document.getElementById("clearEntries");
+  const fields = {
+    name: document.getElementById("guestName"),
+    place: document.getElementById("guestPlace"),
+    room: document.getElementById("guestRoom"),
+    mood: document.getElementById("guestMood"),
+    message: document.getElementById("guestMessage")
+  };
+  const lanterns = document.getElementById("lanterns");
+  for(let i=0;i<56;i++){
+    const light = document.createElement("i");
+    light.className = "lantern";
+    light.style.setProperty("--x", `${Math.random()*100}%`);
+    light.style.setProperty("--s", `${4+Math.random()*8}px`);
+    light.style.setProperty("--d", `${11+Math.random()*18}s`);
+    light.style.setProperty("--delay", `${Math.random()*-22}s`);
+    light.style.setProperty("--sway", `${Math.random()*170-85}px`);
+    lanterns.appendChild(light);
+  }
+  function getEntries(){
+    try{return JSON.parse(localStorage.getItem(storageKey)) || [];}
+    catch{return [];}
+  }
+  function saveEntries(entries){
+    localStorage.setItem(storageKey, JSON.stringify(entries.slice(0,24)));
+  }
+  function clean(value){
+    return String(value || "").trim().replace(/\s+/g," ");
+  }
+  function currentDraft(){
+    return {
+      name: clean(fields.name.value),
+      place: clean(fields.place.value),
+      room: fields.room.value,
+      mood: clean(fields.mood.value),
+      message: fields.message.value.trim(),
+      date: new Date().toLocaleString()
+    };
+  }
+  function render(){
+    const entries = getEntries();
+    count.textContent = `${entries.length} ${entries.length === 1 ? "Entry" : "Entries"}`;
+    list.innerHTML = "";
+    if(!entries.length){
+      list.innerHTML = '<div class="empty">No local entries yet. Be the first signal in the registry.</div>';
+      return;
+    }
+    entries.forEach(entry => {
+      const card = document.createElement("article");
+      card.className = "entry";
+      card.innerHTML = `<strong></strong><small></small><p></p>`;
+      card.querySelector("strong").textContent = entry.name || "Guest";
+      card.querySelector("small").textContent = `${entry.room || "Studio"} / ${entry.mood || "Mood unlisted"} / ${entry.date || ""}`;
+      card.querySelector("p").textContent = `${entry.message}${entry.place ? " - " + entry.place : ""}`;
+      list.appendChild(card);
+    });
+  }
+  form.addEventListener("submit",event=>{
+    event.preventDefault();
+    const draft = currentDraft();
+    if(!draft.name || !draft.message) return;
+    saveEntries([draft,...getEntries()]);
+    form.reset();
+    render();
+  });
+  emailButton.addEventListener("click",()=>{
+    const draft = currentDraft();
+    const subject = encodeURIComponent(`Guest Registry - ${draft.name || "New Visitor"}`);
+    const body = encodeURIComponent([
+      `Name: ${draft.name || ""}`,
+      `Location: ${draft.place || ""}`,
+      `Room: ${draft.room || ""}`,
+      `Mood: ${draft.mood || ""}`,
+      "",
+      draft.message || "New guest registry note."
+    ].join("\n"));
+    window.location.href = `mailto:r.marleton@gmail.com?subject=${subject}&body=${body}`;
+  });
+  clearButton.addEventListener("click",()=>{
+    if(confirm("Clear the registry entries saved on this device?")){
+      localStorage.removeItem(storageKey);
+      render();
+    }
+  });
+  render();
+})();
+</script>
+</body>
+</html>
