@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Site Map | Inkspirations Studios</title>
+<meta name="description" content="Site map for the Inkspirations Studios portfolio, rooms, tools, guest registry, pricing, and contact paths.">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --ink:#070812;
+  --deep:#0d1630;
+  --blue:#0877f2;
+  --cyan:#56d9ff;
+  --paper:#f5efe5;
+  --sage:#8fae9b;
+  --coral:#f28a6b;
+  --white:#f8fbff;
+  --soft:rgba(248,251,255,.72);
+  --muted:rgba(248,251,255,.48);
+  --line:rgba(248,251,255,.14);
+  --shadow:0 28px 80px rgba(0,0,0,.35);
+}
+html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;background:var(--ink);color:var(--white);font-family:Georgia,"Times New Roman",serif;line-height:1.6;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:-2;background:
+  radial-gradient(circle at 22% 15%,rgba(86,217,255,.22),transparent 28%),
+  radial-gradient(circle at 82% 20%,rgba(242,138,107,.14),transparent 24%),
+  radial-gradient(circle at 62% 84%,rgba(143,174,155,.12),transparent 30%),
+  linear-gradient(160deg,#070812 0%,#0c1530 48%,#07101c 100%)}
+body::after{content:"";position:fixed;inset:0;z-index:-1;opacity:.22;background-image:
+  linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:72px 72px;mask-image:linear-gradient(to bottom,black,transparent 70%)}
+a{color:inherit}
+.bubbles{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.bubble{position:absolute;left:var(--x);bottom:-10vh;width:var(--size);height:var(--size);border-radius:50%;background:rgba(221,235,255,.6);box-shadow:0 0 12px rgba(221,235,255,.82),0 0 30px rgba(8,119,242,.42);opacity:0;animation:bubbleRise var(--duration) linear infinite;animation-delay:var(--delay)}
+@keyframes bubbleRise{0%{transform:translate3d(0,0,0) scale(.55);opacity:0}10%{opacity:.48}78%{opacity:.32}100%{transform:translate3d(var(--sway),-118vh,0) scale(1.18);opacity:0}}
+.site-nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem clamp(1rem,4vw,3rem);background:rgba(7,8,18,.78);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.brand{font-family:Arial,sans-serif;font-size:.78rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;text-decoration:none}
+.nav-links{display:flex;gap:1rem;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.nav-links a{font-family:Arial,sans-serif;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--soft);text-decoration:none}
+.nav-links a:hover{color:var(--white)}
+main,footer{position:relative;z-index:2}
+.hero{padding:8rem clamp(1.2rem,6vw,5rem) 3rem;max-width:1120px}
+.eyebrow,.section-kicker,.map-card small,.btn,.route-label{font-family:Arial,sans-serif;font-size:.72rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan)}
+h1,h2,h3,p{margin-top:0}
+h1{font-size:clamp(3rem,8vw,7rem);line-height:.9;margin-bottom:1.2rem;letter-spacing:0}
+.hero p{font-size:clamp(1.1rem,2vw,1.45rem);color:var(--soft);max-width:780px}
+.hero-actions{display:flex;gap:.9rem;flex-wrap:wrap;margin-top:2rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:.78rem 1rem;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--white);text-decoration:none;cursor:pointer}
+.btn.primary{background:var(--blue);border-color:rgba(86,217,255,.35)}
+.btn:hover{transform:translateY(-1px);border-color:rgba(86,217,255,.65)}
+.map-section{padding:2rem clamp(1.2rem,6vw,5rem) 6rem}
+.map-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}
+.map-card{min-height:320px;border:1px solid var(--line);background:rgba(255,255,255,.045);box-shadow:var(--shadow);padding:1.2rem;display:flex;flex-direction:column}
+.map-card.featured{background:
+  radial-gradient(circle at 32% 18%,rgba(86,217,255,.28),transparent 34%),
+  linear-gradient(180deg,rgba(8,119,242,.16),rgba(255,255,255,.04));border-color:rgba(86,217,255,.42)}
+.map-card h2{font-size:1.65rem;line-height:1.08;margin:.45rem 0 .65rem}
+.map-card p{color:var(--soft);margin-bottom:1rem}
+.route-list{display:grid;gap:.55rem;margin-top:auto}
+.route{display:grid;gap:.15rem;padding:.85rem;border:1px solid var(--line);background:rgba(255,255,255,.04);text-decoration:none;transition:transform .2s,border-color .2s}
+.route:hover{transform:translateY(-2px);border-color:rgba(86,217,255,.62)}
+.route-label{font-size:.62rem;color:var(--paper)}
+.route span:last-child{color:var(--muted);font-size:.95rem}
+.quick-index{margin-top:1rem;border:1px solid var(--line);background:rgba(7,8,18,.72);padding:1rem;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.7rem}
+.quick-index a{padding:.75rem;border:1px solid var(--line);background:rgba(255,255,255,.04);font-family:Arial,sans-serif;font-size:.68rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;color:var(--soft);text-align:center}
+.quick-index a:hover{color:var(--white);border-color:rgba(86,217,255,.62)}
+.footer{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding:2rem clamp(1.2rem,6vw,5rem);border-top:1px solid var(--line);color:var(--muted);font-family:Arial,sans-serif;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase}
+@media(max-width:980px){
+  .map-grid{grid-template-columns:1fr}
+  .quick-index{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:640px){
+  .site-nav{position:absolute;align-items:flex-start}
+  .hero{padding-top:9rem}
+  .quick-index{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="bubbles" id="bubbles" aria-hidden="true"></div>
+<nav class="site-nav">
+  <a class="brand" href="index.html">Inkspirations Studios</a>
+  <div class="nav-links" aria-label="Primary navigation">
+    <a href="landing.html">Landing</a>
+    <a href="rooms.html">Rooms</a>
+    <a href="index.html">Portfolio</a>
+    <a href="flight-deck.html">Flight</a>
+    <a href="beats.html">Beats</a>
+    <a href="guest-registry.html">Registry</a>
+    <a href="identity-card.html">Card</a>
+    <a href="systems-i-built.html">Systems</a>
+  </div>
+</nav>
+<main>
+  <header class="hero">
+    <p class="eyebrow">Site Map</p>
+    <h1>Find your way through the studio.</h1>
+    <p>A clear navigation map for Inkspirations Studios: portfolio work, Ocean of Ink, Flight Deck, BeatForge, guest registry, pricing, prints, and contact paths.</p>
+    <div class="hero-actions">
+      <a class="btn primary" href="landing.html">Start At Landing</a>
+      <a class="btn" href="rooms.html">Open Rooms Hub</a>
+      <a class="btn" href="index.html">Open Portfolio</a>
+      <a class="btn" href="guest-registry.html">Sign Registry</a>
+      <a class="btn" href="identity-card.html">Identity Card</a>
+      <a class="btn" href="systems-i-built.html">Systems I Built</a>
+    </div>
+    <div class="quick-index" aria-label="Quick section links">
+      <a href="index.html#work">Selected Work</a>
+      <a href="index.html#ocean">Ocean</a>
+      <a href="index.html#pricing">Pricing</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+  </header>
+  <section class="map-section">
+    <div class="map-grid">
+      <article class="map-card featured">
+        <small>Primary Path</small>
+        <h2>Visitor front door</h2>
+        <p>The simplest route for someone arriving fresh: enter, choose a room, then move into the work or registry.</p>
+        <div class="route-list">
+          <a class="route" href="landing.html"><span class="route-label">Landing Page</span><span>Cinematic entry point for the studio.</span></a>
+          <a class="route" href="rooms.html"><span class="route-label">Room Hub</span><span>Global map generated from the shared room system.</span></a>
+          <a class="route" href="index.html"><span class="route-label">Portfolio Home</span><span>Main portfolio, work, pricing, guide, and contact.</span></a>
+          <a class="route" href="guest-registry.html"><span class="route-label">Guest Registry</span><span>Visitor logbook and studio note form.</span></a>
+          <a class="route" href="identity-card.html"><span class="route-label">Digital Identity Card</span><span>Shareable business card and discovery hub for Robert Marleton.</span></a>
+        </div>
+      </article>
+      <article class="map-card">
+        <small>Immersive Rooms</small>
+        <h2>Rooms and experiences</h2>
+        <p>These are the atmospheric spaces that make the portfolio feel alive instead of flat.</p>
+        <div class="route-list">
+          <a class="route" href="index.html#ocean"><span class="route-label">Ocean Of Ink</span><span>Blue motion, bubbles, light, and studio atmosphere.</span></a>
+          <a class="route" href="flight-deck.html"><span class="route-label">Flight Deck</span><span>Animated DJ cockpit with vinyl, radar, and navigation.</span></a>
+          <a class="route" href="beats.html"><span class="route-label">BeatForge Studio</span><span>Playable music maker and Beat Lab room.</span></a>
+          <a class="route" href="index.html#rooms"><span class="route-label">Room Directory</span><span>Rain, Ocean, Beat Lab, Flight Deck, Cafe, Blue Hour, Silent.</span></a>
+          <a class="route" href="rooms.html"><span class="route-label">Global Room System</span><span>Home, Ocean of Ink, Flight Deck, Writing Room, Music Room, BeatForge Studio, T-Shirt Design Lab, Merch Concept Foundry, and Systems I Built.</span></a>
+          <a class="route" href="t-shirt-design-lab.html"><span class="route-label">T-Shirt Design Lab</span><span>Creative workshop for shirt concepts, review, and development.</span></a>
+          <a class="route" href="merch-foundry.html"><span class="route-label">Merch Concept Foundry</span><span>Command room for custom work, Robertisms, product ideas, and future merch collections.</span></a>
+          <a class="route" href="systems-i-built.html"><span class="route-label">Systems I Built</span><span>Blueprint room for frameworks, protocols, workflows, and creative operating structures.</span></a>
+        </div>
+      </article>
+      <article class="map-card">
+        <small>Artwork And Products</small>
+        <h2>Buying and collecting</h2>
+        <p>Public paths for browsing, pricing, prints, brushes, and commission inquiries without exposing private downloads.</p>
+        <div class="route-list">
+          <a class="route" href="index.html#work"><span class="route-label">Selected Work</span><span>Current gallery cards and portfolio direction.</span></a>
+          <a class="route" href="index.html#brushes"><span class="route-label">Fluid Soul Brushes</span><span>Brush product preview and private purchase inquiry.</span></a>
+          <a class="route" href="index.html#pricing"><span class="route-label">Pricing</span><span>Starting points for brushes, bundles, tools, and commissions.</span></a>
+          <a class="route" href="index.html#pixels-pricing"><span class="route-label">Pixels Pricing</span><span>Print markup guidance and store path.</span></a>
+        </div>
+      </article>
+      <article class="map-card">
+        <small>Help</small>
+        <h2>Questions and contact</h2>
+        <p>Visitor support paths that keep private agents and studio files off the public site.</p>
+        <div class="route-list">
+          <a class="route" href="index.html#studio-guide"><span class="route-label">Studio Guide</span><span>Public visitor guide for prints, pricing, tools, and rooms.</span></a>
+          <a class="route" href="index.html#contact"><span class="route-label">Contact</span><span>Email paths for commissions and studio inquiries.</span></a>
+          <a class="route" href="mailto:r.marleton@gmail.com?subject=Inkspirations%20Studios%20Inquiry"><span class="route-label">Email Studio</span><span>Contact Robert Marleton directly.</span></a>
+        </div>
+      </article>
+      <article class="map-card">
+        <small>External</small>
+        <h2>Store and publishing</h2>
+        <p>Outside destinations connected to the portfolio.</p>
+        <div class="route-list">
+          <a class="route" href="https://pixels.com/profiles/robert-marleton" target="_blank" rel="noopener"><span class="route-label">Pixels Store</span><span>Prints and products hosted through Pixels.</span></a>
+          <a class="route" href="https://rm337.github.io/markdown-portfolio/" target="_blank" rel="noopener"><span class="route-label">Live Site</span><span>GitHub Pages public portfolio URL.</span></a>
+        </div>
+      </article>
+      <article class="map-card">
+        <small>Protection</small>
+        <h2>Private file boundary</h2>
+        <p>Paid downloads, brush source files, archives, dashboards, and private agents should stay out of the public GitHub Pages repo.</p>
+        <div class="route-list">
+          <a class="route" href="README.md"><span class="route-label">Repository Notes</span><span>Public pages, public assets, and private-file reminders.</span></a>
+          <a class="route" href="index.html#pricing"><span class="route-label">Purchase Path</span><span>Public prices with private delivery after inquiry or purchase.</span></a>
+        </div>
+      </article>
+    </div>
+  </section>
+</main>
+<footer class="footer">
+  <span>Inkspirations Studios</span>
+  <span>Robert Marleton</span>
+  <span>Site map, 2026</span>
+</footer>
+<script>
+(() => {
+  const wrap = document.getElementById("bubbles");
+  for(let i = 0; i < 64; i++){
+    const bubble = document.createElement("span");
+    bubble.className = "bubble";
+    bubble.style.setProperty("--x", `${Math.random() * 100}%`);
+    bubble.style.setProperty("--size", `${2 + Math.random() * 5}px`);
+    bubble.style.setProperty("--duration", `${9 + Math.random() * 17}s`);
+    bubble.style.setProperty("--delay", `${Math.random() * -24}s`);
+    bubble.style.setProperty("--sway", `${Math.random() * 170 - 85}px`);
+    wrap.appendChild(bubble);
+  }
+})();
+</script>
+</body>
+</html>

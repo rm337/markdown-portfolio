@@ -1,13 +1,31 @@
-## Your GitHub Learning Lab Repository for Communicating Using Markdown
+# Inkspirations Studios Portfolio
 
-Welcome to **your** repository for your GitHub Learning Lab course. This repository will be used during the different activities that I will be guiding you through.
+Public portfolio site for Robert Marleton / Inkspirations Studios.
 
-Oh! I haven't introduced myself...
+## Public pages
 
-I'm the GitHub Learning Lab bot and I'm here to help guide you in your journey to learn and master the various topics covered in this course. I will be using Issue and Pull Request comments to communicate with you. In fact, I already added an issue for you to check out.
+- `index.html` - main portfolio homepage
+- `landing.html` - cinematic front door for the public portfolio
+- `identity-card.html` - digital business card and personal discovery hub
+- `guest-registry.html` - static guest registry and studio logbook
+- `site-map.html` - visitor-facing navigation map for all public pages
+- `rooms.html` - global room hub generated from shared room data
+- `rooms.css` - shared room navigation, cards, and atmosphere styles
+- `rooms.js` - reusable room data, cards, active-room detection, and atmosphere controls
+- `beats.html` - BeatForge Studio / Beat Lab room
+- `flight-deck.html` - immersive animated Flight Deck performance page
+- `t-shirt-design-lab.html` - creative workshop for future T-shirt concepts
+- `merch-foundry.html` - creative command room for merch and custom-work concepts
+- `systems-i-built.html` - systems showcase for frameworks, protocols, workflows, and creative operating structures
 
-![issue tab](https://lab.github.com/public/images/issue_tab.png)
+## Public assets
 
-I'll meet you over there, can't wait to get started!
+- `Fluid_Soul_Front_Cover_edited.png` - preview image only
 
-This repository is licensed under [MIT](../LICENSE) (c) 2019 GitHub, Inc.
+## Private files
+
+Paid downloads, private agents, working copies, brush files, source packs, and archives should stay outside this public repo. They are kept locally in:
+
+`C:\Users\rmarl\OneDrive\Documents\GitHub\Inkspirations-private`
+
+Do not publish `.brushset`, source files, private dashboards, or downloadable paid products in this GitHub Pages repo.

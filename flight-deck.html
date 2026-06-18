@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flight Deck | Inkspirations Studios</title>
+<meta name="description" content="Flight Deck is an immersive animated DJ cockpit for progressive house and melodic techno.">
+<link rel="stylesheet" href="rooms.css">
+<style>
+*{box-sizing:border-box}
+:root{
+  --black:#02040a;
+  --night:#050914;
+  --deep:#071427;
+  --blue:#0877f2;
+  --cyan:#49d9ff;
+  --ice:#dff8ff;
+  --amber:#ffb45c;
+  --green:#83f3ba;
+  --pink:#ff6b9d;
+  --glass:rgba(6,14,28,.68);
+  --line:rgba(223,248,255,.18);
+}
+html,body{height:100%}
+body{margin:0;overflow:hidden;background:var(--black);color:var(--ice);font-family:Inter,"Segoe UI",Arial,sans-serif}
+.flight-deck{position:relative;height:100%;min-height:100vh;overflow:hidden;isolation:isolate;background:
+  radial-gradient(circle at 50% 42%,rgba(8,119,242,.22),transparent 27%),
+  radial-gradient(circle at 18% 14%,rgba(73,217,255,.16),transparent 26%),
+  radial-gradient(circle at 86% 18%,rgba(255,107,157,.1),transparent 22%),
+  linear-gradient(180deg,#040711 0%,#071427 48%,#02040a 100%)}
+canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.fog{position:absolute;inset:-15%;z-index:1;pointer-events:none;opacity:.55;background:
+  radial-gradient(ellipse at 20% 80%,rgba(73,217,255,.16),transparent 36%),
+  radial-gradient(ellipse at 75% 76%,rgba(8,119,242,.18),transparent 38%),
+  radial-gradient(ellipse at 50% 96%,rgba(255,255,255,.08),transparent 45%);
+  filter:blur(28px);animation:fogDrift 12s ease-in-out infinite alternate}
+.beams{position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.7;background:
+  conic-gradient(from 222deg at 50% 2%,transparent 0deg,rgba(73,217,255,.1) 10deg,transparent 22deg,transparent 48deg,rgba(8,119,242,.16) 60deg,transparent 76deg,transparent 360deg);
+  filter:blur(8px);animation:beamSweep 10s ease-in-out infinite alternate}
+.scan{position:absolute;inset:0;z-index:9;opacity:.12;pointer-events:none;background:repeating-linear-gradient(180deg,transparent 0 7px,rgba(255,255,255,.055) 8px,transparent 9px)}
+.top-hud{position:absolute;z-index:20;left:0;right:0;top:0;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1rem clamp(1rem,4vw,3rem);border-bottom:1px solid var(--line);background:rgba(2,4,10,.42);backdrop-filter:blur(16px)}
+.brand{font-weight:900;font-size:.75rem;letter-spacing:.24em;text-transform:uppercase;color:rgba(223,248,255,.72)}
+.hud-readouts{display:flex;gap:1rem;flex-wrap:wrap;font-size:.72rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:rgba(223,248,255,.62)}
+.hud-readouts b{color:var(--cyan);font-weight:950}
+.stage{position:relative;z-index:5;height:100%;display:grid;place-items:center;padding:6rem clamp(.6rem,3vw,2rem) 2rem}
+.ring{position:absolute;z-index:2;left:50%;top:43%;width:min(66vw,760px);height:min(66vw,760px);transform:translate(-50%,-50%);border-radius:50%;border:1px solid rgba(73,217,255,.36);box-shadow:0 0 40px rgba(73,217,255,.28),inset 0 0 38px rgba(73,217,255,.12);animation:ringPulse 4s ease-in-out infinite}
+.ring::before,.ring::after{content:"";position:absolute;inset:7%;border-radius:50%;border:1px dashed rgba(255,180,92,.34);animation:spin 18s linear infinite}
+.ring::after{inset:18%;border-color:rgba(73,217,255,.28);animation-duration:11s;animation-direction:reverse}
+.flight-path{position:absolute;z-index:3;left:8%;right:8%;top:22%;height:48%;pointer-events:none}
+.path-line{fill:none;stroke:rgba(73,217,255,.48);stroke-width:2;stroke-dasharray:12 18;animation:pathMove 4s linear infinite;filter:drop-shadow(0 0 8px rgba(73,217,255,.8))}
+.radar{position:absolute;z-index:6;left:clamp(1rem,4vw,3rem);bottom:clamp(1rem,4vw,3rem);width:170px;aspect-ratio:1;border-radius:50%;border:1px solid rgba(73,217,255,.3);background:
+  radial-gradient(circle,transparent 0 34%,rgba(73,217,255,.09) 35%,transparent 36% 63%,rgba(73,217,255,.09) 64%,transparent 65%),
+  linear-gradient(90deg,transparent 49.5%,rgba(73,217,255,.2) 50%,transparent 50.5%),
+  linear-gradient(180deg,transparent 49.5%,rgba(73,217,255,.2) 50%,transparent 50.5%);
+  box-shadow:0 0 26px rgba(73,217,255,.2);backdrop-filter:blur(12px)}
+.radar::before{content:"";position:absolute;left:50%;top:50%;width:45%;height:2px;background:linear-gradient(90deg,var(--cyan),transparent);transform-origin:left center;animation:spin 3.4s linear infinite}
+.radar .blip{position:absolute;width:7px;height:7px;border-radius:50%;background:var(--amber);box-shadow:0 0 14px var(--amber)}
+.blip.a{left:63%;top:28%}.blip.b{left:31%;top:56%;background:var(--cyan);box-shadow:0 0 14px var(--cyan)}.blip.c{left:70%;top:70%;background:var(--pink);box-shadow:0 0 14px var(--pink)}
+.song-cards{position:absolute;z-index:7;right:clamp(1rem,4vw,3rem);top:16%;display:grid;gap:.7rem;width:min(280px,32vw)}
+.song-card{border:1px solid var(--line);background:rgba(6,14,28,.55);backdrop-filter:blur(16px);padding:.8rem;box-shadow:0 18px 44px rgba(0,0,0,.24);animation:floatCard 6s ease-in-out infinite}
+.song-card:nth-child(2){animation-delay:-1.7s}.song-card:nth-child(3){animation-delay:-3.2s}
+.song-card strong{display:block;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);margin-bottom:.25rem}
+.song-card span{display:block;color:rgba(223,248,255,.68);font-family:Georgia,"Times New Roman",serif;font-style:italic}
+.zones{position:absolute;z-index:7;left:clamp(1rem,4vw,3rem);top:18%;display:grid;gap:.55rem;width:min(270px,30vw)}
+.zone{border-left:2px solid rgba(73,217,255,.45);background:rgba(6,14,28,.5);backdrop-filter:blur(14px);padding:.72rem .85rem;box-shadow:0 18px 42px rgba(0,0,0,.22)}
+.zone strong{display:block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ice)}
+.zone span{display:block;margin-top:.18rem;color:rgba(223,248,255,.58);font-size:.86rem;line-height:1.35}
+.bubble{position:absolute;z-index:3;left:var(--x);bottom:-9vh;width:var(--s);height:var(--s);border-radius:50%;border:1px solid rgba(223,248,255,.55);background:rgba(73,217,255,.12);box-shadow:0 0 14px rgba(73,217,255,.5);opacity:0;animation:bubbleRise var(--d) linear infinite;animation-delay:var(--delay);pointer-events:none}
+.performance{position:relative;z-index:8;width:min(1120px,96vw);height:min(680px,78vh);min-height:520px;display:grid;place-items:end center}
+.dj{position:absolute;z-index:5;left:50%;bottom:240px;width:260px;height:350px;transform:translateX(-50%);animation:bodyGroove 1.45s ease-in-out infinite}
+.head{position:absolute;left:50%;top:0;width:88px;height:102px;transform:translateX(-50%);border-radius:44% 44% 48% 48%;background:linear-gradient(180deg,#d9a47a,#8f5d44);box-shadow:inset -12px -16px 22px rgba(0,0,0,.22)}
+.hair{position:absolute;left:50%;top:-10px;width:100px;height:58px;transform:translateX(-50%);border-radius:45px 45px 20px 20px;background:#10131c}
+.face-glow{position:absolute;left:23px;top:45px;width:42px;height:5px;border-radius:4px;background:rgba(73,217,255,.9);box-shadow:0 0 14px rgba(73,217,255,.9)}
+.neck{position:absolute;left:50%;top:92px;width:38px;height:36px;transform:translateX(-50%);background:#9b674d}
+.headphones{position:absolute;left:50%;top:70px;width:150px;height:86px;transform:translateX(-50%);border:8px solid #121723;border-top-color:transparent;border-radius:0 0 80px 80px;z-index:3}
+.headphones::before,.headphones::after{content:"";position:absolute;top:17px;width:34px;height:44px;border-radius:12px;background:#0b0f18;border:1px solid rgba(73,217,255,.35);box-shadow:0 0 10px rgba(73,217,255,.18)}
+.headphones::before{left:7px}.headphones::after{right:7px;transform:rotate(-18deg)}
+.torso{position:absolute;left:50%;top:118px;width:180px;height:170px;transform:translateX(-50%);border-radius:54px 54px 20px 20px;background:linear-gradient(180deg,#0e1729,#050912);border:1px solid rgba(73,217,255,.18);box-shadow:0 0 36px rgba(8,119,242,.14)}
+.jacket-line{position:absolute;left:50%;top:0;bottom:0;width:1px;background:rgba(73,217,255,.32)}
+.arm{position:absolute;top:138px;width:126px;height:24px;border-radius:20px;background:linear-gradient(90deg,#0e1729,#1f2b41);transform-origin:18px 50%}
+.arm.left{left:8px;animation:leftArm 5.6s ease-in-out infinite}
+.arm.right{right:8px;transform-origin:108px 50%;animation:rightArm 4.8s ease-in-out infinite}
+.hand{position:absolute;top:-7px;width:28px;height:28px;border-radius:50%;background:#c98a64;box-shadow:0 0 12px rgba(255,180,92,.22)}
+.arm.left .hand{right:-15px}.arm.right .hand{left:-15px}
+.gesture{position:absolute;right:18px;top:124px;width:116px;height:22px;border-radius:18px;background:linear-gradient(90deg,#1f2b41,#0e1729);transform-origin:105px 50%;opacity:0;animation:raiseHand 11s ease-in-out infinite}
+.gesture .hand{left:-15px}
+.booth{position:relative;z-index:4;width:min(1080px,96vw);height:280px;border:1px solid rgba(223,248,255,.18);border-radius:20px 20px 8px 8px;background:linear-gradient(180deg,rgba(14,28,50,.92),rgba(4,8,16,.98));box-shadow:0 -20px 80px rgba(73,217,255,.12),0 30px 120px rgba(0,0,0,.62);display:grid;grid-template-columns:1fr 1.08fr 1fr;gap:1rem;padding:1.25rem}
+.booth::before{content:"FLIGHT DECK // MUSIC NAVIGATION CENTER";position:absolute;left:1.2rem;top:.55rem;font-size:.68rem;font-weight:900;letter-spacing:.22em;color:rgba(223,248,255,.35)}
+.turntable,.mixer{position:relative;margin-top:1.2rem;border:1px solid rgba(223,248,255,.12);border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(0,0,0,.28));box-shadow:inset 0 0 32px rgba(0,0,0,.36)}
+.turntable{display:grid;place-items:center;overflow:hidden}
+.platter{position:relative;width:min(220px,22vw);height:min(220px,22vw);min-width:150px;min-height:150px;border-radius:50%;background:repeating-radial-gradient(circle,#0a0e16 0 8px,#121a28 9px 12px);border:5px solid #111827;box-shadow:0 0 24px rgba(73,217,255,.18),inset 0 0 26px rgba(0,0,0,.8);animation:spin .9s linear infinite}
+.vinyl{position:absolute;inset:15px;border-radius:50%;background:repeating-radial-gradient(circle,#05070d 0 5px,#111827 6px 8px);border:1px solid rgba(255,255,255,.08)}
+.vinyl::before{content:"";position:absolute;left:50%;top:50%;width:46px;height:46px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,var(--cyan),#0b1020 62%);box-shadow:0 0 18px rgba(73,217,255,.58)}
+.vinyl::after{content:"";position:absolute;left:50%;top:18px;width:2px;height:46px;background:rgba(223,248,255,.45);transform-origin:50% 92px}
+.tonearm{position:absolute;right:12%;top:18%;width:88px;height:8px;border-radius:8px;background:#c5d6e9;transform-origin:82px 50%;transform:rotate(24deg);box-shadow:0 0 10px rgba(223,248,255,.38)}
+.tonearm::after{content:"";position:absolute;left:-12px;top:-5px;width:20px;height:18px;border-radius:3px;background:#1b2434}
+.cue-light{position:absolute;left:15%;bottom:16%;width:14px;height:14px;border-radius:50%;background:var(--green);box-shadow:0 0 18px var(--green);animation:cuePulse 2.9s ease-in-out infinite}
+.scratch-label{position:absolute;right:12%;bottom:12%;font-size:.62rem;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:rgba(223,248,255,.42);animation:scratchFlash 6.4s ease-in-out infinite}
+.mixer{padding:1rem;display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;align-items:end}
+.channel-strip{display:grid;justify-items:center;gap:.55rem}
+.knobs{display:grid;gap:.35rem}
+.knob{width:28px;height:28px;border-radius:50%;background:radial-gradient(circle at 35% 28%,#dff8ff,#26344b 48%,#070b12 70%);border:1px solid rgba(223,248,255,.2);animation:knobTurn 5s ease-in-out infinite}
+.channel-strip:nth-child(2) .knob{animation-delay:-1.2s}.channel-strip:nth-child(3) .knob{animation-delay:-2.4s}
+.leds{height:80px;width:22px;display:flex;flex-direction:column-reverse;gap:3px}
+.led{height:7px;border-radius:3px;background:rgba(73,217,255,.14)}
+.fader{position:relative;width:8px;height:92px;border-radius:10px;background:#05070d;border:1px solid rgba(223,248,255,.12)}
+.fader::before{content:"";position:absolute;left:50%;bottom:var(--level);width:34px;height:14px;transform:translateX(-50%);border-radius:4px;background:linear-gradient(180deg,#dff8ff,#6c7e95);box-shadow:0 0 12px rgba(73,217,255,.45)}
+.crossfader{position:absolute;left:50%;bottom:15px;width:160px;height:8px;transform:translateX(-50%);border-radius:10px;background:#05070d;border:1px solid rgba(223,248,255,.14)}
+.crossfader::before{content:"";position:absolute;top:-7px;left:var(--cross);width:34px;height:20px;border-radius:5px;background:linear-gradient(180deg,var(--amber),#7a3d12);box-shadow:0 0 14px rgba(255,180,92,.5);animation:crossfade 8s ease-in-out infinite}
+.eq{position:absolute;z-index:7;left:50%;bottom:315px;transform:translateX(-50%);display:flex;align-items:end;gap:5px;height:86px}
+.eq span{width:8px;height:20px;border-radius:6px 6px 0 0;background:linear-gradient(180deg,var(--cyan),var(--blue));box-shadow:0 0 10px rgba(73,217,255,.55);animation:eqBounce .72s ease-in-out infinite}
+.eq span:nth-child(2n){animation-delay:-.22s}.eq span:nth-child(3n){animation-delay:-.38s}.eq span:nth-child(5n){animation-delay:-.52s}
+.controls-glow{position:absolute;z-index:7;left:50%;bottom:190px;width:min(900px,88vw);height:24px;transform:translateX(-50%);background:linear-gradient(90deg,transparent,rgba(73,217,255,.26),rgba(255,180,92,.18),transparent);filter:blur(14px);animation:pulseGlow 1.45s ease-in-out infinite}
+@keyframes fogDrift{from{transform:translateX(-2%) scale(1)}to{transform:translateX(2%) scale(1.05)}}
+@keyframes beamSweep{from{transform:translateX(-3%) rotate(-2deg)}to{transform:translateX(3%) rotate(2deg)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pathMove{to{stroke-dashoffset:-60}}
+@keyframes ringPulse{0%,100%{opacity:.72;transform:translate(-50%,-50%) scale(.98)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.03)}}
+@keyframes bodyGroove{0%,100%{transform:translateX(-50%) translateY(0) rotate(-.4deg)}50%{transform:translateX(-50%) translateY(7px) rotate(.5deg)}}
+@keyframes leftArm{0%,100%{transform:rotate(14deg) translate(0,0)}24%{transform:rotate(36deg) translate(18px,8px)}48%{transform:rotate(-10deg) translate(48px,40px)}72%{transform:rotate(24deg) translate(20px,18px)}}
+@keyframes rightArm{0%,100%{transform:rotate(-14deg) translate(0,0)}20%{transform:rotate(-35deg) translate(-18px,8px)}46%{transform:rotate(12deg) translate(-42px,39px)}74%{transform:rotate(-22deg) translate(-20px,18px)}}
+@keyframes raiseHand{0%,78%,100%{opacity:0;transform:rotate(0deg) translateY(0)}82%,92%{opacity:1;transform:rotate(-78deg) translateY(-42px)}}
+@keyframes knobTurn{0%,100%{transform:rotate(-22deg)}50%{transform:rotate(38deg)}}
+@keyframes crossfade{0%,100%{left:8%}50%{left:70%}}
+@keyframes eqBounce{0%,100%{height:20px}50%{height:var(--h)}}
+@keyframes pulseGlow{0%,100%{opacity:.5}50%{opacity:1}}
+@keyframes floatCard{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes bubbleRise{0%{transform:translate3d(0,0,0) scale(.7);opacity:0}12%{opacity:.55}80%{opacity:.32}100%{transform:translate3d(var(--sway),-108vh,0) scale(1.2);opacity:0}}
+@keyframes cuePulse{0%,100%{opacity:.35;transform:scale(.8)}50%{opacity:1;transform:scale(1.18)}}
+@keyframes scratchFlash{0%,60%,100%{opacity:.18}64%,72%{opacity:.75}}
+@media(max-width:900px){
+  body{overflow:auto}
+  .flight-deck{min-height:1050px}
+  .top-hud{position:fixed}
+  .song-cards,.radar,.zones{display:none}
+  .performance{height:700px;min-height:700px;align-items:end}
+  .dj{width:210px;bottom:210px;transform:translateX(-50%) scale(.82)}
+  .booth{height:245px;grid-template-columns:1fr 1.15fr 1fr;padding:.75rem;gap:.45rem}
+  .platter{min-width:96px;min-height:96px;width:27vw;height:27vw}
+  .mixer{gap:.25rem;padding:.5rem}
+  .eq{bottom:280px}
+}
+</style>
+</head>
+<body data-room-id="flight-deck">
+<div data-room-nav></div>
+<main class="flight-deck">
+  <canvas id="particles"></canvas>
+  <div class="fog"></div>
+  <div class="beams"></div>
+  <div class="scan"></div>
+  <header class="top-hud">
+    <div class="brand">Flight Deck / Music Navigation Center</div>
+    <div class="hud-readouts"><span>Altitude <b id="altitude">31,800</b></span><span>Signal <b id="signal">Locked</b></span><span>BPM <b id="bpm">124</b></span></div>
+  </header>
+  <div class="ring"></div>
+  <svg class="flight-path" viewBox="0 0 1200 520" preserveAspectRatio="none" aria-hidden="true">
+    <path class="path-line" d="M40 420 C240 240 350 320 510 210 S780 120 1160 40"></path>
+    <path class="path-line" style="animation-delay:-1.5s;opacity:.55" d="M90 120 C250 170 340 90 520 170 S860 360 1120 260"></path>
+  </svg>
+  <aside class="song-cards" aria-label="Floating song cards">
+    <div class="song-card"><strong>Now Cueing</strong><span>Memory above the cloudline</span></div>
+    <div class="song-card"><strong>Navigation</strong><span>Melody locked. Destination unknown.</span></div>
+    <div class="song-card"><strong>Discovery</strong><span>Signal found in the low end.</span></div>
+  </aside>
+  <aside class="zones" aria-label="Flight Deck environment zones">
+    <div class="zone"><strong>Ocean Of Ink</strong><span>Deep blue motion under the records, carrying the whole room forward.</span></div>
+    <div class="zone"><strong>Flight Deck</strong><span>Radar, altitude, signal, and motion focused around the DJ booth.</span></div>
+    <div class="zone"><strong>Music Room</strong><span>Listening energy, rhythm, and low-end navigation.</span></div>
+    <div class="zone"><strong>Writing Room</strong><span>A quieter return path for memory, language, and reflection.</span></div>
+  </aside>
+  <aside class="radar" aria-label="Radar display"><i class="blip a"></i><i class="blip b"></i><i class="blip c"></i></aside>
+  <section class="stage" aria-label="Animated DJ Flight Deck performance">
+    <div class="performance">
+      <div class="eq" id="eq"></div>
+      <div class="controls-glow"></div>
+      <div class="dj" aria-label="Animated DJ actively mixing">
+        <div class="hair"></div>
+        <div class="head"><span class="face-glow"></span></div>
+        <div class="neck"></div>
+        <div class="headphones"></div>
+        <div class="torso"><span class="jacket-line"></span></div>
+        <div class="arm left"><span class="hand"></span></div>
+        <div class="arm right"><span class="hand"></span></div>
+        <div class="gesture"><span class="hand"></span></div>
+      </div>
+      <div class="booth">
+        <div class="turntable">
+          <div class="platter"><div class="vinyl"></div></div>
+          <div class="tonearm"></div>
+          <div class="cue-light"></div>
+          <div class="scratch-label">Cue / Scratch</div>
+        </div>
+        <div class="mixer" id="mixer"></div>
+        <div class="turntable">
+          <div class="platter" style="animation-duration:.82s"><div class="vinyl"></div></div>
+          <div class="tonearm" style="left:12%;right:auto;transform:rotate(156deg)"></div>
+          <div class="cue-light" style="left:auto;right:15%;animation-delay:-1.4s"></div>
+          <div class="scratch-label" style="right:auto;left:12%;animation-delay:-2.1s">Gain / Cue</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<script>
+(() => {
+  const canvas = document.getElementById("particles");
+  const ctx = canvas.getContext("2d");
+  const eq = document.getElementById("eq");
+  const mixer = document.getElementById("mixer");
+  const altitude = document.getElementById("altitude");
+  const bpmRead = document.getElementById("bpm");
+  let width = 0, height = 0, tick = 0;
+  const particles = Array.from({length:170},()=>({x:Math.random(),y:Math.random(),z:.2+Math.random(),r:.5+Math.random()*2,s:.15+Math.random()*1.2}));
+  for(let i=0;i<58;i++){
+    const bubble = document.createElement("i");
+    bubble.className = "bubble";
+    bubble.style.setProperty("--x", `${Math.random()*100}%`);
+    bubble.style.setProperty("--s", `${3+Math.random()*8}px`);
+    bubble.style.setProperty("--d", `${9+Math.random()*15}s`);
+    bubble.style.setProperty("--delay", `${Math.random()*-22}s`);
+    bubble.style.setProperty("--sway", `${Math.random()*160-80}px`);
+    document.querySelector(".flight-deck").appendChild(bubble);
+  }
+  for(let i=0;i<28;i++){
+    const bar = document.createElement("span");
+    bar.style.setProperty("--h",`${24+Math.random()*62}px`);
+    eq.appendChild(bar);
+  }
+  for(let i=0;i<4;i++){
+    const strip = document.createElement("div");
+    strip.className = "channel-strip";
+    const level = 22 + i * 14;
+    strip.innerHTML = `<div class="knobs"><span class="knob"></span><span class="knob"></span><span class="knob"></span></div><div class="leds">${Array.from({length:8},()=>'<i class="led"></i>').join("")}</div><div class="fader" style="--level:${level}%"></div>`;
+    mixer.appendChild(strip);
+  }
+  const cross = document.createElement("div");
+  cross.className = "crossfader";
+  cross.style.setProperty("--cross","18%");
+  mixer.appendChild(cross);
+  function resize(){
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+  }
+  function draw(){
+    ctx.clearRect(0,0,width,height);
+    const grad = ctx.createLinearGradient(0,0,0,height);
+    grad.addColorStop(0,"rgba(73,217,255,.05)");
+    grad.addColorStop(.45,"rgba(8,119,242,.04)");
+    grad.addColorStop(1,"rgba(0,0,0,.35)");
+    ctx.fillStyle = grad;
+    ctx.fillRect(0,0,width,height);
+    particles.forEach(p=>{
+      p.y -= .0007 * p.s;
+      p.x += Math.sin(tick*.006 + p.z*8) * .00018;
+      if(p.y < -.08){p.y = 1.08;p.x = Math.random();}
+      const x = p.x * width;
+      const y = p.y * height;
+      ctx.fillStyle = `rgba(223,248,255,${.12+p.z*.48})`;
+      ctx.beginPath();
+      ctx.arc(x,y,p.r,0,Math.PI*2);
+      ctx.fill();
+    });
+    ctx.strokeStyle = `rgba(73,217,255,${.22 + Math.sin(tick*.03)*.08})`;
+    ctx.lineWidth = 1;
+    for(let i=0;i<8;i++){
+      ctx.beginPath();
+      const base = height*(.28+i*.07);
+      for(let x=0;x<=width;x+=12){
+        const y = base + Math.sin(x*.006 + tick*.014 + i)*8;
+        x ? ctx.lineTo(x,y) : ctx.moveTo(x,y);
+      }
+      ctx.stroke();
+    }
+    if(tick % 12 === 0){
+      document.querySelectorAll(".led").forEach((led,index)=>{
+        const on = Math.sin(tick*.14 + index*.9) + Math.random() * .9 > .15;
+        led.style.background = on ? (index > 5 ? "#ffb45c" : "#49d9ff") : "rgba(73,217,255,.14)";
+        led.style.boxShadow = on ? "0 0 10px currentColor" : "none";
+      });
+      altitude.textContent = (30800 + Math.round(Math.sin(tick*.015)*900 + Math.random()*280)).toLocaleString();
+      bpmRead.textContent = Math.round(124 + Math.sin(tick*.01)*2);
+    }
+    tick++;
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener("resize", resize);
+  resize();
+  draw();
+})();
+</script>
+<script src="rooms.js"></script>
+</body>
+</html>
