@@ -30,7 +30,7 @@ body::after{content:"";position:fixed;inset:0;z-index:-2;opacity:.2;background-i
 a{color:inherit}
 button,input,textarea,select{font:inherit}
 .nav{position:fixed;z-index:20;left:0;right:0;top:0;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1rem clamp(1rem,4vw,3rem);border-bottom:1px solid var(--line);background:rgba(5,7,17,.75);backdrop-filter:blur(16px)}
-.brand,.nav a,.kicker,.btn,label,.entry small,.pill{font-family:Arial,sans-serif;text-transform:uppercase;letter-spacing:.13em;font-weight:900}
+.brand,.nav a,.kicker,.btn,label,.entry small,.pill,.status{font-family:Arial,sans-serif;text-transform:uppercase;letter-spacing:.13em;font-weight:900}
 .brand{font-size:.74rem;text-decoration:none}
 .nav-links{display:flex;gap:1rem;flex-wrap:wrap;justify-content:flex-end}
 .nav a{font-size:.68rem;text-decoration:none;color:var(--soft)}
@@ -56,6 +56,7 @@ select option{background:#071427;color:#f8fbff}
 .btn.warn{border-color:rgba(242,138,107,.45);color:var(--paper)}
 .btn:hover{transform:translateY(-1px);border-color:rgba(85,220,255,.68)}
 .note{color:var(--muted);font-size:.92rem;line-height:1.45;margin:.9rem 0 0}
+.status{min-height:1.35rem;color:var(--paper);font-size:.64rem;margin-top:.8rem}
 .entries{padding:1.1rem;min-height:520px}
 .entries-head{display:flex;justify-content:space-between;gap:1rem;align-items:flex-end;border-bottom:1px solid var(--line);padding-bottom:1rem;margin-bottom:1rem}
 .entries-head h2{font-size:1.7rem;margin:0}
@@ -80,25 +81,33 @@ select option{background:#071427;color:#f8fbff}
 <nav class="nav">
   <a class="brand" href="index.html">Inkspirations Studios</a>
   <div class="nav-links">
-    <a href="landing.html">Landing</a>
-    <a href="rooms.html">Rooms</a>
+    <a href="index.html">Home</a>
     <a href="index.html">Portfolio</a>
-    <a href="flight-deck.html">Flight Deck</a>
-    <a href="beats.html">BeatForge</a>
+    <a href="rooms.html">Rooms</a>
     <a href="site-map.html">Map</a>
+    <a href="guest-registry.html">Guest Registry</a>
+    <a href="lead-intake.html">Contact</a>
   </div>
 </nav>
 <main class="shell">
   <section class="hero">
     <p class="kicker">Guest Registry / Studio Logbook</p>
     <h1>Leave a signal in the blue.</h1>
-    <p>Sign the Inkspirations Studios registry after visiting Ocean of Ink, Flight Deck, BeatForge, or the portfolio. This page is safe for a static GitHub Pages site: entries stay on this device unless the guest sends the note to the studio by email.</p>
+    <p>Sign the Inkspirations Studios registry after visiting Ocean of Ink, Flight Deck, BeatForge, or the portfolio. Entries are saved locally, can be sent by email, exported as Slack-ready JSON, or posted to a private relay when one is configured.</p>
+    <div class="actions">
+      <a class="btn primary" href="lead-intake.html">Contact / Commissions</a>
+      <a class="btn" href="rooms.html">Back To Rooms</a>
+    </div>
   </section>
   <section class="registry">
     <form class="panel form-panel" id="registryForm">
       <div class="field">
         <label for="guestName">Name</label>
         <input id="guestName" name="guestName" maxlength="60" placeholder="Your name" required>
+      </div>
+      <div class="field">
+        <label for="guestEmail">Email</label>
+        <input id="guestEmail" name="guestEmail" type="email" maxlength="120" placeholder="Optional, if you want a reply">
       </div>
       <div class="field">
         <label for="guestPlace">Location</label>
@@ -124,11 +133,14 @@ select option{background:#071427;color:#f8fbff}
         <textarea id="guestMessage" name="guestMessage" maxlength="700" placeholder="What did the room make you feel?" required></textarea>
       </div>
       <div class="actions">
-        <button class="btn primary" type="submit">Add To Registry</button>
-        <button class="btn" type="button" id="sendEmail">Send To Studio</button>
+        <button class="btn primary" type="submit">Save / Send Note</button>
+        <button class="btn" type="button" id="copyPayload">Copy Slack JSON</button>
+        <button class="btn" type="button" id="downloadPayload">Download JSON</button>
+        <button class="btn" type="button" id="sendEmail">Email Fallback</button>
         <button class="btn warn" type="button" id="clearEntries">Clear Local</button>
       </div>
-      <p class="note">For a public registry that collects every guest entry online, this can later connect to a form service or database. This version keeps the portfolio secure and simple.</p>
+      <div class="status" id="registryStatus" aria-live="polite"></div>
+      <p class="note">A GitHub Pages site cannot keep Slack secrets safely in the browser. Configure a private relay with <code>window.INKSPIRATIONS_LEAD_RELAY_URL</code> or localStorage key <code>inkspirationsLeadRelayUrl</code>; email remains the fallback.</p>
     </form>
     <section class="panel entries" aria-live="polite">
       <div class="entries-head">
@@ -142,16 +154,22 @@ select option{background:#071427;color:#f8fbff}
     </section>
   </section>
 </main>
+<script src="lead-intake.js"></script>
 <script>
 (() => {
+  const api = window.InkspirationsLead;
   const storageKey = "inkspirationsGuestRegistry";
   const form = document.getElementById("registryForm");
   const list = document.getElementById("entryList");
   const count = document.getElementById("entryCount");
   const emailButton = document.getElementById("sendEmail");
+  const copyButton = document.getElementById("copyPayload");
+  const downloadButton = document.getElementById("downloadPayload");
   const clearButton = document.getElementById("clearEntries");
+  const status = document.getElementById("registryStatus");
   const fields = {
     name: document.getElementById("guestName"),
+    email: document.getElementById("guestEmail"),
     place: document.getElementById("guestPlace"),
     room: document.getElementById("guestRoom"),
     mood: document.getElementById("guestMood"),
@@ -181,11 +199,29 @@ select option{background:#071427;color:#f8fbff}
   function currentDraft(){
     return {
       name: clean(fields.name.value),
+      email: clean(fields.email.value),
       place: clean(fields.place.value),
       room: fields.room.value,
       mood: clean(fields.mood.value),
       message: fields.message.value.trim(),
-      date: new Date().toLocaleString()
+      date: new Date().toLocaleString(),
+      createdAt: new Date().toISOString()
+    };
+  }
+  function asLead(entry){
+    return {
+      id: api.leadId(),
+      type: "Guest Registry",
+      name: entry.name,
+      email: entry.email,
+      contact: "",
+      interest: entry.room,
+      budget: "",
+      timeline: "",
+      message: [entry.message, entry.place ? `Location: ${entry.place}` : "", entry.mood ? `Mood: ${entry.mood}` : ""].filter(Boolean).join("\n"),
+      source: "Guest registry",
+      page: location.href,
+      createdAt: entry.createdAt || new Date().toISOString()
     };
   }
   function render(){
@@ -211,21 +247,28 @@ select option{background:#071427;color:#f8fbff}
     const draft = currentDraft();
     if(!draft.name || !draft.message) return;
     saveEntries([draft,...getEntries()]);
+    const lead = asLead(draft);
+    api.saveLead(lead);
+    api.postLead(lead).then(result => {
+      status.textContent = result.ok ? "Saved locally and sent to the configured Slack relay." : "Saved locally. No relay is configured, so use email, copy, or JSON export.";
+    }).catch(() => {
+      status.textContent = "Saved locally. Relay failed, so use email fallback or export the Slack-ready JSON.";
+    });
     form.reset();
     render();
   });
+  copyButton.addEventListener("click",async()=>{
+    const lead = asLead(currentDraft());
+    await api.copyJson(api.slackPayload(lead));
+    status.textContent = "Slack-ready JSON copied.";
+  });
+  downloadButton.addEventListener("click",()=>{
+    const lead = asLead(currentDraft());
+    api.downloadJson(api.slackPayload(lead), `${lead.id}.json`);
+    status.textContent = "Slack-ready JSON downloaded.";
+  });
   emailButton.addEventListener("click",()=>{
-    const draft = currentDraft();
-    const subject = encodeURIComponent(`Guest Registry - ${draft.name || "New Visitor"}`);
-    const body = encodeURIComponent([
-      `Name: ${draft.name || ""}`,
-      `Location: ${draft.place || ""}`,
-      `Room: ${draft.room || ""}`,
-      `Mood: ${draft.mood || ""}`,
-      "",
-      draft.message || "New guest registry note."
-    ].join("\n"));
-    window.location.href = `mailto:r.marleton@gmail.com?subject=${subject}&body=${body}`;
+    window.location.href = api.mailtoUrl(asLead(currentDraft()));
   });
   clearButton.addEventListener("click",()=>{
     if(confirm("Clear the registry entries saved on this device?")){

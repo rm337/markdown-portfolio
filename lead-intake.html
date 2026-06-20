@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lead Intake | Inkspirations Studios</title>
+<meta name="description" content="Commission, contact, print, brush, and collaboration inquiry intake for Inkspirations Studios.">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{--ink:#050711;--deep:#071427;--blue:#0877f2;--cyan:#55dcff;--paper:#f5efe5;--coral:#f28a6b;--white:#f8fbff;--soft:rgba(248,251,255,.76);--muted:rgba(248,251,255,.5);--line:rgba(248,251,255,.16);--glass:rgba(6,14,28,.76)}
+html,body{min-height:100%}
+body{margin:0;background:var(--ink);color:var(--white);font-family:Georgia,"Times New Roman",serif;line-height:1.55;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:-2;background:radial-gradient(circle at 22% 14%,rgba(85,220,255,.22),transparent 28%),radial-gradient(circle at 76% 24%,rgba(8,119,242,.28),transparent 30%),radial-gradient(circle at 62% 88%,rgba(242,138,107,.13),transparent 26%),linear-gradient(160deg,#050711 0%,#071427 55%,#02040a 100%)}
+a{color:inherit}button,input,textarea,select{font:inherit}
+.nav{position:fixed;z-index:20;left:0;right:0;top:0;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1rem clamp(1rem,4vw,3rem);border-bottom:1px solid var(--line);background:rgba(5,7,17,.78);backdrop-filter:blur(16px)}
+.brand,.nav a,.kicker,.btn,label,.pill,.status{font-family:Arial,sans-serif;text-transform:uppercase;letter-spacing:.13em;font-weight:900}
+.brand{font-size:.74rem;text-decoration:none}.nav-links{display:flex;gap:1rem;flex-wrap:wrap;justify-content:flex-end}.nav a{font-size:.68rem;text-decoration:none;color:var(--soft)}.nav a:hover{color:#fff}
+.shell{padding:8rem clamp(1.2rem,6vw,5rem) 4rem}.hero{max-width:940px;margin-bottom:2rem}.kicker{font-size:.72rem;color:var(--cyan);margin:0 0 1rem}
+h1,h2,p{margin-top:0}h1{font-size:clamp(3rem,7vw,6.8rem);line-height:.9;margin-bottom:1rem}.hero p{max-width:760px;color:var(--soft);font-size:clamp(1.08rem,2vw,1.32rem)}
+.grid{display:grid;grid-template-columns:minmax(300px,.9fr) minmax(0,1fr);gap:1rem;align-items:start}.panel{border:1px solid var(--line);background:var(--glass);backdrop-filter:blur(18px);box-shadow:0 28px 80px rgba(0,0,0,.34);padding:1.1rem}
+.field{display:grid;gap:.35rem;margin-bottom:.85rem}label{font-size:.64rem;color:var(--paper)}
+input,textarea,select{width:100%;border:1px solid var(--line);background:rgba(255,255,255,.07);color:#f8fbff;padding:.82rem .9rem;outline:none}textarea{min-height:150px;resize:vertical}select option{background:#071427;color:#f8fbff}
+input:focus,textarea:focus,select:focus{border-color:rgba(85,220,255,.72);box-shadow:0 0 0 3px rgba(85,220,255,.12)}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}.actions{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1rem}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:.8rem 1rem;border:1px solid var(--line);background:rgba(255,255,255,.06);color:#f8fbff;text-decoration:none;font-size:.68rem;cursor:pointer}.btn.primary{background:var(--blue);border-color:rgba(85,220,255,.46)}.btn.warn{border-color:rgba(242,138,107,.45);color:var(--paper)}.btn:hover{transform:translateY(-1px);border-color:rgba(85,220,255,.68)}
+.status{min-height:1.4rem;color:var(--paper);font-size:.66rem;margin-top:.9rem}.note{color:var(--muted);font-size:.92rem;margin:.9rem 0 0}.outbox{display:grid;gap:.75rem}.lead{border:1px solid var(--line);background:rgba(255,255,255,.045);padding:.9rem}.lead strong{display:block;font-size:1.1rem}.lead span{display:block;color:var(--muted);font-size:.92rem}.pill{display:inline-flex;width:max-content;font-size:.62rem;color:var(--cyan);border:1px solid var(--line);padding:.45rem .6rem;background:rgba(255,255,255,.04);margin-bottom:1rem}
+@media(max-width:900px){.grid,.split{grid-template-columns:1fr}.nav{position:absolute;align-items:flex-start}}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a class="brand" href="index.html">Inkspirations Studios</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="index.html">Portfolio</a>
+    <a href="rooms.html">Rooms</a>
+    <a href="site-map.html">Map</a>
+    <a href="guest-registry.html">Guest Registry</a>
+    <a href="lead-intake.html">Contact</a>
+  </div>
+</nav>
+<main class="shell">
+  <section class="hero">
+    <p class="kicker">Studio Lead Intake</p>
+    <h1>Tell the studio what you need.</h1>
+    <p>Use this path for commissions, print questions, brush purchases, collaboration ideas, custom web rooms, or general contact. It works on GitHub Pages, keeps a local outbox, preserves email fallback, and can post to a Slack relay when configured.</p>
+  </section>
+  <section class="grid">
+    <form class="panel" id="leadForm">
+      <div class="field">
+        <label for="leadType">Inquiry Type</label>
+        <select id="leadType" name="leadType">
+          <option>Commission</option>
+          <option>Print / Collecting</option>
+          <option>Fluid Soul Brushes</option>
+          <option>Custom Web Room</option>
+          <option>Collaboration</option>
+          <option>General Contact</option>
+        </select>
+      </div>
+      <div class="split">
+        <div class="field"><label for="leadName">Name</label><input id="leadName" name="leadName" autocomplete="name" maxlength="80" required></div>
+        <div class="field"><label for="leadEmail">Email</label><input id="leadEmail" name="leadEmail" type="email" autocomplete="email" maxlength="120"></div>
+      </div>
+      <div class="field"><label for="leadContact">Phone / Handle</label><input id="leadContact" name="leadContact" maxlength="120" placeholder="Optional"></div>
+      <div class="field"><label for="leadInterest">Project Or Item</label><input id="leadInterest" name="leadInterest" maxlength="140" placeholder="Piece, print, brush pack, room, or idea"></div>
+      <div class="split">
+        <div class="field"><label for="leadBudget">Budget Range</label><input id="leadBudget" name="leadBudget" maxlength="80" placeholder="Optional"></div>
+        <div class="field"><label for="leadTimeline">Timeline</label><input id="leadTimeline" name="leadTimeline" maxlength="80" placeholder="Optional"></div>
+      </div>
+      <div class="field"><label for="leadMessage">Details</label><textarea id="leadMessage" name="leadMessage" maxlength="1200" required placeholder="What should Robert know before replying?"></textarea></div>
+      <div class="actions">
+        <button class="btn primary" type="submit">Save / Send Lead</button>
+        <button class="btn" type="button" id="copyLead">Copy Slack JSON</button>
+        <button class="btn" type="button" id="downloadLead">Download JSON</button>
+        <button class="btn warn" type="button" id="emailLead">Email Fallback</button>
+      </div>
+      <div class="status" id="leadStatus" aria-live="polite"></div>
+      <p class="note">To send directly into Slack, point <code>window.INKSPIRATIONS_LEAD_RELAY_URL</code> or localStorage key <code>inkspirationsLeadRelayUrl</code> at a private relay such as Pipedream, Make, Zapier, or a small serverless function. Do not publish a raw Slack webhook URL in this repo.</p>
+    </form>
+    <aside class="panel">
+      <span class="pill" id="relayState">Relay Not Configured</span>
+      <h2>Lead outbox</h2>
+      <p class="note">Recent leads are cached on this device so nothing disappears if email or the relay is unavailable.</p>
+      <div class="outbox" id="outbox"></div>
+    </aside>
+  </section>
+</main>
+<script src="lead-intake.js"></script>
+<script>
+(() => {
+  const api = window.InkspirationsLead;
+  const form = document.getElementById("leadForm");
+  const status = document.getElementById("leadStatus");
+  const outbox = document.getElementById("outbox");
+  const relayState = document.getElementById("relayState");
+  const copyButton = document.getElementById("copyLead");
+  const downloadButton = document.getElementById("downloadLead");
+  const emailButton = document.getElementById("emailLead");
+
+  relayState.textContent = api.configuredRelay ? "Relay Configured" : "Relay Not Configured";
+
+  function draft(){
+    return {
+      id:api.leadId(),
+      type:document.getElementById("leadType").value,
+      name:api.clean(document.getElementById("leadName").value),
+      email:api.clean(document.getElementById("leadEmail").value),
+      contact:api.clean(document.getElementById("leadContact").value),
+      interest:api.clean(document.getElementById("leadInterest").value),
+      budget:api.clean(document.getElementById("leadBudget").value),
+      timeline:api.clean(document.getElementById("leadTimeline").value),
+      message:api.clean(document.getElementById("leadMessage").value),
+      source:"Lead intake page",
+      page:location.href,
+      createdAt:new Date().toISOString()
+    };
+  }
+
+  function render(){
+    const leads = api.getOutbox();
+    outbox.innerHTML = "";
+    if(!leads.length){
+      outbox.innerHTML = '<div class="lead"><strong>No local leads yet.</strong><span>Submitted inquiries will appear here.</span></div>';
+      return;
+    }
+    leads.slice(0,8).forEach(lead => {
+      const card = document.createElement("article");
+      card.className = "lead";
+      card.innerHTML = "<strong></strong><span></span><span></span>";
+      card.querySelector("strong").textContent = `${lead.type || "Lead"} - ${lead.name || "Visitor"}`;
+      card.querySelectorAll("span")[0].textContent = lead.interest || lead.email || "No project listed";
+      card.querySelectorAll("span")[1].textContent = lead.createdAt || "";
+      outbox.appendChild(card);
+    });
+  }
+
+  async function saveAndMaybeSend(lead){
+    api.saveLead(lead);
+    render();
+    try{
+      const result = await api.postLead(lead);
+      status.textContent = result.ok ? "Saved locally and sent to the configured Slack relay." : "Saved locally. No relay is configured, so use email, copy, or JSON export.";
+    }catch(error){
+      status.textContent = "Saved locally. Relay failed, so use email fallback or export the Slack-ready JSON.";
+    }
+  }
+
+  form.addEventListener("submit", event => {
+    event.preventDefault();
+    const lead = draft();
+    if(!lead.name || !lead.message) return;
+    saveAndMaybeSend(lead);
+  });
+
+  copyButton.addEventListener("click", async () => {
+    const lead = draft();
+    await api.copyJson(api.slackPayload(lead));
+    status.textContent = "Slack-ready JSON copied.";
+  });
+
+  downloadButton.addEventListener("click", () => {
+    const lead = draft();
+    api.downloadJson(api.slackPayload(lead), `${lead.id}.json`);
+    status.textContent = "Slack-ready JSON downloaded.";
+  });
+
+  emailButton.addEventListener("click", () => {
+    const lead = draft();
+    window.location.href = api.mailtoUrl(lead);
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

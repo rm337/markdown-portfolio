@@ -24,7 +24,7 @@
       title:"Ocean of Ink",
       subtitle:"Blue motion, water, light, and intention.",
       description:"The central atmosphere of Inkspirations Studios: ocean depth, ink movement, bubbles, and luminous blue focus.",
-      url:"index.html#ocean",
+      url:"rooms.html",
       theme:"ocean",
       accent:"#0174F3",
       status:"Live",
@@ -58,7 +58,7 @@
       title:"Writing Room",
       subtitle:"Quiet focus for words and memory.",
       description:"A future room for reflective writing, story fragments, prompts, and calm studio ritual.",
-      url:"rooms.html#writing-room",
+      url:"rooms.html",
       theme:"quiet",
       accent:"#f5efe5",
       status:"Draft",
@@ -75,7 +75,7 @@
       title:"Music Room",
       subtitle:"Listening, rhythm, and emotional weather.",
       description:"A listening room that connects BeatForge, Flight Deck, and future sound experiments.",
-      url:"rooms.html#music-room",
+      url:"rooms.html",
       theme:"music",
       accent:"#83f3ba",
       status:"Draft",
@@ -245,6 +245,11 @@
       <label class="room-chip" for="roomJump">Room Menu</label>
       <div class="room-nav-links">
         <a class="room-nav-link" href="index.html">Home</a>
+        <a class="room-nav-link" href="index.html">Portfolio</a>
+        <a class="room-nav-link" href="rooms.html">Rooms</a>
+        <a class="room-nav-link" href="site-map.html">Map</a>
+        <a class="room-nav-link" href="guest-registry.html">Guest Registry</a>
+        <a class="room-nav-link" href="lead-intake.html">Contact</a>
         <a class="room-nav-link" href="${escapeHtml(prev.url)}">Previous</a>
         <select class="room-select" id="roomJump" aria-label="Choose room">${publicRooms.map(item => `<option value="${escapeHtml(item.url)}"${item.id === room.id ? " selected" : ""}>${escapeHtml(item.title)}</option>`).join("")}</select>
         <a class="room-nav-link" href="${escapeHtml(next.url)}">Next</a>
