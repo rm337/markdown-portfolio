@@ -33,9 +33,10 @@ These files are preserved, but they are not part of the public navigation and sh
 
 ### Supporting files
 
-- `lead-intake.js` - shared static intake helper for local outbox, `mailto:` fallback, JSON export, and optional relay posting
-- `rooms.css` - shared room navigation, cards, and atmosphere styles
-- `rooms.js` - reusable room data, cards, active-room detection, and atmosphere controls
+- `js/lead-intake.js` - shared static intake helper for local outbox, `mailto:` fallback, JSON export, and optional relay posting
+- `css/rooms.css` - shared room navigation, cards, and atmosphere styles
+- `js/rooms.js` - reusable room data, cards, active-room detection, and atmosphere controls
+- `docs/portfolio-curation-report.md` - asset inventory, image recommendations, and homepage curation notes
 
 ## Information architecture notes
 
@@ -47,7 +48,7 @@ These files are preserved, but they are not part of the public navigation and sh
 
 ## Public assets
 
-- `Fluid_Soul_Front_Cover_edited.png` - preview image only
+- `assets/images/portfolio/Fluid_Soul_Front_Cover_edited.png` - current hero and featured portfolio artwork
 
 ## Private files
 
