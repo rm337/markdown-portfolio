@@ -2,26 +2,48 @@
 
 Public portfolio site for Robert Marleton / Inkspirations Studios.
 
-## Public pages
+## Public visitor experience
 
-- `index.html` - main portfolio homepage and public front door
-- `identity-card.html` - digital business card and personal discovery hub
-- `guest-registry.html` - static guest registry and studio logbook
-- `lead-intake.html` - structured lead intake for commissions, contact, prints, brushes, collaborations, and Slack-ready exports
+The public portfolio should feel calm, focused, professional, and easy to understand. First-time employers and clients should only need one clear route:
+
+1. Arrive at `index.html`
+2. Review the public portfolio cards
+3. Read the short about section
+4. Contact Robert by email
+
+### Public pages
+
+- `index.html` - main indexed public portfolio and visitor front door
+- `landing.html` - legacy redirect to `index.html`; noindex
+
+### Internal / hidden for now
+
+These files are preserved, but they are not part of the public navigation and should remain `noindex,nofollow` until they are polished for visitors:
+
+- `identity-card.html` - overlaps with the homepage and exposes too many discovery paths
+- `guest-registry.html` - useful experiment, but the Slack/export/outbox language feels internal
+- `lead-intake.html` - possible future contact page, but currently exposes relay/outbox implementation details
+- `site-map.html` - internal organization map, not a visitor-facing site map
+- `rooms.html` - internal room hub for draft rooms and experiments
+- `beats.html` - BeatForge Studio / Beat Lab experiment
+- `flight-deck.html` - immersive music/performance experiment
+- `t-shirt-design-lab.html` - future merch concept workshop
+- `merch-foundry.html` - future merch/custom-work planning room
+- `systems-i-built.html` - promising process page, but still reads like a workshop/draft system
+
+### Supporting files
+
 - `lead-intake.js` - shared static intake helper for local outbox, `mailto:` fallback, JSON export, and optional relay posting
-- `site-map.html` - visitor-facing navigation map for all public pages
-- `rooms.html` - global room hub generated from shared room data
 - `rooms.css` - shared room navigation, cards, and atmosphere styles
 - `rooms.js` - reusable room data, cards, active-room detection, and atmosphere controls
-- `beats.html` - BeatForge Studio / Beat Lab room
-- `flight-deck.html` - immersive animated Flight Deck performance page
-- `t-shirt-design-lab.html` - creative workshop for future T-shirt concepts
-- `merch-foundry.html` - creative command room for merch and custom-work concepts
-- `systems-i-built.html` - systems showcase for frameworks, protocols, workflows, and creative operating structures
 
-## Legacy redirects
+## Information architecture notes
 
-- `landing.html` - redirects old links to `index.html`; it is not part of the public navigation
+- Keep public: Home, Portfolio, About, Contact, Fluid Soul, selected artwork, Ocean of Ink concept, creative systems summary, and direct email.
+- Hide for now: rooms, BeatForge, Flight Deck, guest registry, identity card, lead intake, merch labs, and raw systems/workflow pages.
+- Move later: polished case studies can graduate into the public Portfolio section once each has a clear audience, outcome, and visitor-facing explanation.
+- Simplify overlaps: `rooms.html`, `site-map.html`, and `identity-card.html` all acted as competing hubs; `lead-intake.html` and `guest-registry.html` both acted as forms; `merch-foundry.html` and `t-shirt-design-lab.html` overlap as merch planning spaces.
+- Avoid public implementation language: Slack relay, local outbox, JSON export, webhook setup, internal rooms, and draft status should stay in internal pages or documentation.
 
 ## Public assets
 

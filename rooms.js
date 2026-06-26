@@ -6,7 +6,7 @@
       id:"home",
       title:"Home",
       subtitle:"The public portfolio starting point.",
-      description:"The main Inkspirations Studios portfolio with selected work, Ocean of Ink, pricing, guide, and contact paths.",
+      description:"The main Inkspirations Studios portfolio with selected work, Fluid Soul, creative systems, and contact paths.",
       url:"index.html",
       theme:"home",
       accent:"#0174F3",
@@ -245,11 +245,10 @@
       <label class="room-chip" for="roomJump">Room Menu</label>
       <div class="room-nav-links">
         <a class="room-nav-link" href="index.html">Home</a>
-        <a class="room-nav-link" href="index.html">Portfolio</a>
-        <a class="room-nav-link" href="rooms.html">Rooms</a>
-        <a class="room-nav-link" href="site-map.html">Map</a>
-        <a class="room-nav-link" href="guest-registry.html">Guest Registry</a>
-        <a class="room-nav-link" href="lead-intake.html">Contact</a>
+        <a class="room-nav-link" href="index.html#portfolio">Portfolio</a>
+        <a class="room-nav-link" href="index.html#about">About</a>
+        <a class="room-nav-link" href="index.html#contact">Contact</a>
+        <a class="room-nav-link" href="site-map.html">Internal Map</a>
         <a class="room-nav-link" href="${escapeHtml(prev.url)}">Previous</a>
         <select class="room-select" id="roomJump" aria-label="Choose room">${publicRooms.map(item => `<option value="${escapeHtml(item.url)}"${item.id === room.id ? " selected" : ""}>${escapeHtml(item.title)}</option>`).join("")}</select>
         <a class="room-nav-link" href="${escapeHtml(next.url)}">Next</a>
