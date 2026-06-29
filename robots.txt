@@ -1,0 +1,13 @@
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: *
+Allow: /
+
+Sitemap: https://rm337.github.io/markdown-portfolio/sitemap.xml

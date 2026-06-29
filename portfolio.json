@@ -1,0 +1,123 @@
+{
+  "studio": "Inkspirations Studios",
+  "artist": "Robert Marleton",
+  "url": "https://rm337.github.io/markdown-portfolio/",
+  "contact": "r.marleton@gmail.com",
+  "purpose": "Public portfolio access for employers, clients, collaborators, and ChatGPT/Search assistants.",
+  "works": [
+    {
+      "index": 1,
+      "type": "Lettering",
+      "title": "Infinite Love Study",
+      "desc": "A saturated hand-lettering piece built from glow, texture, and motion."
+    },
+    {
+      "index": 2,
+      "type": "Wood / Texture",
+      "title": "Do Not Despair",
+      "desc": "A circular wood-texture statement piece with burned, stamped energy."
+    },
+    {
+      "index": 3,
+      "type": "Pattern Work",
+      "title": "Sunflower Mandala",
+      "desc": "A high-energy blue and gold mandala composition."
+    },
+    {
+      "index": 4,
+      "type": "Texture Study",
+      "title": "Blue Field Study",
+      "desc": "A close blue surface study with pencil-like grain and movement."
+    },
+    {
+      "index": 5,
+      "type": "Mixed Media",
+      "title": "Love Texture Panel",
+      "desc": "A distressed teal and red love study with print-like surface tension."
+    },
+    {
+      "index": 6,
+      "type": "Lettering",
+      "title": "You Are Priceless",
+      "desc": "A warm script study with a direct emotional message."
+    },
+    {
+      "index": 7,
+      "type": "Texture Study",
+      "title": "Red Motion Panel",
+      "desc": "A horizontal motion piece with intense red texture and velocity."
+    },
+    {
+      "index": 8,
+      "type": "Ink Study",
+      "title": "Rainline Study",
+      "desc": "Vertical color marks that read like weather, rhythm, and notation."
+    },
+    {
+      "index": 9,
+      "type": "Lettering",
+      "title": "Infinite Love Variation",
+      "desc": "A softer blue-violet pass on the same emotional mark."
+    },
+    {
+      "index": 10,
+      "type": "Texture Study",
+      "title": "Blue Name Current",
+      "desc": "Layered blue surface work with a quiet signature inside the field."
+    },
+    {
+      "index": 11,
+      "type": "Lettering",
+      "title": "Blessed Water",
+      "desc": "A gentle script piece carried by blue wash and open space."
+    },
+    {
+      "index": 12,
+      "type": "Ink Study",
+      "title": "Soul Current",
+      "desc": "A restrained blue field where the lettering dissolves into the surface."
+    },
+    {
+      "index": 13,
+      "type": "Lettering",
+      "title": "Washed Out",
+      "desc": "Expressive lettering across a bright digital wash."
+    },
+    {
+      "index": 14,
+      "type": "Brand Mark",
+      "title": "Inkspirations Mark",
+      "desc": "A blue hand-drawn studio mark that anchors the identity system."
+    },
+    {
+      "index": 15,
+      "type": "Digital Collage",
+      "title": "Lest We Forget",
+      "desc": "A compact memorial-style collage with distressed color and light."
+    },
+    {
+      "index": 16,
+      "type": "Identity Design",
+      "title": "Studio Blue Card",
+      "desc": "A polished Inkspirations Studios identity card in the house blue."
+    },
+    {
+      "index": 17,
+      "type": "Identity Design",
+      "title": "Inkspirations Logo Card",
+      "desc": "A clean studio logo lockup with calligraphic emphasis."
+    },
+    {
+      "index": 18,
+      "type": "Typography",
+      "title": "Say No Poster",
+      "desc": "A stark typographic poster study using scale, contrast, and compression."
+    },
+    {
+      "index": 19,
+      "type": "Identity Design",
+      "title": "Small Town Teacher",
+      "desc": "A compact identity mark with playful typography and a warm palette."
+    }
+  ]
+}

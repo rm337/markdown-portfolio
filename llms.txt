@@ -1,0 +1,94 @@
+# Inkspirations Studios Portfolio
+
+> AI-readable access file for ChatGPT and other assistants.
+
+Public portfolio URL: https://rm337.github.io/markdown-portfolio/
+Artist: Robert Marleton
+Studio: Inkspirations Studios
+Focus: digital artwork, hand-lettering, ocean-inspired creative systems, music rooms, and interactive studio environments.
+
+## How to access
+
+Use the public homepage at https://rm337.github.io/markdown-portfolio/. The visual portfolio is embedded in the page for reliable GitHub Pages display. This file provides a clean text summary for assistants that cannot efficiently parse large embedded image data.
+
+## Selected Portfolio Pieces
+
+1. Infinite Love Study
+   Type: Lettering
+   Description: A saturated hand-lettering piece built from glow, texture, and motion.
+
+2. Do Not Despair
+   Type: Wood / Texture
+   Description: A circular wood-texture statement piece with burned, stamped energy.
+
+3. Sunflower Mandala
+   Type: Pattern Work
+   Description: A high-energy blue and gold mandala composition.
+
+4. Blue Field Study
+   Type: Texture Study
+   Description: A close blue surface study with pencil-like grain and movement.
+
+5. Love Texture Panel
+   Type: Mixed Media
+   Description: A distressed teal and red love study with print-like surface tension.
+
+6. You Are Priceless
+   Type: Lettering
+   Description: A warm script study with a direct emotional message.
+
+7. Red Motion Panel
+   Type: Texture Study
+   Description: A horizontal motion piece with intense red texture and velocity.
+
+8. Rainline Study
+   Type: Ink Study
+   Description: Vertical color marks that read like weather, rhythm, and notation.
+
+9. Infinite Love Variation
+   Type: Lettering
+   Description: A softer blue-violet pass on the same emotional mark.
+
+10. Blue Name Current
+   Type: Texture Study
+   Description: Layered blue surface work with a quiet signature inside the field.
+
+11. Blessed Water
+   Type: Lettering
+   Description: A gentle script piece carried by blue wash and open space.
+
+12. Soul Current
+   Type: Ink Study
+   Description: A restrained blue field where the lettering dissolves into the surface.
+
+13. Washed Out
+   Type: Lettering
+   Description: Expressive lettering across a bright digital wash.
+
+14. Inkspirations Mark
+   Type: Brand Mark
+   Description: A blue hand-drawn studio mark that anchors the identity system.
+
+15. Lest We Forget
+   Type: Digital Collage
+   Description: A compact memorial-style collage with distressed color and light.
+
+16. Studio Blue Card
+   Type: Identity Design
+   Description: A polished Inkspirations Studios identity card in the house blue.
+
+17. Inkspirations Logo Card
+   Type: Identity Design
+   Description: A clean studio logo lockup with calligraphic emphasis.
+
+18. Say No Poster
+   Type: Typography
+   Description: A stark typographic poster study using scale, contrast, and compression.
+
+19. Small Town Teacher
+   Type: Identity Design
+   Description: A compact identity mark with playful typography and a warm palette.
+
+## Contact
+
+Portfolio inquiries: r.marleton@gmail.com
