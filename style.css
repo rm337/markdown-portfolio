@@ -116,26 +116,17 @@ body.modal-open { overflow: hidden; }
 .gallery-lightbox .modal-bar { align-items: flex-end; }
 @media (max-width: 980px) { .gallery-grid { column-count: 2; } .gallery-fields { grid-template-columns: 1fr; } .field-label { margin-top: .2rem; } .tour-card { grid-template-columns: 1fr; } .tour-media { min-height: 420px; } }
 @media (max-width: 560px) { .gallery-section { padding-left: .85rem; padding-right: .85rem; } .gallery-tools { padding: .8rem; } .filter-chip { flex: 1 1 auto; } .gallery-grid { column-count: 1; } .gallery-image-wrap img { max-height: none; } .tour-media { min-height: 320px; } .tour-actions .btn { width: 100%; } .gallery-lightbox { width: 100vw; height: 100vh; border-left: 0; border-right: 0; } .modal-nav { top: auto; bottom: 8.6rem; } .modal-bar { display: block; padding: .9rem; } .modal-bar .btn { width: 100%; margin-top: .75rem; } }
-/* Studio atmosphere: rain, suspended ink, and gentle overhead light. */
+/* Static studio atmosphere: ocean depth and soft overhead light. */
 body { position: relative; isolation: isolate; }
+body::before { content: ""; position: fixed; inset: 0; z-index: -2; background: radial-gradient(ellipse at 50% -12%, rgba(255, 230, 173, .16), transparent 30%), radial-gradient(ellipse at 82% 18%, rgba(82, 223, 208, .11), transparent 34%), linear-gradient(120deg, #050913 0%, #08243a 48%, #08111c 100%); }
+body::after { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: .72; background: linear-gradient(180deg, rgba(246, 243, 232, .05), transparent 30%, rgba(2, 5, 12, .24)), radial-gradient(circle at 18% 72%, rgba(3, 116, 210, .14), transparent 36%); }
 .nav, main, footer { position: relative; }
 main, footer { z-index: 1; }
 .modal { z-index: 80; }
-.nav { z-index: 30; }
-.atmosphere { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; background: radial-gradient(ellipse at 50% -18%, rgba(246, 243, 232, .2), transparent 32%), linear-gradient(180deg, rgba(4, 12, 22, .2), rgba(3, 7, 14, .72)); }
-.atmosphere canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .58; mix-blend-mode: screen; }
-.rain-layer { position: absolute; inset: -18% 0 0; opacity: .34; filter: blur(.15px); background-image: linear-gradient(112deg, transparent 0 58%, rgba(174, 226, 239, .22) 59%, transparent 62%), linear-gradient(112deg, transparent 0 67%, rgba(246, 243, 232, .16) 68%, transparent 71%), linear-gradient(112deg, transparent 0 74%, rgba(82, 223, 208, .12) 75%, transparent 78%); background-size: 92px 260px, 136px 330px, 188px 420px; animation: studioRain 7s linear infinite; }
-.rain-layer::before { content: ""; position: absolute; inset: 0; opacity: .32; background-image: linear-gradient(112deg, transparent 0 76%, rgba(220, 244, 255, .24) 77%, transparent 80%); background-size: 72px 210px; animation: studioRain 4.8s linear infinite; }
-.light-layer { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, rgba(255, 230, 173, .18), transparent 30%), radial-gradient(ellipse at 22% 18%, rgba(143, 243, 232, .1), transparent 28%), radial-gradient(ellipse at 80% 30%, rgba(3, 116, 210, .12), transparent 34%); opacity: .82; }
-.light-layer::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(246, 243, 232, .08), transparent 28%, rgba(2, 5, 12, .34)); }
-.hero, .section, footer { background-clip: padding-box; }
-.hero::before, .section::before { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(ellipse at 50% 0%, rgba(246, 243, 232, .045), transparent 38%); pointer-events: none; }
-.section { position: relative; }
-.gallery-card, .tour-card, .viewer, .contact, .gallery-tools { box-shadow: 0 20px 70px rgba(0, 0, 0, .26), inset 0 1px 0 rgba(246, 243, 232, .035); backdrop-filter: blur(2px); }
-.gallery-image-wrap, .tour-media, .modal-inner { box-shadow: inset 0 24px 90px rgba(143, 243, 232, .045); }
-@keyframes studioRain { from { transform: translate3d(-24px, -120px, 0); } to { transform: translate3d(32px, 280px, 0); } }
-@media (prefers-reduced-motion: reduce) { .rain-layer, .rain-layer::before { animation: none; opacity: .18; } .atmosphere canvas { opacity: .28; } }
-@media (max-width: 560px) { .atmosphere canvas { opacity: .42; } .rain-layer { opacity: .24; } .light-layer { opacity: .68; } }
+.gallery-card, .tour-card, .viewer, .contact, .gallery-tools { box-shadow: 0 20px 70px rgba(0, 0, 0, .24), inset 0 1px 0 rgba(246, 243, 232, .035); }
+.gallery-image-wrap, .tour-media, .modal-inner { box-shadow: inset 0 24px 90px rgba(143, 243, 232, .035); }
+.audio-toggle[aria-pressed="true"] { border-color: #8ff3e8; color: #8ff3e8; background: rgba(143, 243, 232, .08); }
+
 /* Focused portfolio entry with optional collection browsing. */
 .featured-panel { margin-top: 1.25rem; margin-bottom: 1.35rem; }
 .collection-drawer { margin-top: 1rem; border: 1px solid rgba(246, 243, 232, .12); background: rgba(246, 243, 232, .028); padding: .9rem; }
