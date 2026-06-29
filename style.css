@@ -136,3 +136,10 @@ main, footer { z-index: 1; }
 @keyframes studioRain { from { transform: translate3d(-24px, -120px, 0); } to { transform: translate3d(32px, 280px, 0); } }
 @media (prefers-reduced-motion: reduce) { .rain-layer, .rain-layer::before { animation: none; opacity: .18; } .atmosphere canvas { opacity: .28; } }
 @media (max-width: 560px) { .atmosphere canvas { opacity: .42; } .rain-layer { opacity: .24; } .light-layer { opacity: .68; } }
+/* Focused portfolio entry with optional collection browsing. */
+.featured-panel { margin-top: 1.25rem; margin-bottom: 1.35rem; }
+.collection-drawer { margin-top: 1rem; border: 1px solid rgba(246, 243, 232, .12); background: rgba(246, 243, 232, .028); padding: .9rem; }
+.collection-drawer summary { cursor: pointer; color: #ffe6ad; font-size: .72rem; text-transform: uppercase; letter-spacing: .12em; font-weight: 800; }
+.collection-drawer .gallery-tools { margin-top: .9rem; }
+.collection-drawer:not([open]) { max-width: 680px; }
+@media (max-width: 560px) { .collection-drawer { padding: .75rem; } }

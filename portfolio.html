@@ -8,7 +8,7 @@
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://rm337.github.io/markdown-portfolio/portfolio.html">
   <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="style.css?v=20260629-atmosphere2">
+  <link rel="stylesheet" href="style.css?v=20260629-atmosphere3">
 </head>
 <body>
   <!-- Navigation begins -->
@@ -49,28 +49,13 @@
       <div class="section-head gallery-head">
         <div>
           <p class="kicker">Gallery</p>
-          <h2>Explore the collection.</h2>
-          <p>A polished interactive gallery for browsing selected Inkspirations Studios work. Filter the room, search by title or medium, and open any piece for a larger view.</p>
+          <h2>Rain, ink, then artwork.</h2>
+          <p>Rain, floating ink, gentle light, then one selected work. Open the collection when you want to browse the full room.</p>
         </div>
-        <span class="meta" id="galleryCount">19 Pieces</span>
+        <span class="meta" id="galleryCount">Featured View</span>
       </div>
 
-      <div class="gallery-tools" aria-label="Gallery controls">
-        <div class="filter-row" id="filterRow" aria-label="Filter artwork by category"></div>
-        <div class="gallery-fields">
-          <label class="field-label" for="gallerySearch">Search</label>
-          <input id="gallerySearch" class="gallery-input" type="search" placeholder="Search artwork, medium, collection">
-          <label class="field-label" for="gallerySort">Sort</label>
-          <select id="gallerySort" class="gallery-select">
-            <option value="curated">Curated order</option>
-            <option value="title">Title A-Z</option>
-            <option value="category">Category</option>
-          </select>
-          <button class="btn" type="button" id="tourToggle">Curated Tour</button>
-        </div>
-      </div>
-
-      <div class="tour-panel" id="tourPanel" hidden>
+      <div class="tour-panel featured-panel" id="tourPanel">
         <article class="tour-card" aria-live="polite">
           <div class="tour-media">
             <img id="tourImg" alt="Selected curated tour artwork">
@@ -91,8 +76,25 @@
         </article>
       </div>
 
-      <div class="gallery-grid" id="galleryGrid" aria-live="polite"></div>
-      <p class="empty-gallery" id="emptyGallery" hidden>No works match this view yet. Try another filter or search term.</p>
+      <details class="collection-drawer" id="collectionDrawer">
+        <summary>Browse Collection</summary>
+        <div class="gallery-tools" aria-label="Gallery controls">
+          <div class="filter-row" id="filterRow" aria-label="Filter artwork by category"></div>
+          <div class="gallery-fields">
+            <label class="field-label" for="gallerySearch">Search</label>
+            <input id="gallerySearch" class="gallery-input" type="search" placeholder="Search artwork, medium, collection">
+            <label class="field-label" for="gallerySort">Sort</label>
+            <select id="gallerySort" class="gallery-select">
+              <option value="curated">Curated order</option>
+              <option value="title">Title A-Z</option>
+              <option value="category">Category</option>
+            </select>
+            <button class="btn" type="button" id="tourToggle">Hide Featured View</button>
+          </div>
+        </div>
+        <div class="gallery-grid" id="galleryGrid" aria-live="polite"></div>
+        <p class="empty-gallery" id="emptyGallery" hidden>No works match this view yet. Try another filter or search term.</p>
+      </details>
     </section>
     <!-- Portfolio ends -->
   </main>
@@ -120,6 +122,6 @@
     </div>
   </div>
   <script src="portfolio.js?v=20260629-gallerygrid"></script>
-  <script src="atmosphere.js?v=20260629-atmosphere2"></script>
+  <script src="atmosphere.js?v=20260629-atmosphere3"></script>
 </body>
 </html>
