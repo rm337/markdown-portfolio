@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Inkspirations Studios | Robert Marleton Portfolio</title>
-  <meta name="description" content="Inkspirations Studios is Robert Marleton's public portfolio for artwork, writing, music, and interactive studio rooms.">
+  <title>Inkspirations Studios | Robert Marleton</title>
+  <meta name="description" content="Inkspirations Studios is Robert Marleton's public studio entry for artwork, writing, music, and interactive creative rooms.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://rm337.github.io/markdown-portfolio/">
   <link rel="icon" href="data:,">
@@ -30,9 +30,9 @@
         <p class="kicker">Robert Marleton / Creative Studio</p>
         <h1>Inkspirations Studios</h1>
         <p class="welcome">Welcome to a quiet studio space for artwork, writing, music, and interactive rooms.</p>
-        <p>This site is a public portfolio and creative home for selected work by Robert Marleton. Step into the gallery when you are ready to view the artwork one piece at a time.</p>
+        <p>This site is a public creative home for selected work by Robert Marleton. The homepage is the lobby; the gallery is one step deeper.</p>
         <div class="actions">
-          <a class="btn primary" href="#portfolio">Enter the Portfolio</a>
+          <a class="btn primary" href="portfolio.html">Enter the Gallery</a>
           <a class="btn" href="#contact">Contact Robert</a>
         </div>
       </div>
@@ -40,37 +40,15 @@
     <!-- Hero ends -->
 
     <!-- Portfolio begins -->
-    <section class="section" id="portfolio">
-      <div class="section-head">
-        <div>
-          <p class="kicker">Portfolio</p>
-          <h2>Selected work.</h2>
-          <p>19 digital pieces in a clean review gallery. Choose a thumbnail to reveal each piece, then expand it for a larger view.</p>
+    <section class="section doorway-section" id="portfolio">
+      <div class="doorway-panel">
+        <p class="kicker">Portfolio</p>
+        <h2>The artwork lives in the gallery.</h2>
+        <p>For a calmer first impression, the homepage stays text-first. Open the dedicated gallery to view selected pieces one at a time with titles, mediums, and short descriptions.</p>
+        <div class="actions">
+          <a class="btn primary" href="portfolio.html">Open Portfolio Gallery</a>
+          <a class="btn" href="#about">About the Studio</a>
         </div>
-        <span class="meta">19 Pieces</span>
-      </div>
-
-      <div class="portfolio">
-        <article class="viewer" aria-live="polite">
-          <div class="viewer-media">
-            <img id="viewerImg" alt="Selected portfolio piece">
-          </div>
-          <div class="viewer-copy">
-            <p class="kicker" id="viewerType"></p>
-            <h3 id="viewerTitle"></h3>
-            <p id="viewerDesc"></p>
-          </div>
-        </article>
-
-        <aside class="side" aria-label="Portfolio controls and thumbnails">
-          <div class="controls">
-            <button class="btn" type="button" id="prevWork">Previous</button>
-            <button class="btn" type="button" id="nextWork">Next</button>
-            <button class="btn primary" type="button" id="expandWork">Expand</button>
-            <a class="btn" href="#contact">Inquire</a>
-          </div>
-          <div class="rail" id="rail" aria-label="Portfolio thumbnails"></div>
-        </aside>
       </div>
     </section>
     <!-- Portfolio ends -->
@@ -81,7 +59,7 @@
         <p class="kicker">About</p>
         <h2>A creative home with room to enter.</h2>
         <p>Inkspirations Studios gathers Robert's visual artwork, lettering, texture studies, identity pieces, music ideas, and interactive studio concepts into one calm public space.</p>
-        <p>The portfolio is arranged to slow the viewing experience down: one selected piece, one title, one short description, and room for the work to speak clearly.</p>
+        <p>The gallery is arranged to slow the viewing experience down: one selected piece, one title, one short description, and room for the work to speak clearly.</p>
       </div>
     </section>
     <!-- About ends -->
@@ -103,19 +81,7 @@
   <footer>
     <span>Inkspirations Studios</span>
     <span>Robert Marleton</span>
-    <span>GitHub Pages Portfolio</span>
+    <span>Studio Entry</span>
   </footer>
-
-  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Expanded artwork">
-    <div class="modal-inner">
-      <img id="modalImg" alt="Expanded portfolio piece">
-      <div class="modal-bar">
-        <span id="modalTitle" class="meta"></span>
-        <button class="btn" id="closeModal" type="button">Close</button>
-      </div>
-    </div>
-  </div>
-
-  <script src="portfolio.js"></script>
 </body>
 </html>

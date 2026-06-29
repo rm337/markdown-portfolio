@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Gallery | Inkspirations Studios</title>
+  <meta name="description" content="A dedicated one-piece-at-a-time portfolio gallery for selected Inkspirations Studios artwork by Robert Marleton.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://rm337.github.io/markdown-portfolio/portfolio.html">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Navigation begins -->
+  <nav class="nav" aria-label="Primary navigation">
+    <a class="brand" href="index.html#top">Inkspirations Studios</a>
+    <div class="links">
+      <a href="index.html#top">Home</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+  </nav>
+  <!-- Navigation ends -->
+
+  <main id="top">
+    <!-- Hero begins -->
+    <header class="hero studio-entry gallery-entry">
+      <div class="hero-copy">
+        <p class="kicker">Portfolio Gallery</p>
+        <h1>Selected work.</h1>
+        <p class="welcome">A focused gallery for viewing Robert's work one piece at a time.</p>
+        <p>Use the controls and thumbnails below to move through the collection. Expand any piece for a larger view.</p>
+        <div class="actions">
+          <a class="btn primary" href="#portfolio">Start Viewing</a>
+          <a class="btn" href="index.html#contact">Contact Robert</a>
+        </div>
+      </div>
+    </header>
+    <!-- Hero ends -->
+
+    <!-- Portfolio begins -->
+    <section class="section" id="portfolio">
+      <div class="section-head">
+        <div>
+          <p class="kicker">Gallery</p>
+          <h2>One piece at a time.</h2>
+          <p>19 digital pieces in a clean review gallery. Choose a thumbnail to reveal each piece, then expand it for a larger view.</p>
+        </div>
+        <span class="meta">19 Pieces</span>
+      </div>
+
+      <div class="portfolio">
+        <article class="viewer" aria-live="polite">
+          <div class="viewer-media">
+            <img id="viewerImg" alt="Selected portfolio piece">
+          </div>
+          <div class="viewer-copy">
+            <p class="kicker" id="viewerType"></p>
+            <h3 id="viewerTitle"></h3>
+            <p id="viewerDesc"></p>
+          </div>
+        </article>
+
+        <aside class="side" aria-label="Portfolio controls and thumbnails">
+          <div class="controls">
+            <button class="btn" type="button" id="prevWork">Previous</button>
+            <button class="btn" type="button" id="nextWork">Next</button>
+            <button class="btn primary" type="button" id="expandWork">Expand</button>
+            <a class="btn" href="index.html#contact">Inquire</a>
+          </div>
+          <div class="rail" id="rail" aria-label="Portfolio thumbnails"></div>
+        </aside>
+      </div>
+    </section>
+    <!-- Portfolio ends -->
+  </main>
+
+  <footer>
+    <span>Inkspirations Studios</span>
+    <span>Robert Marleton</span>
+    <span>Portfolio Gallery</span>
+  </footer>
+
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Expanded artwork">
+    <div class="modal-inner">
+      <img id="modalImg" alt="Expanded portfolio piece">
+      <div class="modal-bar">
+        <span id="modalTitle" class="meta"></span>
+        <button class="btn" id="closeModal" type="button">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="portfolio.js"></script>
+</body>
+</html>

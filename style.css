@@ -51,3 +51,8 @@ body::after { content: ""; position: fixed; inset: 0; z-index: -1; background: r
 footer { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; padding: 1.1rem clamp(1rem, 5vw, 4.5rem); border-top: 1px solid rgba(246, 243, 232, .1); color: rgba(246, 243, 232, .56); font-size: .63rem; }
 @media (max-width: 940px) { .portfolio, .contact { grid-template-columns: 1fr; } .hero { min-height: 82vh; } .viewer { min-height: 560px; } .rail { grid-template-columns: repeat(2, minmax(0, 1fr)); max-height: none; padding-right: 0; } }
 @media (max-width: 560px) { .nav { align-items: flex-start; } .links { justify-content: flex-start; } .hero { padding-top: 4rem; min-height: 76vh; } .section-head { display: block; } .viewer { min-height: 500px; } .rail, .controls { grid-template-columns: 1fr; } .contact { align-items: start; } .thumb { grid-template-columns: 74px minmax(0, 1fr); } .thumb img { width: 74px; height: 66px; } }
+
+.doorway-section { min-height: 54vh; display: grid; align-items: center; }
+.doorway-panel { max-width: 820px; }
+.doorway-panel p { max-width: 680px; margin: .7rem 0 0; color: rgba(246, 243, 232, .74); }
+.gallery-entry { min-height: 62vh; }
