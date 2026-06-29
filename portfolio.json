@@ -7,117 +7,155 @@
   "works": [
     {
       "index": 1,
-      "type": "Lettering",
-      "title": "Infinite Love Study",
-      "desc": "A saturated hand-lettering piece built from glow, texture, and motion."
+      "type": "Lettering Study",
+      "title": "Infinite Love",
+      "desc": "Layered script, saturated color, and a strong central mark give this piece the feeling of a studio signature. The work keeps the message direct while letting texture and light carry the surface.",
+      "collection": "Selected Works",
+      "availability": "Portfolio review"
     },
     {
       "index": 2,
-      "type": "Wood / Texture",
+      "type": "Wood / Lettering",
       "title": "Do Not Despair",
-      "desc": "A circular wood-texture statement piece with burned, stamped energy."
+      "desc": "A circular wood-based statement piece shaped by grain, pressure, and a hand-finished surface. The wording is direct, but the material gives it a grounded, weathered presence.",
+      "collection": "Selected Works",
+      "availability": "Portfolio review"
     },
     {
       "index": 3,
-      "type": "Pattern Work",
+      "type": "Pattern Study",
       "title": "Sunflower Mandala",
-      "desc": "A high-energy blue and gold mandala composition."
+      "desc": "A radial composition built from blue, gold, and petal-like repetition. The piece sits between ornament, symbol, and decorative surface design.",
+      "collection": "Selected Works",
+      "availability": "Portfolio review"
     },
     {
       "index": 4,
       "type": "Texture Study",
-      "title": "Blue Field Study",
-      "desc": "A close blue surface study with pencil-like grain and movement."
+      "title": "Blue Field",
+      "desc": "A close study of blue surface, grain, and directional movement. It works as a quiet counterpoint to the more message-driven pieces in the collection.",
+      "collection": "Selected Works",
+      "availability": "Portfolio review"
     },
     {
       "index": 5,
       "type": "Mixed Media",
-      "title": "Love Texture Panel",
-      "desc": "A distressed teal and red love study with print-like surface tension."
+      "title": "Love, Weathered",
+      "desc": "A distressed love study where teal, red, and worn texture meet in a print-like field. The piece feels handled, layered, and intentionally imperfect.",
+      "collection": "Selected Works",
+      "availability": "Portfolio review"
     },
     {
       "index": 6,
       "type": "Lettering",
       "title": "You Are Priceless",
-      "desc": "A warm script study with a direct emotional message."
+      "desc": "A warm lettering piece with a simple affirmation at its center. The script keeps the message personal without turning it into decoration alone.",
+      "collection": "Selected Works",
+      "availability": "Portfolio review"
     },
     {
       "index": 7,
       "type": "Texture Study",
-      "title": "Red Motion Panel",
-      "desc": "A horizontal motion piece with intense red texture and velocity."
+      "title": "Red Current",
+      "desc": "A horizontal texture piece built around speed, friction, and a strong red field. Its movement gives the surface a sense of heat and pressure.",
+      "collection": "Selected Works",
+      "availability": "Portfolio review"
     },
     {
       "index": 8,
       "type": "Ink Study",
-      "title": "Rainline Study",
-      "desc": "Vertical color marks that read like weather, rhythm, and notation."
+      "title": "Rainline Notes",
+      "desc": "Vertical marks gather like weather, notation, or a passing rhythm. The piece uses restraint and repetition instead of a fixed image.",
+      "collection": "Selected Works",
+      "availability": "Portfolio review"
     },
     {
       "index": 9,
-      "type": "Lettering",
-      "title": "Infinite Love Variation",
-      "desc": "A softer blue-violet pass on the same emotional mark."
+      "type": "Lettering Study",
+      "title": "Infinite Love, Blue Variation",
+      "desc": "A cooler variation on the Infinite Love mark, softened through blue and violet tones. It shows how the same phrase can shift when the atmosphere changes.",
+      "collection": "Selected Works",
+      "availability": "Portfolio review"
     },
     {
       "index": 10,
-      "type": "Texture Study",
+      "type": "Signature Study",
       "title": "Blue Name Current",
-      "desc": "Layered blue surface work with a quiet signature inside the field."
+      "desc": "A layered blue surface with a quiet name-form embedded inside the field. The signature becomes part of the current rather than sitting on top of it.",
+      "collection": "Selected Works",
+      "availability": "Portfolio review"
     },
     {
       "index": 11,
       "type": "Lettering",
       "title": "Blessed Water",
-      "desc": "A gentle script piece carried by blue wash and open space."
+      "desc": "A gentle script piece carried by open space and blue wash. The composition leaves room around the words so the lettering can breathe.",
+      "collection": "Selected Works",
+      "availability": "Portfolio review"
     },
     {
       "index": 12,
       "type": "Ink Study",
       "title": "Soul Current",
-      "desc": "A restrained blue field where the lettering dissolves into the surface."
+      "desc": "A restrained blue field where lettering and surface begin to merge. The piece is more about trace and movement than a finished statement.",
+      "collection": "Selected Works",
+      "availability": "Portfolio review"
     },
     {
       "index": 13,
-      "type": "Lettering",
+      "type": "Digital Lettering",
       "title": "Washed Out",
-      "desc": "Expressive lettering across a bright digital wash."
+      "desc": "Expressive lettering moves across a bright digital wash. The contrast between the loose mark and the luminous field gives the piece its tension.",
+      "collection": "Selected Works",
+      "availability": "Portfolio review"
     },
     {
       "index": 14,
       "type": "Brand Mark",
-      "title": "Inkspirations Mark",
-      "desc": "A blue hand-drawn studio mark that anchors the identity system."
+      "title": "Inkspirations Studio Mark",
+      "desc": "A hand-drawn studio mark in the Inkspirations blue language. It anchors the portfolio as both identity work and personal lettering.",
+      "collection": "Selected Works",
+      "availability": "Portfolio review"
     },
     {
       "index": 15,
       "type": "Digital Collage",
       "title": "Lest We Forget",
-      "desc": "A compact memorial-style collage with distressed color and light."
+      "desc": "A compact memorial-style collage built with distressed color, light, and layered imagery. The piece holds its message through compression rather than scale.",
+      "collection": "Selected Works",
+      "availability": "Portfolio review"
     },
     {
       "index": 16,
       "type": "Identity Design",
-      "title": "Studio Blue Card",
-      "desc": "A polished Inkspirations Studios identity card in the house blue."
+      "title": "Studio Blue Identity Card",
+      "desc": "A polished Inkspirations Studios identity card using the house blue as its main field. It presents the studio voice in a clean, client-facing format.",
+      "collection": "Selected Works",
+      "availability": "Portfolio review"
     },
     {
       "index": 17,
       "type": "Identity Design",
-      "title": "Inkspirations Logo Card",
-      "desc": "A clean studio logo lockup with calligraphic emphasis."
+      "title": "Inkspirations Logo Lockup",
+      "desc": "A clean logo lockup pairing calligraphic emphasis with a direct studio name. The piece shows the brand system in its simplest public-facing form.",
+      "collection": "Selected Works",
+      "availability": "Portfolio review"
     },
     {
       "index": 18,
-      "type": "Typography",
-      "title": "Say No Poster",
-      "desc": "A stark typographic poster study using scale, contrast, and compression."
+      "type": "Typographic Poster",
+      "title": "Say No",
+      "desc": "A stark poster study built from scale, contrast, and compression. The direct wording gives the composition its structure.",
+      "collection": "Selected Works",
+      "availability": "Portfolio review"
     },
     {
       "index": 19,
-      "type": "Identity Design",
+      "type": "Identity Mark",
       "title": "Small Town Teacher",
-      "desc": "A compact identity mark with playful typography and a warm palette."
+      "desc": "A compact identity mark with friendly typography and a warm palette. It shows a softer side of the studio system while staying clear and readable.",
+      "collection": "Selected Works",
+      "availability": "Portfolio review"
     }
   ]
 }
