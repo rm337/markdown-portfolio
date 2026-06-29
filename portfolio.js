@@ -19,6 +19,13 @@ const modalType = document.getElementById("modalType");
 const modalTitle = document.getElementById("modalTitle");
 const modalDesc = document.getElementById("modalDesc");
 
+let activeFilter = "all";
+let searchTerm = "";
+let sortMode = "curated";
+let visibleWorks = [];
+let activeIndex = 0;
+let tourIndex = 0;
+
 const filters = [
   { id: "all", label: "All" },
   { id: "signature", label: "Signature Collection" },
@@ -97,7 +104,7 @@ function openLightbox(position) {
   const work = visibleWorks[activeIndex];
   modalImg.src = work.src;
   modalImg.alt = work.title;
-  modalType.textContent = `${activeIndex + 1} / ${visibleWorks.length} Â· ${work.medium || work.type || work.category || "Artwork"}`;
+  modalType.textContent = `${activeIndex + 1} / ${visibleWorks.length} - ${work.medium || work.type || work.category || "Artwork"}`;
   modalTitle.textContent = work.title;
   modalDesc.textContent = work.desc || "Selected Inkspirations Studios artwork.";
   modal.classList.add("open");
@@ -185,4 +192,5 @@ window.addEventListener("keydown", (event) => {
   if (event.key === "ArrowRight") moveLightbox(1);
   if (event.key === "ArrowLeft") moveLightbox(-1);
 });
+
 
