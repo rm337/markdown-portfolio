@@ -1,14 +1,14 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portfolio Gallery | Inkspirations Studios</title>
-  <meta name="description" content="A dedicated one-piece-at-a-time portfolio gallery for selected Inkspirations Studios artwork by Robert Marleton.">
+  <meta name="description" content="A polished visual portfolio gallery for selected Inkspirations Studios artwork by Robert Marleton.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://rm337.github.io/markdown-portfolio/portfolio.html">
   <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="style.css?v=20260629-flow-audio">
+  <link rel="stylesheet" href="style.css?v=20260629-photographer-gallery">
 </head>
 <body>
   <!-- Navigation begins -->
@@ -28,74 +28,46 @@
     <header class="hero studio-entry gallery-entry">
       <div class="hero-copy">
         <p class="kicker">Portfolio Gallery</p>
-        <h1>Selected work.</h1>
-        <p class="welcome">A focused gallery for viewing Robert's work with room to breathe.</p>
-        <p>Step into a quiet viewing room built for selected artwork.</p>
+        <h1>Robert Marleton Portfolio</h1>
+        <p class="welcome">A polished visual gallery for selected artwork, lettering, texture studies, and studio experiments.</p><p>Browse the collection like a quiet photography gallery, then open any piece for a closer look.</p>
         <div class="gallery-mood" aria-label="Gallery notes">
-          <span>Quiet viewing room</span>
-          <span>19 selected works</span>
-          <span>Browse when ready</span>
+          <span>Curated Gallery</span><span>19 selected works</span><span>Open any piece</span>
         </div>
         <div class="actions">
-          <a class="btn primary" href="#portfolio">Start Viewing</a>
+          <a class="btn primary" href="#portfolio">View Gallery</a>
           <a class="btn" href="index.html#contact">Contact Robert</a>
-          <button class="btn audio-toggle" type="button" data-audio-toggle>Studio Audio</button>
         </div>
       </div>
     </header>
     <!-- Hero ends -->
 
     <!-- Portfolio begins -->
-    <section class="section gallery-section" id="portfolio">
+    <section class="section gallery-section photographer-gallery" id="portfolio">
       <div class="section-head gallery-head">
         <div>
-          <p class="kicker">Gallery</p>
-          <h2>Selected artwork.</h2>
-          <p>A quiet gallery space for Robert's artwork. The featured view stays focused; open Browse Collection when you want the full room.</p>
+          <p class="kicker">Portfolio</p>
+          <h2>Image gallery.</h2>
+          <p>A clean gallery view of Robert's selected work. Use the filters to move through collections, or open any piece for a larger museum-style view.</p>
         </div>
-        <span class="meta" id="galleryCount">Featured View</span>
+        <span class="meta" id="galleryCount">19 Pieces</span>
       </div>
 
-      <div class="tour-panel featured-panel" id="tourPanel">
-        <article class="tour-card" aria-live="polite">
-          <div class="tour-media">
-            <img id="tourImg" alt="Selected curated tour artwork">
-          </div>
-          <div class="tour-copy">
-            <div class="viewer-heading">
-              <p class="kicker" id="tourType"></p>
-              <span class="work-count" id="tourCount">1 / 19</span>
-            </div>
-            <h3 id="tourTitle"></h3>
-            <p id="tourDesc"></p>
-            <div class="tour-actions">
-              <button class="btn" type="button" id="tourPrev">Previous</button>
-              <button class="btn primary" type="button" id="tourNext">Next</button>
-              <button class="btn" type="button" id="tourOpen">Open Larger</button>
-            </div>
-          </div>
-        </article>
+      <div class="gallery-tools photographer-tools" aria-label="Gallery controls">
+        <div class="filter-row" id="filterRow" aria-label="Filter artwork by category"></div>
+        <div class="gallery-fields">
+          <label class="field-label" for="gallerySearch">Search</label>
+          <input id="gallerySearch" class="gallery-input" type="search" placeholder="Search artwork, medium, collection">
+          <label class="field-label" for="gallerySort">Sort</label>
+          <select id="gallerySort" class="gallery-select">
+            <option value="curated">Curated order</option>
+            <option value="title">Title A-Z</option>
+            <option value="category">Category</option>
+          </select>
+        </div>
       </div>
 
-      <details class="collection-drawer" id="collectionDrawer">
-        <summary>Browse Collection</summary>
-        <div class="gallery-tools" aria-label="Gallery controls">
-          <div class="filter-row" id="filterRow" aria-label="Filter artwork by category"></div>
-          <div class="gallery-fields">
-            <label class="field-label" for="gallerySearch">Search</label>
-            <input id="gallerySearch" class="gallery-input" type="search" placeholder="Search artwork, medium, collection">
-            <label class="field-label" for="gallerySort">Sort</label>
-            <select id="gallerySort" class="gallery-select">
-              <option value="curated">Curated order</option>
-              <option value="title">Title A-Z</option>
-              <option value="category">Category</option>
-            </select>
-            <button class="btn" type="button" id="tourToggle">Hide Featured View</button>
-          </div>
-        </div>
-        <div class="gallery-grid" id="galleryGrid" aria-live="polite"></div>
-        <p class="empty-gallery" id="emptyGallery" hidden>No works match this view yet. Try another filter or search term.</p>
-      </details>
+      <div class="gallery-grid photographer-grid" id="galleryGrid" aria-live="polite"></div>
+      <p class="empty-gallery" id="emptyGallery" hidden>No works match this view yet. Try another filter or search term.</p>
     </section>
     <!-- Portfolio ends -->
   </main>
@@ -122,10 +94,6 @@
       </div>
     </div>
   </div>
-  <script src="portfolio.js?v=20260629-asset-path-fix"></script>
-  <script src="studio-audio.js?v=20260629-flow-audio"></script>
+  <script src="portfolio.js?v=20260629-photographer-gallery"></script>
 </body>
 </html>
-
-
-
