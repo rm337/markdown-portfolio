@@ -5,6 +5,7 @@ let current = 0;
 const viewerImg = document.getElementById("viewerImg");
 const viewerType = document.getElementById("viewerType");
 const viewerTitle = document.getElementById("viewerTitle");
+const viewerCount = document.getElementById("viewerCount");
 const viewerDesc = document.getElementById("viewerDesc");
 const rail = document.getElementById("rail");
 const modal = document.getElementById("modal");
@@ -19,6 +20,7 @@ function render(index) {
   viewerImg.alt = work.title;
   viewerType.textContent = work.type || "Artwork";
   viewerTitle.textContent = work.title;
+  viewerCount.textContent = (current + 1) + " / " + works.length;
   viewerDesc.textContent = work.desc || "Selected Inkspirations Studios artwork.";
 
   [...rail.children].forEach((button, buttonIndex) => {

@@ -8,7 +8,7 @@
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://rm337.github.io/markdown-portfolio/portfolio.html">
   <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="style.css?v=20260629-cachefix">
+  <link rel="stylesheet" href="style.css?v=20260629-gallerypolish">
 </head>
 <body>
   <!-- Navigation begins -->
@@ -30,7 +30,12 @@
         <p class="kicker">Portfolio Gallery</p>
         <h1>Selected work.</h1>
         <p class="welcome">A focused gallery for viewing Robert's work one piece at a time.</p>
-        <p>Use the controls and thumbnails below to move through the collection. Expand any piece for a larger view.</p>
+        <p>Step into a quiet viewing room built for one piece at a time.</p>
+        <div class="gallery-mood" aria-label="Gallery notes">
+          <span>Quiet viewing room</span>
+          <span>19 selected works</span>
+          <span>One piece at a time</span>
+        </div>
         <div class="actions">
           <a class="btn primary" href="#portfolio">Start Viewing</a>
           <a class="btn" href="index.html#contact">Contact Robert</a>
@@ -45,7 +50,7 @@
         <div>
           <p class="kicker">Gallery</p>
           <h2>One piece at a time.</h2>
-          <p>19 digital pieces in a clean review gallery. Choose a thumbnail to reveal each piece, then expand it for a larger view.</p>
+          <p>19 selected works in a clean review gallery. Move with Previous and Next, or open thumbnails only when you want to browse directly.</p>
         </div>
         <span class="meta">19 Pieces</span>
       </div>
@@ -56,7 +61,10 @@
             <img id="viewerImg" alt="Selected portfolio piece">
           </div>
           <div class="viewer-copy">
-            <p class="kicker" id="viewerType"></p>
+            <div class="viewer-heading">
+              <p class="kicker" id="viewerType"></p>
+              <span class="work-count" id="viewerCount">1 / 19</span>
+            </div>
             <h3 id="viewerTitle"></h3>
             <p id="viewerDesc"></p>
           </div>
@@ -69,7 +77,10 @@
             <button class="btn primary" type="button" id="expandWork">Expand</button>
             <a class="btn" href="index.html#contact">Inquire</a>
           </div>
-          <div class="rail" id="rail" aria-label="Portfolio thumbnails"></div>
+          <details class="thumb-drawer">
+            <summary>Browse thumbnails</summary>
+            <div class="rail" id="rail" aria-label="Portfolio thumbnails"></div>
+          </details>
         </aside>
       </div>
     </section>
@@ -92,6 +103,6 @@
     </div>
   </div>
 
-  <script src="portfolio.js?v=20260629-cachefix"></script>
+  <script src="portfolio.js?v=20260629-gallerypolish"></script>
 </body>
 </html>
