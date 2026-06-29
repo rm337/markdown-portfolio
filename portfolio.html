@@ -8,7 +8,7 @@
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://rm337.github.io/markdown-portfolio/portfolio.html">
   <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="style.css?v=20260629-gallerypolish">
+  <link rel="stylesheet" href="style.css?v=20260629-gallerygrid">
 </head>
 <body>
   <!-- Navigation begins -->
@@ -45,44 +45,54 @@
     <!-- Hero ends -->
 
     <!-- Portfolio begins -->
-    <section class="section" id="portfolio">
-      <div class="section-head">
+    <section class="section gallery-section" id="portfolio">
+      <div class="section-head gallery-head">
         <div>
           <p class="kicker">Gallery</p>
-          <h2>One piece at a time.</h2>
-          <p>19 selected works in a clean review gallery. Move with Previous and Next, or open thumbnails only when you want to browse directly.</p>
+          <h2>Explore the collection.</h2>
+          <p>A polished interactive gallery for browsing selected Inkspirations Studios work. Filter the room, search by title or medium, and open any piece for a larger view.</p>
         </div>
-        <span class="meta">19 Pieces</span>
+        <span class="meta" id="galleryCount">19 Pieces</span>
       </div>
 
-      <div class="portfolio">
-        <article class="viewer" aria-live="polite">
-          <div class="viewer-media">
-            <img id="viewerImg" alt="Selected portfolio piece">
+      <div class="gallery-tools" aria-label="Gallery controls">
+        <div class="filter-row" id="filterRow" aria-label="Filter artwork by category"></div>
+        <div class="gallery-fields">
+          <label class="field-label" for="gallerySearch">Search</label>
+          <input id="gallerySearch" class="gallery-input" type="search" placeholder="Search artwork, medium, collection">
+          <label class="field-label" for="gallerySort">Sort</label>
+          <select id="gallerySort" class="gallery-select">
+            <option value="curated">Curated order</option>
+            <option value="title">Title A-Z</option>
+            <option value="category">Category</option>
+          </select>
+          <button class="btn" type="button" id="tourToggle">Curated Tour</button>
+        </div>
+      </div>
+
+      <div class="tour-panel" id="tourPanel" hidden>
+        <article class="tour-card" aria-live="polite">
+          <div class="tour-media">
+            <img id="tourImg" alt="Selected curated tour artwork">
           </div>
-          <div class="viewer-copy">
+          <div class="tour-copy">
             <div class="viewer-heading">
-              <p class="kicker" id="viewerType"></p>
-              <span class="work-count" id="viewerCount">1 / 19</span>
+              <p class="kicker" id="tourType"></p>
+              <span class="work-count" id="tourCount">1 / 19</span>
             </div>
-            <h3 id="viewerTitle"></h3>
-            <p id="viewerDesc"></p>
+            <h3 id="tourTitle"></h3>
+            <p id="tourDesc"></p>
+            <div class="tour-actions">
+              <button class="btn" type="button" id="tourPrev">Previous</button>
+              <button class="btn primary" type="button" id="tourNext">Next</button>
+              <button class="btn" type="button" id="tourOpen">Open Larger</button>
+            </div>
           </div>
         </article>
-
-        <aside class="side" aria-label="Portfolio controls and thumbnails">
-          <div class="controls">
-            <button class="btn" type="button" id="prevWork">Previous</button>
-            <button class="btn" type="button" id="nextWork">Next</button>
-            <button class="btn primary" type="button" id="expandWork">Expand</button>
-            <a class="btn" href="index.html#contact">Inquire</a>
-          </div>
-          <details class="thumb-drawer">
-            <summary>Browse thumbnails</summary>
-            <div class="rail" id="rail" aria-label="Portfolio thumbnails"></div>
-          </details>
-        </aside>
       </div>
+
+      <div class="gallery-grid" id="galleryGrid" aria-live="polite"></div>
+      <p class="empty-gallery" id="emptyGallery" hidden>No works match this view yet. Try another filter or search term.</p>
     </section>
     <!-- Portfolio ends -->
   </main>
@@ -94,15 +104,21 @@
   </footer>
 
   <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Expanded artwork">
-    <div class="modal-inner">
+    <div class="modal-inner gallery-lightbox">
+      <button class="modal-close" id="closeModal" type="button" aria-label="Close expanded artwork">Close</button>
+      <button class="modal-nav modal-prev" id="modalPrev" type="button" aria-label="Previous artwork">Previous</button>
       <img id="modalImg" alt="Expanded portfolio piece">
+      <button class="modal-nav modal-next" id="modalNext" type="button" aria-label="Next artwork">Next</button>
       <div class="modal-bar">
-        <span id="modalTitle" class="meta"></span>
-        <button class="btn" id="closeModal" type="button">Close</button>
+        <div>
+          <span id="modalType" class="meta"></span>
+          <h3 id="modalTitle"></h3>
+          <p id="modalDesc"></p>
+        </div>
+        <a class="btn primary" href="index.html#contact">Inquire</a>
       </div>
     </div>
   </div>
-
-  <script src="portfolio.js?v=20260629-gallerypolish"></script>
+  <script src="portfolio.js?v=20260629-gallerygrid"></script>
 </body>
 </html>
