@@ -26,6 +26,13 @@ let visibleWorks = [];
 let activeIndex = 0;
 let tourIndex = 0;
 
+const siteBase = location.hostname.endsWith("github.io") ? "/markdown-portfolio/" : "";
+function assetPath(path) {
+  if (!path) return "";
+  if (/^(https?:|data:|blob:|file:|\/)/.test(path)) return path;
+  return siteBase + path.replace(/^\.\//, "");
+}
+
 const filters = [
   { id: "all", label: "All" },
   { id: "signature", label: "Signature Collection" },
@@ -86,9 +93,10 @@ function renderGallery() {
   galleryGrid.innerHTML = visibleWorks.map((work, position) => {
     const medium = work.medium || work.type || "Artwork";
     const category = work.category || workCategory(work, work.index);
-    const thumb = work.thumb || work.src;
+    const thumb = assetPath(work.thumb || work.src);
+    const full = assetPath(work.src);
     return `<button class="gallery-card" type="button" data-position="${position}" aria-label="Open ${work.title}">
-      <span class="gallery-image-wrap"><img src="${thumb}" alt="${work.title}" loading="lazy" decoding="async"></span>
+      <span class="gallery-image-wrap"><img src="${thumb}" alt="${work.title}" loading="eager" decoding="async" onerror="this.onerror=null;this.src='${full}';"></span>
       <span class="gallery-card-copy">
         <span class="gallery-card-kicker">${category}</span>
         <span class="gallery-card-title">${work.title}</span>
@@ -102,7 +110,7 @@ function openLightbox(position) {
   if (!visibleWorks.length) return;
   activeIndex = (position + visibleWorks.length) % visibleWorks.length;
   const work = visibleWorks[activeIndex];
-  modalImg.src = work.src;
+  modalImg.src = assetPath(work.src);
   modalImg.alt = work.title;
   modalType.textContent = `${activeIndex + 1} / ${visibleWorks.length} - ${work.medium || work.type || work.category || "Artwork"}`;
   modalTitle.textContent = work.title;
@@ -124,7 +132,7 @@ function moveLightbox(direction) {
 
 function renderTour() {
   const work = works[tourIndex];
-  tourImg.src = work.src;
+  tourImg.src = assetPath(work.src);
   tourImg.alt = work.title;
   tourType.textContent = work.medium || work.type || "Artwork";
   tourTitle.textContent = work.title;
@@ -192,5 +200,6 @@ window.addEventListener("keydown", (event) => {
   if (event.key === "ArrowRight") moveLightbox(1);
   if (event.key === "ArrowLeft") moveLightbox(-1);
 });
+
 
 
