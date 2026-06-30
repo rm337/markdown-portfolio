@@ -78,9 +78,21 @@ footer { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wr
 .world-card span:last-child { margin-top: .55rem; color: rgba(246, 243, 232, .74); line-height: 1.45; }
 .feature-section { padding-top: 3.5rem; padding-bottom: 3.5rem; }
 .feature-panel { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1.2rem; align-items: center; border: 1px solid rgba(246, 243, 232, .12); background: linear-gradient(135deg, rgba(1, 116, 243, .11), rgba(86, 217, 255, .035)), rgba(246, 243, 232, .035); padding: clamp(1rem, 3vw, 1.6rem); box-shadow: 0 20px 70px rgba(0, 0, 0, .24), inset 0 1px 0 rgba(246, 243, 232, .035); }
+.feature-panel-wide { grid-template-columns: minmax(0, .95fr) minmax(280px, .75fr); }
 .feature-panel h2 { font-size: clamp(1.9rem, 3.6vw, 3.5rem); }
 .feature-panel p { max-width: 780px; margin: .7rem 0 0; color: rgba(246, 243, 232, .74); }
-@media (max-width: 980px) { .world-card, .world-card.featured-world { grid-column: span 6; } .feature-panel { grid-template-columns: 1fr; } }
+.poem-card, .asset-slot { border: 1px solid rgba(86, 217, 255, .2); background: rgba(2, 5, 12, .48); box-shadow: inset 0 1px 0 rgba(246, 243, 232, .04); }
+.poem-card { padding: clamp(1rem, 2vw, 1.35rem); }
+.poem-card h3 { margin: .35rem 0 .55rem; color: #ffe6ad; font-family: Georgia, "Times New Roman", serif; font-size: clamp(1.55rem, 3vw, 2.5rem); font-weight: 500; line-height: 1; }
+.poem-lines { color: rgba(143, 243, 232, .86) !important; font-family: Georgia, "Times New Roman", serif; font-size: 1.08rem; }
+.slot-label, .asset-slot span, .asset-slot small { font-size: .62rem; text-transform: uppercase; letter-spacing: .12em; font-weight: 800; }
+.slot-label, .asset-slot span { color: rgba(143, 243, 232, .78); }
+.slot-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; }
+.asset-slot { display: grid; align-content: end; min-height: 170px; padding: .9rem; background: radial-gradient(circle at 24% 18%, rgba(86, 217, 255, .14), transparent 36%), linear-gradient(145deg, rgba(1, 116, 243, .12), rgba(2, 5, 12, .56)); }
+.asset-slot strong { display: block; margin-top: .35rem; color: #ffe6ad; font-family: Georgia, "Times New Roman", serif; font-size: 1.14rem; line-height: 1.05; font-weight: 500; }
+.asset-slot small { margin-top: .45rem; color: rgba(246, 243, 232, .5); }
+@media (max-width: 980px) { .world-card, .world-card.featured-world { grid-column: span 6; } .feature-panel, .feature-panel-wide { grid-template-columns: 1fr; } }
+@media (max-width: 760px) { .slot-grid { grid-template-columns: 1fr; } }
 @media (max-width: 620px) { .world-grid { grid-template-columns: 1fr; } .world-card, .world-card.featured-world { grid-column: auto; min-height: 190px; } }
 
 /* Portfolio polish: keep the gallery focused on one selected work. */

@@ -6,7 +6,7 @@
       id:"home",
       title:"Home",
       subtitle:"The public portfolio starting point.",
-      description:"The main Inkspirations Studios portfolio with selected work, Fluid Soul, creative systems, and contact paths.",
+      description:"The calm public entry for Inkspirations Studios with paths into the portfolio, artwork, rooms, writing, coasters, merch, and contact.",
       url:"index.html",
       theme:"home",
       accent:"#0174F3",
@@ -57,12 +57,12 @@
       id:"writing-room",
       title:"Writing Room",
       subtitle:"Quiet focus for words and memory.",
-      description:"A future room for reflective writing, story fragments, prompts, and calm studio ritual.",
+      description:"A public writing space for Robert's poem, reflective fragments, word pieces, prompts, and calm studio ritual.",
       url:"rooms.html",
       theme:"quiet",
       accent:"#f5efe5",
-      status:"Draft",
-      category:"Writing Space",
+      status:"Public Feature",
+      category:"Writing / Poem",
       tags:["writing","memory","focus"],
       hidden:false,
       unlockType:null,
@@ -74,12 +74,12 @@
       id:"music-room",
       title:"Music Room",
       subtitle:"Listening, rhythm, and emotional weather.",
-      description:"A listening room that connects BeatForge, Flight Deck, and future sound experiments.",
+      description:"A listening room that connects BeatForge, Flight Deck, and the sound side of Inkspirations Studios.",
       url:"rooms.html",
       theme:"music",
       accent:"#83f3ba",
-      status:"Draft",
-      category:"Sound Space",
+      status:"Public Feature",
+      category:"Music / Atmosphere",
       tags:["music","listening","mood"],
       hidden:false,
       unlockType:null,
@@ -108,11 +108,11 @@
       id:"t-shirt-design-lab",
       title:"T-Shirt Design Lab",
       subtitle:"A creative workshop for shirt concepts.",
-      description:"A studio lab for collecting, reviewing, and developing future T-shirt ideas before they become finished designs.",
+      description:"A public-facing lab for collecting, reviewing, and developing T-shirt ideas before they become finished designs.",
       url:"t-shirt-design-lab.html",
       theme:"design-lab",
       accent:"#56d9ff",
-      status:"Draft",
+      status:"Concept Lab",
       category:"Creative Lab",
       tags:["shirts","ideas","sketchbook","workshop"],
       hidden:false,
@@ -124,14 +124,14 @@
     {
       id:"merch-concept-foundry",
       title:"Merch Concept Foundry",
-      subtitle:"A command room for shaping future merch ideas.",
-      description:"A creative foundry for organizing Robertisms, custom work, shirt ideas, product concepts, and future collection candidates before anything becomes a public product.",
+      subtitle:"A creative workshop for merch and functional art.",
+      description:"A creative foundry for coasters, Robertisms, custom art prints, shirt ideas, product concepts, Ocean of Ink merch, Data Zoology merch, and future collection candidates.",
       url:"merch-foundry.html",
       theme:"foundry",
       accent:"#0174F3",
-      status:"Draft",
-      category:"Creative Lab",
-      tags:["merch","concepts","robertisms","custom-work"],
+      status:"Public Lab",
+      category:"Merch / Functional Art",
+      tags:["merch","coasters","robertisms","prints"],
       hidden:false,
       unlockType:null,
       unlockHint:null,
@@ -142,11 +142,11 @@
       id:"systems-i-built",
       title:"Systems I Built",
       subtitle:"Blueprints for creative systems and protocols.",
-      description:"A systems showcase for the frameworks, workflows, review protocols, and creative operating structures behind Inkspirations Studios.",
+      description:"A public systems showcase for the frameworks, workflows, review protocols, and creative operating structures behind Inkspirations Studios.",
       url:"systems-i-built.html",
       theme:"blueprint",
       accent:"#56d9ff",
-      status:"Draft",
+      status:"Public Feature",
       category:"Systems Showcase",
       tags:["systems","protocols","workflows","blueprints"],
       hidden:false,
@@ -157,9 +157,9 @@
     },
     {
       id:"room-hub",
-      title:"Room Hub / Map",
-      subtitle:"The visible map of core rooms.",
-      description:"The clean Phase 1 map for moving between Home, Ocean of Ink, Flight Deck, Writing Room, Music Room, and BeatForge Studio.",
+      title:"Interactive Rooms Map",
+      subtitle:"The visible map of studio rooms.",
+      description:"The public room map for moving between Home, Ocean of Ink, Flight Deck, Writing Room, Music Room, BeatForge Studio, Merch Foundry, and Systems I Built.",
       url:"rooms.html",
       theme:"map",
       accent:"#9ed0ff",
@@ -246,10 +246,14 @@
       <div class="room-nav-links">
         <a class="room-nav-link" href="index.html">Home</a>
         <a class="room-nav-link" href="portfolio.html#world">Portfolio</a>
+        <a class="room-nav-link" href="portfolio.html#portfolio">Artwork</a>
         <a class="room-nav-link" href="portfolio.html#interactive">Rooms</a>
+        <a class="room-nav-link" href="portfolio.html#writing">Writing</a>
+        <a class="room-nav-link" href="portfolio.html#functional">Coasters</a>
+        <a class="room-nav-link" href="merch-foundry.html">Merch</a>
         <a class="room-nav-link" href="index.html#about">About</a>
         <a class="room-nav-link" href="index.html#contact">Contact</a>
-        <a class="room-nav-link" href="site-map.html">Internal Map</a>
+        <a class="room-nav-link" href="site-map.html">Studio Map</a>
         <a class="room-nav-link" href="${escapeHtml(prev.url)}">Previous</a>
         <select class="room-select" id="roomJump" aria-label="Choose room">${publicRooms.map(item => `<option value="${escapeHtml(item.url)}"${item.id === room.id ? " selected" : ""}>${escapeHtml(item.title)}</option>`).join("")}</select>
         <a class="room-nav-link" href="${escapeHtml(next.url)}">Next</a>

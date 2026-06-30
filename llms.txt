@@ -156,11 +156,25 @@ The gallery contains 19 selected works and is rendered by portfolio.js.
 - IRIS / Home Interface / Digital Identity Card: identity-card.html
 - Studio Map: site-map.html
 
-## Missing Source Items
+## Writing / Poem
 
-The current public repo does not include a named poem source file or named coaster image files. The portfolio now includes dedicated public homes for both:
-- Writing / Poem: portfolio.html#writing
-- Coasters / Functional Art: portfolio.html#functional
+Robert's Poem has a dedicated public feature at portfolio.html#writing. The visible poem slot is intentionally marked for final text replacement and currently contains a short atmospheric placeholder that belongs to the Inkspirations voice. Word-based visual pieces are also available in the gallery under Words & Expressions.
+
+## Coasters / Functional Art
+
+Inkspirations Coasters / Functional Art has a dedicated portfolio feature at portfolio.html#functional and a deeper product workshop area at merch-foundry.html#coasters. The section includes image slots for coaster photos, set mockups, and functional art details.
+
+## Merch Concept Foundry
+
+The Merch Concept Foundry is public portfolio content at merch-foundry.html. It includes:
+- Coasters / functional art
+- Robertisms
+- T-shirt ideas
+- Product concepts
+- Ocean of Ink merch ideas
+- Data Zoology merch ideas
+- Custom art prints
+- Future mockup and image slots
 
 ## Contact
 
