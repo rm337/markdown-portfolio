@@ -104,6 +104,8 @@
   async function startRainstorm() {
     sync("Audio Starting...");
     console.log("Rainstorm audio starting");
+    playing = true;
+    sync("Rainstorm On");
     try {
       await Promise.race([
         media.play(),
@@ -115,10 +117,10 @@
     } catch (error) {
       media.pause();
       console.warn("Rainstorm video audio unavailable; starting fallback rain", error);
-      await startFallbackRain();
+      startFallbackRain().catch((fallbackError) => {
+        console.error("Rainstorm fallback audio error", fallbackError);
+      });
     }
-    playing = true;
-    sync("Rainstorm On");
   }
 
   function stopRainstorm() {
