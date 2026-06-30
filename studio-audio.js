@@ -17,12 +17,13 @@
   media.style.pointerEvents = "none";
   media.style.left = "-9999px";
   document.body.appendChild(media);
+  console.log("Rainstorm audio source ready", media.src);
 
   let playing = false;
 
   function sync(label) {
     buttons.forEach((button) => {
-      button.textContent = label || (playing ? "Audio On" : "Studio Audio");
+      button.textContent = label || (playing ? "Rainstorm On" : "Rainstorm Sound");
       button.setAttribute("aria-pressed", String(playing));
     });
   }
@@ -34,13 +35,16 @@
         if (playing) {
           media.pause();
           playing = false;
-          sync("Studio Audio");
+          sync("Rainstorm Sound");
+          console.log("Rainstorm audio stopped");
           return;
         }
         sync("Audio Starting...");
+        console.log("Rainstorm audio starting");
         await media.play();
         playing = true;
-        sync("Audio On");
+        sync("Rainstorm On");
+        console.log("Rainstorm audio playing", { paused: media.paused, readyState: media.readyState });
       } catch (error) {
         playing = false;
         sync("Audio Unavailable");
