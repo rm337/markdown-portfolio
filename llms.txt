@@ -25,7 +25,7 @@ The portfolio page organizes the full Inkspirations world:
 
 ## Current Artwork Gallery
 
-The gallery contains 19 selected works and is rendered by portfolio.js.
+The gallery contains 21 curated entries and is rendered by portfolio.js. Entries 1-19 are artwork/image entries; entries 20-21 are project entries for functional art and writing.
 
 1. Burned Motion / Razorback
    Medium: Burned Motion Study
@@ -140,6 +140,18 @@ The gallery contains 19 selected works and is rendered by portfolio.js.
     Category: Experimental Works
     File: assets/images/portfolio/small-town-teacher.jpg
     Description: A small identity mark with a handmade, personal tone.
+
+20. Inkspirations Coasters / Functional Art
+    Medium: Functional Art / Product Study
+    Category: Functional Art
+    Linked section: portfolio.html#functional and merch-foundry.html#coasters
+    Description: A functional art project for coaster sets, usable surfaces, and product-ready studio objects.
+
+21. Robert's Poem / Writing Piece
+    Medium: Writing / Poem
+    Category: Writing / Poem
+    Linked section: portfolio.html#writing
+    Description: A dedicated writing feature for Robert's poem and the language side of Inkspirations Studios.
 
 ## Interactive Rooms and Tools
 
