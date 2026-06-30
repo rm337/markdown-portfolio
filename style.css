@@ -175,3 +175,16 @@ main, footer { z-index: 1; }
 .ink-particles span:nth-child(12) { --x: 92%; --y: 34%; --s: 8px; --b: 2px; --d: 19s; --delay: -7s; }
 @keyframes ink-drift { 0% { transform: translate3d(-12px, 8px, 0) scale(.86); opacity: .22; } 45% { opacity: .52; } 100% { transform: translate3d(18px, -24px, 0) scale(1.35); opacity: .34; } }
 @media (prefers-reduced-motion: reduce) { .ink-particles span { animation: none; opacity: .25; } }
+/* Interactive portfolio rooms */
+.interactive-section { padding-top: 4.75rem; }
+.room-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: clamp(.8rem, 1.5vw, 1.15rem); }
+.room-card { position: relative; display: grid; align-content: end; min-height: 210px; grid-column: span 4; padding: 1.05rem; border: 1px solid rgba(246, 243, 232, .12); background: linear-gradient(150deg, rgba(246, 243, 232, .07), rgba(3, 116, 210, .055)), rgba(2, 5, 12, .72); color: #f6f3e8; text-decoration: none; overflow: hidden; box-shadow: 0 22px 80px rgba(0, 0, 0, .22); }
+.room-card::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 20% 16%, rgba(143, 243, 232, .18), transparent 34%), linear-gradient(180deg, transparent, rgba(2, 5, 12, .42)); opacity: .78; pointer-events: none; }
+.room-card > * { position: relative; z-index: 1; }
+.room-card.featured-room { grid-column: span 6; min-height: 250px; border-color: rgba(143, 243, 232, .28); }
+.room-card:hover, .room-card:focus-visible { transform: translateY(-3px); border-color: rgba(143, 243, 232, .5); outline: none; }
+.room-kicker { color: rgba(143, 243, 232, .78); font-size: .62rem; text-transform: uppercase; letter-spacing: .12em; font-weight: 800; }
+.room-card strong { margin-top: .35rem; color: #ffe6ad; font-family: Georgia, "Times New Roman", serif; font-size: clamp(1.35rem, 2.2vw, 2.1rem); line-height: 1.02; font-weight: 500; }
+.room-card span:last-child { margin-top: .55rem; color: rgba(246, 243, 232, .72); line-height: 1.45; }
+@media (max-width: 980px) { .room-card, .room-card.featured-room { grid-column: span 6; } }
+@media (max-width: 620px) { .room-grid { grid-template-columns: 1fr; } .room-card, .room-card.featured-room { grid-column: auto; min-height: 190px; } }
