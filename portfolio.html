@@ -8,7 +8,7 @@
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://rm337.github.io/markdown-portfolio/portfolio.html">
   <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="style.css?v=20260629-audio-ink">
+  <link rel="stylesheet" href="style.css?v=20260630-world">
 </head>
 <body>
   <div class="ink-particles" aria-hidden="true">
@@ -20,7 +20,9 @@
     <a class="brand" href="index.html#top">Inkspirations Studios</a>
     <div class="links">
       <a href="index.html#top">Home</a>
-      <a href="portfolio.html#portfolio">Portfolio</a>
+      <a href="portfolio.html#world">Portfolio</a>
+      <a href="portfolio.html#interactive">Rooms</a>
+      <a href="portfolio.html#writing">Writing</a>
       <a href="index.html#about">About</a>
       <a href="index.html#contact">Contact</a>
     </div>
@@ -31,15 +33,17 @@
     <!-- Hero begins -->
     <header class="hero studio-entry gallery-entry">
       <div class="hero-copy">
-        <p class="kicker">Portfolio Gallery</p>
-        <h1>Robert Marleton Portfolio</h1>
-        <p class="welcome">A polished visual gallery for selected artwork, lettering, texture studies, and studio experiments.</p><p>Browse the collection like a quiet photography gallery, then open any piece for a closer look.</p>
+        <p class="kicker">Inkspirations Portfolio</p>
+        <h1>Robert Marleton Studio World</h1>
+        <p class="welcome">Artwork, writing, music, functional art, and interactive rooms gathered into one connected creative home.</p><p>Start with the studio map, then move into the artwork gallery or the room-style projects.</p>
         <div class="gallery-mood" aria-label="Gallery notes">
-          <span>Curated Gallery</span><span>19 selected works</span><span>Open any piece</span>
+          <span>Creative World</span><span>19 selected artworks</span><span>10 interactive rooms</span>
         </div>
         <div class="actions">
-          <a class="btn primary" href="#portfolio">View Gallery</a>
+          <a class="btn primary" href="#world">Explore the World</a>
+          <a class="btn" href="#portfolio">Artwork Gallery</a>
           <a class="btn" href="#interactive">Interactive Rooms</a>
+          <a class="btn" href="#writing">Writing / Poem</a>
           <a class="btn" href="index.html#contact">Contact Robert</a>
           <button class="btn audio-toggle" type="button" data-audio-toggle aria-pressed="false">Rainstorm Sound</button>
         </div>
@@ -47,12 +51,73 @@
     </header>
     <!-- Hero ends -->
 
+    <!-- Studio world begins -->
+    <section class="section world-section" id="world">
+      <div class="section-head gallery-head">
+        <div>
+          <p class="kicker">Studio World</p>
+          <h2>Everything has a room.</h2>
+          <p>Inkspirations is organized as a connected studio: artwork, writing, music, coasters, tools, systems, and interactive rooms all have a clear place.</p>
+        </div>
+        <span class="meta">Connected Portfolio</span>
+      </div>
+
+      <div class="world-grid" aria-label="Inkspirations Studios portfolio areas">
+        <a class="world-card featured-world" href="#portfolio">
+          <span class="room-kicker">Artwork</span>
+          <strong>Curated Artwork Gallery</strong>
+          <span>Selected visual work, lettering, texture studies, identity pieces, and signature blue-current pieces.</span>
+        </a>
+        <a class="world-card" href="#interactive">
+          <span class="room-kicker">Interactive</span>
+          <strong>Interactive Rooms</strong>
+          <span>Flight Deck, Ocean of Ink, BeatForge, systems pages, intake tools, and room-style experiments.</span>
+        </a>
+        <a class="world-card" href="#writing">
+          <span class="room-kicker">Words</span>
+          <strong>Writing Room / Poem</strong>
+          <span>A dedicated home for Robert's poem, writing fragments, and word-based portfolio pieces.</span>
+        </a>
+        <a class="world-card" href="#functional">
+          <span class="room-kicker">Functional Art</span>
+          <strong>Inkspirations Coasters</strong>
+          <span>Coaster studies and usable art experiments belong here instead of being treated like extras.</span>
+        </a>
+        <a class="world-card" href="beats.html">
+          <span class="room-kicker">Music</span>
+          <strong>Music / Creative Atmosphere</strong>
+          <span>BeatForge Studio and the sound side of the creative environment.</span>
+        </a>
+        <a class="world-card" href="systems-i-built.html">
+          <span class="room-kicker">Tools</span>
+          <strong>Creative Toolbox</strong>
+          <span>Systems, workflows, and practical creative tools built around the studio.</span>
+        </a>
+        <a class="world-card" href="rooms.html#ocean-of-ink">
+          <span class="room-kicker">Atmosphere</span>
+          <strong>Ocean of Ink</strong>
+          <span>The blue ink-in-water atmosphere that connects the studio identity.</span>
+        </a>
+        <a class="world-card" href="flight-deck.html">
+          <span class="room-kicker">Command</span>
+          <strong>Flight Deck / Command Center</strong>
+          <span>A control-room interface for navigation, audio, and creative launch points.</span>
+        </a>
+        <a class="world-card" href="identity-card.html">
+          <span class="room-kicker">IRIS</span>
+          <strong>IRIS / Home Interface</strong>
+          <span>The identity and interface layer for the studio's public presence.</span>
+        </a>
+      </div>
+    </section>
+    <!-- Studio world ends -->
+
     <!-- Portfolio begins -->
     <section class="section gallery-section photographer-gallery" id="portfolio">
       <div class="section-head gallery-head">
         <div>
-          <p class="kicker">Portfolio</p>
-          <h2>Image gallery.</h2>
+          <p class="kicker">Artwork</p>
+          <h2>Artwork gallery.</h2>
           <p>A clean gallery view of Robert's selected work. Use the filters to move through collections, or open any piece for a larger museum-style view.</p>
         </div>
         <span class="meta" id="galleryCount">19 Pieces</span>
@@ -77,22 +142,54 @@
     </section>
     <!-- Portfolio ends -->
 
+    <!-- Writing / poem begins -->
+    <section class="section feature-section" id="writing">
+      <div class="feature-panel">
+        <div>
+          <p class="kicker">Writing / Poem</p>
+          <h2>The poem has a home.</h2>
+          <p>The poem itself is not present as a named file in the current public repo yet, so this section reserves its place instead of letting it disappear. Word-based portfolio pieces live in the gallery under Words &amp; Expressions, and the Writing Room is ready for the full text when it is added.</p>
+        </div>
+        <div class="actions">
+          <a class="btn primary" href="rooms.html#writing-room">Open Writing Room</a>
+          <a class="btn" href="#portfolio">View Word Pieces</a>
+        </div>
+      </div>
+    </section>
+    <!-- Writing / poem ends -->
+
+    <!-- Functional art begins -->
+    <section class="section feature-section" id="functional">
+      <div class="feature-panel">
+        <div>
+          <p class="kicker">Coasters / Functional Art</p>
+          <h2>Coaster studies belong in the portfolio.</h2>
+          <p>Coaster images are not present as named public assets in this repo yet, but the work now has a dedicated portfolio home. This area frames the coasters as functional art experiments connected to product ideas, surface studies, and real-world objects.</p>
+        </div>
+        <div class="actions">
+          <a class="btn primary" href="merch-foundry.html">Open Merch Foundry</a>
+          <a class="btn" href="index.html#contact">Ask About Coasters</a>
+        </div>
+      </div>
+    </section>
+    <!-- Functional art ends -->
+
     <!-- Interactive rooms begin -->
     <section class="section interactive-section" id="interactive">
       <div class="section-head gallery-head">
         <div>
-          <p class="kicker">Interactive</p>
-          <h2>Interactive portfolio files.</h2>
-          <p>All studio rooms and interactive files are gathered here as a neat extension of the portfolio.</p>
+          <p class="kicker">Interactive Rooms</p>
+          <h2>Creative rooms and tools.</h2>
+          <p>Studio rooms, audio spaces, room maps, intake flows, product labs, and command-center style interfaces are gathered here as part of the portfolio.</p>
         </div>
         <span class="meta">10 Rooms</span>
       </div>
 
       <div class="room-grid" aria-label="Interactive portfolio rooms">
-        <a class="room-card featured-room" href="flight-deck.html"><span class="room-kicker">Control Room</span><strong>Flight Deck</strong><span>Studio command surface for navigation, audio, rooms, and creative launch points.</span></a>
+        <a class="room-card featured-room" href="flight-deck.html"><span class="room-kicker">Command Center</span><strong>Flight Deck</strong><span>Studio command surface for navigation, audio, rooms, and creative launch points.</span></a>
         <a class="room-card" href="beats.html"><span class="room-kicker">Music</span><strong>BeatForge Studio</strong><span>Music and beat-making room for the sound side of Inkspirations Studios.</span></a>
-        <a class="room-card" href="rooms.html"><span class="room-kicker">Hub</span><strong>Room Hub</strong><span>Workshop map connecting the studio's internal creative rooms.</span></a>
-        <a class="room-card" href="systems-i-built.html"><span class="room-kicker">Systems</span><strong>Systems I Built</strong><span>A portfolio record of practical systems, pages, workflows, and creative infrastructure.</span></a>
+        <a class="room-card" href="rooms.html#ocean-of-ink"><span class="room-kicker">Ocean of Ink</span><strong>Room Hub</strong><span>Workshop map connecting the studio's internal creative rooms and blue ink atmosphere.</span></a>
+        <a class="room-card" href="systems-i-built.html"><span class="room-kicker">Creative Toolbox</span><strong>Systems I Built</strong><span>A portfolio record of practical systems, pages, workflows, and creative infrastructure.</span></a>
         <a class="room-card" href="lead-intake.html"><span class="room-kicker">Client Flow</span><strong>Lead Intake</strong><span>A guided intake page for commissions, collaborations, and project requests.</span></a>
         <a class="room-card" href="guest-registry.html"><span class="room-kicker">Visitor Flow</span><strong>Guest Registry</strong><span>A quiet visitor signal page for people entering the studio world.</span></a>
         <a class="room-card" href="merch-foundry.html"><span class="room-kicker">Merch</span><strong>Merch Concept Foundry</strong><span>A concept lab for product, apparel, and visual merchandise ideas.</span></a>

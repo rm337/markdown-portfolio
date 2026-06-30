@@ -1,131 +1,166 @@
 # Inkspirations Studios Portfolio
 
-> AI-readable access file for ChatGPT and other assistants.
+AI-readable access file for ChatGPT and other assistants.
 
-Public portfolio URL: https://rm337.github.io/markdown-portfolio/
+Public homepage: https://rm337.github.io/markdown-portfolio/
+Portfolio world page: https://rm337.github.io/markdown-portfolio/portfolio.html#world
+Artwork gallery: https://rm337.github.io/markdown-portfolio/portfolio.html#portfolio
+Interactive rooms: https://rm337.github.io/markdown-portfolio/portfolio.html#interactive
 Artist: Robert Marleton
 Studio: Inkspirations Studios
-Focus: digital artwork, hand-lettering, ocean-inspired creative systems, music rooms, and interactive studio environments.
+Focus: digital artwork, hand-lettering, ocean-inspired creative systems, writing, music rooms, functional art experiments, and interactive studio environments.
 
-## How to access
+## Site Structure
 
-Use the public homepage at https://rm337.github.io/markdown-portfolio/. The visual portfolio is embedded in the public JavaScript file for reliable GitHub Pages display. This file provides a clean text summary for assistants that cannot efficiently parse large embedded image data.
+The homepage is a calm studio lobby with no artwork grid or large artwork images.
 
-## Selected Portfolio Pieces
+The portfolio page organizes the full Inkspirations world:
+- Studio World map
+- Artwork Gallery
+- Writing / Poem home
+- Coasters / Functional Art home
+- Interactive Rooms and Tools
+- Music / Creative Atmosphere
+- Contact paths
 
-1. Infinite Love
-   Medium: Lettering Study
-   Collection: Selected Works
-   Availability: Portfolio review
-   Description: Layered script, saturated color, and a strong central mark give this piece the feeling of a studio signature. The work keeps the message direct while letting texture and light carry the surface.
+## Current Artwork Gallery
 
-2. Do Not Despair
-   Medium: Wood / Lettering
-   Collection: Selected Works
-   Availability: Portfolio review
-   Description: A circular wood-based statement piece shaped by grain, pressure, and a hand-finished surface. The wording is direct, but the material gives it a grounded, weathered presence.
+The gallery contains 19 selected works and is rendered by portfolio.js.
+
+1. Burned Motion / Razorback
+   Medium: Burned Motion Study
+   Category: Signature Collection
+   File: assets/images/portfolio/red-motion-panel.jpg
+   Description: A red motion study with a charging, animal-like force at the front of the composition.
+
+2. Soul Current
+   Medium: Fluid Motion
+   Category: Fluid Soul Series
+   File: assets/images/portfolio/soul-current.jpg
+   Description: A blue fluid-motion piece built around suspended ink, soft pressure, and depth.
 
 3. Sunflower Mandala
    Medium: Pattern Study
-   Collection: Selected Works
-   Availability: Portfolio review
-   Description: A radial composition built from blue, gold, and petal-like repetition. The piece sits between ornament, symbol, and decorative surface design.
+   Category: Nature & Organic
+   File: assets/images/portfolio/sunflower-mandala.jpg
+   Description: A bright organic pattern study centered on a sunflower form.
 
-4. Blue Field
-   Medium: Texture Study
-   Collection: Selected Works
-   Availability: Portfolio review
-   Description: A close study of blue surface, grain, and directional movement. It works as a quiet counterpoint to the more message-driven pieces in the collection.
+4. Cross Current
+   Medium: Abstract Current
+   Category: Signature Collection
+   File: assets/images/portfolio/blue-name-current.jpg
+   Description: A layered blue current study with crossing movement and a hidden signature quality.
 
-5. Love, Weathered
-   Medium: Mixed Media
-   Collection: Selected Works
-   Availability: Portfolio review
-   Description: A distressed love study where teal, red, and worn texture meet in a print-like field. The piece feels handled, layered, and intentionally imperfect.
+5. Release
+   Medium: Digital Lettering
+   Category: Signature Collection
+   File: assets/images/portfolio/washed-out.jpg
+   Description: A restrained lettering piece with washed blue atmosphere.
 
-6. You Are Priceless
-   Medium: Lettering
-   Collection: Selected Works
-   Availability: Portfolio review
-   Description: A warm lettering piece with a simple affirmation at its center. The script keeps the message personal without turning it into decoration alone.
+6. Electric Bloom
+   Medium: Digital Collage
+   Category: Experimental Works
+   File: assets/images/portfolio/lest-we-forget.jpg
+   Description: A high-contrast digital collage where color, light, and rough texture collide.
 
-7. Red Current
-   Medium: Texture Study
-   Collection: Selected Works
-   Availability: Portfolio review
-   Description: A horizontal texture piece built around speed, friction, and a strong red field. Its movement gives the surface a sense of heat and pressure.
+7. We Are Not Descended
+   Medium: Wood / Lettering
+   Category: Nature & Organic
+   File: assets/images/portfolio/wood-warning.jpg
+   Description: A wood-burned lettering piece using the natural round as part of the composition.
 
 8. Rainline Notes
    Medium: Ink Study
-   Collection: Selected Works
-   Availability: Portfolio review
-   Description: Vertical marks gather like weather, notation, or a passing rhythm. The piece uses restraint and repetition instead of a fixed image.
+   Category: Texture Studies
+   File: assets/images/portfolio/rainline-study.jpg
+   Description: A vertical texture study with repeated lines, soft color, and rainlike rhythm.
 
-9. Infinite Love, Blue Variation
-   Medium: Lettering Study
-   Collection: Selected Works
-   Availability: Portfolio review
-   Description: A cooler variation on the Infinite Love mark, softened through blue and violet tones. It shows how the same phrase can shift when the atmosphere changes.
+9. Blue Field
+   Medium: Texture Study
+   Category: Texture Studies
+   File: assets/images/portfolio/blue-field.jpg
+   Description: A quiet blue texture field focused on surface, grain, and tonal movement.
 
-10. Blue Name Current
-   Medium: Signature Study
-   Collection: Selected Works
-   Availability: Portfolio review
-   Description: A layered blue surface with a quiet name-form embedded inside the field. The signature becomes part of the current rather than sitting on top of it.
+10. Love, Weathered
+    Medium: Mixed Media
+    Category: Words & Expressions
+    File: assets/images/portfolio/love-texture.jpg
+    Description: A weathered word piece where the surface feels scraped and layered.
 
 11. Blessed Water
-   Medium: Lettering
-   Collection: Selected Works
-   Availability: Portfolio review
-   Description: A gentle script piece carried by open space and blue wash. The composition leaves room around the words so the lettering can breathe.
+    Medium: Lettering
+    Category: Words & Expressions
+    File: assets/images/portfolio/blessed-water.jpg
+    Description: A soft lettering piece set into a pale blue waterlike field.
 
-12. Soul Current
-   Medium: Ink Study
-   Collection: Selected Works
-   Availability: Portfolio review
-   Description: A restrained blue field where lettering and surface begin to merge. The piece is more about trace and movement than a finished statement.
+12. Infinite Love
+    Medium: Lettering Study
+    Category: Words & Expressions
+    File: assets/images/portfolio/infinite-love-red.jpg
+    Description: A saturated lettering study built around a bold central word form.
 
-13. Washed Out
-   Medium: Digital Lettering
-   Collection: Selected Works
-   Availability: Portfolio review
-   Description: Expressive lettering moves across a bright digital wash. The contrast between the loose mark and the luminous field gives the piece its tension.
+13. Infinite Love, Blue Variation
+    Medium: Lettering Study
+    Category: Words & Expressions
+    File: assets/images/portfolio/infinite-love-violet.jpg
+    Description: A cooler blue and violet variation of the Infinite Love lettering study.
 
-14. Inkspirations Studio Mark
-   Medium: Brand Mark
-   Collection: Selected Works
-   Availability: Portfolio review
-   Description: A hand-drawn studio mark in the Inkspirations blue language. It anchors the portfolio as both identity work and personal lettering.
+14. You Are Priceless
+    Medium: Lettering
+    Category: Words & Expressions
+    File: assets/images/portfolio/you-priceless.jpg
+    Description: A direct lettering piece centered on reassurance and value.
 
-15. Lest We Forget
-   Medium: Digital Collage
-   Collection: Selected Works
-   Availability: Portfolio review
-   Description: A compact memorial-style collage built with distressed color, light, and layered imagery. The piece holds its message through compression rather than scale.
+15. Inkspirations Studio Mark
+    Medium: Brand Mark
+    Category: Experimental Works
+    File: assets/images/portfolio/inkspirations-mark.jpg
+    Description: A studio mark exploration using blue lettering, splash, and atmosphere.
 
 16. Studio Blue Identity Card
-   Medium: Identity Design
-   Collection: Selected Works
-   Availability: Portfolio review
-   Description: A polished Inkspirations Studios identity card using the house blue as its main field. It presents the studio voice in a clean, client-facing format.
+    Medium: Identity Design
+    Category: Experimental Works
+    File: assets/images/portfolio/studio-blue-card.jpg
+    Description: A compact identity card for Inkspirations Studios.
 
 17. Inkspirations Logo Lockup
-   Medium: Identity Design
-   Collection: Selected Works
-   Availability: Portfolio review
-   Description: A clean logo lockup pairing calligraphic emphasis with a direct studio name. The piece shows the brand system in its simplest public-facing form.
+    Medium: Identity Design
+    Category: Experimental Works
+    File: assets/images/portfolio/inkspirations-logo-card.jpg
+    Description: A clean logo lockup pairing calligraphic emphasis with the studio name.
 
 18. Say No
-   Medium: Typographic Poster
-   Collection: Selected Works
-   Availability: Portfolio review
-   Description: A stark poster study built from scale, contrast, and compression. The direct wording gives the composition its structure.
+    Medium: Typographic Poster
+    Category: Words & Expressions
+    File: assets/images/portfolio/say-no-poster.jpg
+    Description: A stark typographic poster with a direct message and strong hierarchy.
 
 19. Small Town Teacher
-   Medium: Identity Mark
-   Collection: Selected Works
-   Availability: Portfolio review
-   Description: A compact identity mark with friendly typography and a warm palette. It shows a softer side of the studio system while staying clear and readable.
+    Medium: Identity Mark
+    Category: Experimental Works
+    File: assets/images/portfolio/small-town-teacher.jpg
+    Description: A small identity mark with a handmade, personal tone.
+
+## Interactive Rooms and Tools
+
+- Flight Deck / Command Center: flight-deck.html
+- BeatForge Studio / Music Room: beats.html
+- Ocean of Ink / Room Hub: rooms.html#ocean-of-ink
+- Writing Room: rooms.html#writing-room
+- Music Room: rooms.html#music-room
+- Creative Toolbox / Systems I Built: systems-i-built.html
+- Lead Intake: lead-intake.html
+- Guest Registry: guest-registry.html
+- Merch Concept Foundry: merch-foundry.html
+- T-Shirt Design Lab: t-shirt-design-lab.html
+- IRIS / Home Interface / Digital Identity Card: identity-card.html
+- Studio Map: site-map.html
+
+## Missing Source Items
+
+The current public repo does not include a named poem source file or named coaster image files. The portfolio now includes dedicated public homes for both:
+- Writing / Poem: portfolio.html#writing
+- Coasters / Functional Art: portfolio.html#functional
 
 ## Contact
 

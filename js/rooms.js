@@ -245,7 +245,8 @@
       <label class="room-chip" for="roomJump">Room Menu</label>
       <div class="room-nav-links">
         <a class="room-nav-link" href="index.html">Home</a>
-        <a class="room-nav-link" href="index.html#portfolio">Portfolio</a>
+        <a class="room-nav-link" href="portfolio.html#world">Portfolio</a>
+        <a class="room-nav-link" href="portfolio.html#interactive">Rooms</a>
         <a class="room-nav-link" href="index.html#about">About</a>
         <a class="room-nav-link" href="index.html#contact">Contact</a>
         <a class="room-nav-link" href="site-map.html">Internal Map</a>
