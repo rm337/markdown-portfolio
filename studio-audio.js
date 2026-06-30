@@ -105,9 +105,15 @@
     sync("Audio Starting...");
     console.log("Rainstorm audio starting");
     try {
-      await media.play();
+      await Promise.race([
+        media.play(),
+        new Promise((_, reject) => {
+          window.setTimeout(() => reject(new Error("Rainstorm video audio timed out")), 900);
+        })
+      ]);
       console.log("Rainstorm video audio playing", { paused: media.paused, readyState: media.readyState });
     } catch (error) {
+      media.pause();
       console.warn("Rainstorm video audio unavailable; starting fallback rain", error);
       await startFallbackRain();
     }
