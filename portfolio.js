@@ -195,9 +195,11 @@ const works = [
     title: "Inkspirations Coasters / Functional Art",
     category: "Functional Art",
     collection: "Functional Art",
+    src: "assets/images/portfolio/coasters/curved-blue-object-coaster-study.jpg",
+    thumb: "assets/images/portfolio/coasters/thumbs/curved-blue-object-coaster-study-thumb.jpg",
     projectHref: "merch-foundry.html#coasters",
-    visualLabel: "Coaster Image Slots",
-    desc: "A functional art project for coaster sets, usable surfaces, and product-ready studio objects. Final coaster photos can be added into the prepared image slots."
+    visualLabel: "Coaster Studies",
+    desc: "A functional art project for coaster sets, usable surfaces, and product-ready studio objects. These studies connect the artwork to objects people can live with."
   },
   {
     type: "Writing",
@@ -206,8 +208,8 @@ const works = [
     category: "Writing / Poem",
     collection: "Writing / Poem",
     projectHref: "portfolio.html#writing",
-    visualLabel: "Poem Text Feature",
-    desc: "A dedicated writing feature for Robert's poem and the language side of Inkspirations Studios. The text slot is ready for the final poem copy."
+    visualLabel: "Studio Poem",
+    desc: "A dedicated writing feature for Robert's poem and the language side of Inkspirations Studios. The piece gives the studio world a quieter verbal entry point."
   }
 ];
 

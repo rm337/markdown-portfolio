@@ -96,6 +96,10 @@ h1{font-size:clamp(3rem,7.6vw,6.8rem);line-height:.9;margin-bottom:1rem}
 .showcase-card p{color:var(--soft);margin:.45rem 0 0}
 .image-slots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.6rem;margin-top:.75rem}
 .image-slot{min-height:110px;border:1px dashed rgba(86,217,255,.36);background:rgba(1,116,243,.08);display:grid;place-items:center;text-align:center;color:var(--muted);font-family:Arial,sans-serif;font-size:.62rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;padding:.75rem}
+.image-slot-live{position:relative;overflow:hidden;padding:0;border-style:solid;background:#02050c}
+.image-slot-live img{width:100%;height:100%;min-height:110px;object-fit:cover;display:block}
+.image-slot-live em{position:absolute;left:.45rem;right:.45rem;bottom:.45rem;z-index:1;color:var(--paper);font-style:normal;text-shadow:0 2px 14px rgba(0,0,0,.8)}
+.image-slot-live::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 36%,rgba(2,5,12,.82));pointer-events:none}
 .shirt-list,.archive-list,.custom-list,.protocol-list{display:grid;gap:.6rem;padding:0;margin:0;list-style:none;color:var(--soft)}
 .shirt-list li,.archive-list li,.custom-list li,.protocol-list li{border-left:2px solid rgba(86,217,255,.35);padding-left:.75rem}
 .score{color:var(--paper);font-family:Arial,sans-serif;font-size:.74rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
@@ -134,7 +138,7 @@ h1{font-size:clamp(3rem,7.6vw,6.8rem);line-height:.9;margin-bottom:1rem}
     </div>
     <aside class="mission" aria-label="Foundry mission">
       <strong>Creative lab, not empty shelf</strong>
-      <p>This foundry organizes real product directions now, with mockup slots ready for coaster photos, shirt graphics, print previews, and future collection images.</p>
+      <p>This foundry organizes real product directions now, with coaster photos, shirt graphics, print previews, and future collection candidates gathered into one workshop.</p>
     </aside>
   </header>
 
@@ -142,11 +146,11 @@ h1{font-size:clamp(3rem,7.6vw,6.8rem);line-height:.9;margin-bottom:1rem}
     <article class="showcase-card" id="coasters">
       <small class="kicker">Functional Art</small>
       <strong>Coaster Studies / Functional Art</strong>
-      <p>Image hooks for coaster sets, surface studies, object photos, and usable art experiments.</p>
-      <div class="image-slots">
-        <span class="image-slot">Coaster Photo 01</span>
-        <span class="image-slot">Coaster Photo 02</span>
-        <span class="image-slot">Set Mockup</span>
+      <p>Coaster sets, surface studies, object photos, and usable art experiments connected to the Inkspirations product world.</p>
+      <div class="image-slots image-slots-live">
+        <span class="image-slot image-slot-live"><img src="assets/images/portfolio/coasters/thumbs/curved-blue-object-coaster-study-thumb.jpg" alt="Curved blue coaster study"><em>Blue Current</em></span>
+        <span class="image-slot image-slot-live"><img src="assets/images/portfolio/coasters/thumbs/blue-wave-wood-panel-functional-art-thumb.jpg" alt="Blue wave wood panel functional art"><em>Wood Panel</em></span>
+        <span class="image-slot image-slot-live"><img src="assets/images/portfolio/coasters/thumbs/wood-round-functional-art-thumb.jpg" alt="Round wood functional art study"><em>Natural Round</em></span>
       </div>
     </article>
     <article class="showcase-card">
@@ -279,7 +283,7 @@ h1{font-size:clamp(3rem,7.6vw,6.8rem);line-height:.9;margin-bottom:1rem}
     <article class="board-card">
       <small>Future Expansion</small>
       <ul class="protocol-list">
-        <li>Mockup image slots</li>
+        <li>Product mockup images</li>
         <li>Print-on-demand integration</li>
         <li>Merch viability scoring</li>
         <li>AI-generated concept expansion</li>
@@ -294,14 +298,14 @@ h1{font-size:clamp(3rem,7.6vw,6.8rem);line-height:.9;margin-bottom:1rem}
   const statuses = ["All","Seed","Worth Saving","Exploring","Designing","Ready for Mockup","Ready for Store","Archived"];
   const reviews = ["MVR","VJR","QCP","SBI"];
   const ideas = [
-    {title:"Inkspirations Coaster Studies",phrase:"Coaster Studies / Functional Art",category:"Coasters",notes:"Functional art objects using blue current, ink texture, and studio mark language. Needs final photo slots filled with real coaster images.",status:"Ready for Mockup",product:"Coaster set / functional art",front:"Blue current surface set",back:"Inkspirations Studios object label",visual:"Three-object photo grid plus texture closeups",audience:"Collectors, gift buyers, studio visitors",humor:"Low",wearability:92,reviews:["MVR","QCP","VJR"]},
+    {title:"Inkspirations Coaster Studies",phrase:"Coaster Studies / Functional Art",category:"Coasters",notes:"Functional art objects using blue current, ink texture, and studio mark language, represented with real coaster and object photos.",status:"Ready for Mockup",product:"Coaster set / functional art",front:"Blue current surface set",back:"Inkspirations Studios object label",visual:"Three-object photo grid plus texture closeups",audience:"Collectors, gift buyers, studio visitors",humor:"Low",wearability:92,reviews:["MVR","QCP","VJR"]},
     {title:"Ocean of Ink Coaster Set",phrase:"Ocean of Ink Coasters",category:"Ocean of Ink",notes:"A merch line built from the core blue atmosphere: water, ink drift, light, and usable tabletop pieces.",status:"Ready for Mockup",product:"Coaster set / print object",front:"Deep blue ink surface",back:"Small studio mark and edition label",visual:"Royal blue object mockup with electric edge glow",audience:"Art buyers and studio supporters",humor:"Low",wearability:89,reviews:["MVR","QCP"]},
-    {title:"Custom Art Print Series",phrase:"Custom Art Prints",category:"Custom Art Prints",notes:"A clean product path for selected artwork, commissioned phrase work, and limited print editions.",status:"Ready for Mockup",product:"Print / commission path",front:"Artwork-led print preview",back:"Edition note and studio label",visual:"Gallery print mockup slots with title labels",audience:"Clients, collectors, employers",humor:"Low",wearability:95,reviews:["MVR","VJR","QCP"]},
-    {title:"Ocean of Ink Studio Goods",phrase:"Ocean of Ink Studio Goods",category:"Product Concepts",notes:"A broader product family for coasters, stickers, cards, small prints, and apparel tied to the central atmosphere.",status:"Exploring",product:"Product collection",front:"Blue-current collection badge",back:"Made inside Inkspirations Studios",visual:"Product family board with mockup slots",audience:"Studio visitors and collectors",humor:"Low",wearability:88,reviews:["SBI","VJR"]},
+    {title:"Custom Art Print Series",phrase:"Custom Art Prints",category:"Custom Art Prints",notes:"A clean product path for selected artwork, commissioned phrase work, and limited print editions.",status:"Ready for Mockup",product:"Print / commission path",front:"Artwork-led print preview",back:"Edition note and studio label",visual:"Gallery print previews with title labels",audience:"Clients, collectors, employers",humor:"Low",wearability:95,reviews:["MVR","VJR","QCP"]},
+    {title:"Ocean of Ink Studio Goods",phrase:"Ocean of Ink Studio Goods",category:"Product Concepts",notes:"A broader product family for coasters, stickers, cards, small prints, and apparel tied to the central atmosphere.",status:"Exploring",product:"Product collection",front:"Blue-current collection badge",back:"Made inside Inkspirations Studios",visual:"Product family board with image previews",audience:"Studio visitors and collectors",humor:"Low",wearability:88,reviews:["SBI","VJR"]},
     {title:"All My PUPS Are On A Leash",phrase:"All My PUPS Are On A Leash",category:"Tech Humor",notes:"Tech phrase with controlled-chaos energy. Could become a minimal front phrase with a process-control badge.",status:"Exploring",product:"T-shirt / sticker",front:"Bold phrase, small leash-line motif",back:"Process control, but make it wearable.",visual:"Terminal-clean with cyan micro labels",audience:"Developers and automation people",humor:"High",wearability:82,reviews:["MVR","QCP"]},
     {title:"FLITLE Deck",phrase:"FLITLE Deck",category:"Flight",notes:"Playful Flight Deck cousin. Keep it as an intentional studio oddity, not an accident.",status:"Seed",product:"Limited shirt / room badge",front:"FLITLE DECK",back:"Altitude uncertain. Signal beautiful.",visual:"Flight tag, radar line, tiny typo-glow",audience:"Flight Deck fans",humor:"Medium",wearability:68,reviews:["SBI"]},
     {title:"Browser Wars",phrase:"Browser Wars",category:"Tech Humor",notes:"Broad tech joke with strong visual potential. Browser tabs, error codes, compatibility battle marks.",status:"Designing",product:"T-shirt / poster",front:"Browser Wars",back:"May the cached force be with you.",visual:"Layered browser-tab grid",audience:"Web builders and QA people",humor:"High",wearability:88,reviews:["MVR","QCP","VJR"]},
-    {title:"Cheese Burglar",phrase:"Cheese Burglar",category:"Creative Thinking",notes:"Absurd phrase with mascot potential. Needs tasteful restraint to avoid novelty overload.",status:"Worth Saving",product:"Sticker / casual tee",front:"Cheese Burglar",back:"No crumbs. No witnesses.",visual:"Sketch-card character placeholder",audience:"Odd humor people",humor:"Very high",wearability:70,reviews:["SBI","MVR"]},
+    {title:"Cheese Burglar",phrase:"Cheese Burglar",category:"Creative Thinking",notes:"Absurd phrase with mascot potential. Needs tasteful restraint to avoid novelty overload.",status:"Worth Saving",product:"Sticker / casual tee",front:"Cheese Burglar",back:"No crumbs. No witnesses.",visual:"Small character sketch card with restrained comic timing",audience:"Odd humor people",humor:"Very high",wearability:70,reviews:["SBI","MVR"]},
     {title:"Data Zoology Research Institute",phrase:"Data Zoology Research Institute",category:"Data Zoology",notes:"Strongest institutional-world candidate. Feels like a full collection, not just one shirt.",status:"Ready for Mockup",product:"T-shirt / poster / sticker pack",front:"Institute seal and title",back:"Classifying rare metrics since the last dashboard refresh.",visual:"Field badge, specimen tags, archive labels",audience:"Analysts, data scientists, dashboard builders",humor:"Medium",wearability:94,reviews:["MVR","QCP","VJR"]},
     {title:"Data Zoology Field Notes",phrase:"Data Zoology Field Notes",category:"Data Zoology",notes:"A product concept for cards, stickers, and shirts around rare metrics, dashboard creatures, and strange analytical sightings.",status:"Exploring",product:"Sticker pack / shirt / print",front:"Field note specimen label",back:"Observed in the dashboard wild.",visual:"Archive tags, specimen cards, electric blue grid",audience:"Data teams and analysts",humor:"Medium",wearability:87,reviews:["MVR","SBI"]},
     {title:"Someone Licking A Shadow",phrase:"Someone Licking A Shadow",category:"Robertisms",notes:"Surreal Robertism. Best as quiet type plus one strange ink mark.",status:"Seed",product:"Shirt / hidden clue later",front:"Someone Licking A Shadow",back:"Evidence of imagination found at the scene.",visual:"Minimal serif phrase, blue ink smear",audience:"Artists and surreal humor fans",humor:"Strange",wearability:61,reviews:["SBI"]},

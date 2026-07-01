@@ -171,7 +171,7 @@ The gallery contains 21 curated entries and is rendered by portfolio.js. Entries
 
 ## Writing / Poem
 
-Robert's Poem has a dedicated public feature at portfolio.html#writing. The visible poem slot is intentionally marked for final text replacement and currently contains a short atmospheric placeholder that belongs to the Inkspirations voice. Word-based visual pieces are also available in the gallery under Words & Expressions.
+Robert's Poem has a dedicated public feature at portfolio.html#writing. The current public poem text is: "Rain at the studio window. Ink moving like memory. A room opens, and the work begins." Word-based visual pieces are also available in the gallery under Words & Expressions.
 
 ## Coasters / Functional Art
 

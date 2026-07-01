@@ -39,8 +39,6 @@
 .room-nav-title{display:block;font-family:Arial,sans-serif;font-size:.74rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--room-white);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .room-nav-desc{display:block;color:var(--room-muted);font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .room-status,.room-chip{display:inline-flex;align-items:center;justify-content:center;min-height:28px;padding:.35rem .55rem;border:1px solid var(--room-line);background:rgba(255,255,255,.055);font-family:Arial,sans-serif;font-size:.62rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--room-cyan);white-space:nowrap}
-.room-status[data-status="Coming Soon"]{color:var(--room-paper)}
-.room-status[data-status="Draft"]{color:#9ed0ff}
 .room-nav-links{display:flex;gap:.45rem;align-items:center;justify-content:flex-end}
 .room-nav-link{display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:.55rem .72rem;border:1px solid var(--room-line);background:rgba(255,255,255,.055);color:var(--room-white);font-family:Arial,sans-serif;font-size:.66rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;text-decoration:none}
 .room-nav-link:hover,.room-nav-link:focus{border-color:rgba(86,217,255,.72);outline:none}
@@ -92,3 +90,6 @@
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}
   .room-atmosphere{display:none}
 }
+
+.room-anchor-row{position:relative;height:0;overflow:visible}
+.room-anchor{position:absolute;top:-90px}

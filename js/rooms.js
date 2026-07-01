@@ -112,7 +112,7 @@
       url:"t-shirt-design-lab.html",
       theme:"design-lab",
       accent:"#56d9ff",
-      status:"Concept Lab",
+      status:"Public Lab",
       category:"Creative Lab",
       tags:["shirts","ideas","sketchbook","workshop"],
       hidden:false,
