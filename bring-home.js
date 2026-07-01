@@ -251,7 +251,7 @@
       <div class="bring-home-body">
         <div>
           <section class="bring-home-section">
-            <h3>Bring This Home</h3>
+            <h3>Available Paths</h3>
             <div class="bring-home-products">
               ${item.products.map((product, index) => `<button class="bring-home-product" type="button" data-bring-product="${index}" aria-pressed="${index === state.productIndex ? "true" : "false"}"><span>${product.icon} ${escapeHtml(product.label)}</span>${product.future ? "<small>Future product path</small>" : ""}</button>`).join("")}
             </div>

@@ -106,7 +106,7 @@
           <div class="case-group"><strong>Rooms</strong><div class="case-chips">${list(item.relatedRooms)}</div></div>
           <div class="case-group"><strong>Artwork Connections</strong><div class="case-chips">${list(item.artworkConnections)}</div></div>
           <div class="case-group"><strong>Tags</strong><div class="case-chips">${list(item.tags)}</div></div>
-          <div class="actions"><button class="btn primary" type="button" data-robertism-home="${escapeHtml(item.id)}">Bring This Home</button></div>
+          <div class="actions"><button class="btn primary" type="button" data-robertism-home="${escapeHtml(item.id)}">Explore Product Path</button></div>
         </div>
       </article>
     `).join("");
