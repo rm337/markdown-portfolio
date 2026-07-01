@@ -147,6 +147,7 @@
       .bring-home-recs { display: grid; gap: .5rem; }
       .bring-home-chip { display: inline-flex; align-items: center; min-height: 30px; border: 1px solid rgba(246, 243, 232, .14); background: rgba(246, 243, 232, .05); color: rgba(246, 243, 232, .76); padding: .38rem .52rem; font-size: .6rem; line-height: 1.2; }
       .bring-home-checkout { display: grid; gap: .65rem; }
+      .bring-home-path-note { margin: 0 0 .75rem; color: rgba(246, 243, 232, .72); }
       .bring-home-checkout .btn { width: 100%; }
       .bring-home-note { margin: .75rem 0 0; color: rgba(246, 243, 232, .52); font-size: .58rem; line-height: 1.5; }
       .bring-home-status { min-height: 1.2rem; margin: .65rem 0 0; color: #8ff3e8; font-size: .62rem; }
@@ -183,7 +184,7 @@
       const checkoutButton = event.target.closest("[data-bring-checkout]");
       if (checkoutButton) {
         const status = modal.querySelector("[data-bring-home-status]");
-        if (status) status.textContent = checkoutButton.dataset.bringCheckout === "save" ? "Saved locally for later studio follow-up." : "Checkout placeholder ready for future fulfillment connection.";
+        if (status) status.textContent = checkoutButton.dataset.bringCheckout === "save" ? "Saved locally for later studio follow-up." : checkoutButton.dataset.bringCheckout === "unavailable" ? "This option is an inquiry path right now. Use Ask About This Piece for availability." : "Checkout placeholder ready for future fulfillment connection.";
         if (checkoutButton.dataset.bringCheckout === "save" && state.item) {
           const saved = JSON.parse(localStorage.getItem("inkBringHomeSaved") || "[]");
           saved.unshift({ title: state.item.title, date: new Date().toISOString() });
@@ -209,6 +210,16 @@
       asArray(values).filter(Boolean).forEach(value => chips.push(`<span class="bring-home-chip">${escapeHtml(label)}: ${escapeHtml(value)}</span>`));
     });
     return chips.length ? chips.join("") : `<span class="bring-home-chip">Studio recommendation: Ask Robert for the best pairing.</span>`;
+  }
+
+  function productIsPod(product) {
+    return ["tshirt", "print", "sticker"].includes(product.type) && !product.future;
+  }
+
+  function physicalInquiryHref(item) {
+    const subject = `Inquiry about ${item.title}`;
+    const body = `Hi Robert, I'm interested in ${item.title}. Is this piece available as an original, decorative tile, print, or custom physical item?`;
+    return `mailto:r.marleton@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   }
 
   function optionMarkup(product) {
@@ -261,14 +272,21 @@
             <div class="bring-home-options">${optionMarkup(activeProduct)}</div>
           </section>
           <section class="bring-home-section">
-            <h3>Checkout</h3>
+            <h3>Order through print partner</h3>
+            <p class="bring-home-path-note">${productIsPod(activeProduct) ? "This product type is ready for a future print-partner checkout connection." : "This selected option is not set up for automatic checkout yet."}</p>
             <div class="bring-home-checkout">
-              <button class="btn primary" type="button" data-bring-checkout="buy">Buy Now</button>
-              <button class="btn" type="button" data-bring-checkout="checkout">Continue to Checkout</button>
+              ${productIsPod(activeProduct) ? `<button class="btn primary" type="button" data-bring-checkout="buy">Order Through Print Partner</button><button class="btn" type="button" data-bring-checkout="checkout">Continue to Checkout</button>` : `<button class="btn" type="button" data-bring-checkout="unavailable">Print Partner Not Connected Yet</button>`}
               <button class="btn" type="button" data-bring-checkout="save">Save for Later</button>
             </div>
             <p class="bring-home-note">Provider-neutral placeholder. The studio experience stays here; fulfillment can connect later behind the scenes.</p>
             <p class="bring-home-status" data-bring-home-status></p>
+          </section>
+          <section class="bring-home-section">
+            <h3>Interested in the physical piece?</h3>
+            <p class="bring-home-path-note">For originals, decorative tiles, custom commissions, physical studio pieces, or one-of-a-kind objects, ask Robert directly about availability.</p>
+            <div class="bring-home-checkout">
+              <a class="btn primary" href="${escapeHtml(physicalInquiryHref(item))}">Ask About This Piece</a>
+            </div>
           </section>
         </aside>
       </div>
