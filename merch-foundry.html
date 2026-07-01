@@ -218,6 +218,7 @@ h1{font-size:clamp(3rem,7.6vw,6.8rem);line-height:.9;margin-bottom:1rem}
         </div>
         <div class="actions">
           <button class="btn primary" type="button" id="sparkButton">Random Idea Spark</button>
+          <button class="btn" type="button" id="bringIdeaHome">Bring This Home</button>
         </div>
         <div class="detail-grid">
           <div class="detail-item"><strong>Phrase</strong><p id="detailPhrase"></p></div>
@@ -341,6 +342,34 @@ h1{font-size:clamp(3rem,7.6vw,6.8rem);line-height:.9;margin-bottom:1rem}
       "Custom Work":"#83f3ba"
     }[category] || "#56d9ff";
   }
+  function productTypesForIdea(item){
+    const text = `${item.product} ${item.category} ${item.phrase}`.toLowerCase();
+    const products = [];
+    if(text.includes("shirt") || text.includes("tee") || text.includes("apparel")) products.push("tshirt");
+    if(text.includes("coaster") || text.includes("tile") || text.includes("functional")) products.push("tile");
+    if(text.includes("print") || text.includes("poster")) products.push("print");
+    if(text.includes("sticker")) products.push("sticker");
+    if(!products.length) products.push("tshirt", "sticker", "other");
+    return Array.from(new Set(products));
+  }
+  function ideaBringHomePayload(item){
+    return {
+      id: `foundry-${item.title.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")}`,
+      title: item.title,
+      description: item.phrase,
+      about: item.notes,
+      story: `${item.front} / ${item.back}. Visual direction: ${item.visual}.`,
+      medium: item.category,
+      products: productTypesForIdea(item),
+      recommendations: {
+        artwork: item.category === "Coasters" ? "Inkspirations Coasters / Functional Art" : "Custom Art Print Series",
+        room: "Merch Concept Foundry",
+        playlist: item.category === "Music" ? "Music Room" : "Ocean of Ink",
+        robertism: item.category === "Robertisms" ? item.phrase : "Kojax Case Files"
+      },
+      source: "Merch Concept Foundry"
+    };
+  }
   function filteredIdeas(){
     return ideas.filter(item => (categoryFilter.value === "All" || item.category === categoryFilter.value) && (statusFilter.value === "All" || item.status === statusFilter.value));
   }
@@ -412,6 +441,9 @@ h1{font-size:clamp(3rem,7.6vw,6.8rem);line-height:.9;margin-bottom:1rem}
   statusFilter.addEventListener("change",renderIdeas);
   document.querySelectorAll("[data-mark]").forEach(button => button.addEventListener("click",() => markStatus(button.dataset.mark)));
   document.getElementById("sparkButton").addEventListener("click",spark);
+  document.getElementById("bringIdeaHome").addEventListener("click",() => {
+    if(window.InkspirationsBringHome) window.InkspirationsBringHome.open(ideaBringHomePayload(ideas[selected]));
+  });
   fillSelect(categoryFilter,categories);
   fillSelect(statusFilter,statuses);
   renderIdeas();
@@ -421,6 +453,7 @@ h1{font-size:clamp(3rem,7.6vw,6.8rem);line-height:.9;margin-bottom:1rem}
   buildAtmosphere();
 })();
 </script>
+<script src="bring-home.js?v=20260701-bring-home"></script>
 <script src="js/rooms.js"></script>
 </body>
 </html>

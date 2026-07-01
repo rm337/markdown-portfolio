@@ -30,6 +30,37 @@
     return `<img src="${escapeHtml(src)}" alt="${escapeHtml(item.title)}" onerror="this.outerHTML='<div class=&quot;case-fallback&quot;>${escapeHtml(item.shareQuote || item.title)}</div>'">`;
   }
 
+  function productTypesForRobertism(item) {
+    const text = (item.relatedProducts || []).join(" ").toLowerCase();
+    const products = [];
+    if (text.includes("shirt") || text.includes("tee")) products.push("tshirt");
+    if (text.includes("coaster") || text.includes("tile")) products.push("tile");
+    if (text.includes("print")) products.push("print");
+    if (text.includes("sticker")) products.push("sticker");
+    if (!products.length) products.push("tshirt", "sticker");
+    return Array.from(new Set(products));
+  }
+
+  function robertismBringHomePayload(item) {
+    return {
+      id: item.id,
+      title: item.title,
+      image: item.featuredImage ? `assets/images/robertisms/${item.featuredImage}` : "",
+      description: item.shareQuote || item.title,
+      about: item.story || "A Robertism from Inkspirations Studios.",
+      story: item.humorCategory ? `Humor category: ${item.humorCategory}.` : "",
+      medium: item.collection || "Robertisms",
+      products: productTypesForRobertism(item),
+      recommendations: {
+        artwork: item.artworkConnections || [],
+        room: item.relatedRooms || [],
+        playlist: item.musicMood || [],
+        robertism: item.relatedRobertisms || []
+      },
+      source: "Robertisms Case Files"
+    };
+  }
+
   function haystack(item) {
     return [
       item.title,
@@ -75,6 +106,7 @@
           <div class="case-group"><strong>Rooms</strong><div class="case-chips">${list(item.relatedRooms)}</div></div>
           <div class="case-group"><strong>Artwork Connections</strong><div class="case-chips">${list(item.artworkConnections)}</div></div>
           <div class="case-group"><strong>Tags</strong><div class="case-chips">${list(item.tags)}</div></div>
+          <div class="actions"><button class="btn primary" type="button" data-robertism-home="${escapeHtml(item.id)}">Bring This Home</button></div>
         </div>
       </article>
     `).join("");
@@ -104,6 +136,13 @@
   collection.addEventListener("change", event => {
     activeCollection = event.target.value;
     render();
+  });
+
+  grid.addEventListener("click", event => {
+    const button = event.target.closest("[data-robertism-home]");
+    if (!button || !window.InkspirationsBringHome) return;
+    const item = records.find(record => record.id === button.dataset.robertismHome);
+    if (item) window.InkspirationsBringHome.open(robertismBringHomePayload(item));
   });
 
   init();

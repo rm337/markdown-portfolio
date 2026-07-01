@@ -226,6 +226,7 @@ const modalImg = document.getElementById("modalImg");
 const modalType = document.getElementById("modalType");
 const modalTitle = document.getElementById("modalTitle");
 const modalDesc = document.getElementById("modalDesc");
+const bringHomeCurrent = document.getElementById("bringHomeCurrent");
 
 let activeFilter = "all";
 let searchTerm = "";
@@ -241,6 +242,68 @@ function assetPath(path) {
   return siteBase + path.replace(/^\.\//, "");
 }
 
+
+function productTypesForWork(work) {
+  const category = (work.category || work.collection || "").toLowerCase();
+  if (category.includes("functional")) return ["tile", "print", "sticker", "other"];
+  if (category.includes("writing")) return ["print", "journal", "sticker"];
+  if (category.includes("words")) return ["tshirt", "print", "sticker", "journal"];
+  return ["print", "tile", "sticker", "tshirt"];
+}
+
+function bringHomePayload(work) {
+  const category = work.category || work.collection || work.type || "Artwork";
+  return {
+    id: `portfolio-${work.index ?? work.title}`,
+    title: work.title,
+    image: work.src || work.thumb || "",
+    description: work.desc || "Selected Inkspirations Studios work.",
+    about: work.desc || "A selected piece from the Inkspirations Studios portfolio.",
+    medium: work.medium || category,
+    products: productTypesForWork(work),
+    recommendations: {
+      artwork: category === "Functional Art" ? "Curated Artwork Gallery" : "Inkspirations Coasters / Functional Art",
+      room: category === "Writing / Poem" ? "Writing Room" : "Ocean of Ink",
+      playlist: "Rainstorm Studio Atmosphere",
+      robertism: "Kojax Case Files"
+    },
+    source: "Portfolio Gallery"
+  };
+}
+
+window.InkspirationsBringHomeData = Object.assign(window.InkspirationsBringHomeData || {}, {
+  "roberts-poem": {
+    id: "roberts-poem",
+    title: "Robert's Poem / Writing Piece",
+    description: "A quiet writing feature from the Inkspirations Studios world.",
+    about: "Rain at the studio window. Ink moving like memory. A room opens, and the work begins.",
+    medium: "Writing / Poem",
+    products: ["print", "journal", "sticker"],
+    recommendations: {
+      room: "Writing Room",
+      artwork: "Words & Expressions",
+      playlist: "Rainstorm Studio Atmosphere",
+      robertism: "Completion Through Expansion"
+    },
+    source: "Portfolio Writing Section"
+  },
+  "functional-art-coasters": {
+    id: "functional-art-coasters",
+    title: "Inkspirations Coasters / Functional Art",
+    image: "assets/images/portfolio/coasters/curved-blue-object-coaster-study.jpg",
+    description: "Coaster studies, usable surfaces, and object-based artwork from the Inkspirations product world.",
+    about: "Functional art experiments that move the blue-current studio language onto objects people can live with.",
+    medium: "Functional Art / Product Study",
+    products: ["tile", "print", "sticker", "other"],
+    recommendations: {
+      artwork: "Blue Current Coaster",
+      room: "Merch Concept Foundry",
+      playlist: "Ocean of Ink",
+      robertism: "$420 With Nitrous"
+    },
+    source: "Portfolio Functional Art Section"
+  }
+});
 function escapeHtml(value) {
   return String(value || "").replace(/[&<>"]/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;" }[char]));
 }
@@ -358,6 +421,7 @@ function openLightbox(position) {
   modalType.textContent = `${activeIndex + 1} / ${visibleWorks.length} - ${work.medium || work.type || work.category || "Artwork"}`;
   modalTitle.textContent = work.title;
   modalDesc.textContent = work.desc || "Selected Inkspirations Studios work.";
+  if (bringHomeCurrent) bringHomeCurrent.hidden = false;
   modal.classList.add("open");
   document.body.classList.add("modal-open");
   document.getElementById("closeModal").focus();
@@ -403,6 +467,12 @@ galleryGrid.addEventListener("click", (event) => {
 document.getElementById("modalPrev").addEventListener("click", () => moveLightbox(-1));
 document.getElementById("modalNext").addEventListener("click", () => moveLightbox(1));
 document.getElementById("closeModal").addEventListener("click", closeModal);
+if (bringHomeCurrent) {
+  bringHomeCurrent.addEventListener("click", () => {
+    if (!visibleWorks.length || !window.InkspirationsBringHome) return;
+    window.InkspirationsBringHome.open(bringHomePayload(visibleWorks[activeIndex]));
+  });
+}
 
 modal.addEventListener("click", (event) => {
   if (event.target === modal) closeModal();
