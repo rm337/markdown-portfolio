@@ -251,6 +251,7 @@
         <a class="room-nav-link" href="portfolio.html#writing">Writing</a>
         <a class="room-nav-link" href="portfolio.html#functional">Coasters</a>
         <a class="room-nav-link" href="merch-foundry.html">Merch</a>
+        <a class="room-nav-link" href="robertisms.html">Robertisms</a>
         <a class="room-nav-link" href="index.html#about">About</a>
         <a class="room-nav-link" href="index.html#contact">Contact</a>
         <a class="room-nav-link" href="site-map.html">Studio Map</a>

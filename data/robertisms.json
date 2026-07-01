@@ -1,0 +1,58 @@
+{
+  "schemaVersion": "1.0",
+  "lastUpdated": "2026-07-01",
+  "records": [
+    {
+      "id": "420-with-nitrous",
+      "title": "$420 With Nitrous",
+      "shareQuote": "\"$420 With Nitrous\"",
+      "story": "A Kojax-style phrase with the feeling of an overheard case note: part price tag, part punchline, part mystery. It belongs to the side of Inkspirations where humor arrives sideways and leaves evidence behind.",
+      "humorCategory": "Absurd Case File",
+      "collection": "Kojax Case Files",
+      "dateCreated": "2026-07-01",
+      "artworkConnections": [
+        "Burned Motion / Razorback",
+        "Ocean of Ink",
+        "Inkspirations Coasters / Functional Art"
+      ],
+      "relatedProducts": [
+        "shirt",
+        "sticker",
+        "coaster",
+        "quote print"
+      ],
+      "relatedRooms": [
+        "Flight Deck",
+        "Music Room",
+        "Merch Concept Foundry"
+      ],
+      "musicMood": [
+        "late-night",
+        "playful",
+        "chaotic",
+        "detective"
+      ],
+      "tags": [
+        "kojax-case-files",
+        "robertism",
+        "absurd",
+        "detective",
+        "delayed-punchline",
+        "merch"
+      ],
+      "status": "concept",
+      "featuredImage": "420-with-nitrous.webp",
+      "video": "",
+      "audio": "",
+      "difficulty": "easy",
+      "isFeatured": false,
+      "createdBy": "Robert Marleton",
+      "lastUpdated": "2026-07-01",
+      "relatedRobertisms": [
+        "case-404",
+        "qatar-guitar",
+        "brain-search"
+      ]
+    }
+  ]
+}

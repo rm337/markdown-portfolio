@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Robertisms Case Files | Inkspirations Studios</title>
+  <meta name="description" content="Robertisms Case Files: connected humor, stories, artwork, rooms, merch ideas, music moods, and Inkspirations Studios personality maps.">
+  <meta name="robots" content="index,follow">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .case-hero { min-height: 58vh; }
+    .case-shell { padding: 4rem clamp(1rem, 5vw, 4.5rem); border-top: 1px solid rgba(246, 243, 232, .1); }
+    .case-tools { display: grid; grid-template-columns: minmax(0, 1fr) minmax(180px, 260px); gap: .8rem; margin: 1.2rem 0; }
+    .case-input, .case-select { min-height: 44px; border: 1px solid rgba(246, 243, 232, .16); background: rgba(3, 7, 14, .72); color: #f6f3e8; padding: .75rem .85rem; font: inherit; }
+    .case-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 1rem; }
+    .case-card { grid-column: span 6; border: 1px solid rgba(246, 243, 232, .13); background: linear-gradient(145deg, rgba(1, 116, 243, .12), rgba(86, 217, 255, .04)), rgba(2, 5, 12, .72); box-shadow: 0 22px 80px rgba(0,0,0,.24); overflow: hidden; }
+    .case-media { min-height: 220px; display: grid; place-items: center; background: radial-gradient(circle at 28% 22%, rgba(86, 217, 255, .24), transparent 34%), linear-gradient(145deg, #06101b, #0174F3 62%, #02050c); border-bottom: 1px solid rgba(246, 243, 232, .1); }
+    .case-media img { width: 100%; height: 100%; min-height: 220px; object-fit: cover; display: block; }
+    .case-fallback { padding: 1rem; text-align: center; color: #ffe6ad; font-family: Georgia, "Times New Roman", serif; font-size: clamp(2rem, 5vw, 4.5rem); line-height: .95; }
+    .case-body { padding: 1rem; }
+    .case-badge, .case-chip, .case-meta { font-family: Inter, Arial, sans-serif; text-transform: uppercase; letter-spacing: .11em; font-size: .62rem; font-weight: 800; }
+    .case-badge { display: inline-flex; margin-bottom: .7rem; color: #06101b; background: #8ff3e8; padding: .38rem .55rem; }
+    .case-card h2 { margin: 0; color: #ffe6ad; font-family: Georgia, "Times New Roman", serif; font-size: clamp(1.8rem, 3vw, 3rem); line-height: 1; font-weight: 500; }
+    .case-quote { color: rgba(143, 243, 232, .9); font-size: 1.05rem; }
+    .case-story { color: rgba(246, 243, 232, .74); }
+    .case-group { margin-top: .85rem; }
+    .case-group strong { display: block; margin-bottom: .35rem; color: rgba(246, 243, 232, .62); font-family: Inter, Arial, sans-serif; text-transform: uppercase; letter-spacing: .11em; font-size: .62rem; }
+    .case-chips { display: flex; gap: .4rem; flex-wrap: wrap; }
+    .case-chip { display: inline-flex; min-height: 26px; align-items: center; border: 1px solid rgba(246, 243, 232, .14); background: rgba(246, 243, 232, .055); color: rgba(246, 243, 232, .76); padding: .32rem .46rem; }
+    .case-empty { padding: 1rem; border: 1px solid rgba(246, 243, 232, .12); color: rgba(246, 243, 232, .72); background: rgba(246, 243, 232, .04); }
+    @media (max-width: 820px) {
+      .case-tools { grid-template-columns: 1fr; }
+      .case-card { grid-column: span 12; }
+    }
+  </style>
+</head>
+<body>
+  <div class="ink-particles" aria-hidden="true">
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+  <nav class="nav" aria-label="Primary navigation">
+    <a class="brand" href="index.html#top">Inkspirations Studios</a>
+    <div class="links">
+      <a href="index.html#top">Home</a>
+      <a href="portfolio.html#world">Portfolio</a>
+      <a href="rooms.html">Rooms</a>
+      <a href="merch-foundry.html">Merch</a>
+      <a href="robertisms.html">Robertisms</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+  </nav>
+  <main>
+    <header class="hero studio-entry case-hero">
+      <div class="hero-copy">
+        <p class="kicker">Kojax Case Files / Robertisms Hub</p>
+        <h1>Find the phrase that finds you back.</h1>
+        <p class="welcome">A living merch table where humor, stories, artwork, rooms, music moods, coasters, and shirts connect inside Inkspirations Studios.</p>
+        <div class="actions">
+          <a class="btn primary" href="#caseFiles">Open Case Files</a>
+          <a class="btn" href="merch-foundry.html">Merch Foundry</a>
+          <a class="btn" href="portfolio.html#functional">Coasters</a>
+        </div>
+      </div>
+    </header>
+
+    <section class="case-shell" id="caseFiles">
+      <div class="section-head gallery-head">
+        <div>
+          <p class="kicker">Robertisms Store</p>
+          <h2>Case files, not product shelves.</h2>
+          <p>Search by phrase, collection, room, product idea, artwork connection, or humor style.</p>
+        </div>
+        <span class="meta" id="caseCount">Loading</span>
+      </div>
+      <div class="case-tools" aria-label="Robertisms controls">
+        <input class="case-input" id="caseSearch" type="search" placeholder="Search Robertisms, rooms, tags, art">
+        <select class="case-select" id="caseCollection" aria-label="Filter by collection">
+          <option value="all">All Collections</option>
+        </select>
+      </div>
+      <div class="case-grid" id="caseGrid" aria-live="polite"></div>
+      <p class="case-empty" id="caseEmpty" hidden>No Robertisms match this case file yet.</p>
+    </section>
+  </main>
+  <footer>
+    <span>Inkspirations Studios</span>
+    <span>Robertisms Case Files</span>
+    <span>Robert Marleton</span>
+  </footer>
+  <script src="robertisms.js"></script>
+</body>
+</html>
