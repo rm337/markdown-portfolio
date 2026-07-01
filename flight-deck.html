@@ -66,6 +66,20 @@ canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
 .song-card:nth-child(2){animation-delay:-1.7s}.song-card:nth-child(3){animation-delay:-3.2s}
 .song-card strong{display:block;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);margin-bottom:.25rem}
 .song-card span{display:block;color:rgba(223,248,255,.68);font-family:Georgia,"Times New Roman",serif;font-style:italic}
+.track-console{position:absolute;z-index:22;right:clamp(1rem,4vw,3rem);top:47%;width:min(330px,32vw);transform:translateY(-50%);border:1px solid rgba(223,248,255,.16);background:rgba(6,14,28,.66);backdrop-filter:blur(18px);padding:.85rem;box-shadow:0 22px 60px rgba(0,0,0,.34)}
+.console-kicker,.track-button,.track-status{font-size:.62rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+.console-kicker{margin:0 0 .35rem;color:rgba(73,217,255,.76)}
+.track-console h2{margin:0 0 .75rem;color:var(--gold);font-family:Georgia,"Times New Roman",serif;font-weight:500;font-size:1.45rem;line-height:1.05}
+.track-list{display:grid;gap:.45rem}
+.track-button{width:100%;min-height:58px;border:1px solid rgba(223,248,255,.14);background:rgba(223,248,255,.055);color:var(--ice);text-align:left;padding:.58rem .65rem;cursor:pointer}
+.track-button[aria-pressed="true"]{border-color:var(--green);background:rgba(131,243,186,.12);color:var(--green);box-shadow:0 0 18px rgba(131,243,186,.12)}
+.track-button[disabled]{cursor:not-allowed;opacity:.46}
+.track-button span{display:block;margin-top:.18rem;color:rgba(223,248,255,.58);font-size:.74rem;letter-spacing:0;text-transform:none;font-weight:600;line-height:1.25}
+.track-status{min-height:1rem;margin:.7rem 0 0;color:rgba(223,248,255,.62)}
+body:not(.deck-playing) .platter{animation-play-state:paused;filter:saturate(.72) brightness(.82)}
+body.deck-playing .platter{animation-play-state:running;filter:saturate(1.08) brightness(1.04)}
+body.deck-a .booth .turntable:first-child{border-color:rgba(131,243,186,.45);box-shadow:inset 0 0 32px rgba(0,0,0,.36),0 0 24px rgba(131,243,186,.14)}
+body.deck-b .booth .turntable:last-child{border-color:rgba(131,243,186,.45);box-shadow:inset 0 0 32px rgba(0,0,0,.36),0 0 24px rgba(131,243,186,.14)}
 .zones{position:absolute;z-index:7;left:clamp(1rem,4vw,3rem);top:18%;display:grid;gap:.55rem;width:min(270px,30vw)}
 .zone{border-left:2px solid rgba(73,217,255,.45);background:rgba(6,14,28,.5);backdrop-filter:blur(14px);padding:.72rem .85rem;box-shadow:0 18px 42px rgba(0,0,0,.22)}
 .zone strong{display:block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ice)}
@@ -138,6 +152,7 @@ canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
   .flight-deck{min-height:1050px}
   .top-hud{position:fixed}
   .song-cards,.radar,.zones{display:none}
+  .track-console{left:1rem;right:1rem;top:5.2rem;width:auto;transform:none}
   .performance{height:700px;min-height:700px;align-items:end}
   .dj{width:210px;bottom:210px;transform:translateX(-50%) scale(.82)}
   .booth{height:245px;grid-template-columns:1fr 1.15fr 1fr;padding:.75rem;gap:.45rem}
@@ -175,6 +190,12 @@ canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
     <div class="zone"><strong>Writing Room</strong><span>A quieter return path for memory, language, and reflection.</span></div>
   </aside>
   <aside class="radar" aria-label="Radar display"><i class="blip a"></i><i class="blip b"></i><i class="blip c"></i></aside>
+  <aside class="track-console" aria-label="DJ booth record controls">
+    <p class="console-kicker">DJ Booth</p>
+    <h2 id="trackTitle">Select a record</h2>
+    <div class="track-list" id="trackList" aria-label="Flight Deck records"></div>
+    <p class="track-status" id="trackStatus">Ready</p>
+  </aside>
   <section class="stage" aria-label="Animated DJ Flight Deck performance">
     <div class="performance">
       <div class="eq" id="eq"></div>
@@ -218,9 +239,113 @@ canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
   const signal = document.getElementById("signal");
   const soundBtn = document.getElementById("soundBtn");
   const soundStatus = document.getElementById("soundStatus");
+  const trackList = document.getElementById("trackList");
+  const trackTitle = document.getElementById("trackTitle");
+  const trackStatus = document.getElementById("trackStatus");
   let width = 0, height = 0, tick = 0;
   let deckAudio, deckMaster, deckDelay, deckDelayWet, deckFilter, deckStep = 0, deckTimer = null;
+  let selectedTrackId = "flight-engine";
+  let mediaDeck = null;
+  const tracks = [
+    {id:"flight-engine",title:"Flight Deck House Engine",deck:"A",bpm:124,type:"engine",description:"Built-in melodic house rhythm for the animated DJ booth."},
+    {id:"rain-studio",title:"Rain Studio Atmosphere",deck:"B",bpm:88,type:"media",src:"assets/audio/rain-studio.mov",description:"Robert's rain-video audio, ready as a real selectable record."},
+    {id:"music-slot-01",title:"Your Specific Track Slot",deck:"B",bpm:"--",type:"missing",src:"assets/audio/music-room-01.mp3",description:"Add a music file here later and this slot becomes playable."}
+  ];
 
+
+  function activeTrack(){
+    return tracks.find(track => track.id === selectedTrackId) || tracks[0];
+  }
+
+  function setDeckVisuals(playing, track = activeTrack()){
+    document.body.classList.toggle("deck-playing", Boolean(playing));
+    document.body.classList.remove("deck-a","deck-b");
+    if(playing && track.deck) document.body.classList.add(`deck-${track.deck.toLowerCase()}`);
+  }
+
+  function playbackActive(){
+    return Boolean(deckTimer || (mediaDeck && !mediaDeck.paused));
+  }
+
+  function ensureMediaDeck(){
+    if(mediaDeck) return mediaDeck;
+    mediaDeck = document.createElement("video");
+    mediaDeck.loop = true;
+    mediaDeck.preload = "auto";
+    mediaDeck.playsInline = true;
+    mediaDeck.muted = false;
+    mediaDeck.volume = 0.42;
+    mediaDeck.setAttribute("aria-hidden","true");
+    mediaDeck.style.position = "fixed";
+    mediaDeck.style.width = "1px";
+    mediaDeck.style.height = "1px";
+    mediaDeck.style.opacity = "0";
+    mediaDeck.style.pointerEvents = "none";
+    mediaDeck.style.left = "-9999px";
+    document.body.appendChild(mediaDeck);
+    return mediaDeck;
+  }
+
+  function stopMediaTrack(){
+    if(!mediaDeck) return;
+    mediaDeck.pause();
+  }
+
+  function updateTrackConsole(){
+    const track = activeTrack();
+    trackTitle.textContent = track.title;
+    trackStatus.textContent = playbackActive() ? `Playing Deck ${track.deck} / ${track.bpm} BPM` : `Selected Deck ${track.deck} / ${track.bpm} BPM`;
+    trackList.innerHTML = tracks.map(item => `<button class="track-button" type="button" data-track="${item.id}" aria-pressed="${item.id === selectedTrackId}" ${item.type === "missing" ? "disabled" : ""}>Deck ${item.deck} / ${item.title}<span>${item.description}</span></button>`).join("");
+    soundBtn.textContent = playbackActive() ? "Stop Record" : "Play Selected Record";
+    soundBtn.setAttribute("aria-pressed", String(playbackActive()));
+    bpmRead.textContent = track.bpm;
+  }
+
+  function selectTrack(id){
+    const next = tracks.find(track => track.id === id);
+    if(!next || next.type === "missing") return;
+    if(playbackActive()) stopAllSound(false);
+    selectedTrackId = id;
+    signal.textContent = "Track Armed";
+    soundStatus.textContent = "Ready";
+    setDeckVisuals(false, next);
+    updateTrackConsole();
+  }
+
+  async function startMediaTrack(track){
+    stopDeckSound(false);
+    const media = ensureMediaDeck();
+    if(!media.src.endsWith(track.src)) media.src = track.src;
+    soundBtn.textContent = "Audio Starting...";
+    soundStatus.textContent = "Starting";
+    trackStatus.textContent = `Loading ${track.title}`;
+    await media.play();
+    setDeckVisuals(true, track);
+    soundBtn.textContent = "Stop Record";
+    soundBtn.setAttribute("aria-pressed","true");
+    soundStatus.textContent = "Playing";
+    signal.textContent = "Audio Live";
+    trackStatus.textContent = `Playing Deck ${track.deck} / ${track.bpm} BPM`;
+    console.log("Flight Deck media track playing", {title:track.title, src:track.src, readyState:media.readyState});
+  }
+
+  function stopAllSound(update = true){
+    stopDeckSound(false);
+    stopMediaTrack();
+    setDeckVisuals(false, activeTrack());
+    soundBtn.textContent = "Play Selected Record";
+    soundBtn.setAttribute("aria-pressed","false");
+    soundStatus.textContent = "Muted";
+    signal.textContent = "Locked";
+    if(update) updateTrackConsole();
+  }
+
+  async function startSelectedTrack(){
+    const track = activeTrack();
+    if(track.type === "media") return startMediaTrack(track);
+    if(track.type === "engine") return startDeckSound(track);
+    trackStatus.textContent = "Add the music file before this record can play.";
+  }
   function ensureDeckAudio(){
     if(deckAudio) return deckAudio;
     const AudioCtor = window.AudioContext || window.webkitAudioContext;
@@ -326,24 +451,27 @@ canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
     deckStep++;
   }
 
-  async function startDeckSound(){
+  async function startDeckSound(track = activeTrack()){
     soundBtn.textContent = "Audio Starting...";
     soundStatus.textContent = "Starting";
     console.log("Flight Deck audio starting");
     ensureDeckAudio();
     await deckAudio.resume();
+    stopMediaTrack();
     if(deckTimer) clearInterval(deckTimer);
     deckStep = 0;
     playDeckStep();
     deckTimer = setInterval(playDeckStep, (60000 / 124) / 4);
-    soundBtn.textContent = "Sound On";
+    setDeckVisuals(true, track);
+    soundBtn.textContent = "Stop Record";
     soundBtn.setAttribute("aria-pressed", "true");
     soundStatus.textContent = "Playing";
     signal.textContent = "Audio Live";
+    trackStatus.textContent = `Playing Deck ${track.deck} / ${track.bpm} BPM`;
     console.log("Flight Deck audio playing", { state: deckAudio.state });
   }
 
-  function stopDeckSound(){
+  function stopDeckSound(update = true){
     if(deckTimer) clearInterval(deckTimer);
     deckTimer = null;
     if(deckMaster && deckAudio){
@@ -351,10 +479,12 @@ canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
       deckMaster.gain.setTargetAtTime(0.0001, deckAudio.currentTime, 0.08);
       setTimeout(() => { if(deckMaster) deckMaster.gain.value = 0.42; }, 220);
     }
-    soundBtn.textContent = "Start Sound";
+    setDeckVisuals(false, activeTrack());
+    soundBtn.textContent = "Play Selected Record";
     soundBtn.setAttribute("aria-pressed", "false");
     soundStatus.textContent = "Muted";
     signal.textContent = "Locked";
+    if(update) updateTrackConsole();
     console.log("Flight Deck audio stopped");
   }
   const particles = Array.from({length:170},()=>({x:Math.random(),y:Math.random(),z:.2+Math.random(),r:.5+Math.random()*2,s:.15+Math.random()*1.2}));
@@ -430,19 +560,26 @@ canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
     tick++;
     requestAnimationFrame(draw);
   }
+  trackList.addEventListener("click", event => {
+    const button = event.target.closest("[data-track]");
+    if(button) selectTrack(button.dataset.track);
+  });
+  updateTrackConsole();
   soundBtn.addEventListener("click", async () => {
     try {
-      if(deckTimer){
-        stopDeckSound();
+      if(playbackActive()){
+        stopAllSound();
         return;
       }
-      await startDeckSound();
+      await startSelectedTrack();
     } catch(error) {
       console.error("Flight Deck audio error", error);
+      setDeckVisuals(false, activeTrack());
       soundBtn.textContent = "Audio Error";
       soundBtn.setAttribute("aria-pressed", "false");
       soundStatus.textContent = "Error";
       signal.textContent = "Audio Error";
+      trackStatus.textContent = "Audio error. Try another record.";
     }
   });
   window.addEventListener("resize", resize);
