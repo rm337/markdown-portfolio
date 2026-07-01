@@ -171,7 +171,7 @@ body.deck-b .booth .turntable:last-child{border-color:rgba(131,243,186,.45);box-
   <div class="scan"></div>
   <header class="top-hud">
     <div class="brand">Flight Deck / Music Navigation Center</div>
-    <div class="hud-readouts"><span>Altitude <b id="altitude">31,800</b></span><span>Signal <b id="signal">Locked</b></span><span>BPM <b id="bpm">124</b></span></div><div class="sound-control"><button class="sound-toggle" id="soundBtn" type="button" aria-pressed="false">Start Sound</button><span class="sound-status" id="soundStatus">Muted</span></div>
+    <div class="hud-readouts"><span>Altitude <b id="altitude">31,800</b></span><span>Signal <b id="signal">Locked</b></span><span>BPM <b id="bpm">124</b></span></div><div class="sound-control"><button class="sound-toggle" id="soundBtn" type="button" aria-pressed="false">Listen</button><span class="sound-status" id="soundStatus">Muted</span></div>
   </header>
   <div class="ring"></div>
   <svg class="flight-path" viewBox="0 0 1200 520" preserveAspectRatio="none" aria-hidden="true">
@@ -296,7 +296,7 @@ body.deck-b .booth .turntable:last-child{border-color:rgba(131,243,186,.45);box-
     trackTitle.textContent = track.title;
     trackStatus.textContent = playbackActive() ? `Playing Deck ${track.deck} / ${track.bpm} BPM` : `Selected Deck ${track.deck} / ${track.bpm} BPM`;
     trackList.innerHTML = tracks.map(item => `<button class="track-button" type="button" data-track="${item.id}" aria-pressed="${item.id === selectedTrackId}" ${item.type === "missing" ? "disabled" : ""}>Deck ${item.deck} / ${item.title}<span>${item.description}</span></button>`).join("");
-    soundBtn.textContent = playbackActive() ? "Stop Record" : "Play Selected Record";
+    soundBtn.textContent = playbackActive() ? "Stop Listening" : "Listen to Selected Record";
     soundBtn.setAttribute("aria-pressed", String(playbackActive()));
     bpmRead.textContent = track.bpm;
   }
@@ -321,7 +321,7 @@ body.deck-b .booth .turntable:last-child{border-color:rgba(131,243,186,.45);box-
     trackStatus.textContent = `Loading ${track.title}`;
     await media.play();
     setDeckVisuals(true, track);
-    soundBtn.textContent = "Stop Record";
+    soundBtn.textContent = "Stop Listening";
     soundBtn.setAttribute("aria-pressed","true");
     soundStatus.textContent = "Playing";
     signal.textContent = "Audio Live";
@@ -333,7 +333,7 @@ body.deck-b .booth .turntable:last-child{border-color:rgba(131,243,186,.45);box-
     stopDeckSound(false);
     stopMediaTrack();
     setDeckVisuals(false, activeTrack());
-    soundBtn.textContent = "Play Selected Record";
+    soundBtn.textContent = "Listen to Selected Record";
     soundBtn.setAttribute("aria-pressed","false");
     soundStatus.textContent = "Muted";
     signal.textContent = "Locked";
@@ -463,7 +463,7 @@ body.deck-b .booth .turntable:last-child{border-color:rgba(131,243,186,.45);box-
     playDeckStep();
     deckTimer = setInterval(playDeckStep, (60000 / 124) / 4);
     setDeckVisuals(true, track);
-    soundBtn.textContent = "Stop Record";
+    soundBtn.textContent = "Stop Listening";
     soundBtn.setAttribute("aria-pressed", "true");
     soundStatus.textContent = "Playing";
     signal.textContent = "Audio Live";
@@ -480,7 +480,7 @@ body.deck-b .booth .turntable:last-child{border-color:rgba(131,243,186,.45);box-
       setTimeout(() => { if(deckMaster) deckMaster.gain.value = 0.42; }, 220);
     }
     setDeckVisuals(false, activeTrack());
-    soundBtn.textContent = "Play Selected Record";
+    soundBtn.textContent = "Listen to Selected Record";
     soundBtn.setAttribute("aria-pressed", "false");
     soundStatus.textContent = "Muted";
     signal.textContent = "Locked";
