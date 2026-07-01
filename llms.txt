@@ -157,6 +157,7 @@ The gallery contains 21 curated entries and is rendered by portfolio.js. Entries
 
 - Flight Deck / Command Center: flight-deck.html
 - BeatForge Studio / Music Room: beats.html
+  Status: Closed beta access page. The full usable BeatForge workspace is not exposed for free public use on GitHub Pages. Trial and subscription access are planned.
 - Ocean of Ink / Room Hub: rooms.html#ocean-of-ink
 - Writing Room: rooms.html#writing-room
 - Music Room: rooms.html#music-room
