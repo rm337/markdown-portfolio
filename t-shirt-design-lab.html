@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>T-Shirt Design Lab | Inkspirations Studios</title>
-<meta name="description" content="A creative design laboratory for Inkspirations Studios T-shirt concepts, idea review, and future merch development.">
+<title>Shirt Concepts | Inkspirations Studios</title>
+<meta name="description" content="A curated room for Inkspirations Studios shirt ideas, Robertisms, humor, and future wearable artifacts.">
 <meta name="robots" content="index,follow">
 <link rel="stylesheet" href="css/rooms.css">
 <style>
@@ -113,13 +113,13 @@ h1{font-size:clamp(3rem,7.8vw,6.8rem);line-height:.9;margin-bottom:1rem}
 <main class="lab-shell">
   <header class="lab-hero">
     <div>
-      <p class="kicker">Creative Room / T-Shirt Design Lab</p>
-      <h1>Shirt ideas before they become products.</h1>
-      <p class="hero-copy">This room is a workshop, not a store. Concepts can be collected, compared, promoted, archived, and developed into future Inkspirations Studios T-shirt designs.</p>
+      <p class="kicker">Creative Room / Shirt Concepts</p>
+      <h1>Shirt ideas before they become artifacts.</h1>
+      <p class="hero-copy">This room holds selected shirt ideas, Robertisms, and visual sparks before they become finished Inkspirations artifacts.</p>
     </div>
     <aside class="lab-note" aria-label="Lab purpose">
-      <strong>Phase 1 Focus</strong>
-      <p>Keep the ideas visible, organized, and easy to review. Mockups, print-on-demand tools, AI concepts, and viability scoring can come later.</p>
+      <strong>Studio Focus</strong>
+      <p>Keep the best ideas visible, calm, and connected to the stories or rooms that created them.</p>
     </aside>
   </header>
 
@@ -127,19 +127,18 @@ h1{font-size:clamp(3rem,7.8vw,6.8rem);line-height:.9;margin-bottom:1rem}
     <div class="panel">
       <div class="panel-head">
         <div>
-          <p class="kicker">Design Wall</p>
-          <h2>Concept cards</h2>
+          <p class="kicker">Concept Wall</p>
+          <h2>Selected shirt ideas</h2>
         </div>
-        <span class="status" id="conceptCount">0 Concepts</span>
+        <span class="status" id="conceptCount">Selected Ideas</span>
       </div>
       <div class="filters" aria-label="Design wall filters">
         <div class="field">
-          <label for="categoryFilter">Category</label>
+          <label for="categoryFilter">Thread</label>
           <select id="categoryFilter"></select>
         </div>
         <div class="field">
-          <label for="statusFilter">Status</label>
-          <select id="statusFilter"></select>
+          <label for="statusFilter" hidden>Studio stage</label><select id="statusFilter" hidden></select>
         </div>
       </div>
       <div class="concept-grid" id="conceptGrid" aria-label="T-shirt design concepts"></div>
@@ -148,10 +147,10 @@ h1{font-size:clamp(3rem,7.8vw,6.8rem);line-height:.9;margin-bottom:1rem}
     <aside class="panel detail" aria-live="polite">
       <div class="panel-head">
         <div>
-          <p class="kicker">Detail View</p>
-          <h2 id="detailTitle">Select a concept</h2>
+          <p class="kicker">Story Notes</p>
+          <h2 id="detailTitle">Select a shirt idea</h2>
         </div>
-        <span class="status" id="detailStatus">Seed</span>
+        <span class="status" id="detailStudio stage">Seed</span>
       </div>
       <div class="detail-body">
         <div class="shirt-board">
@@ -161,12 +160,12 @@ h1{font-size:clamp(3rem,7.8vw,6.8rem);line-height:.9;margin-bottom:1rem}
         <div class="detail-grid">
           <div class="detail-item"><strong>Notes</strong><p id="detailNotes"></p></div>
           <div class="detail-item"><strong>Audience</strong><p id="detailAudience"></p></div>
-          <div class="detail-item"><strong>Estimated Appeal</strong><p id="detailAppeal"></p></div>
+          <div class="detail-item"><strong>Studio Fit</strong><p id="detailAppeal"></p></div>
         </div>
         <div class="actions" aria-label="Review tools">
-          <button class="btn primary" type="button" id="saveIdea">Save Idea</button>
-          <button class="btn" type="button" id="promoteIdea">Promote To Active Project</button>
-          <button class="btn" type="button" id="archiveIdea">Archive Idea</button>
+          <button class="btn primary" type="button" id="saveIdea">Save Note</button>
+          <button class="btn" type="button" id="promoteIdea">Mark For Review</button>
+          <button class="btn" type="button" id="archiveIdea">Set Aside</button>
         </div>
         <p class="saved-line" id="actionMessage"></p>
       </div>
@@ -175,11 +174,11 @@ h1{font-size:clamp(3rem,7.8vw,6.8rem);line-height:.9;margin-bottom:1rem}
 
   <section class="board" aria-label="Inspiration board">
     <article class="board-card">
-      <small>Random Quote Wall</small>
+      <small>Robertisms Wall</small>
       <ul class="quote-list" id="quoteWall"></ul>
     </article>
     <article class="board-card">
-      <small>Sketch Directions</small>
+      <small>Visual Directions</small>
       <ul class="idea-list">
         <li>Front chest mark with quiet back punchline.</li>
         <li>One-line Robertism with small Ocean of Ink signature.</li>
@@ -187,7 +186,7 @@ h1{font-size:clamp(3rem,7.8vw,6.8rem);line-height:.9;margin-bottom:1rem}
       </ul>
     </article>
     <article class="board-card">
-      <small>Color Ideas</small>
+      <small>Color Notes</small>
       <div class="swatches">
         <span class="swatch" style="--color:#0174F3" title="Azure"></span>
         <span class="swatch" style="--color:#56d9ff" title="Cyan"></span>
@@ -197,7 +196,7 @@ h1{font-size:clamp(3rem,7.8vw,6.8rem);line-height:.9;margin-bottom:1rem}
       </div>
     </article>
     <article class="board-card">
-      <small>Typography Ideas</small>
+      <small>Typography Notes</small>
       <ul class="idea-list">
         <li>Serif phrase with technical micro-labels.</li>
         <li>Bold workshop stamp with clean grid spacing.</li>
@@ -317,7 +316,7 @@ h1{font-size:clamp(3rem,7.8vw,6.8rem);line-height:.9;margin-bottom:1rem}
       <small>${item.category}</small>
       <h3>${item.title}</h3>
       <p>${item.concept}</p>
-      <div class="concept-meta"><span class="status">${item.status}</span><span class="tag">${item.category}</span></div>
+      <div class="concept-meta"><span class="tag">${item.category}</span></div>
     </button>`).join("");
     grid.querySelectorAll(".concept-card").forEach(card => {
       card.addEventListener("click",() => {
@@ -331,7 +330,7 @@ h1{font-size:clamp(3rem,7.8vw,6.8rem);line-height:.9;margin-bottom:1rem}
     const item = concepts[selected];
     document.documentElement.style.setProperty("--accent", accentFor(item.category));
     document.getElementById("detailTitle").textContent = item.title;
-    document.getElementById("detailStatus").textContent = item.status;
+    document.getElementById("detailStudio stage").textContent = item.status;
     document.getElementById("frontIdea").textContent = item.front;
     document.getElementById("backIdea").textContent = item.back;
     document.getElementById("detailNotes").textContent = item.notes;
@@ -368,7 +367,7 @@ h1{font-size:clamp(3rem,7.8vw,6.8rem);line-height:.9;margin-bottom:1rem}
   categoryFilter.addEventListener("change",renderCards);
   statusFilter.addEventListener("change",renderCards);
   fillSelect(categoryFilter,"Categories",categories);
-  fillSelect(statusFilter,"Statuses",statuses);
+  fillSelect(statusFilter,"Studio stagees",statuses);
   renderCards();
   renderDetail();
   renderQuotes();

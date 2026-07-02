@@ -184,7 +184,7 @@
       const checkoutButton = event.target.closest("[data-bring-checkout]");
       if (checkoutButton) {
         const status = modal.querySelector("[data-bring-home-status]");
-        if (status) status.textContent = checkoutButton.dataset.bringCheckout === "save" ? "Saved locally for later studio follow-up." : checkoutButton.dataset.bringCheckout === "unavailable" ? "This option is an inquiry path right now. Use Ask About This Piece for availability." : "Checkout placeholder ready for future fulfillment connection.";
+        if (status) status.textContent = checkoutButton.dataset.bringCheckout === "save" ? "Saved locally for later studio follow-up." : checkoutButton.dataset.bringCheckout === "unavailable" ? "This option is an inquiry path right now. Use Ask About This Piece for availability." : "This path is saved for Robert to connect when the piece is ready.";
         if (checkoutButton.dataset.bringCheckout === "save" && state.item) {
           const saved = JSON.parse(localStorage.getItem("inkBringHomeSaved") || "[]");
           saved.unshift({ title: state.item.title, date: new Date().toISOString() });
@@ -278,7 +278,7 @@
               ${productIsPod(activeProduct) ? `<button class="btn primary" type="button" data-bring-checkout="buy">Order Through Print Partner</button><button class="btn" type="button" data-bring-checkout="checkout">Continue to Checkout</button>` : `<button class="btn" type="button" data-bring-checkout="unavailable">Print Partner Not Connected Yet</button>`}
               <button class="btn" type="button" data-bring-checkout="save">Save for Later</button>
             </div>
-            <p class="bring-home-note">Provider-neutral placeholder. The studio experience stays here; fulfillment can connect later behind the scenes.</p>
+            <p class="bring-home-note">The studio stays here. Ordering paths can connect quietly when Robert approves the final piece.</p>
             <p class="bring-home-status" data-bring-home-status></p>
           </section>
           <section class="bring-home-section">

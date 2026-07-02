@@ -5,8 +5,8 @@
     {
       id:"home",
       title:"Home",
-      subtitle:"The public portfolio starting point.",
-      description:"The calm public entry for Inkspirations Studios with paths into the portfolio, artwork, rooms, writing, coasters, merch, and contact.",
+      subtitle:"The front door of the studio.",
+      description:"A calm entry into Robert Marleton's artwork, writing, rooms, coasters, sound, and studio artifacts.",
       url:"index.html",
       theme:"home",
       accent:"#0174F3",
@@ -90,8 +90,8 @@
     {
       id:"beatforge-studio",
       title:"BeatForge Studio",
-      subtitle:"Closed beta access for the browser music studio.",
-      description:"The BeatForge music-making workspace is no longer exposed for free public use. This page now points visitors toward trial and subscription access.",
+      subtitle:"A limited doorway into the browser music studio.",
+      description:"BeatForge is being prepared as a limited studio experience. Visitors can request access when the next path opens.",
       url:"beats.html",
       theme:"beatforge",
       accent:"#ff8a1f",
@@ -107,8 +107,8 @@
     {
       id:"t-shirt-design-lab",
       title:"T-Shirt Design Lab",
-      subtitle:"A creative workshop for shirt concepts.",
-      description:"A public-facing lab for collecting, reviewing, and developing T-shirt ideas before they become finished designs.",
+      subtitle:"A room for shirt ideas with a story behind them.",
+      description:"A curated room for shirt ideas before they become finished studio artifacts.",
       url:"t-shirt-design-lab.html",
       theme:"design-lab",
       accent:"#56d9ff",
@@ -124,8 +124,8 @@
     {
       id:"merch-concept-foundry",
       title:"Merch Concept Foundry",
-      subtitle:"A creative workshop for merch and functional art.",
-      description:"A creative foundry for coasters, Robertisms, custom art prints, shirt ideas, product concepts, Ocean of Ink merch, Data Zoology merch, and future collection candidates.",
+      subtitle:"A workshop for physical studio artifacts.",
+      description:"A studio table for coasters, Robertisms, custom art prints, shirt ideas, Ocean of Ink pieces, Data Zoology humor, and future artifacts.",
       url:"merch-foundry.html",
       theme:"foundry",
       accent:"#0174F3",
@@ -141,8 +141,8 @@
     {
       id:"systems-i-built",
       title:"Systems I Built",
-      subtitle:"Blueprints for creative systems and protocols.",
-      description:"A public systems showcase for the frameworks, workflows, review protocols, and creative operating structures behind Inkspirations Studios.",
+      subtitle:"A look at how ideas become rooms.",
+      description:"A later room showing how Robert turns creative chaos into artwork, rooms, products, and repeatable form.",
       url:"systems-i-built.html",
       theme:"blueprint",
       accent:"#56d9ff",
@@ -157,9 +157,9 @@
     },
     {
       id:"room-hub",
-      title:"Interactive Rooms Map",
-      subtitle:"The visible map of studio rooms.",
-      description:"The public room map for moving between Home, Ocean of Ink, Flight Deck, Writing Room, Music Room, BeatForge access, Merch Foundry, and Systems I Built.",
+      title:"Studio Rooms",
+      subtitle:"A gentle route through the rooms.",
+      description:"A public path between Home, Ocean of Ink, Flight Deck, Writing Room, Music Room, BeatForge, Studio Artifact Foundry, and Robert's process.",
       url:"rooms.html",
       theme:"map",
       accent:"#9ed0ff",
@@ -197,7 +197,7 @@
   }
 
   function statusMarkup(status){
-    return `<span class="room-status" data-status="${escapeHtml(status)}">${escapeHtml(status)}</span>`;
+    return `<span class="room-status" aria-hidden="true">Now Visiting</span>`;
   }
 
   function escapeHtml(value){
@@ -216,13 +216,12 @@
     const publicRooms = visibleRooms();
     const items = filter ? publicRooms.filter(room => room.category === filter) : publicRooms;
     target.innerHTML = items.map(room => {
-      const tags = room.tags.slice(0,4).map(tag => `<span class="room-tag">${escapeHtml(tag)}</span>`).join("");
       const active = room.id === activeId ? " is-active" : "";
       return `<a class="room-card${active}" id="${escapeHtml(room.id)}" href="${escapeHtml(room.url)}" style="--room-accent:${escapeHtml(room.accent)}" data-room-card="${escapeHtml(room.id)}">
-        <small>${escapeHtml(room.category)} / ${escapeHtml(room.status)}</small>
+        <small>${escapeHtml(room.subtitle)}</small>
         <h2>${escapeHtml(room.title)}</h2>
         <p>${escapeHtml(room.description)}</p>
-        <div class="room-card-footer">${tags}</div>
+        <div class="room-card-footer"><span class="room-tag">Enter Room</span></div>
       </a>`;
     }).join("");
   }

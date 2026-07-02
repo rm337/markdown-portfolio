@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Merch Concept Foundry | Inkspirations Studios</title>
-<meta name="description" content="Merch Concept Foundry for Inkspirations Studios: coasters, T-shirt ideas, Robertisms, product concepts, Ocean of Ink merch, Data Zoology merch, and custom art prints.">
+<title>Studio Artifact Foundry | Inkspirations Studios</title>
+<meta name="description" content="Studio Artifact Foundry for Inkspirations Studios: coasters, Robertisms, shirt ideas, Ocean of Ink pieces, Data Zoology humor, and custom art prints.">
 <meta name="robots" content="index,follow">
 <link rel="stylesheet" href="css/rooms.css">
 <style>
@@ -132,13 +132,13 @@ h1{font-size:clamp(3rem,7.6vw,6.8rem);line-height:.9;margin-bottom:1rem}
 <main class="shell">
   <header class="hero">
     <div>
-      <p class="kicker">Creative Room / Merch Concept Foundry</p>
-      <h1>Where chaotic ideas become candidates.</h1>
-      <p class="hero-copy">A creative workshop for coasters, T-shirt ideas, Robertisms, product experiments, Ocean of Ink merch, Data Zoology merch, custom art prints, and future INKSPIRATIONS collections.</p>
+      <p class="kicker">Creative Room / Studio Artifact Foundry</p>
+      <h1>Where studio sparks become physical pieces.</h1>
+      <p class="hero-copy">A creative workshop for coasters, shirt ideas, Robertisms, Ocean of Ink pieces, Data Zoology humor, custom art prints, and future Inkspirations studio artifacts.</p>
     </div>
     <aside class="mission" aria-label="Foundry mission">
-      <strong>Creative lab, not empty shelf</strong>
-      <p>This foundry organizes real product directions now, with coaster photos, shirt graphics, print previews, and future collection candidates gathered into one workshop.</p>
+      <strong>Artifacts with a source</strong>
+      <p>Every object here should point back to a phrase, artwork, room, memory, or blue studio atmosphere that gave it a reason to exist.</p>
     </aside>
   </header>
 
@@ -146,7 +146,7 @@ h1{font-size:clamp(3rem,7.6vw,6.8rem);line-height:.9;margin-bottom:1rem}
     <article class="showcase-card" id="coasters">
       <small class="kicker">Functional Art</small>
       <strong>Coaster Studies / Functional Art</strong>
-      <p>Coaster sets, surface studies, object photos, and usable art experiments connected to the Inkspirations product world.</p>
+      <p>Coaster sets, surface studies, object photos, and usable art experiments connected to the Inkspirations artifact world.</p>
       <div class="image-slots image-slots-live">
         <span class="image-slot image-slot-live"><img src="assets/images/portfolio/coasters/thumbs/curved-blue-object-coaster-study-thumb.jpg" alt="Curved blue coaster study"><em>Blue Current</em></span>
         <span class="image-slot image-slot-live"><img src="assets/images/portfolio/coasters/thumbs/blue-wave-wood-panel-functional-art-thumb.jpg" alt="Blue wave wood panel functional art"><em>Wood Panel</em></span>
@@ -155,24 +155,24 @@ h1{font-size:clamp(3rem,7.6vw,6.8rem);line-height:.9;margin-bottom:1rem}
     </article>
     <article class="showcase-card">
       <small class="kicker">Robertisms</small>
-      <strong>Robertisms / Phrase Archive</strong>
+      <strong>Robertisms / Phrase Stories</strong>
       <p>Studio phrases, strange sparks, and poetic one-liners connected to shirts, stickers, coasters, rooms, and story paths.</p>
       <div class="actions"><a class="btn" href="robertisms.html">Open Case Files</a></div>
     </article>
     <article class="showcase-card">
       <small class="kicker">Apparel</small>
       <strong>T-Shirt Ideas</strong>
-      <p>Wearable concepts from the design lab, sorted before they become polished product mockups.</p>
+      <p>Wearable ideas connected to Robertisms, rooms, artwork, and the studio voice.</p>
     </article>
     <article class="showcase-card">
       <small class="kicker">Ocean of Ink</small>
-      <strong>Ocean of Ink Merch</strong>
-      <p>Blue-current products, studio marks, coaster sets, apparel, and atmosphere-driven print ideas.</p>
+      <strong>Ocean of Ink Artifacts</strong>
+      <p>Blue-current objects, studio marks, coaster sets, apparel, and atmosphere-driven print ideas.</p>
     </article>
     <article class="showcase-card">
       <small class="kicker">Data Zoology</small>
-      <strong>Data Zoology Merch</strong>
-      <p>Field-guide humor for dashboards, metrics, strange data creatures, and analyst culture.</p>
+      <strong>Data Zoology Artifacts</strong>
+      <p>Field-guide humor for metrics, strange data creatures, and analyst culture.</p>
     </article>
     <article class="showcase-card">
       <small class="kicker">Prints</small>
@@ -185,19 +185,18 @@ h1{font-size:clamp(3rem,7.6vw,6.8rem);line-height:.9;margin-bottom:1rem}
     <div class="panel">
       <div class="panel-head">
         <div>
-          <p class="kicker">Idea Intake Wall</p>
-          <h2>Raw ideas and product candidates</h2>
+          <p class="kicker">Studio Artifact Table</p>
+          <h2>Stories, objects, and future pieces</h2>
         </div>
-        <span class="status" id="ideaCount">Ideas Loading</span>
+        <span class="status" id="ideaCount">Pieces Loading</span>
       </div>
       <div class="filters" aria-label="Idea filters">
         <div class="field">
-          <label for="categoryFilter">Category</label>
+          <label for="categoryFilter">Thread</label>
           <select id="categoryFilter"></select>
         </div>
         <div class="field">
-          <label for="statusFilter">Status</label>
-          <select id="statusFilter"></select>
+          <label for="statusFilter" hidden>Studio stage</label><select id="statusFilter" hidden></select>
         </div>
       </div>
       <div class="intake-wall" id="ideaWall" aria-label="Merch concept idea cards"></div>
@@ -206,28 +205,28 @@ h1{font-size:clamp(3rem,7.6vw,6.8rem);line-height:.9;margin-bottom:1rem}
     <aside class="panel detail" aria-live="polite">
       <div class="panel-head">
         <div>
-          <p class="kicker">Detail Panel</p>
-          <h2 id="detailTitle">Select an idea</h2>
+          <p class="kicker">Artifact Notes</p>
+          <h2 id="detailTitle">Select a piece</h2>
         </div>
-        <span class="status" id="detailStatus">Seed</span>
+        <span class="status" id="detailStatus">Beginning</span>
       </div>
       <div class="detail-body">
         <div class="spark-box">
-          <strong>Idea Spark</strong>
-          <p id="sparkText">Press the spark button to surface one concept prompt.</p>
+          <strong>Studio Spark</strong>
+          <p id="sparkText">Press the spark button to surface one studio artifact prompt.</p>
         </div>
         <div class="actions">
-          <button class="btn primary" type="button" id="sparkButton">Random Idea Spark</button>
-          <button class="btn" type="button" id="bringIdeaHome">Explore Product Path</button>
+          <button class="btn primary" type="button" id="sparkButton">Random Studio Spark</button>
+          <button class="btn" type="button" id="bringIdeaHome">Explore This Artifact</button>
         </div>
         <div class="detail-grid">
           <div class="detail-item"><strong>Phrase</strong><p id="detailPhrase"></p></div>
           <div class="detail-item"><strong>Notes</strong><p id="detailNotes"></p></div>
-          <div class="detail-item"><strong>Possible Product Type</strong><p id="detailProduct"></p></div>
-          <div class="detail-item"><strong>Review Labels</strong><p id="detailReviews"></p></div>
+          <div class="detail-item"><strong>Possible Form</strong><p id="detailProduct"></p></div>
+          <div class="detail-item"><strong>Studio Notes</strong><p id="detailReviews"></p></div>
         </div>
         <div class="actions" aria-label="Product path actions">
-          <button class="btn" type="button" data-mark="Seed">Mark Seed</button>
+          <button class="btn" type="button" data-mark="Beginning">Mark Beginning</button>
           <button class="btn" type="button" data-mark="Exploring">Mark Exploring</button>
           <button class="btn" type="button" data-mark="Ready for Store">Mark Ready</button>
           <button class="btn" type="button" data-mark="Archived">Archive</button>
@@ -249,7 +248,7 @@ h1{font-size:clamp(3rem,7.6vw,6.8rem);line-height:.9;margin-bottom:1rem}
     <article class="board-card">
       <small>Custom Work Board</small>
       <ul class="custom-list">
-        <li>Custom shirts <span class="score">Seed</span></li>
+        <li>Custom shirts <span class="score">Beginning</span></li>
         <li>Custom art prints <span class="score">Ready for Mockup</span></li>
         <li>Coaster studies / functional art <span class="score">Ready for Mockup</span></li>
         <li>Personalized quote designs <span class="score">Exploring</span></li>
@@ -262,9 +261,9 @@ h1{font-size:clamp(3rem,7.6vw,6.8rem);line-height:.9;margin-bottom:1rem}
 
   <section class="section-row" aria-label="Review protocols and path system">
     <article class="board-card">
-      <small>Product Path System</small>
+      <small>Artifact Path</small>
       <ul class="protocol-list">
-        <li>Seed</li>
+        <li>Beginning</li>
         <li>Worth Saving</li>
         <li>Exploring</li>
         <li>Designing</li>
@@ -279,13 +278,13 @@ h1{font-size:clamp(3rem,7.6vw,6.8rem);line-height:.9;margin-bottom:1rem}
         <li><strong>MVR:</strong> Merch Viability Review</li>
         <li><strong>VJR:</strong> Visitor Journey Review</li>
         <li><strong>QCP:</strong> Quality Control Protocol</li>
-        <li><strong>SBI:</strong> Seed Bank Index</li>
+        <li><strong>SBI:</strong> Beginning Bank Index</li>
       </ul>
     </article>
     <article class="board-card">
-      <small>Future Expansion</small>
+      <small>Future Rooms</small>
       <ul class="protocol-list">
-        <li>Product mockup images</li>
+        <li>Robert-approved mockup images</li>
         <li>Print-on-demand integration</li>
         <li>Merch viability scoring</li>
         <li>AI-generated concept expansion</li>
@@ -296,25 +295,25 @@ h1{font-size:clamp(3rem,7.6vw,6.8rem);line-height:.9;margin-bottom:1rem}
 
 <script>
 (() => {
-  const categories = ["All","Coasters","Robertisms","T-Shirt Ideas","Product Concepts","Custom Art Prints","Tech Humor","Data Zoology","Music","Flight","Ocean of Ink","Creative Thinking","Custom Work"];
-  const statuses = ["All","Seed","Worth Saving","Exploring","Designing","Ready for Mockup","Ready for Store","Archived"];
+  const categories = ["All","Coasters","Robertisms","T-Shirt Ideas","Artifact Concepts","Custom Art Prints","Tech Humor","Data Zoology","Music","Flight","Ocean of Ink","Creative Thinking","Custom Work"];
+  const statuses = ["All","Beginning","Worth Saving","Exploring","Designing","Ready for Mockup","Ready for Store","Archived"];
   const reviews = ["MVR","VJR","QCP","SBI"];
   const ideas = [
     {title:"Inkspirations Coaster Studies",phrase:"Coaster Studies / Functional Art",category:"Coasters",notes:"Functional art objects using blue current, ink texture, and studio mark language, represented with real coaster and object photos.",status:"Ready for Mockup",product:"Coaster set / functional art",front:"Blue current surface set",back:"Inkspirations Studios object label",visual:"Three-object photo grid plus texture closeups",audience:"Collectors, gift buyers, studio visitors",humor:"Low",wearability:92,reviews:["MVR","QCP","VJR"]},
     {title:"Ocean of Ink Coaster Set",phrase:"Ocean of Ink Coasters",category:"Ocean of Ink",notes:"A merch line built from the core blue atmosphere: water, ink drift, light, and usable tabletop pieces.",status:"Ready for Mockup",product:"Coaster set / print object",front:"Deep blue ink surface",back:"Small studio mark and edition label",visual:"Royal blue object mockup with electric edge glow",audience:"Art buyers and studio supporters",humor:"Low",wearability:89,reviews:["MVR","QCP"]},
-    {title:"Custom Art Print Series",phrase:"Custom Art Prints",category:"Custom Art Prints",notes:"A clean product path for selected artwork, commissioned phrase work, and limited print editions.",status:"Ready for Mockup",product:"Print / commission path",front:"Artwork-led print preview",back:"Edition note and studio label",visual:"Gallery print previews with title labels",audience:"Clients, collectors, employers",humor:"Low",wearability:95,reviews:["MVR","VJR","QCP"]},
-    {title:"Ocean of Ink Studio Goods",phrase:"Ocean of Ink Studio Goods",category:"Product Concepts",notes:"A broader product family for coasters, stickers, cards, small prints, and apparel tied to the central atmosphere.",status:"Exploring",product:"Product collection",front:"Blue-current collection badge",back:"Made inside Inkspirations Studios",visual:"Product family board with image previews",audience:"Studio visitors and collectors",humor:"Low",wearability:88,reviews:["SBI","VJR"]},
+    {title:"Custom Art Print Series",phrase:"Custom Art Prints",category:"Custom Art Prints",notes:"A clean artifact path for selected artwork, commissioned phrase work, and limited print editions.",status:"Ready for Mockup",product:"Print / commission path",front:"Artwork-led print preview",back:"Edition note and studio label",visual:"Gallery print previews with title labels",audience:"Clients, collectors, employers",humor:"Low",wearability:95,reviews:["MVR","VJR","QCP"]},
+    {title:"Ocean of Ink Studio Goods",phrase:"Ocean of Ink Studio Goods",category:"Artifact Concepts",notes:"A broader artifact family for coasters, stickers, cards, small prints, and apparel tied to the central atmosphere.",status:"Exploring",product:"Artifact family",front:"Blue-current collection badge",back:"Made inside Inkspirations Studios",visual:"Product family board with image previews",audience:"Studio visitors and collectors",humor:"Low",wearability:88,reviews:["SBI","VJR"]},
     {title:"All My PUPS Are On A Leash",phrase:"All My PUPS Are On A Leash",category:"Tech Humor",notes:"Tech phrase with controlled-chaos energy. Could become a minimal front phrase with a process-control badge.",status:"Exploring",product:"T-shirt / sticker",front:"Bold phrase, small leash-line motif",back:"Process control, but make it wearable.",visual:"Terminal-clean with cyan micro labels",audience:"Developers and automation people",humor:"High",wearability:82,reviews:["MVR","QCP"]},
-    {title:"FLITLE Deck",phrase:"FLITLE Deck",category:"Flight",notes:"Playful Flight Deck cousin. Keep it as an intentional studio oddity, not an accident.",status:"Seed",product:"Limited shirt / room badge",front:"FLITLE DECK",back:"Altitude uncertain. Signal beautiful.",visual:"Flight tag, radar line, tiny typo-glow",audience:"Flight Deck fans",humor:"Medium",wearability:68,reviews:["SBI"]},
+    {title:"FLITLE Deck",phrase:"FLITLE Deck",category:"Flight",notes:"Playful Flight Deck cousin. Keep it as an intentional studio oddity, not an accident.",status:"Beginning",product:"Limited shirt / room badge",front:"FLITLE DECK",back:"Altitude uncertain. Signal beautiful.",visual:"Flight tag, radar line, tiny typo-glow",audience:"Flight Deck fans",humor:"Medium",wearability:68,reviews:["SBI"]},
     {title:"Browser Wars",phrase:"Browser Wars",category:"Tech Humor",notes:"Broad tech joke with strong visual potential. Browser tabs, error codes, compatibility battle marks.",status:"Designing",product:"T-shirt / poster",front:"Browser Wars",back:"May the cached force be with you.",visual:"Layered browser-tab grid",audience:"Web builders and QA people",humor:"High",wearability:88,reviews:["MVR","QCP","VJR"]},
     {title:"Cheese Burglar",phrase:"Cheese Burglar",category:"Creative Thinking",notes:"Absurd phrase with mascot potential. Needs tasteful restraint to avoid novelty overload.",status:"Worth Saving",product:"Sticker / casual tee",front:"Cheese Burglar",back:"No crumbs. No witnesses.",visual:"Small character sketch card with restrained comic timing",audience:"Odd humor people",humor:"Very high",wearability:70,reviews:["SBI","MVR"]},
-    {title:"Data Zoology Research Institute",phrase:"Data Zoology Research Institute",category:"Data Zoology",notes:"Strongest institutional-world candidate. Feels like a full collection, not just one shirt.",status:"Ready for Mockup",product:"T-shirt / poster / sticker pack",front:"Institute seal and title",back:"Classifying rare metrics since the last dashboard refresh.",visual:"Field badge, specimen tags, archive labels",audience:"Analysts, data scientists, dashboard builders",humor:"Medium",wearability:94,reviews:["MVR","QCP","VJR"]},
-    {title:"Data Zoology Field Notes",phrase:"Data Zoology Field Notes",category:"Data Zoology",notes:"A product concept for cards, stickers, and shirts around rare metrics, dashboard creatures, and strange analytical sightings.",status:"Exploring",product:"Sticker pack / shirt / print",front:"Field note specimen label",back:"Observed in the dashboard wild.",visual:"Archive tags, specimen cards, electric blue grid",audience:"Data teams and analysts",humor:"Medium",wearability:87,reviews:["MVR","SBI"]},
-    {title:"Someone Licking A Shadow",phrase:"Someone Licking A Shadow",category:"Robertisms",notes:"Surreal Robertism. Best as quiet type plus one strange ink mark.",status:"Seed",product:"Shirt / hidden clue later",front:"Someone Licking A Shadow",back:"Evidence of imagination found at the scene.",visual:"Minimal serif phrase, blue ink smear",audience:"Artists and surreal humor fans",humor:"Strange",wearability:61,reviews:["SBI"]},
+    {title:"Data Zoology Research Institute",phrase:"Data Zoology Research Institute",category:"Data Zoology",notes:"Strongest institutional-world candidate. Feels like a full collection, not just one shirt.",status:"Ready for Mockup",product:"T-shirt / poster / sticker pack",front:"Institute seal and title",back:"Classifying rare metrics since the last metric migration.",visual:"Field badge, specimen tags, archive labels",audience:"Analysts, data scientists, data builders",humor:"Medium",wearability:94,reviews:["MVR","QCP","VJR"]},
+    {title:"Data Zoology Field Notes",phrase:"Data Zoology Field Notes",category:"Data Zoology",notes:"A product concept for cards, stickers, and shirts around rare metrics, metric creatures, and strange analytical sightings.",status:"Exploring",product:"Sticker pack / shirt / print",front:"Field note specimen label",back:"Observed in the data wild.",visual:"Archive tags, specimen cards, electric blue grid",audience:"Data teams and analysts",humor:"Medium",wearability:87,reviews:["MVR","SBI"]},
+    {title:"Someone Licking A Shadow",phrase:"Someone Licking A Shadow",category:"Robertisms",notes:"Surreal Robertism. Best as quiet type plus one strange ink mark.",status:"Beginning",product:"Shirt / hidden clue later",front:"Someone Licking A Shadow",back:"Evidence of imagination found at the scene.",visual:"Minimal serif phrase, blue ink smear",audience:"Artists and surreal humor fans",humor:"Strange",wearability:61,reviews:["SBI"]},
     {title:"My Code Turned Into $pagetti",phrase:"My Code Turned Into $pagetti",category:"Tech Humor",notes:"Great typo-symbol phrase. Could use code-string typography and a tiny noodle-line visual.",status:"Exploring",product:"T-shirt / mug later",front:"My Code Turned Into $pagetti",back:"Refactor sauce not included.",visual:"Code snippet with noodle contour",audience:"Coders and debugging survivors",humor:"High",wearability:86,reviews:["MVR","QCP"]},
     {title:"Completion Through Expansion",phrase:"Completion Through Expansion",category:"Robertisms",notes:"More poetic, less joke. Premium creative philosophy shirt candidate.",status:"Designing",product:"Premium tee / print",front:"Completion Through Expansion",back:"The work grows until it knows what it is.",visual:"Serif phrase, studio mark, calm spacing",audience:"Artists, writers, builders",humor:"Low",wearability:90,reviews:["VJR","MVR"]},
     {title:"Future Factors",phrase:"Future Factors",category:"Creative Thinking",notes:"Sounds like a collection title. Could connect to planning, risk, and creative forecasting.",status:"Worth Saving",product:"Collection label / shirt",front:"Future Factors",back:"Variables not yet visible.",visual:"Data-grid meets sketchbook",audience:"Thinkers, planners, creative operators",humor:"Low",wearability:78,reviews:["SBI"]},
-    {title:"Casa Ruckus",phrase:"Casa Ruckus",category:"Music",notes:"Feels like a music-room phrase or lively studio-house identity.",status:"Seed",product:"Shirt / music room badge",front:"Casa Ruckus",back:"Quiet was never on the lease.",visual:"Warm house mark plus blue signal",audience:"Music people, studio friends",humor:"Medium",wearability:76,reviews:["SBI","VJR"]},
+    {title:"Casa Ruckus",phrase:"Casa Ruckus",category:"Music",notes:"Feels like a music-room phrase or lively studio-house identity.",status:"Beginning",product:"Shirt / music room badge",front:"Casa Ruckus",back:"Quiet was never on the lease.",visual:"Warm house mark plus blue signal",audience:"Music people, studio friends",humor:"Medium",wearability:76,reviews:["SBI","VJR"]},
     {title:"Very Polite Dictionary",phrase:"Very Polite Dictionary",category:"Creative Thinking",notes:"Odd and gentle. Could become a typographic poster or understated shirt.",status:"Worth Saving",product:"T-shirt / poster",front:"Very Polite Dictionary",back:"Definitions that knock first.",visual:"Dictionary entry layout, soft paper texture",audience:"Writers and word nerds",humor:"Medium",wearability:84,reviews:["MVR","SBI"]}
   ];
   let selected = 0;
@@ -382,7 +381,7 @@ h1{font-size:clamp(3rem,7.6vw,6.8rem);line-height:.9;margin-bottom:1rem}
         <small>${escapeHtml(item.category)} / ${escapeHtml(item.product)}</small>
         <h3>${escapeHtml(item.title)}</h3>
         <p>${escapeHtml(item.notes)}</p>
-        <div class="card-meta"><span class="status">${escapeHtml(item.status)}</span><span class="pill">${escapeHtml(item.phrase)}</span></div>
+        <div class="card-meta"><span class="pill">${escapeHtml(item.phrase)}</span></div>
       </button>`;
     }).join("");
     ideaWall.querySelectorAll(".idea-card").forEach(card => {
@@ -445,7 +444,7 @@ h1{font-size:clamp(3rem,7.6vw,6.8rem);line-height:.9;margin-bottom:1rem}
     if(window.InkspirationsBringHome) window.InkspirationsBringHome.open(ideaBringHomePayload(ideas[selected]));
   });
   fillSelect(categoryFilter,categories);
-  fillSelect(statusFilter,statuses);
+  fillSelect(statusFilter,statuses); statusFilter.value = "All";
   renderIdeas();
   renderDetail();
   renderBoards();

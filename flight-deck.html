@@ -171,8 +171,8 @@ body.deck-b .booth .turntable:last-child{border-color:rgba(131,243,186,.45);box-
   <div class="beams"></div>
   <div class="scan"></div>
   <header class="top-hud">
-    <div class="brand">Flight Deck / Music Navigation Center</div>
-    <div class="hud-readouts"><span>Altitude <b id="altitude">31,800</b></span><span>Signal <b id="signal">Locked</b></span><span>Station <b id="bpm">Ready</b></span></div><div class="sound-control"><button class="sound-toggle" id="soundBtn" type="button" aria-pressed="false" disabled>Music link pending</button><span class="sound-status" id="soundStatus">Pending link</span></div>
+    <div class="brand">Flight Deck / Listening Room</div>
+    <div class="hud-readouts"><span>Altitude <b id="altitude">31,800</b></span><span>Signal <b id="signal">Locked</b></span><span>Station <b id="bpm">Ready</b></span></div><div class="sound-control"><button class="sound-toggle" id="soundBtn" type="button" aria-pressed="false" disabled>Curated by Inkspirations Studios</button><span class="sound-status" id="soundStatus">Curated by Robert</span></div>
   </header>
   <div class="ring"></div>
   <svg class="flight-path" viewBox="0 0 1200 520" preserveAspectRatio="none" aria-hidden="true">
@@ -195,7 +195,7 @@ body.deck-b .booth .turntable:last-child{border-color:rgba(131,243,186,.45);box-
     <p class="console-kicker">Discovered Listening Room</p>
     <h2 id="trackTitle">Select a station</h2>
     <div class="track-list" id="trackList" aria-label="Flight Deck stations"></div>
-    <p class="track-status" id="trackStatus">Music link pending.</p>
+    <p class="track-status" id="trackStatus">Curated by Inkspirations Studios.</p>
   </aside>
   <section class="stage" aria-label="Animated DJ Flight Deck performance">
     <div class="performance">
@@ -253,7 +253,7 @@ body.deck-b .booth .turntable:last-child{border-color:rgba(131,243,186,.45);box-
       deck:"A",
       mood:"Warm, reflective, late-night music for memory, writing, and soft light.",
       link:"",
-      label:"Music link pending"
+      label:"Curated by Inkspirations Studios"
     },
     {
       id:"daylight-district",
@@ -261,7 +261,7 @@ body.deck-b .booth .turntable:last-child{border-color:rgba(131,243,186,.45);box-
       deck:"A",
       mood:"Brighter creative momentum for building, sketching, editing, and moving forward.",
       link:"",
-      label:"Music link pending"
+      label:"Curated by Inkspirations Studios"
     },
     {
       id:"c4-territory",
@@ -269,7 +269,7 @@ body.deck-b .booth .turntable:last-child{border-color:rgba(131,243,186,.45);box-
       deck:"B",
       mood:"High-alert energy for command-center focus, systems work, and bold experiments.",
       link:"",
-      label:"Music link pending"
+      label:"Curated by Inkspirations Studios"
     },
     {
       id:"flight-deck-mix",
@@ -277,7 +277,7 @@ body.deck-b .booth .turntable:last-child{border-color:rgba(131,243,186,.45);box-
       deck:"B",
       mood:"Electronic motion, altitude, radar glow, and studio-night movement.",
       link:"",
-      label:"Music link pending"
+      label:"Curated by Inkspirations Studios"
     },
     {
       id:"ocean-of-ink-atmosphere",
@@ -285,7 +285,7 @@ body.deck-b .booth .turntable:last-child{border-color:rgba(131,243,186,.45);box-
       deck:"A",
       mood:"Deep blue ambience for Ocean of Ink, rain-window thinking, and quiet studio presence.",
       link:"",
-      label:"Music link pending"
+      label:"Curated by Inkspirations Studios"
     }
   ];
 
@@ -304,13 +304,13 @@ body.deck-b .booth .turntable:last-child{border-color:rgba(131,243,186,.45);box-
     trackTitle.textContent = station.title;
     trackStatus.textContent = station.link
       ? "Now selected: " + station.title + ". This station opens in Apple Music."
-      : "Music link pending. Robert\'s Apple Music link will be connected here.";
+      : "Curated by Inkspirations Studios. Robert\'s Apple Music link will be connected here.";
     trackList.innerHTML = stations.map(item => '<button class="track-button" type="button" data-track="' + item.id + '" aria-pressed="' + (item.id === selectedTrackId) + '">Deck ' + item.deck + ' / ' + item.title + '<span>' + item.mood + '</span><span class="station-link-note">' + item.label + '</span></button>').join("");
-    soundBtn.textContent = station.link ? "Open in Apple Music" : "Music link pending";
+    soundBtn.textContent = station.link ? "Open in Apple Music" : "Curated by Inkspirations Studios";
     soundBtn.setAttribute("aria-pressed", String(nowPlaying));
     soundBtn.disabled = !station.link;
     soundBtn.dataset.href = station.link;
-    soundStatus.textContent = station.link ? (nowPlaying ? "Now selected" : "External station") : "Pending link";
+    soundStatus.textContent = station.link ? (nowPlaying ? "Now selected" : "External station") : "Curated by Robert";
     stationRead.textContent = station.deck;
   }
 
@@ -319,15 +319,15 @@ body.deck-b .booth .turntable:last-child{border-color:rgba(131,243,186,.45);box-
     if(visualTimer) clearTimeout(visualTimer);
     setDeckVisuals(true, station);
     soundBtn.setAttribute("aria-pressed", "true");
-    soundStatus.textContent = station.link ? "Opening Apple Music" : "Pending link";
+    soundStatus.textContent = station.link ? "Opening Apple Music" : "Curated by Robert";
     signal.textContent = station.link ? "Station Linked" : "Station Saved";
     trackStatus.textContent = station.link
       ? "Now selected: " + station.title + ". This station opens in Apple Music."
-      : "Music link pending. Robert\'s Apple Music link will be connected here.";
+      : "Curated by Inkspirations Studios. Robert\'s Apple Music link will be connected here.";
     visualTimer = setTimeout(() => {
       setDeckVisuals(false, station);
       soundBtn.setAttribute("aria-pressed", "false");
-      soundStatus.textContent = station.link ? "External station" : "Pending link";
+      soundStatus.textContent = station.link ? "External station" : "Curated by Robert";
     }, 9000);
   }
 
@@ -343,7 +343,7 @@ body.deck-b .booth .turntable:last-child{border-color:rgba(131,243,186,.45);box-
   function openSelectedStation(){
     const station = activeStation();
     pulseSelectedStation();
-    console.log("Flight Deck station selected", { title: station.title, url: station.link || "pending" });
+    console.log("Flight Deck station selected", { title: station.title, url: station.link || "curated" });
     if(!station.link) return;
     window.open(station.link, "_blank", "noopener,noreferrer");
   }

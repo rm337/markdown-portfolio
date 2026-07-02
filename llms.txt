@@ -156,18 +156,18 @@ The gallery contains 21 curated entries and is rendered by portfolio.js. Entries
 
 ## Interactive Rooms and Tools
 
-- Flight Deck / Command Center: flight-deck.html
+- Flight Deck: flight-deck.html
 - BeatForge Studio / Music Room: beats.html
-  Status: Closed beta access page. The full usable BeatForge workspace is not exposed for free public use on GitHub Pages. Trial and subscription access are planned.
+  Access note: BeatForge is preparing for limited studio access. Visitors can request early access when Robert opens the next path.
 - Ocean of Ink / Room Hub: rooms.html#ocean-of-ink
 - Writing Room: rooms.html#writing-room
 - Music Room: rooms.html#music-room
-- Creative Toolbox / Systems I Built: systems-i-built.html
-- Lead Intake: lead-intake.html
+- Studio Process / How Robert Builds: systems-i-built.html
+- Commission Request: lead-intake.html
 - Guest Registry: guest-registry.html
 - Merch Concept Foundry: merch-foundry.html
 - T-Shirt Design Lab: t-shirt-design-lab.html
-- IRIS / Home Interface / Digital Identity Card: identity-card.html
+- IRIS / Studio Card: identity-card.html
 - Studio Map: site-map.html
 
 ## Writing / Poem
@@ -194,4 +194,4 @@ The Merch Concept Foundry is public portfolio content at merch-foundry.html. It 
 
 Portfolio inquiries: r.marleton@gmail.com
 GLOBAL CURATION RULE
-Never use automatic search results as placeholders for Robert's curated content. If a playlist, artwork collection, product collection, writing collection, recommendation, shop, or profile destination has not been created or approved yet, show "Coming Soon," "Curated by Robert," or a disabled pending state until Robert assigns the final destination. Inkspirations Studios is a curated creative experience, not a search engine.
+Never use automatic search results as substitutes for Robert's curated content. If a playlist, artwork collection, product collection, writing collection, recommendation, shop, or profile destination has not been created or approved yet, show "Curated by Inkspirations Studios," keep the action disabled, or wait until Robert assigns the final destination. Inkspirations Studios is a curated creative experience, not a search engine.

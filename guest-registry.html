@@ -91,12 +91,12 @@ select option{background:#071427;color:#f8fbff}
 </nav>
 <main class="shell">
   <section class="hero">
-    <p class="kicker">Guest Registry / Studio Logbook</p>
+    <p class="kicker">Studio Guest Book</p>
     <h1>Leave a signal in the blue.</h1>
-    <p>Sign the Inkspirations Studios registry after visiting Ocean of Ink, Flight Deck, BeatForge, or the portfolio. Entries are saved locally, can be sent by email, exported as Slack-ready JSON, or posted to a private relay when one is configured.</p>
+    <p>Sign the Inkspirations Studios guest book after visiting Ocean of Ink, Flight Deck, BeatForge, or the gallery. Leave Robert a note about what the room made you feel.</p>
     <div class="actions">
-      <a class="btn primary" href="lead-intake.html">Contact / Commissions</a>
-      <a class="btn" href="rooms.html">Back To Rooms</a>
+      <a class="btn primary" href="lead-intake.html">Contact Robert</a>
+      <a class="btn" href="rooms.html">Return To Rooms</a>
     </div>
   </section>
   <section class="registry">
@@ -133,20 +133,20 @@ select option{background:#071427;color:#f8fbff}
         <textarea id="guestMessage" name="guestMessage" maxlength="700" placeholder="What did the room make you feel?" required></textarea>
       </div>
       <div class="actions">
-        <button class="btn primary" type="submit">Save / Send Note</button>
-        <button class="btn" type="button" id="copyPayload">Copy Slack JSON</button>
-        <button class="btn" type="button" id="downloadPayload">Download JSON</button>
-        <button class="btn" type="button" id="sendEmail">Email Fallback</button>
-        <button class="btn warn" type="button" id="clearEntries">Clear Local</button>
+        <button class="btn primary" type="submit">Leave Note</button>
+        <button class="btn" type="button" id="copyPayload" hidden>Copy Studio Record</button>
+        <button class="btn" type="button" id="downloadPayload" hidden>Download Studio Record</button>
+        <button class="btn" type="button" id="sendEmail">Email Robert</button>
+        <button class="btn warn" type="button" id="clearEntries">Clear Notes</button>
       </div>
       <div class="status" id="registryStatus" aria-live="polite"></div>
-      <p class="note">A GitHub Pages site cannot keep Slack secrets safely in the browser. Configure a private relay with <code>window.INKSPIRATIONS_LEAD_RELAY_URL</code> or localStorage key <code>inkspirationsLeadRelayUrl</code>; email remains the fallback.</p>
+      <p class="note">Your note is remembered on this device. Use Email Robert if you want to send it directly.</p>
     </form>
     <section class="panel entries" aria-live="polite">
       <div class="entries-head">
         <div>
-          <p class="kicker">Recent Signals</p>
-          <h2>Local registry</h2>
+          <p class="kicker">Recent Notes</p>
+          <h2>Studio guest book</h2>
         </div>
         <span class="pill" id="entryCount">0 Entries</span>
       </div>
@@ -250,9 +250,9 @@ select option{background:#071427;color:#f8fbff}
     const lead = asLead(draft);
     api.saveLead(lead);
     api.postLead(lead).then(result => {
-      status.textContent = result.ok ? "Saved locally and sent to the configured Slack relay." : "Saved locally. No relay is configured, so use email, copy, or JSON export.";
+      status.textContent = result.ok ? "Your note has been saved and sent." : "Your note is saved here. Use Email Robert if you want to send it now.";
     }).catch(() => {
-      status.textContent = "Saved locally. Relay failed, so use email fallback or export the Slack-ready JSON.";
+      status.textContent = "Your note is saved here. Use Email Robert if you want to send it now.";
     });
     form.reset();
     render();
@@ -260,18 +260,18 @@ select option{background:#071427;color:#f8fbff}
   copyButton.addEventListener("click",async()=>{
     const lead = asLead(currentDraft());
     await api.copyJson(api.slackPayload(lead));
-    status.textContent = "Slack-ready JSON copied.";
+    status.textContent = "Studio record copied.";
   });
   downloadButton.addEventListener("click",()=>{
     const lead = asLead(currentDraft());
     api.downloadJson(api.slackPayload(lead), `${lead.id}.json`);
-    status.textContent = "Slack-ready JSON downloaded.";
+    status.textContent = "Studio record saved.";
   });
   emailButton.addEventListener("click",()=>{
     window.location.href = api.mailtoUrl(asLead(currentDraft()));
   });
   clearButton.addEventListener("click",()=>{
-    if(confirm("Clear the registry entries saved on this device?")){
+    if(confirm("Clear the guest notes saved on this device?")){
       localStorage.removeItem(storageKey);
       render();
     }
