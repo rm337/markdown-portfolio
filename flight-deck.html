@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Flight Deck | Inkspirations Studios</title>
-<meta name="description" content="Flight Deck is an immersive animated DJ cockpit for progressive house and melodic techno.">
+<meta name="description" content="Flight Deck is Robert Marleton's curated music navigation room for Inkspirations Studios.">
 <meta name="robots" content="index,follow">
 <link rel="stylesheet" href="css/rooms.css">
 <style>
@@ -171,7 +171,7 @@ body.deck-b .booth .turntable:last-child{border-color:rgba(131,243,186,.45);box-
   <div class="scan"></div>
   <header class="top-hud">
     <div class="brand">Flight Deck / Music Navigation Center</div>
-    <div class="hud-readouts"><span>Altitude <b id="altitude">31,800</b></span><span>Signal <b id="signal">Locked</b></span><span>BPM <b id="bpm">124</b></span></div><div class="sound-control"><button class="sound-toggle" id="soundBtn" type="button" aria-pressed="false">Listen</button><span class="sound-status" id="soundStatus">Muted</span></div>
+    <div class="hud-readouts"><span>Altitude <b id="altitude">31,800</b></span><span>Signal <b id="signal">Locked</b></span><span>Station <b id="bpm">Ready</b></span></div><div class="sound-control"><button class="sound-toggle" id="soundBtn" type="button" aria-pressed="false">Open in Apple Music</button><span class="sound-status" id="soundStatus">External station</span></div>
   </header>
   <div class="ring"></div>
   <svg class="flight-path" viewBox="0 0 1200 520" preserveAspectRatio="none" aria-hidden="true">
@@ -186,13 +186,13 @@ body.deck-b .booth .turntable:last-child{border-color:rgba(131,243,186,.45);box-
   <aside class="zones" aria-label="Flight Deck environment zones">
     <div class="zone"><strong>Ocean Of Ink</strong><span>Deep blue motion under the records, carrying the whole room forward.</span></div>
     <div class="zone"><strong>Flight Deck</strong><span>Radar, altitude, signal, and motion focused around the DJ booth.</span></div>
-    <div class="zone"><strong>Music Room</strong><span>Listening energy, rhythm, and low-end navigation.</span></div>
+    <div class="zone"><strong>Music Room</strong><span>Curated Apple Music paths for Robert's creative atmosphere and studio moods.</span></div>
     <div class="zone"><strong>Writing Room</strong><span>A quieter return path for memory, language, and reflection.</span></div>
   </aside>
   <aside class="radar" aria-label="Radar display"><i class="blip a"></i><i class="blip b"></i><i class="blip c"></i></aside>
   <aside class="track-console" aria-label="DJ booth record controls">
     <p class="console-kicker">DJ Booth</p>
-    <h2 id="trackTitle">Select a record</h2>
+    <h2 id="trackTitle">Select a station</h2>
     <div class="track-list" id="trackList" aria-label="Flight Deck records"></div>
     <p class="track-status" id="trackStatus">Ready</p>
   </aside>
@@ -235,289 +235,146 @@ body.deck-b .booth .turntable:last-child{border-color:rgba(131,243,186,.45);box-
   const eq = document.getElementById("eq");
   const mixer = document.getElementById("mixer");
   const altitude = document.getElementById("altitude");
-  const bpmRead = document.getElementById("bpm");
+  const stationRead = document.getElementById("bpm");
   const signal = document.getElementById("signal");
   const soundBtn = document.getElementById("soundBtn");
   const soundStatus = document.getElementById("soundStatus");
   const trackList = document.getElementById("trackList");
   const trackTitle = document.getElementById("trackTitle");
   const trackStatus = document.getElementById("trackStatus");
-  let width = 0, height = 0, tick = 0;
-  let deckAudio, deckMaster, deckDelay, deckDelayWet, deckFilter, deckStep = 0, deckTimer = null;
-  let selectedTrackId = "flight-engine";
-  let mediaDeck = null;
-  const tracks = [
-    {id:"flight-engine",title:"Flight Deck House Engine",deck:"A",bpm:124,type:"engine",description:"Built-in melodic house rhythm for the animated DJ booth."},
-    {id:"rain-studio",title:"Rain Studio Atmosphere",deck:"B",bpm:88,type:"media",src:"assets/audio/rain-studio.mov",description:"Robert's rain-video audio, ready as a real selectable record."},
-    {id:"music-slot-01",title:"Your Specific Track Slot",deck:"B",bpm:"--",type:"missing",src:"assets/audio/music-room-01.mp3",description:"Add a music file here later and this slot becomes playable."}
+  let width = 0, height = 0, tick = 0, visualTimer = null;
+  let selectedTrackId = "memory-lanterns";
+
+  const stations = [
+    {
+      id:"memory-lanterns",
+      title:"Memory Lanterns",
+      deck:"A",
+      mood:"Warm, reflective, late-night music for memory, writing, and soft light.",
+      link:"https://music.apple.com/us/search?term=Memory%20Lanterns",
+      label:"Apple Music search"
+    },
+    {
+      id:"daylight-district",
+      title:"Daylight District",
+      deck:"A",
+      mood:"Brighter creative momentum for building, sketching, editing, and moving forward.",
+      link:"https://music.apple.com/us/search?term=Daylight%20District",
+      label:"Apple Music search"
+    },
+    {
+      id:"c4-territory",
+      title:"C4 Territory",
+      deck:"B",
+      mood:"High-alert energy for command-center focus, systems work, and bold experiments.",
+      link:"https://music.apple.com/us/search?term=C4%20Territory",
+      label:"Apple Music search"
+    },
+    {
+      id:"flight-deck-mix",
+      title:"Flight Deck Mix",
+      deck:"B",
+      mood:"Electronic motion, altitude, radar glow, and studio-night movement.",
+      link:"https://music.apple.com/us/search?term=Flight%20Deck%20Mix",
+      label:"Apple Music search"
+    },
+    {
+      id:"ocean-of-ink-atmosphere",
+      title:"Ocean of Ink Atmosphere",
+      deck:"A",
+      mood:"Deep blue ambience for Ocean of Ink, rain-window thinking, and quiet studio presence.",
+      link:"https://music.apple.com/us/search?term=Ocean%20of%20Ink%20Atmosphere",
+      label:"Apple Music search"
+    }
   ];
 
-
-  function activeTrack(){
-    return tracks.find(track => track.id === selectedTrackId) || tracks[0];
+  function activeStation(){
+    return stations.find(station => station.id === selectedTrackId) || stations[0];
   }
 
-  function setDeckVisuals(playing, track = activeTrack()){
-    document.body.classList.toggle("deck-playing", Boolean(playing));
+  function setDeckVisuals(active, station = activeStation()){
+    document.body.classList.toggle("deck-playing", Boolean(active));
     document.body.classList.remove("deck-a","deck-b");
-    if(playing && track.deck) document.body.classList.add(`deck-${track.deck.toLowerCase()}`);
+    if(active && station.deck) document.body.classList.add("deck-" + station.deck.toLowerCase());
   }
 
-  function playbackActive(){
-    return Boolean(deckTimer || (mediaDeck && !mediaDeck.paused));
+  function updateStationConsole(nowPlaying = false){
+    const station = activeStation();
+    trackTitle.textContent = station.title;
+    trackStatus.textContent = nowPlaying
+      ? "Now selected: " + station.title + ". This station opens in Apple Music."
+      : "This station opens in Apple Music.";
+    trackList.innerHTML = stations.map(item => '<button class="track-button" type="button" data-track="' + item.id + '" aria-pressed="' + (item.id === selectedTrackId) + '">Deck ' + item.deck + ' / ' + item.title + '<span>' + item.mood + '</span><span class="station-link-note">' + item.label + '</span></button>').join("");
+    soundBtn.textContent = "Open in Apple Music";
+    soundBtn.setAttribute("aria-pressed", String(nowPlaying));
+    soundBtn.dataset.href = station.link;
+    soundStatus.textContent = nowPlaying ? "Now selected" : "External station";
+    stationRead.textContent = station.deck;
   }
 
-  function ensureMediaDeck(){
-    if(mediaDeck) return mediaDeck;
-    mediaDeck = document.createElement("video");
-    mediaDeck.loop = true;
-    mediaDeck.preload = "auto";
-    mediaDeck.playsInline = true;
-    mediaDeck.muted = false;
-    mediaDeck.volume = 0.42;
-    mediaDeck.setAttribute("aria-hidden","true");
-    mediaDeck.style.position = "fixed";
-    mediaDeck.style.width = "1px";
-    mediaDeck.style.height = "1px";
-    mediaDeck.style.opacity = "0";
-    mediaDeck.style.pointerEvents = "none";
-    mediaDeck.style.left = "-9999px";
-    document.body.appendChild(mediaDeck);
-    return mediaDeck;
-  }
-
-  function stopMediaTrack(){
-    if(!mediaDeck) return;
-    mediaDeck.pause();
-  }
-
-  function updateTrackConsole(){
-    const track = activeTrack();
-    trackTitle.textContent = track.title;
-    trackStatus.textContent = playbackActive() ? `Playing Deck ${track.deck} / ${track.bpm} BPM` : `Selected Deck ${track.deck} / ${track.bpm} BPM`;
-    trackList.innerHTML = tracks.map(item => `<button class="track-button" type="button" data-track="${item.id}" aria-pressed="${item.id === selectedTrackId}" ${item.type === "missing" ? "disabled" : ""}>Deck ${item.deck} / ${item.title}<span>${item.description}</span></button>`).join("");
-    soundBtn.textContent = playbackActive() ? "Stop Listening" : "Listen to Selected Record";
-    soundBtn.setAttribute("aria-pressed", String(playbackActive()));
-    bpmRead.textContent = track.bpm;
+  function pulseSelectedStation(){
+    const station = activeStation();
+    if(visualTimer) clearTimeout(visualTimer);
+    setDeckVisuals(true, station);
+    soundBtn.setAttribute("aria-pressed", "true");
+    soundStatus.textContent = "Opening Apple Music";
+    signal.textContent = "Station Linked";
+    trackStatus.textContent = "Now selected: " + station.title + ". This station opens in Apple Music.";
+    visualTimer = setTimeout(() => {
+      setDeckVisuals(false, station);
+      soundBtn.setAttribute("aria-pressed", "false");
+      soundStatus.textContent = "External station";
+    }, 9000);
   }
 
   function selectTrack(id){
-    const next = tracks.find(track => track.id === id);
-    if(!next || next.type === "missing") return;
-    if(playbackActive()) stopAllSound(false);
+    const next = stations.find(station => station.id === id);
+    if(!next) return;
     selectedTrackId = id;
-    signal.textContent = "Track Armed";
-    soundStatus.textContent = "Ready";
-    setDeckVisuals(false, next);
-    updateTrackConsole();
+    signal.textContent = "Station Armed";
+    updateStationConsole(false);
   }
 
-  async function startMediaTrack(track){
-    stopDeckSound(false);
-    const media = ensureMediaDeck();
-    if(!media.src.endsWith(track.src)) media.src = track.src;
-    soundBtn.textContent = "Audio Starting...";
-    soundStatus.textContent = "Starting";
-    trackStatus.textContent = `Loading ${track.title}`;
-    await media.play();
-    setDeckVisuals(true, track);
-    soundBtn.textContent = "Stop Listening";
-    soundBtn.setAttribute("aria-pressed","true");
-    soundStatus.textContent = "Playing";
-    signal.textContent = "Audio Live";
-    trackStatus.textContent = `Playing Deck ${track.deck} / ${track.bpm} BPM`;
-    console.log("Flight Deck media track playing", {title:track.title, src:track.src, readyState:media.readyState});
+  function openSelectedStation(){
+    const station = activeStation();
+    pulseSelectedStation();
+    console.log("Flight Deck station selected", { title: station.title, url: station.link });
+    window.open(station.link, "_blank", "noopener,noreferrer");
   }
 
-  function stopAllSound(update = true){
-    stopDeckSound(false);
-    stopMediaTrack();
-    setDeckVisuals(false, activeTrack());
-    soundBtn.textContent = "Listen to Selected Record";
-    soundBtn.setAttribute("aria-pressed","false");
-    soundStatus.textContent = "Muted";
-    signal.textContent = "Locked";
-    if(update) updateTrackConsole();
-  }
-
-  async function startSelectedTrack(){
-    const track = activeTrack();
-    if(track.type === "media") return startMediaTrack(track);
-    if(track.type === "engine") return startDeckSound(track);
-    trackStatus.textContent = "Add the music file before this record can play.";
-  }
-  function ensureDeckAudio(){
-    if(deckAudio) return deckAudio;
-    const AudioCtor = window.AudioContext || window.webkitAudioContext;
-    if(!AudioCtor) throw new Error("Web Audio API is not available in this browser.");
-    deckAudio = new AudioCtor();
-    deckMaster = deckAudio.createGain();
-    deckFilter = deckAudio.createBiquadFilter();
-    deckDelay = deckAudio.createDelay(0.8);
-    deckDelayWet = deckAudio.createGain();
-    const feedback = deckAudio.createGain();
-    deckMaster.gain.value = 0.42;
-    deckFilter.type = "lowpass";
-    deckFilter.frequency.value = 7200;
-    deckDelay.delayTime.value = 0.28;
-    deckDelayWet.gain.value = 0.12;
-    feedback.gain.value = 0.24;
-    deckMaster.connect(deckFilter);
-    deckFilter.connect(deckAudio.destination);
-    deckMaster.connect(deckDelay);
-    deckDelay.connect(feedback);
-    feedback.connect(deckDelay);
-    deckDelay.connect(deckDelayWet);
-    deckDelayWet.connect(deckFilter);
-    console.log("Flight Deck audio source created", { sampleRate: deckAudio.sampleRate, state: deckAudio.state });
-    return deckAudio;
-  }
-
-  function deckEnvelope(time, level, decay){
-    const gain = deckAudio.createGain();
-    gain.gain.setValueAtTime(Math.max(level, 0.001), time);
-    gain.gain.exponentialRampToValueAtTime(0.001, time + decay);
-    gain.connect(deckMaster);
-    return gain;
-  }
-
-  function deckOsc(type, freq, time, duration, dest){
-    const osc = deckAudio.createOscillator();
-    osc.type = type;
-    osc.frequency.setValueAtTime(freq, time);
-    osc.connect(dest);
-    osc.start(time);
-    osc.stop(time + duration);
-    return osc;
-  }
-
-  function deckNoise(duration){
-    const buffer = deckAudio.createBuffer(1, Math.ceil(deckAudio.sampleRate * duration), deckAudio.sampleRate);
-    const data = buffer.getChannelData(0);
-    for(let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
-    return buffer;
-  }
-
-  function playKick(time){
-    const gain = deckEnvelope(time, 0.9, 0.34);
-    const osc = deckOsc("sine", 150, time, 0.34, gain);
-    osc.frequency.exponentialRampToValueAtTime(42, time + 0.16);
-  }
-
-  function playHat(time, open = false){
-    const src = deckAudio.createBufferSource();
-    const hp = deckAudio.createBiquadFilter();
-    hp.type = "highpass";
-    hp.frequency.value = 6200;
-    const gain = deckEnvelope(time, open ? 0.18 : 0.11, open ? 0.22 : 0.055);
-    src.buffer = deckNoise(open ? 0.25 : 0.07);
-    src.connect(hp);
-    hp.connect(gain);
-    src.start(time);
-    src.stop(time + (open ? 0.25 : 0.07));
-  }
-
-  function playSnare(time){
-    const src = deckAudio.createBufferSource();
-    const bp = deckAudio.createBiquadFilter();
-    bp.type = "bandpass";
-    bp.frequency.value = 1700;
-    const gain = deckEnvelope(time, 0.34, 0.16);
-    src.buffer = deckNoise(0.17);
-    src.connect(bp);
-    bp.connect(gain);
-    src.start(time);
-    src.stop(time + 0.17);
-    deckOsc("triangle", 196, time, 0.08, gain);
-  }
-
-  function playBass(time, step){
-    const notes = [43, 43, 50, 46, 43, 55, 50, 46];
-    const midi = notes[Math.floor(step / 2) % notes.length];
-    const freq = 440 * Math.pow(2, (midi - 69) / 12);
-    const gain = deckEnvelope(time, 0.24, 0.22);
-    const osc = deckOsc("sawtooth", freq, time, 0.22, gain);
-    osc.frequency.exponentialRampToValueAtTime(freq * 0.82, time + 0.2);
-  }
-
-  function playDeckStep(){
-    const now = deckAudio.currentTime + 0.018;
-    const step = deckStep % 16;
-    if(step === 0 || step === 4 || step === 8 || step === 12) playKick(now);
-    if(step === 4 || step === 12) playSnare(now + 0.01);
-    if(step % 2 === 0) playHat(now + 0.006, step === 14);
-    if(step === 0 || step === 3 || step === 8 || step === 11) playBass(now + 0.012, step);
-    deckFilter.frequency.setTargetAtTime(5200 + Math.sin(deckStep * 0.45) * 1600, now, 0.04);
-    deckStep++;
-  }
-
-  async function startDeckSound(track = activeTrack()){
-    soundBtn.textContent = "Audio Starting...";
-    soundStatus.textContent = "Starting";
-    console.log("Flight Deck audio starting");
-    ensureDeckAudio();
-    await deckAudio.resume();
-    stopMediaTrack();
-    if(deckTimer) clearInterval(deckTimer);
-    deckStep = 0;
-    playDeckStep();
-    deckTimer = setInterval(playDeckStep, (60000 / 124) / 4);
-    setDeckVisuals(true, track);
-    soundBtn.textContent = "Stop Listening";
-    soundBtn.setAttribute("aria-pressed", "true");
-    soundStatus.textContent = "Playing";
-    signal.textContent = "Audio Live";
-    trackStatus.textContent = `Playing Deck ${track.deck} / ${track.bpm} BPM`;
-    console.log("Flight Deck audio playing", { state: deckAudio.state });
-  }
-
-  function stopDeckSound(update = true){
-    if(deckTimer) clearInterval(deckTimer);
-    deckTimer = null;
-    if(deckMaster && deckAudio){
-      deckMaster.gain.cancelScheduledValues(deckAudio.currentTime);
-      deckMaster.gain.setTargetAtTime(0.0001, deckAudio.currentTime, 0.08);
-      setTimeout(() => { if(deckMaster) deckMaster.gain.value = 0.42; }, 220);
-    }
-    setDeckVisuals(false, activeTrack());
-    soundBtn.textContent = "Listen to Selected Record";
-    soundBtn.setAttribute("aria-pressed", "false");
-    soundStatus.textContent = "Muted";
-    signal.textContent = "Locked";
-    if(update) updateTrackConsole();
-    console.log("Flight Deck audio stopped");
-  }
   const particles = Array.from({length:170},()=>({x:Math.random(),y:Math.random(),z:.2+Math.random(),r:.5+Math.random()*2,s:.15+Math.random()*1.2}));
   for(let i=0;i<58;i++){
     const bubble = document.createElement("i");
     bubble.className = "bubble";
-    bubble.style.setProperty("--x", `${Math.random()*100}%`);
-    bubble.style.setProperty("--s", `${3+Math.random()*8}px`);
-    bubble.style.setProperty("--d", `${9+Math.random()*15}s`);
-    bubble.style.setProperty("--delay", `${Math.random()*-22}s`);
-    bubble.style.setProperty("--sway", `${Math.random()*160-80}px`);
+    bubble.style.setProperty("--x", (Math.random()*100) + "%");
+    bubble.style.setProperty("--s", (3+Math.random()*8) + "px");
+    bubble.style.setProperty("--d", (9+Math.random()*15) + "s");
+    bubble.style.setProperty("--delay", (Math.random()*-22) + "s");
+    bubble.style.setProperty("--sway", (Math.random()*160-80) + "px");
     document.querySelector(".flight-deck").appendChild(bubble);
   }
   for(let i=0;i<28;i++){
     const bar = document.createElement("span");
-    bar.style.setProperty("--h",`${24+Math.random()*62}px`);
+    bar.style.setProperty("--h",(24+Math.random()*62) + "px");
     eq.appendChild(bar);
   }
   for(let i=0;i<4;i++){
     const strip = document.createElement("div");
     strip.className = "channel-strip";
     const level = 22 + i * 14;
-    strip.innerHTML = `<div class="knobs"><span class="knob"></span><span class="knob"></span><span class="knob"></span></div><div class="leds">${Array.from({length:8},()=>'<i class="led"></i>').join("")}</div><div class="fader" style="--level:${level}%"></div>`;
+    strip.innerHTML = '<div class="knobs"><span class="knob"></span><span class="knob"></span><span class="knob"></span></div><div class="leds">' + Array.from({length:8},()=>'<i class="led"></i>').join("") + '</div><div class="fader" style="--level:' + level + '%"></div>';
     mixer.appendChild(strip);
   }
   const cross = document.createElement("div");
   cross.className = "crossfader";
   cross.style.setProperty("--cross","18%");
   mixer.appendChild(cross);
+
   function resize(){
     width = canvas.width = window.innerWidth;
     height = canvas.height = window.innerHeight;
   }
+
   function draw(){
     ctx.clearRect(0,0,width,height);
     const grad = ctx.createLinearGradient(0,0,0,height);
@@ -532,12 +389,12 @@ body.deck-b .booth .turntable:last-child{border-color:rgba(131,243,186,.45);box-
       if(p.y < -.08){p.y = 1.08;p.x = Math.random();}
       const x = p.x * width;
       const y = p.y * height;
-      ctx.fillStyle = `rgba(223,248,255,${.12+p.z*.48})`;
+      ctx.fillStyle = "rgba(223,248,255," + (.12+p.z*.48) + ")";
       ctx.beginPath();
       ctx.arc(x,y,p.r,0,Math.PI*2);
       ctx.fill();
     });
-    ctx.strokeStyle = `rgba(73,217,255,${.22 + Math.sin(tick*.03)*.08})`;
+    ctx.strokeStyle = "rgba(73,217,255," + (.22 + Math.sin(tick*.03)*.08) + ")";
     ctx.lineWidth = 1;
     for(let i=0;i<8;i++){
       ctx.beginPath();
@@ -555,33 +412,17 @@ body.deck-b .booth .turntable:last-child{border-color:rgba(131,243,186,.45);box-
         led.style.boxShadow = on ? "0 0 10px currentColor" : "none";
       });
       altitude.textContent = (30800 + Math.round(Math.sin(tick*.015)*900 + Math.random()*280)).toLocaleString();
-      bpmRead.textContent = Math.round(124 + Math.sin(tick*.01)*2);
     }
     tick++;
     requestAnimationFrame(draw);
   }
+
   trackList.addEventListener("click", event => {
     const button = event.target.closest("[data-track]");
     if(button) selectTrack(button.dataset.track);
   });
-  updateTrackConsole();
-  soundBtn.addEventListener("click", async () => {
-    try {
-      if(playbackActive()){
-        stopAllSound();
-        return;
-      }
-      await startSelectedTrack();
-    } catch(error) {
-      console.error("Flight Deck audio error", error);
-      setDeckVisuals(false, activeTrack());
-      soundBtn.textContent = "Audio Error";
-      soundBtn.setAttribute("aria-pressed", "false");
-      soundStatus.textContent = "Error";
-      signal.textContent = "Audio Error";
-      trackStatus.textContent = "Audio error. Try another record.";
-    }
-  });
+  soundBtn.addEventListener("click", openSelectedStation);
+  updateStationConsole(false);
   window.addEventListener("resize", resize);
   resize();
   draw();
