@@ -63,3 +63,6 @@ Do not publish `.brushset`, source files, private dashboards, or downloadable pa
 The public site stays GitHub Pages friendly: leads are saved to a browser outbox, can open a `mailto:` fallback, and can be copied or downloaded as Slack-ready JSON.
 
 For automatic Slack delivery, point `window.INKSPIRATIONS_LEAD_RELAY_URL` or localStorage key `inkspirationsLeadRelayUrl` to a private relay such as Pipedream, Make, Zapier, or a serverless function. Do not commit a raw Slack incoming webhook URL to this repository.
+## Global Curation Rule
+
+Never use automatic search results as placeholders for Robert's curated content. If a playlist, artwork collection, product collection, writing collection, recommendation, shop, or profile destination has not been created or approved yet, show "Coming Soon," "Curated by Robert," or a disabled pending state until Robert assigns the final destination. Inkspirations Studios is a curated creative experience, not a search engine.

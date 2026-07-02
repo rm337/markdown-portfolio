@@ -192,3 +192,5 @@ The Merch Concept Foundry is public portfolio content at merch-foundry.html. It 
 ## Contact
 
 Portfolio inquiries: r.marleton@gmail.com
+GLOBAL CURATION RULE
+Never use automatic search results as placeholders for Robert's curated content. If a playlist, artwork collection, product collection, writing collection, recommendation, shop, or profile destination has not been created or approved yet, show "Coming Soon," "Curated by Robert," or a disabled pending state until Robert assigns the final destination. Inkspirations Studios is a curated creative experience, not a search engine.
