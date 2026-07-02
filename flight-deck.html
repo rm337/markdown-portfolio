@@ -39,15 +39,16 @@ canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
   conic-gradient(from 222deg at 50% 2%,transparent 0deg,rgba(73,217,255,.1) 10deg,transparent 22deg,transparent 48deg,rgba(8,119,242,.16) 60deg,transparent 76deg,transparent 360deg);
   filter:blur(8px);animation:beamSweep 10s ease-in-out infinite alternate}
 .scan{position:absolute;inset:0;z-index:9;opacity:.12;pointer-events:none;background:repeating-linear-gradient(180deg,transparent 0 7px,rgba(255,255,255,.055) 8px,transparent 9px)}
-.top-hud{position:absolute;z-index:20;left:0;right:0;top:0;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1rem clamp(1rem,4vw,3rem);border-bottom:1px solid var(--line);background:rgba(2,4,10,.42);backdrop-filter:blur(16px)}
-.brand{font-weight:900;font-size:.75rem;letter-spacing:.24em;text-transform:uppercase;color:rgba(223,248,255,.72)}
-.hud-readouts{display:flex;gap:1rem;flex-wrap:wrap;font-size:.72rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:rgba(223,248,255,.62)}
+.top-hud{position:absolute;z-index:20;left:0;right:0;top:0;display:flex;justify-content:space-between;align-items:center;gap:.8rem;padding:.78rem clamp(1rem,4vw,2.4rem);border-bottom:1px solid rgba(223,248,255,.08);background:rgba(2,4,10,.28);backdrop-filter:blur(12px)}
+.brand{font-weight:850;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(223,248,255,.58)}
+.hud-readouts{display:none;gap:.8rem;flex-wrap:wrap;font-size:.68rem;font-weight:850;letter-spacing:.11em;text-transform:uppercase;color:rgba(223,248,255,.46)}
 .hud-readouts b{color:var(--cyan);font-weight:950}
 .sound-control{display:flex;align-items:center;gap:.55rem;flex-wrap:wrap}
-.sound-toggle{border:1px solid rgba(73,217,255,.32);background:rgba(73,217,255,.1);color:var(--ice);font-weight:950;letter-spacing:.14em;text-transform:uppercase;padding:.58rem .75rem;cursor:pointer}
+.sound-toggle{border:1px solid rgba(73,217,255,.26);background:rgba(73,217,255,.075);color:var(--ice);font-weight:850;letter-spacing:.1em;text-transform:uppercase;padding:.5rem .68rem;cursor:pointer}
 .sound-toggle[aria-pressed="true"]{border-color:var(--green);background:rgba(131,243,186,.14);color:var(--green);box-shadow:0 0 18px rgba(131,243,186,.16)}
+.sound-toggle:disabled{cursor:default;opacity:.72}
 .sound-status{font-size:.66rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:rgba(223,248,255,.62)}
-.stage{position:relative;z-index:5;height:100%;display:grid;place-items:center;padding:6rem clamp(.6rem,3vw,2rem) 2rem}
+.stage{position:relative;z-index:5;height:100%;display:grid;place-items:center;padding:5.4rem clamp(.6rem,3vw,2rem) 2rem;opacity:.78}
 .ring{position:absolute;z-index:2;left:50%;top:43%;width:min(66vw,760px);height:min(66vw,760px);transform:translate(-50%,-50%);border-radius:50%;border:1px solid rgba(73,217,255,.36);box-shadow:0 0 40px rgba(73,217,255,.28),inset 0 0 38px rgba(73,217,255,.12);animation:ringPulse 4s ease-in-out infinite}
 .ring::before,.ring::after{content:"";position:absolute;inset:7%;border-radius:50%;border:1px dashed rgba(255,180,92,.34);animation:spin 18s linear infinite}
 .ring::after{inset:18%;border-color:rgba(73,217,255,.28);animation-duration:11s;animation-direction:reverse}
@@ -61,17 +62,17 @@ canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
 .radar::before{content:"";position:absolute;left:50%;top:50%;width:45%;height:2px;background:linear-gradient(90deg,var(--cyan),transparent);transform-origin:left center;animation:spin 3.4s linear infinite}
 .radar .blip{position:absolute;width:7px;height:7px;border-radius:50%;background:var(--amber);box-shadow:0 0 14px var(--amber)}
 .blip.a{left:63%;top:28%}.blip.b{left:31%;top:56%;background:var(--cyan);box-shadow:0 0 14px var(--cyan)}.blip.c{left:70%;top:70%;background:var(--pink);box-shadow:0 0 14px var(--pink)}
-.song-cards{position:absolute;z-index:7;right:clamp(1rem,4vw,3rem);top:16%;display:grid;gap:.7rem;width:min(280px,32vw)}
+.song-cards{display:none}
 .song-card{border:1px solid var(--line);background:rgba(6,14,28,.55);backdrop-filter:blur(16px);padding:.8rem;box-shadow:0 18px 44px rgba(0,0,0,.24);animation:floatCard 6s ease-in-out infinite}
 .song-card:nth-child(2){animation-delay:-1.7s}.song-card:nth-child(3){animation-delay:-3.2s}
 .song-card strong{display:block;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);margin-bottom:.25rem}
 .song-card span{display:block;color:rgba(223,248,255,.68);font-family:Georgia,"Times New Roman",serif;font-style:italic}
-.track-console{position:absolute;z-index:22;right:clamp(1rem,4vw,3rem);top:47%;width:min(330px,32vw);transform:translateY(-50%);border:1px solid rgba(223,248,255,.16);background:rgba(6,14,28,.66);backdrop-filter:blur(18px);padding:.85rem;box-shadow:0 22px 60px rgba(0,0,0,.34)}
+.track-console{position:absolute;z-index:22;left:50%;top:49%;width:min(430px,88vw);transform:translate(-50%,-50%);border:1px solid rgba(223,248,255,.14);background:rgba(6,14,28,.72);backdrop-filter:blur(20px);padding:1rem;box-shadow:0 24px 70px rgba(0,0,0,.38)}
 .console-kicker,.track-button,.track-status{font-size:.62rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
 .console-kicker{margin:0 0 .35rem;color:rgba(73,217,255,.76)}
-.track-console h2{margin:0 0 .75rem;color:var(--gold);font-family:Georgia,"Times New Roman",serif;font-weight:500;font-size:1.45rem;line-height:1.05}
+.track-console h2{margin:0 0 .8rem;color:var(--gold);font-family:Georgia,"Times New Roman",serif;font-weight:500;font-size:1.7rem;line-height:1.05}
 .track-list{display:grid;gap:.45rem}
-.track-button{width:100%;min-height:58px;border:1px solid rgba(223,248,255,.14);background:rgba(223,248,255,.055);color:var(--ice);text-align:left;padding:.58rem .65rem;cursor:pointer}
+.track-button{width:100%;min-height:64px;border:1px solid rgba(223,248,255,.12);background:rgba(223,248,255,.045);color:var(--ice);text-align:left;padding:.68rem .72rem;cursor:pointer}
 .track-button[aria-pressed="true"]{border-color:var(--green);background:rgba(131,243,186,.12);color:var(--green);box-shadow:0 0 18px rgba(131,243,186,.12)}
 .track-button[disabled]{cursor:not-allowed;opacity:.46}
 .track-button span{display:block;margin-top:.18rem;color:rgba(223,248,255,.58);font-size:.74rem;letter-spacing:0;text-transform:none;font-weight:600;line-height:1.25}
@@ -80,12 +81,12 @@ body:not(.deck-playing) .platter{animation-play-state:paused;filter:saturate(.72
 body.deck-playing .platter{animation-play-state:running;filter:saturate(1.08) brightness(1.04)}
 body.deck-a .booth .turntable:first-child{border-color:rgba(131,243,186,.45);box-shadow:inset 0 0 32px rgba(0,0,0,.36),0 0 24px rgba(131,243,186,.14)}
 body.deck-b .booth .turntable:last-child{border-color:rgba(131,243,186,.45);box-shadow:inset 0 0 32px rgba(0,0,0,.36),0 0 24px rgba(131,243,186,.14)}
-.zones{position:absolute;z-index:7;left:clamp(1rem,4vw,3rem);top:18%;display:grid;gap:.55rem;width:min(270px,30vw)}
+.zones{display:none}
 .zone{border-left:2px solid rgba(73,217,255,.45);background:rgba(6,14,28,.5);backdrop-filter:blur(14px);padding:.72rem .85rem;box-shadow:0 18px 42px rgba(0,0,0,.22)}
 .zone strong{display:block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ice)}
 .zone span{display:block;margin-top:.18rem;color:rgba(223,248,255,.58);font-size:.86rem;line-height:1.35}
 .bubble{position:absolute;z-index:3;left:var(--x);bottom:-9vh;width:var(--s);height:var(--s);border-radius:50%;border:1px solid rgba(223,248,255,.55);background:rgba(73,217,255,.12);box-shadow:0 0 14px rgba(73,217,255,.5);opacity:0;animation:bubbleRise var(--d) linear infinite;animation-delay:var(--delay);pointer-events:none}
-.performance{position:relative;z-index:8;width:min(1120px,96vw);height:min(680px,78vh);min-height:520px;display:grid;place-items:end center}
+.performance{position:relative;z-index:8;width:min(1040px,94vw);height:min(650px,76vh);min-height:500px;display:grid;place-items:end center;transform:scale(.94);transform-origin:center bottom}
 .dj{position:absolute;z-index:5;left:50%;bottom:240px;width:260px;height:350px;transform:translateX(-50%);animation:bodyGroove 1.45s ease-in-out infinite}
 .head{position:absolute;left:50%;top:0;width:88px;height:102px;transform:translateX(-50%);border-radius:44% 44% 48% 48%;background:linear-gradient(180deg,#d9a47a,#8f5d44);box-shadow:inset -12px -16px 22px rgba(0,0,0,.22)}
 .hair{position:absolute;left:50%;top:-10px;width:100px;height:58px;transform:translateX(-50%);border-radius:45px 45px 20px 20px;background:#10131c}
@@ -171,7 +172,7 @@ body.deck-b .booth .turntable:last-child{border-color:rgba(131,243,186,.45);box-
   <div class="scan"></div>
   <header class="top-hud">
     <div class="brand">Flight Deck / Music Navigation Center</div>
-    <div class="hud-readouts"><span>Altitude <b id="altitude">31,800</b></span><span>Signal <b id="signal">Locked</b></span><span>Station <b id="bpm">Ready</b></span></div><div class="sound-control"><button class="sound-toggle" id="soundBtn" type="button" aria-pressed="false">Open in Apple Music</button><span class="sound-status" id="soundStatus">External station</span></div>
+    <div class="hud-readouts"><span>Altitude <b id="altitude">31,800</b></span><span>Signal <b id="signal">Locked</b></span><span>Station <b id="bpm">Ready</b></span></div><div class="sound-control"><button class="sound-toggle" id="soundBtn" type="button" aria-pressed="false" disabled>Music link pending</button><span class="sound-status" id="soundStatus">Pending link</span></div>
   </header>
   <div class="ring"></div>
   <svg class="flight-path" viewBox="0 0 1200 520" preserveAspectRatio="none" aria-hidden="true">
@@ -190,11 +191,11 @@ body.deck-b .booth .turntable:last-child{border-color:rgba(131,243,186,.45);box-
     <div class="zone"><strong>Writing Room</strong><span>A quieter return path for memory, language, and reflection.</span></div>
   </aside>
   <aside class="radar" aria-label="Radar display"><i class="blip a"></i><i class="blip b"></i><i class="blip c"></i></aside>
-  <aside class="track-console" aria-label="DJ booth record controls">
-    <p class="console-kicker">DJ Booth</p>
+  <aside class="track-console" aria-label="Curated music station selector">
+    <p class="console-kicker">Discovered Listening Room</p>
     <h2 id="trackTitle">Select a station</h2>
-    <div class="track-list" id="trackList" aria-label="Flight Deck records"></div>
-    <p class="track-status" id="trackStatus">Ready</p>
+    <div class="track-list" id="trackList" aria-label="Flight Deck stations"></div>
+    <p class="track-status" id="trackStatus">Music link pending.</p>
   </aside>
   <section class="stage" aria-label="Animated DJ Flight Deck performance">
     <div class="performance">
@@ -251,40 +252,40 @@ body.deck-b .booth .turntable:last-child{border-color:rgba(131,243,186,.45);box-
       title:"Memory Lanterns",
       deck:"A",
       mood:"Warm, reflective, late-night music for memory, writing, and soft light.",
-      link:"https://music.apple.com/us/search?term=Memory%20Lanterns",
-      label:"Apple Music search"
+      link:"",
+      label:"Music link pending"
     },
     {
       id:"daylight-district",
       title:"Daylight District",
       deck:"A",
       mood:"Brighter creative momentum for building, sketching, editing, and moving forward.",
-      link:"https://music.apple.com/us/search?term=Daylight%20District",
-      label:"Apple Music search"
+      link:"",
+      label:"Music link pending"
     },
     {
       id:"c4-territory",
       title:"C4 Territory",
       deck:"B",
       mood:"High-alert energy for command-center focus, systems work, and bold experiments.",
-      link:"https://music.apple.com/us/search?term=C4%20Territory",
-      label:"Apple Music search"
+      link:"",
+      label:"Music link pending"
     },
     {
       id:"flight-deck-mix",
       title:"Flight Deck Mix",
       deck:"B",
       mood:"Electronic motion, altitude, radar glow, and studio-night movement.",
-      link:"https://music.apple.com/us/search?term=Flight%20Deck%20Mix",
-      label:"Apple Music search"
+      link:"",
+      label:"Music link pending"
     },
     {
       id:"ocean-of-ink-atmosphere",
       title:"Ocean of Ink Atmosphere",
       deck:"A",
       mood:"Deep blue ambience for Ocean of Ink, rain-window thinking, and quiet studio presence.",
-      link:"https://music.apple.com/us/search?term=Ocean%20of%20Ink%20Atmosphere",
-      label:"Apple Music search"
+      link:"",
+      label:"Music link pending"
     }
   ];
 
@@ -301,14 +302,15 @@ body.deck-b .booth .turntable:last-child{border-color:rgba(131,243,186,.45);box-
   function updateStationConsole(nowPlaying = false){
     const station = activeStation();
     trackTitle.textContent = station.title;
-    trackStatus.textContent = nowPlaying
+    trackStatus.textContent = station.link
       ? "Now selected: " + station.title + ". This station opens in Apple Music."
-      : "This station opens in Apple Music.";
+      : "Music link pending. Robert\'s Apple Music link will be connected here.";
     trackList.innerHTML = stations.map(item => '<button class="track-button" type="button" data-track="' + item.id + '" aria-pressed="' + (item.id === selectedTrackId) + '">Deck ' + item.deck + ' / ' + item.title + '<span>' + item.mood + '</span><span class="station-link-note">' + item.label + '</span></button>').join("");
-    soundBtn.textContent = "Open in Apple Music";
+    soundBtn.textContent = station.link ? "Open in Apple Music" : "Music link pending";
     soundBtn.setAttribute("aria-pressed", String(nowPlaying));
+    soundBtn.disabled = !station.link;
     soundBtn.dataset.href = station.link;
-    soundStatus.textContent = nowPlaying ? "Now selected" : "External station";
+    soundStatus.textContent = station.link ? (nowPlaying ? "Now selected" : "External station") : "Pending link";
     stationRead.textContent = station.deck;
   }
 
@@ -317,13 +319,15 @@ body.deck-b .booth .turntable:last-child{border-color:rgba(131,243,186,.45);box-
     if(visualTimer) clearTimeout(visualTimer);
     setDeckVisuals(true, station);
     soundBtn.setAttribute("aria-pressed", "true");
-    soundStatus.textContent = "Opening Apple Music";
-    signal.textContent = "Station Linked";
-    trackStatus.textContent = "Now selected: " + station.title + ". This station opens in Apple Music.";
+    soundStatus.textContent = station.link ? "Opening Apple Music" : "Pending link";
+    signal.textContent = station.link ? "Station Linked" : "Station Saved";
+    trackStatus.textContent = station.link
+      ? "Now selected: " + station.title + ". This station opens in Apple Music."
+      : "Music link pending. Robert\'s Apple Music link will be connected here.";
     visualTimer = setTimeout(() => {
       setDeckVisuals(false, station);
       soundBtn.setAttribute("aria-pressed", "false");
-      soundStatus.textContent = "External station";
+      soundStatus.textContent = station.link ? "External station" : "Pending link";
     }, 9000);
   }
 
@@ -333,12 +337,14 @@ body.deck-b .booth .turntable:last-child{border-color:rgba(131,243,186,.45);box-
     selectedTrackId = id;
     signal.textContent = "Station Armed";
     updateStationConsole(false);
+    pulseSelectedStation();
   }
 
   function openSelectedStation(){
     const station = activeStation();
     pulseSelectedStation();
-    console.log("Flight Deck station selected", { title: station.title, url: station.link });
+    console.log("Flight Deck station selected", { title: station.title, url: station.link || "pending" });
+    if(!station.link) return;
     window.open(station.link, "_blank", "noopener,noreferrer");
   }
 
