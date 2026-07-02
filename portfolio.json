@@ -1,6 +1,6 @@
 {
-  "updated": "2026-07-01",
-  "note": "Portfolio Lockdown v1.0: synced with the live public gallery data.",
+  "updated": "2026-07-02",
+  "note": "Portfolio title cleanup: artwork titles now follow visible artwork text or are marked pending when unknown.",
   "works": [
     {
       "type": "Burned Motion Study",
@@ -13,14 +13,14 @@
       "desc": "A red motion study with a charging razorback form and a rough, energetic surface. The piece leads the portfolio as a signature work."
     },
     {
-      "type": "Fluid Motion",
-      "medium": "Digital / Fluid Study",
-      "title": "Soul Current",
+      "type": "Lettering / Ink Study",
+      "medium": "Digital Lettering / Ink Study",
+      "title": "Submersion",
       "category": "Fluid Soul Series",
       "collection": "Fluid Soul Series",
       "src": "assets/images/portfolio/soul-current.jpg",
       "thumb": "assets/images/portfolio/thumbs/soul-current-thumb.jpg",
-      "desc": "A blue fluid-motion piece built around suspended color, soft pressure, and depth. It anchors the Fluid Soul direction."
+      "desc": "A blue ink field with the word Submersion set into soft wash, suspended marks, and quiet depth."
     },
     {
       "type": "Pattern Study",
@@ -33,54 +33,54 @@
       "desc": "A bright organic pattern study centered on a sunflower form. The piece adds warmth and structure to the collection."
     },
     {
-      "type": "Abstract Current",
-      "medium": "Digital / Abstract",
-      "title": "Cross Current",
-      "category": "Signature Collection",
-      "collection": "Signature Collection",
-      "src": "assets/images/portfolio/blue-name-current.jpg",
-      "thumb": "assets/images/portfolio/thumbs/blue-name-current-thumb.jpg",
-      "desc": "A layered blue current study with crossing movement and a quiet name-form quality. It sits between abstract surface and studio identity."
-    },
-    {
       "type": "Digital Lettering",
       "medium": "Lettering / Digital",
       "title": "Release",
       "category": "Signature Collection",
       "collection": "Signature Collection",
+      "src": "assets/images/portfolio/blue-name-current.jpg",
+      "thumb": "assets/images/portfolio/thumbs/blue-name-current-thumb.jpg",
+      "desc": "A blue lettering piece built around the word Release, with layered current-like movement surrounding the central script."
+    },
+    {
+      "type": "Digital Lettering",
+      "medium": "Lettering / Digital",
+      "title": "Washed Out",
+      "category": "Signature Collection",
+      "collection": "Signature Collection",
       "src": "assets/images/portfolio/washed-out.jpg",
       "thumb": "assets/images/portfolio/thumbs/washed-out-thumb.jpg",
-      "desc": "A restrained lettering piece set into a washed blue field. The composition keeps the message simple and atmospheric."
+      "desc": "A blue and violet lettering piece with the phrase Washed Out set into a soft atmospheric field."
     },
     {
       "type": "Digital Collage",
-      "medium": "Digital Collage",
-      "title": "Electric Bloom",
+      "medium": "Digital Collage / Typographic Study",
+      "title": "Lest We Forget",
       "category": "Experimental Works",
       "collection": "Experimental Works",
       "src": "assets/images/portfolio/lest-we-forget.jpg",
       "thumb": "assets/images/portfolio/thumbs/lest-we-forget-thumb.jpg",
-      "desc": "A compact digital collage with bright color, layered texture, and sharp contrast. It gives the collection a more experimental edge."
+      "desc": "A high-contrast digital collage centered on the phrase Lest We Forget, with red, blue, light, and rough texture layered together."
     },
     {
       "type": "Wood / Lettering",
       "medium": "Woodburning / Lettering",
-      "title": "We Are Not Descended",
+      "title": "We Are Not Descended From Fearful Men",
       "category": "Nature & Organic",
       "collection": "Nature & Organic",
       "src": "assets/images/portfolio/wood-warning.jpg",
       "thumb": "assets/images/portfolio/thumbs/wood-warning-thumb.jpg",
-      "desc": "A wood-burned lettering piece that uses the natural round as part of the composition. The bark edge, cracks, and burned marks carry the material character."
+      "desc": "A wood-burned lettering piece using the natural round, cracks, bark edge, and burned marks as part of the composition."
     },
     {
       "type": "Ink Study",
       "medium": "Texture / Ink Study",
-      "title": "Rainline Notes",
+      "title": "Rainline Study",
       "category": "Texture Studies",
       "collection": "Texture Studies",
       "src": "assets/images/portfolio/rainline-study.jpg",
       "thumb": "assets/images/portfolio/thumbs/rainline-study-thumb.jpg",
-      "desc": "A vertical texture study built from repeated marks and soft blue movement. It reads as surface, rhythm, and weather."
+      "desc": "A vertical texture study built from repeated marks and soft color movement. It reads as surface, rhythm, and weather."
     },
     {
       "type": "Texture Study",
@@ -95,52 +95,52 @@
     {
       "type": "Mixed Media",
       "medium": "Lettering / Texture",
-      "title": "Love, Weathered",
+      "title": "Love Study (Title Pending)",
       "category": "Words & Expressions",
       "collection": "Words & Expressions",
       "src": "assets/images/portfolio/love-texture.jpg",
       "thumb": "assets/images/portfolio/thumbs/love-texture-thumb.jpg",
-      "desc": "A word-based texture piece with a worn, layered surface. The lettering and background work together as a single weathered field."
+      "desc": "A word-based texture piece centered on Love, with a worn layered surface. The final full title is still pending."
     },
     {
       "type": "Lettering",
       "medium": "Lettering / Water Study",
-      "title": "Blessed Water",
+      "title": "Between Waves",
       "category": "Words & Expressions",
       "collection": "Words & Expressions",
       "src": "assets/images/portfolio/blessed-water.jpg",
       "thumb": "assets/images/portfolio/thumbs/blessed-water-thumb.jpg",
-      "desc": "A soft lettering piece set into a pale blue waterlike field. The open space lets the words and wash breathe."
+      "desc": "A soft lettering piece set into pale blue waterlike bands, with the phrase Between Waves moving through the lower edge."
     },
     {
       "type": "Lettering Study",
       "medium": "Digital Lettering",
-      "title": "Infinite Love",
+      "title": "Electric Love",
       "category": "Words & Expressions",
       "collection": "Words & Expressions",
       "src": "assets/images/portfolio/infinite-love-red.jpg",
       "thumb": "assets/images/portfolio/thumbs/infinite-love-red-thumb.jpg",
-      "desc": "A saturated lettering study built around a bold central word form. The color and script carry the energy of the piece."
+      "desc": "A saturated lettering study built around Electric Love, with strong color, script, and a charged central word form."
     },
     {
       "type": "Lettering Study",
       "medium": "Digital Lettering",
-      "title": "Infinite Love, Blue Variation",
+      "title": "Electric Love, Blue Variation",
       "category": "Words & Expressions",
       "collection": "Words & Expressions",
       "src": "assets/images/portfolio/infinite-love-violet.jpg",
       "thumb": "assets/images/portfolio/thumbs/infinite-love-violet-thumb.jpg",
-      "desc": "A cooler blue-violet variation of the Infinite Love lettering study. The palette shifts the same phrase into a calmer register."
+      "desc": "A cooler blue-violet variation of Electric Love, shifting the same phrase into a deeper atmospheric register."
     },
     {
       "type": "Lettering",
       "medium": "Digital Lettering",
-      "title": "You Are Priceless",
+      "title": "U R Priceless",
       "category": "Words & Expressions",
       "collection": "Words & Expressions",
       "src": "assets/images/portfolio/you-priceless.jpg",
       "thumb": "assets/images/portfolio/thumbs/you-priceless-thumb.jpg",
-      "desc": "A direct lettering piece centered on reassurance and value. It belongs with the word-based expression work."
+      "desc": "A direct lettering piece centered on U R Priceless, with a soft red field and handmade script."
     },
     {
       "type": "Brand Mark",
@@ -175,12 +175,12 @@
     {
       "type": "Typographic Poster",
       "medium": "Typographic Poster",
-      "title": "Say No",
+      "title": "Say No to Provoke and Blame",
       "category": "Words & Expressions",
       "collection": "Words & Expressions",
       "src": "assets/images/portfolio/say-no-poster.jpg",
       "thumb": "assets/images/portfolio/thumbs/say-no-poster-thumb.jpg",
-      "desc": "A stark typographic poster built from scale, contrast, and compression. The direct wording gives the piece its structure."
+      "desc": "A stark typographic poster built from scale, contrast, and compression. The visible phrase gives the piece its structure."
     },
     {
       "type": "Identity Mark",

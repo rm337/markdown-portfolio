@@ -31,127 +31,128 @@ The gallery contains 21 curated entries and is rendered by portfolio.js. Entries
    Medium: Burned Motion Study
    Category: Signature Collection
    File: assets/images/portfolio/red-motion-panel.jpg
-   Description: A red motion study with a charging, animal-like force at the front of the composition.
+   Description: A red motion study with a charging razorback form and a rough, energetic surface. The piece leads the portfolio as a signature work.
 
-2. Soul Current
-   Medium: Fluid Motion
+2. Submersion
+   Medium: Lettering / Ink Study
    Category: Fluid Soul Series
    File: assets/images/portfolio/soul-current.jpg
-   Description: A blue fluid-motion piece built around suspended ink, soft pressure, and depth.
+   Description: A blue ink field with the word Submersion set into soft wash, suspended marks, and quiet depth.
 
 3. Sunflower Mandala
    Medium: Pattern Study
    Category: Nature & Organic
    File: assets/images/portfolio/sunflower-mandala.jpg
-   Description: A bright organic pattern study centered on a sunflower form.
+   Description: A bright organic pattern study centered on a sunflower form. The piece adds warmth and structure to the collection.
 
-4. Cross Current
-   Medium: Abstract Current
+4. Release
+   Medium: Digital Lettering
    Category: Signature Collection
    File: assets/images/portfolio/blue-name-current.jpg
-   Description: A layered blue current study with crossing movement and a hidden signature quality.
+   Description: A blue lettering piece built around the word Release, with layered current-like movement surrounding the central script.
 
-5. Release
+5. Washed Out
    Medium: Digital Lettering
    Category: Signature Collection
    File: assets/images/portfolio/washed-out.jpg
-   Description: A restrained lettering piece with washed blue atmosphere.
+   Description: A blue and violet lettering piece with the phrase Washed Out set into a soft atmospheric field.
 
-6. Electric Bloom
+6. Lest We Forget
    Medium: Digital Collage
    Category: Experimental Works
    File: assets/images/portfolio/lest-we-forget.jpg
-   Description: A high-contrast digital collage where color, light, and rough texture collide.
+   Description: A high-contrast digital collage centered on the phrase Lest We Forget, with red, blue, light, and rough texture layered together.
 
-7. We Are Not Descended
+7. We Are Not Descended From Fearful Men
    Medium: Wood / Lettering
    Category: Nature & Organic
    File: assets/images/portfolio/wood-warning.jpg
-   Description: A wood-burned lettering piece using the natural round as part of the composition.
+   Description: A wood-burned lettering piece using the natural round, cracks, bark edge, and burned marks as part of the composition.
 
-8. Rainline Notes
+8. Rainline Study
    Medium: Ink Study
    Category: Texture Studies
    File: assets/images/portfolio/rainline-study.jpg
-   Description: A vertical texture study with repeated lines, soft color, and rainlike rhythm.
+   Description: A vertical texture study built from repeated marks and soft color movement. It reads as surface, rhythm, and weather.
 
 9. Blue Field
    Medium: Texture Study
    Category: Texture Studies
    File: assets/images/portfolio/blue-field.jpg
-   Description: A quiet blue texture field focused on surface, grain, and tonal movement.
+   Description: A quiet blue texture field focused on grain, tone, and surface movement. It functions as a supporting study rather than a main signature piece.
 
-10. Love, Weathered
-    Medium: Mixed Media
-    Category: Words & Expressions
-    File: assets/images/portfolio/love-texture.jpg
-    Description: A weathered word piece where the surface feels scraped and layered.
+10. Love Study (Title Pending)
+   Medium: Mixed Media
+   Category: Words & Expressions
+   File: assets/images/portfolio/love-texture.jpg
+   Description: A word-based texture piece centered on Love, with a worn layered surface. The final full title is still pending.
 
-11. Blessed Water
-    Medium: Lettering
-    Category: Words & Expressions
-    File: assets/images/portfolio/blessed-water.jpg
-    Description: A soft lettering piece set into a pale blue waterlike field.
+11. Between Waves
+   Medium: Lettering
+   Category: Words & Expressions
+   File: assets/images/portfolio/blessed-water.jpg
+   Description: A soft lettering piece set into pale blue waterlike bands, with the phrase Between Waves moving through the lower edge.
 
-12. Infinite Love
-    Medium: Lettering Study
-    Category: Words & Expressions
-    File: assets/images/portfolio/infinite-love-red.jpg
-    Description: A saturated lettering study built around a bold central word form.
+12. Electric Love
+   Medium: Lettering Study
+   Category: Words & Expressions
+   File: assets/images/portfolio/infinite-love-red.jpg
+   Description: A saturated lettering study built around Electric Love, with strong color, script, and a charged central word form.
 
-13. Infinite Love, Blue Variation
-    Medium: Lettering Study
-    Category: Words & Expressions
-    File: assets/images/portfolio/infinite-love-violet.jpg
-    Description: A cooler blue and violet variation of the Infinite Love lettering study.
+13. Electric Love, Blue Variation
+   Medium: Lettering Study
+   Category: Words & Expressions
+   File: assets/images/portfolio/infinite-love-violet.jpg
+   Description: A cooler blue-violet variation of Electric Love, shifting the same phrase into a deeper atmospheric register.
 
-14. You Are Priceless
-    Medium: Lettering
-    Category: Words & Expressions
-    File: assets/images/portfolio/you-priceless.jpg
-    Description: A direct lettering piece centered on reassurance and value.
+14. U R Priceless
+   Medium: Lettering
+   Category: Words & Expressions
+   File: assets/images/portfolio/you-priceless.jpg
+   Description: A direct lettering piece centered on U R Priceless, with a soft red field and handmade script.
 
 15. Inkspirations Studio Mark
-    Medium: Brand Mark
-    Category: Experimental Works
-    File: assets/images/portfolio/inkspirations-mark.jpg
-    Description: A studio mark exploration using blue lettering, splash, and atmosphere.
+   Medium: Brand Mark
+   Category: Experimental Works
+   File: assets/images/portfolio/inkspirations-mark.jpg
+   Description: A studio mark exploration using blue lettering, splash, and atmosphere. It supports the identity system around the artwork.
 
 16. Studio Blue Identity Card
-    Medium: Identity Design
-    Category: Experimental Works
-    File: assets/images/portfolio/studio-blue-card.jpg
-    Description: A compact identity card for Inkspirations Studios.
+   Medium: Identity Design
+   Category: Experimental Works
+   File: assets/images/portfolio/studio-blue-card.jpg
+   Description: A compact identity card for Inkspirations Studios. It presents the studio voice in a clean public-facing format.
 
 17. Inkspirations Logo Lockup
-    Medium: Identity Design
-    Category: Experimental Works
-    File: assets/images/portfolio/inkspirations-logo-card.jpg
-    Description: A clean logo lockup pairing calligraphic emphasis with the studio name.
+   Medium: Identity Design
+   Category: Experimental Works
+   File: assets/images/portfolio/inkspirations-logo-card.jpg
+   Description: A clean logo lockup pairing calligraphic emphasis with the studio name. It is organized as supporting identity work.
 
-18. Say No
-    Medium: Typographic Poster
-    Category: Words & Expressions
-    File: assets/images/portfolio/say-no-poster.jpg
-    Description: A stark typographic poster with a direct message and strong hierarchy.
+18. Say No to Provoke and Blame
+   Medium: Typographic Poster
+   Category: Words & Expressions
+   File: assets/images/portfolio/say-no-poster.jpg
+   Description: A stark typographic poster built from scale, contrast, and compression. The visible phrase gives the piece its structure.
 
 19. Small Town Teacher
-    Medium: Identity Mark
-    Category: Experimental Works
-    File: assets/images/portfolio/small-town-teacher.jpg
-    Description: A small identity mark with a handmade, personal tone.
+   Medium: Identity Mark
+   Category: Experimental Works
+   File: assets/images/portfolio/small-town-teacher.jpg
+   Description: A compact identity mark with a handmade, personal tone. It shows a softer side of the studio system.
 
 20. Inkspirations Coasters / Functional Art
-    Medium: Functional Art / Product Study
-    Category: Functional Art
-    Linked section: portfolio.html#functional and merch-foundry.html#coasters
-    Description: A functional art project for coaster sets, usable surfaces, and product-ready studio objects.
+   Medium: Project
+   Category: Functional Art
+   File: assets/images/portfolio/coasters/curved-blue-object-coaster-study.jpg
+   Linked section: merch-foundry.html#coasters
+   Description: A functional art project for coaster sets, usable surfaces, and product-ready studio objects. These studies connect the artwork to objects people can live with.
 
 21. Robert's Poem / Writing Piece
-    Medium: Writing / Poem
-    Category: Writing / Poem
-    Linked section: portfolio.html#writing
-    Description: A dedicated writing feature for Robert's poem and the language side of Inkspirations Studios.
+   Medium: Writing
+   Category: Writing / Poem
+   Linked section: portfolio.html#writing
+   Description: A dedicated writing feature for Robert's poem and the language side of Inkspirations Studios. The piece gives the studio world a quieter verbal entry point.
 
 ## Interactive Rooms and Tools
 
