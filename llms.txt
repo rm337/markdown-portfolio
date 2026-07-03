@@ -3,25 +3,24 @@
 AI-readable access file for ChatGPT and other assistants.
 
 Public homepage: https://rm337.github.io/markdown-portfolio/
-Portfolio world page: https://rm337.github.io/markdown-portfolio/portfolio.html#world
 Artwork gallery: https://rm337.github.io/markdown-portfolio/portfolio.html#portfolio
-Interactive rooms: https://rm337.github.io/markdown-portfolio/portfolio.html#interactive
+Public room threshold: https://rm337.github.io/markdown-portfolio/rooms.html
 Artist: Robert Marleton
 Studio: Inkspirations Studios
 Focus: digital artwork, hand-lettering, ocean-inspired creative systems, writing, music rooms, functional art experiments, and interactive studio environments.
 
 ## Site Structure
 
-The homepage is a calm studio lobby with no artwork grid or large artwork images.
+The homepage is the Front Zone: a calm studio lobby with no artwork grid, no large artwork images, and only Home, Portfolio, About, and Contact in primary navigation.
 
-The portfolio page organizes the full Inkspirations world:
-- Studio World map
+The portfolio page is the main public gallery path:
 - Artwork Gallery
 - Writing / Poem home
 - Coasters / Functional Art home
-- Interactive Rooms and Tools
-- Music / Creative Atmosphere
+- A soft doorway into rooms and atmosphere
 - Contact paths
+
+Behind-the-curtain pages such as Robertisms, BeatForge, Flight Deck, identity card, systems/process pages, and merchandise labs remain available by direct or contextual link, but they are not the front door. Private workflow pages such as lead intake and guest registry are not public navigation destinations.
 
 ## Current Artwork Gallery
 
@@ -154,21 +153,25 @@ The gallery contains 21 curated entries and is rendered by portfolio.js. Entries
    Linked section: portfolio.html#writing
    Description: A dedicated writing feature for Robert's poem and the language side of Inkspirations Studios. The piece gives the studio world a quieter verbal entry point.
 
-## Interactive Rooms and Tools
+## Middle Zone and Behind The Curtain
 
-- Flight Deck: flight-deck.html
-- BeatForge Studio / Music Room: beats.html
-  Access note: BeatForge is preparing for limited studio access. Visitors can request early access when Robert opens the next path.
 - Ocean of Ink / Room Hub: rooms.html#ocean-of-ink
 - Writing Room: rooms.html#writing-room
 - Music Room: rooms.html#music-room
+- Studio Map: site-map.html
+
+Contextual deeper pages:
+- Flight Deck: flight-deck.html
+- BeatForge Studio / Music Room: beats.html
 - Studio Process / How Robert Builds: systems-i-built.html
-- Commission Request: lead-intake.html
-- Guest Registry: guest-registry.html
 - Merch Concept Foundry: merch-foundry.html
 - T-Shirt Design Lab: t-shirt-design-lab.html
+- Robertisms: robertisms.html
 - IRIS / Studio Card: identity-card.html
-- Studio Map: site-map.html
+
+Private workflow pages:
+- Commission Request / Lead Intake: lead-intake.html
+- Guest Registry: guest-registry.html
 
 ## Writing / Poem
 

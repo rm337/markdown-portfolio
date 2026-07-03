@@ -9,5 +9,8 @@ Allow: /
 
 User-agent: *
 Allow: /
+Disallow: /lead-intake.html
+Disallow: /guest-registry.html
+Disallow: /data/
 
 Sitemap: https://rm337.github.io/markdown-portfolio/sitemap.xml

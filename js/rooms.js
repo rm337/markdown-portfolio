@@ -24,7 +24,7 @@
       title:"Ocean of Ink",
       subtitle:"Blue motion, water, light, and intention.",
       description:"The central atmosphere of Inkspirations Studios: ocean depth, ink movement, bubbles, and luminous blue focus.",
-      url:"rooms.html",
+      url:"rooms.html#ocean-of-ink",
       theme:"ocean",
       accent:"#0174F3",
       status:"Live",
@@ -47,7 +47,7 @@
       status:"Live",
       category:"Performance Room",
       tags:["dj","vinyl","flight","radar"],
-      hidden:false,
+      hidden:true,
       unlockType:null,
       unlockHint:null,
       discovered:false,
@@ -58,7 +58,7 @@
       title:"Writing Room",
       subtitle:"Quiet focus for words and memory.",
       description:"A public writing space for Robert's poem, reflective fragments, word pieces, prompts, and calm studio ritual.",
-      url:"rooms.html",
+      url:"rooms.html#writing-room",
       theme:"quiet",
       accent:"#f5efe5",
       status:"Public Feature",
@@ -75,7 +75,7 @@
       title:"Music Room",
       subtitle:"Listening, rhythm, and emotional weather.",
       description:"A listening room that connects BeatForge, Flight Deck, and the sound side of Inkspirations Studios.",
-      url:"rooms.html",
+      url:"rooms.html#music-room",
       theme:"music",
       accent:"#83f3ba",
       status:"Public Feature",
@@ -98,7 +98,7 @@
       status:"Closed Beta",
       category:"Subscription Product",
       tags:["beats","trial","subscription","music"],
-      hidden:false,
+      hidden:true,
       unlockType:null,
       unlockHint:null,
       discovered:false,
@@ -115,7 +115,7 @@
       status:"Public Lab",
       category:"Creative Lab",
       tags:["shirts","ideas","sketchbook","workshop"],
-      hidden:false,
+      hidden:true,
       unlockType:null,
       unlockHint:null,
       discovered:false,
@@ -132,7 +132,7 @@
       status:"Public Lab",
       category:"Merch / Functional Art",
       tags:["merch","coasters","robertisms","prints"],
-      hidden:false,
+      hidden:true,
       unlockType:null,
       unlockHint:null,
       discovered:false,
@@ -149,7 +149,7 @@
       status:"Public Feature",
       category:"Systems Showcase",
       tags:["systems","protocols","workflows","blueprints"],
-      hidden:false,
+      hidden:true,
       unlockType:null,
       unlockHint:null,
       discovered:false,
@@ -159,7 +159,7 @@
       id:"room-hub",
       title:"Studio Rooms",
       subtitle:"A gentle route through the rooms.",
-      description:"A public path between Home, Ocean of Ink, Flight Deck, Writing Room, Music Room, BeatForge, Studio Artifact Foundry, and Robert's process.",
+      description:"A gentle path from the gallery into Ocean of Ink, the Writing Room, the Music Room, and the slower parts of the studio.",
       url:"rooms.html",
       theme:"map",
       accent:"#9ed0ff",
@@ -230,7 +230,7 @@
     const publicRooms = visibleRooms();
     const activeId = detectActiveRoom() || "home";
     const activeIndex = Math.max(0, publicRooms.findIndex(room => room.id === activeId));
-    const room = publicRooms[activeIndex] || publicRooms[0];
+    const room = byId(activeId) || publicRooms[activeIndex] || publicRooms[0];
     const prev = publicRooms[(activeIndex - 1 + publicRooms.length) % publicRooms.length];
     const next = publicRooms[(activeIndex + 1) % publicRooms.length];
     target.innerHTML = `<nav class="room-global-nav" aria-label="Global room navigation" style="--room-accent:${escapeHtml(room.accent)}">
@@ -244,16 +244,9 @@
       <label class="room-chip" for="roomJump">Room Menu</label>
       <div class="room-nav-links">
         <a class="room-nav-link" href="index.html">Home</a>
-        <a class="room-nav-link" href="portfolio.html#world">Portfolio</a>
-        <a class="room-nav-link" href="portfolio.html#portfolio">Artwork</a>
-        <a class="room-nav-link" href="portfolio.html#interactive">Rooms</a>
-        <a class="room-nav-link" href="portfolio.html#writing">Writing</a>
-        <a class="room-nav-link" href="portfolio.html#functional">Coasters</a>
-        <a class="room-nav-link" href="merch-foundry.html">Merch</a>
-        <a class="room-nav-link" href="robertisms.html">Robertisms</a>
+        <a class="room-nav-link" href="portfolio.html#portfolio">Portfolio</a>
         <a class="room-nav-link" href="index.html#about">About</a>
         <a class="room-nav-link" href="index.html#contact">Contact</a>
-        <a class="room-nav-link" href="site-map.html">Studio Map</a>
         <a class="room-nav-link" href="${escapeHtml(prev.url)}">Previous</a>
         <select class="room-select" id="roomJump" aria-label="Choose room">${publicRooms.map(item => `<option value="${escapeHtml(item.url)}"${item.id === room.id ? " selected" : ""}>${escapeHtml(item.title)}</option>`).join("")}</select>
         <a class="room-nav-link" href="${escapeHtml(next.url)}">Next</a>
