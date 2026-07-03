@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Studio Backstage | Inkspirations Studios</title>
+<meta name="description" content="Robert-only backstage index for hidden Inkspirations Studios pages, rooms, tools, experiments, workflow pages, and direct-access studio links.">
+<meta name="robots" content="noindex,nofollow">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --ink:#050711;
+  --deep:#071427;
+  --blue:#0174F3;
+  --cyan:#56d9ff;
+  --paper:#f5efe5;
+  --gold:#ffe6ad;
+  --white:#f8fbff;
+  --soft:rgba(248,251,255,.74);
+  --muted:rgba(248,251,255,.5);
+  --line:rgba(248,251,255,.16);
+  --panel:rgba(6,14,28,.76);
+}
+html,body{min-height:100%}
+body{margin:0;background:var(--ink);color:var(--white);font-family:Georgia,"Times New Roman",serif;line-height:1.55;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:-2;background:
+  radial-gradient(circle at 18% 14%,rgba(86,217,255,.22),transparent 28%),
+  radial-gradient(circle at 76% 18%,rgba(1,116,243,.26),transparent 28%),
+  radial-gradient(circle at 70% 86%,rgba(245,239,229,.1),transparent 30%),
+  linear-gradient(160deg,#050711 0%,#071427 54%,#02040a 100%)}
+body::after{content:"";position:fixed;inset:0;z-index:-1;opacity:.18;background-image:
+  linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:76px 76px;mask-image:linear-gradient(to bottom,black,transparent 72%)}
+a{color:inherit}
+.shell{padding:clamp(2rem,5vw,4rem);max-width:1240px;margin:0 auto}
+.kicker,.btn,.card small,.status,.note strong{font-family:Arial,sans-serif;text-transform:uppercase;letter-spacing:.13em;font-weight:900}
+.kicker{margin:0 0 .8rem;color:var(--cyan);font-size:.72rem}
+h1,h2,h3,p{margin-top:0}
+h1{font-size:clamp(3rem,8vw,7rem);line-height:.9;color:var(--gold);margin-bottom:1rem}
+.lead{max-width:780px;color:var(--soft);font-size:clamp(1.05rem,2vw,1.28rem)}
+.top-actions{display:flex;gap:.75rem;flex-wrap:wrap;margin:1.5rem 0 2rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:.78rem 1rem;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--white);text-decoration:none;font-size:.66rem}
+.btn.primary{background:var(--blue);border-color:rgba(86,217,255,.52)}
+.btn:hover,.btn:focus{border-color:rgba(86,217,255,.72);transform:translateY(-1px);outline:none}
+.notice{border:1px solid rgba(255,230,173,.26);background:rgba(255,230,173,.07);padding:1rem;color:var(--soft);margin-bottom:1.5rem}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+.section{border:1px solid var(--line);background:var(--panel);box-shadow:0 28px 90px rgba(0,0,0,.34);padding:1rem}
+.section h2{font-size:1.55rem;margin-bottom:.75rem;color:var(--paper)}
+.links{display:grid;gap:.65rem}
+.card{display:grid;gap:.25rem;padding:.9rem;border:1px solid var(--line);background:rgba(255,255,255,.045);text-decoration:none}
+.card:hover,.card:focus{border-color:rgba(86,217,255,.72);outline:none}
+.card small{color:var(--cyan);font-size:.58rem}
+.card strong{font-size:1.15rem;color:var(--paper)}
+.card span{color:var(--soft)}
+.card.disabled{opacity:.6;cursor:default}
+.card.disabled:hover{transform:none;border-color:var(--line)}
+.status{display:inline-flex;width:max-content;min-height:26px;align-items:center;padding:.35rem .5rem;border:1px solid var(--line);background:rgba(255,255,255,.045);font-size:.56rem;color:var(--muted)}
+.note{margin:1.4rem 0 0;color:var(--muted);font-size:.92rem}
+footer{padding-top:2rem;color:var(--muted);font-family:Arial,sans-serif;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase}
+@media(max-width:860px){.grid{grid-template-columns:1fr}.shell{padding:1.2rem}}
+</style>
+</head>
+<body>
+<main class="shell">
+  <p class="kicker">Robert Only / Direct Bookmark</p>
+  <h1>Studio Backstage</h1>
+  <p class="lead">A private index for the rooms, experiments, tools, workflows, and hidden pages that were moved behind the curtain by the Front Door Doctrine.</p>
+  <div class="top-actions">
+    <a class="btn primary" href="index.html">Public Front Door</a>
+    <a class="btn" href="portfolio.html#portfolio">Public Portfolio</a>
+    <a class="btn" href="site-map.html">Studio Map</a>
+  </div>
+
+  <div class="notice">
+    <strong>Backstage rule:</strong> this page is not linked from public navigation, is not in the sitemap, and is marked noindex/nofollow. It is a bookmark page for Robert, not a visitor entrance.
+  </div>
+
+  <div class="grid">
+    <section class="section" aria-labelledby="creativeRooms">
+      <h2 id="creativeRooms">Creative Rooms</h2>
+      <div class="links">
+        <a class="card" href="rooms.html"><small>Middle Zone</small><strong>Studio Rooms</strong><span>Room hub for Ocean of Ink, writing, and music paths.</span></a>
+        <a class="card" href="rooms.html#ocean-of-ink"><small>Atmosphere</small><strong>Ocean of Ink</strong><span>The blue ink atmosphere at the center of the studio.</span></a>
+        <a class="card" href="rooms.html#writing-room"><small>Writing</small><strong>Writing Room</strong><span>Poem, words, and quieter studio voice.</span></a>
+        <a class="card" href="rooms.html#music-room"><small>Music</small><strong>Music Room</strong><span>The listening side of Inkspirations Studios.</span></a>
+        <a class="card" href="flight-deck.html"><small>Behind The Curtain</small><strong>Flight Deck</strong><span>Curated listening room and DJ booth experience.</span></a>
+        <a class="card" href="beats.html"><small>Behind The Curtain</small><strong>BeatForge Studio</strong><span>Limited-access music studio doorway.</span></a>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="toolsExperiments">
+      <h2 id="toolsExperiments">Tools &amp; Experiments</h2>
+      <div class="links">
+        <a class="card" href="systems-i-built.html"><small>Process</small><strong>Systems I Built</strong><span>How ideas become rooms, artwork, and repeatable studio forms.</span></a>
+        <a class="card" href="identity-card.html"><small>Identity</small><strong>Identity Card</strong><span>Robert Marleton digital studio card and contact hub.</span></a>
+        <a class="card" href="t-shirt-design-lab.html"><small>Experiment</small><strong>T-Shirt Design Lab</strong><span>Apparel ideas, Robertisms, and wearable concept studies.</span></a>
+        <a class="card" href="landing.html"><small>Archive</small><strong>Legacy Landing Page</strong><span>Older landing page kept for reference.</span></a>
+        <div class="card disabled" aria-disabled="true"><small>Not Published Here</small><strong>Command Center</strong><span>No matching Command Center HTML file is currently present in the GitHub Pages folder.</span></div>
+        <div class="card disabled" aria-disabled="true"><small>Not Published Here</small><strong>AI Agent Pages</strong><span>No separate AI Agent HTML pages are currently present in the GitHub Pages folder.</span></div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="commerceMerch">
+      <h2 id="commerceMerch">Commerce / Merch</h2>
+      <div class="links">
+        <a class="card" href="merch-foundry.html"><small>Artifact Lab</small><strong>Merch Foundry</strong><span>Coasters, Robertisms, shirts, prints, product concepts, and future studio artifacts.</span></a>
+        <a class="card" href="merch-foundry.html#coasters"><small>Functional Art</small><strong>Coaster Studies</strong><span>Direct jump to coaster and functional art presentation.</span></a>
+        <a class="card" href="robertisms.html"><small>Case Files</small><strong>Robertisms</strong><span>Stories, humor, phrases, artwork connections, and merch concepts.</span></a>
+        <a class="card" href="portfolio.html#functional"><small>Portfolio</small><strong>Functional Art Portfolio</strong><span>The public-facing coaster and functional art section.</span></a>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="privateWorkflow">
+      <h2 id="privateWorkflow">Private Workflow</h2>
+      <div class="links">
+        <a class="card" href="lead-intake.html"><small>Noindex</small><strong>Lead Intake</strong><span>Commission, print, collaboration, and request workflow page.</span></a>
+        <a class="card" href="guest-registry.html"><small>Noindex</small><strong>Guest Registry</strong><span>Guest book and visitor note workflow page.</span></a>
+        <a class="card" href="site-map.html"><small>Public Map</small><strong>Studio Map</strong><span>Public visitor route through the studio.</span></a>
+        <a class="card" href="portfolio.html#interactive"><small>Public Doorway</small><strong>Portfolio Room Doorway</strong><span>The public path into the room layer.</span></a>
+        <a class="card" href="index.html"><small>Front Zone</small><strong>Homepage / IRIS</strong><span>The clean public front door.</span></a>
+        <a class="card" href="portfolio.html#portfolio"><small>Front Zone</small><strong>Portfolio / Gallery</strong><span>The public artwork gallery.</span></a>
+      </div>
+    </section>
+  </div>
+
+  <p class="note"><strong>Reminder:</strong> hiding this page from navigation and search is not the same as password protection. Use it as a private bookmark, not as a place for sensitive information.</p>
+</main>
+<footer class="shell">Inkspirations Studios / Studio Backstage / Robert Marleton</footer>
+</body>
+</html>
