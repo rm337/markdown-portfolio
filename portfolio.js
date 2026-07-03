@@ -244,11 +244,13 @@ function assetPath(path) {
 
 
 function productTypesForWork(work) {
-  const category = (work.category || work.collection || "").toLowerCase();
-  if (category.includes("functional")) return ["tile", "print", "sticker", "other"];
-  if (category.includes("writing")) return ["print", "journal", "sticker"];
-  if (category.includes("words")) return ["tshirt", "print", "sticker", "journal"];
-  return ["print", "tile", "sticker", "tshirt"];
+  const text = [work.category, work.collection, work.type, work.medium, work.title].filter(Boolean).join(" ").toLowerCase();
+  if (text.includes("functional") || text.includes("coaster")) return ["tile", "original", "commission", "contact"];
+  if (text.includes("writing") || text.includes("poem")) return ["print", "commission", "contact"];
+  if (text.includes("words") || text.includes("lettering") || text.includes("typographic")) return ["tshirt", "print", "tile", "commission", "contact"];
+  if (text.includes("wood") || text.includes("burn")) return ["original", "print", "tile", "commission", "contact"];
+  if (text.includes("identity") || text.includes("brand") || text.includes("logo")) return ["print", "tshirt", "commission", "contact"];
+  return ["print", "original", "tile", "commission", "contact"];
 }
 
 function bringHomePayload(work) {

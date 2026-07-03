@@ -38,6 +38,7 @@
     if (text.includes("print")) products.push("print");
     if (text.includes("sticker")) products.push("sticker");
     if (!products.length) products.push("tshirt", "sticker");
+    products.push("contact");
     return Array.from(new Set(products));
   }
 
