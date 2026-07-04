@@ -52,7 +52,7 @@
       label: "Other Products",
       future: true,
       options: {
-        Request: ["Custom inquiry", "Future product idea", "Collector request"]
+        Request: ["Custom inquiry", "Future studio edition", "Collector request"]
       }
     }
   };
@@ -184,7 +184,7 @@
       const checkoutButton = event.target.closest("[data-bring-checkout]");
       if (checkoutButton) {
         const status = modal.querySelector("[data-bring-home-status]");
-        if (status) status.textContent = checkoutButton.dataset.bringCheckout === "save" ? "Saved locally for later studio follow-up." : checkoutButton.dataset.bringCheckout === "unavailable" ? "This option is an inquiry path right now. Use Ask About This Piece for availability." : "This path is saved for Robert to connect when the piece is ready.";
+        if (status) status.textContent = checkoutButton.dataset.bringCheckout === "save" ? "Saved locally for later studio follow-up." : checkoutButton.dataset.bringCheckout === "unavailable" ? "This option begins as a studio inquiry. Use Ask About This Piece for availability." : "This path is saved for Robert to connect when the piece is ready.";
         if (checkoutButton.dataset.bringCheckout === "save" && state.item) {
           const saved = JSON.parse(localStorage.getItem("inkBringHomeSaved") || "[]");
           saved.unshift({ title: state.item.title, date: new Date().toISOString() });
@@ -216,6 +216,12 @@
     return ["tshirt", "print", "sticker"].includes(product.type) && !product.future;
   }
 
+  function pathActionLabel(product) {
+    if (product.type === "print") return "View Print Options";
+    if (product.type === "tile") return "Bring It to Your Table";
+    return "Ask About This Piece";
+  }
+
   function physicalInquiryHref(item) {
     const subject = `Inquiry about ${item.title}`;
     const body = `Hi Robert, I'm interested in ${item.title}. Is this piece available as an original, decorative tile, print, or custom physical item?`;
@@ -224,7 +230,7 @@
 
   function optionMarkup(product) {
     const entries = Object.entries(product.options || {});
-    if (!entries.length) return `<p class="bring-home-note">Options will be connected when this product path is finalized.</p>`;
+    if (!entries.length) return `<p class="bring-home-note">Options will be connected when this studio path is finalized.</p>`;
     return entries.map(([label, values]) => `
       <div class="bring-home-field">
         <label>${escapeHtml(label)}</label>
@@ -253,7 +259,7 @@
           <section class="bring-home-section">
             <h3>Available Paths</h3>
             <div class="bring-home-products">
-              ${item.products.map((product, index) => `<button class="bring-home-product" type="button" data-bring-product="${index}" aria-pressed="${index === state.productIndex ? "true" : "false"}"><span>${product.icon} ${escapeHtml(product.label)}</span>${product.future ? "<small>Future product path</small>" : ""}</button>`).join("")}
+              ${item.products.map((product, index) => `<button class="bring-home-product" type="button" data-bring-product="${index}" aria-pressed="${index === state.productIndex ? "true" : "false"}"><span>${product.icon} ${escapeHtml(product.label)}</span>${product.future ? "<small>Future studio edition</small>" : ""}</button>`).join("")}
             </div>
           </section>
           <section class="bring-home-section">
@@ -268,14 +274,14 @@
         </div>
         <aside>
           <section class="bring-home-section">
-            <h3>Product Options</h3>
+            <h3>Available Options</h3>
             <div class="bring-home-options">${optionMarkup(activeProduct)}</div>
           </section>
           <section class="bring-home-section">
-            <h3>Order through print partner</h3>
-            <p class="bring-home-path-note">${productIsPod(activeProduct) ? "This product type is ready for a future print-partner checkout connection." : "This selected option is not set up for automatic checkout yet."}</p>
+            <h3>Bring This Piece Home</h3>
+            <p class="bring-home-path-note">${productIsPod(activeProduct) ? "This path can connect when Robert approves the final studio edition." : "This selected path begins as a direct studio inquiry."}</p>
             <div class="bring-home-checkout">
-              ${productIsPod(activeProduct) ? `<button class="btn primary" type="button" data-bring-checkout="buy">Order Through Print Partner</button><button class="btn" type="button" data-bring-checkout="checkout">Continue to Checkout</button>` : `<button class="btn" type="button" data-bring-checkout="unavailable">Print Partner Not Connected Yet</button>`}
+              ${productIsPod(activeProduct) ? `<button class="btn primary" type="button" data-bring-checkout="buy">${pathActionLabel(activeProduct)}</button><button class="btn" type="button" data-bring-checkout="checkout">Ask About This Piece</button>` : `<button class="btn" type="button" data-bring-checkout="unavailable">Ask About This Piece</button>`}
               <button class="btn" type="button" data-bring-checkout="save">Save for Later</button>
             </div>
             <p class="bring-home-note">The studio stays here. Ordering paths can connect quietly when Robert approves the final piece.</p>
@@ -333,24 +339,24 @@
   "use strict";
 
   const contactEmail = "r.marleton@gmail.com";
-  const printPartnerUrl = "https://pixels.com/profiles/robert-marleton";
+  const printPartnerUrl = "";
 
   const pathDefaults = {
     printPartner: {
       label: "Fine Art Print",
-      badge: "Print Partner",
-      action: "Open Print Partner",
+      badge: "Studio Editions",
+      action: "View Print Options",
       ready: true,
-      options: { Format:["Fine art print","Canvas print","Framed print"], Size:["Choose with print partner"], Quantity:["Choose with print partner"] },
-      note: "Prints are fulfilled by Robert's approved print partner when the piece is available there."
+      options: { Format:["Fine art print","Canvas print","Framed print"], Size:["Choose after opening"], Quantity:["Choose after opening"] },
+      note: "When this piece is available as a studio print, the print options open in a separate window."
     },
     apparelPartner: {
       label: "Apparel",
-      badge: "Apparel Partner",
+      badge: "Future Studio Edition",
       action: "Ask About Apparel",
       ready: false,
       options: { Style:["Premium T-shirt","Future apparel option"], Size:["S","M","L","XL","2XL","3XL"], Color:["Deep ocean","Black","White","Heather gray"] },
-      note: "Apparel will connect only after Robert approves the final product destination."
+      note: "Apparel appears only after Robert approves the final studio edition."
     },
     decorativeTileInquiry: {
       label: "Decorative Tile",
@@ -358,7 +364,7 @@
       action: "Ask About Tile",
       ready: true,
       options: { Size:["4 x 4","6 x 6","8 x 8","Custom"], Finish:["Gloss","Matte","Robert recommendation"], Quantity:["Single","Pair","Set","Custom"] },
-      note: "Decorative tiles, coaster-style pieces, and physical studio objects are handled as inquiries until automatic fulfillment is ready."
+      note: "Decorative tiles, coaster-style pieces, and physical studio objects begin as direct studio inquiries."
     },
     originalArtworkInquiry: {
       label: "Original Artwork",
@@ -382,7 +388,7 @@
       action: "Contact Robert",
       ready: true,
       options: { Reason:["Question","Collaboration","Licensing","Other"] },
-      note: "Use this when the best next step is a conversation instead of checkout."
+      note: "Use this when the best next step is a direct studio conversation."
     },
     stickerPartner: {
       label: "Sticker",
@@ -390,7 +396,7 @@
       action: "Ask About Stickers",
       ready: false,
       options: { Size:["Small","Medium","Large"], Finish:["Gloss","Matte"] },
-      note: "Sticker products will connect after Robert approves a final destination."
+      note: "Sticker editions will connect after Robert approves a final destination."
     },
     journalPartner: {
       label: "Journal",
@@ -398,7 +404,7 @@
       action: "Ask About Journals",
       ready: false,
       options: { Format:["Lined journal","Blank journal","Future notebook"] },
-      note: "Journal products are prepared as future merchandise paths."
+      note: "Journal editions are prepared as future merchandise paths."
     }
   };
 
@@ -539,10 +545,11 @@
   }
 
   function primaryAction(item, path){
-    if(path.type === "printPartner" && path.ready){
-      return `<a class="btn primary" href="${esc(path.url || printPartnerUrl)}" target="_blank" rel="noopener">${esc(path.action)}</a>`;
+    if(path.type === "printPartner" && path.ready && (path.url || printPartnerUrl)){
+      return `<a class="btn primary" href="${esc(path.url || printPartnerUrl)}" target="_blank" rel="noopener">View Print Options</a>`;
     }
-    return `<a class="btn primary" href="${esc(inquiryHref(item, path))}">${esc(path.ready ? path.action : "Ask Robert About This")}</a>`;
+    const label = path.type === "decorativeTileInquiry" ? "Bring It to Your Table" : path.type === "originalArtworkInquiry" ? "Bring This Piece Home" : path.ready && path.type !== "printPartner" ? path.action : "Ask About This Piece";
+    return `<a class="btn primary" href="${esc(inquiryHref(item, path))}">${esc(label)}</a>`;
   }
 
   function saveForLater(){
@@ -569,7 +576,7 @@
         <section class="bring-home-section"><h3>Studio Recommendation</h3><p class="bring-home-note">This piece also pairs well with...</p><div class="bring-home-recs">${recChips(item.recommendations)}</div></section>
       </div><aside>
         <section class="bring-home-section"><h3>Selected Path</h3><span class="bring-home-badge">${esc(path.badge)}</span><p class="bring-home-path-note">${esc(path.note)}</p><div class="bring-home-options">${optionMarkup(path)}</div></section>
-        <section class="bring-home-section"><h3>Next Step</h3><div class="bring-home-actions">${primaryAction(item, path)}<button class="btn" type="button" data-commerce-save>Save for Later</button><a class="btn" href="${esc(inquiryHref(item, normalizePath("contactRobert")))}">Contact Robert</a></div><p class="bring-home-note">Checkout appears only when a piece has an approved destination. Originals, tiles, commissions, and custom work stay inquiry-based.</p><p class="bring-home-status" data-bring-home-status></p></section>
+        <section class="bring-home-section"><h3>Next Step</h3><div class="bring-home-actions">${primaryAction(item, path)}<button class="btn" type="button" data-commerce-save>Save for Later</button><a class="btn" href="${esc(inquiryHref(item, normalizePath("contactRobert")))}">Ask About This Piece</a></div><p class="bring-home-note">A direct print link appears only when Robert has approved the piece. Originals, tiles, commissions, and custom work stay inquiry-based.</p><p class="bring-home-status" data-bring-home-status></p></section>
       </aside></div>`;
   }
 

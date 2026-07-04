@@ -8,7 +8,7 @@
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://rm337.github.io/markdown-portfolio/portfolio.html">
   <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="style.css?v=20260630-complete">
+  <link rel="stylesheet" href="style.css?v=20260703-gallery-flow">
 </head>
 <body>
   <div class="ink-particles" aria-hidden="true">
@@ -148,9 +148,9 @@
           <p>A dedicated portfolio project for coaster artwork, usable surface studies, product experiments, and object-based pieces connected directly to the Studio Artifact Foundry.</p>
         </div>
         <div class="slot-grid" aria-label="Coaster and functional art photos">
-          <article class="asset-slot image-asset"><img src="assets/images/portfolio/coasters/curved-blue-object-coaster-study.jpg" alt="Curved blue functional art coaster study"><span>Coaster Study</span><strong>Blue Current Coaster</strong><small>Functional art object</small></article>
-          <article class="asset-slot image-asset"><img src="assets/images/portfolio/coasters/blue-wave-wood-panel-functional-art.jpg" alt="Blue wave wood panel functional art study"><span>Functional Art</span><strong>Blue Wave Wood Panel</strong><small>Surface and object study</small></article>
-          <article class="asset-slot image-asset"><img src="assets/images/portfolio/coasters/wood-round-functional-art.jpg" alt="Round wood functional art study"><span>Wood Study</span><strong>Natural Round Study</strong><small>Object detail</small></article>
+          <article class="asset-slot image-asset"><img src="assets/images/portfolio/coasters/curved-blue-object-coaster-study.jpg" alt="Curved blue functional art coaster study" loading="lazy" decoding="async"><span>Coaster Study</span><strong>Blue Current Coaster</strong><small>Functional art object</small></article>
+          <article class="asset-slot image-asset"><img src="assets/images/portfolio/coasters/blue-wave-wood-panel-functional-art.jpg" alt="Blue wave wood panel functional art study" loading="lazy" decoding="async"><span>Functional Art</span><strong>Blue Wave Wood Panel</strong><small>Surface and object study</small></article>
+          <article class="asset-slot image-asset"><img src="assets/images/portfolio/coasters/wood-round-functional-art.jpg" alt="Round wood functional art study" loading="lazy" decoding="async"><span>Wood Study</span><strong>Natural Round Study</strong><small>Object detail</small></article>
         </div>
         <div class="actions">
           <a class="btn primary" href="merch-foundry.html">Explore Studio Artifacts</a>
@@ -200,14 +200,19 @@
           <span id="modalType" class="meta"></span>
           <h3 id="modalTitle"></h3>
           <p id="modalDesc"></p>
+          <dl class="modal-details" aria-label="Artwork details">
+            <div><dt>Status</dt><dd id="modalStatus"></dd></div>
+            <div><dt>Price</dt><dd id="modalPrice"></dd></div>
+            <div><dt>Dimensions</dt><dd id="modalDimensions"></dd></div>
+            <div><dt>Medium</dt><dd id="modalMedium"></dd></div>
+          </dl>
         </div>
-        <button class="btn primary" id="bringHomeCurrent" type="button">Bring This Home</button>
-        <a class="btn" href="index.html#contact">Ask About This Piece</a>
+        <a class="btn primary" id="modalPrimaryAction" href="index.html#contact">Ask About This Piece</a>
       </div>
     </div>
   </div>
-  <script src="portfolio-17a31d0.js?v=20260702-commerce"></script>
-  <script src="bring-home.js?v=20260702-commerce"></script>
+  <script src="portfolio.js?v=20260703-gallery-flow"></script>
+  <script src="bring-home.js?v=20260703-gallery-flow"></script>
   <script src="studio-audio.js?v=20260630-audio-safe"></script>
 </body>
 </html>

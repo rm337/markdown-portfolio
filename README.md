@@ -36,7 +36,14 @@ These files are preserved, but they are not part of the public navigation and sh
 - `js/lead-intake.js` - shared static intake helper for local outbox, `mailto:` fallback, JSON export, and optional relay posting
 - `css/rooms.css` - shared room navigation, cards, and atmosphere styles
 - `js/rooms.js` - reusable room data, cards, active-room detection, and atmosphere controls
+- `portfolio.json` - single gallery image list used by `portfolio.html`
+- `portfolio.js` - gallery loader that renders cards, filters, lazy images, detail view, studio inquiry, and bring-home actions
+- `docs/lightroom-gallery-export.md` - Lightroom export settings and drop-folder instructions
 - `docs/portfolio-curation-report.md` - asset inventory, image recommendations, and homepage curation notes
+
+## Gallery workflow
+
+Export Lightroom selections as web JPEGs, place them in `assets/images/artwork/`, `assets/images/coasters/`, `assets/images/wood-art/`, or `assets/images/process/`, then add the item to `portfolio.json`. The gallery HTML should not be edited for each new image.
 
 ## Information architecture notes
 

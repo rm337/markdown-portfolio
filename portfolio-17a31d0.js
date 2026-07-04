@@ -213,7 +213,13 @@ const works = [
   }
 ];
 
-works.forEach((work, index) => { work.index = index; });
+works.forEach((work, index) => {
+  work.index = index;
+  work.printUrl = work.printUrl || work.printHref || "";
+  work.printAvailable = Boolean(work.printAvailable);
+  work.originalAvailable = Boolean(work.originalAvailable);
+  work.inquiryType = work.inquiryType || "prints";
+});
 
 const filterRow = document.getElementById("filterRow");
 const galleryGrid = document.getElementById("galleryGrid");
@@ -271,6 +277,16 @@ function bringHomePayload(work) {
     },
     source: "Portfolio Gallery"
   };
+}
+
+function printHref(work) {
+  return work.printAvailable && work.printUrl ? assetPath(work.printUrl) : "";
+}
+
+function askHref(work) {
+  const subject = `Inquiry about ${work.title}`;
+  const body = `Hi Robert, I am interested in ${work.title}. Is this piece available as an original, decorative tile, print, or custom physical item?`;
+  return `mailto:r.marleton@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 
 window.InkspirationsBringHomeData = Object.assign(window.InkspirationsBringHomeData || {}, {
@@ -423,7 +439,15 @@ function openLightbox(position) {
   modalType.textContent = `${activeIndex + 1} / ${visibleWorks.length} - ${work.medium || work.type || work.category || "Artwork"}`;
   modalTitle.textContent = work.title;
   modalDesc.textContent = work.desc || "Selected Inkspirations Studios work.";
-  if (bringHomeCurrent) bringHomeCurrent.hidden = false;
+  if (bringHomeCurrent) {
+    bringHomeCurrent.hidden = !printHref(work);
+    bringHomeCurrent.textContent = "View Print Options";
+  }
+  const modalAskCurrent = document.getElementById("modalAskCurrent");
+  if (modalAskCurrent) {
+    modalAskCurrent.hidden = !work.originalAvailable;
+    modalAskCurrent.href = askHref(work);
+  }
   modal.classList.add("open");
   document.body.classList.add("modal-open");
   document.getElementById("closeModal").focus();
@@ -471,8 +495,9 @@ document.getElementById("modalNext").addEventListener("click", () => moveLightbo
 document.getElementById("closeModal").addEventListener("click", closeModal);
 if (bringHomeCurrent) {
   bringHomeCurrent.addEventListener("click", () => {
-    if (!visibleWorks.length || !window.InkspirationsBringHome) return;
-    window.InkspirationsBringHome.open(bringHomePayload(visibleWorks[activeIndex]));
+    if (!visibleWorks.length) return;
+    const href = printHref(visibleWorks[activeIndex]);
+    if (href) window.open(href, "_blank", "noopener");
   });
 }
 
