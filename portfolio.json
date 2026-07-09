@@ -17,7 +17,9 @@
       "printAvailable": false,
       "originalAvailable": false,
       "inquiryType": "prints",
-      "desc": "A finished Inkspirations Studios artwork used as the main visual anchor for the portfolio. Its blue current, layered texture, and emotional tone establish the public studio identity."
+      "visualKind": "image",
+      "desc": "A finished Inkspirations Studios artwork used as the main visual anchor for the portfolio. Its blue current, layered texture, and emotional tone establish the public studio identity.",
+      "alt": "Blue fluid ink artwork with layered texture and a luminous central form."
     },
     {
       "type": "Creative Direction",
@@ -31,6 +33,8 @@
       "printAvailable": false,
       "originalAvailable": false,
       "inquiryType": "creative-direction",
+      "visualKind": "concept",
+      "visualLabel": "Ocean of Ink",
       "desc": "A calm blue studio world built around ink, water, memory, and discovery. This entry shows Robert's ability to organize artwork into a clear visual experience instead of a loose folder of images."
     },
     {
@@ -45,6 +49,8 @@
       "printAvailable": false,
       "originalAvailable": false,
       "inquiryType": "branding",
+      "visualKind": "concept",
+      "visualLabel": "Studio Identity",
       "desc": "A public-facing creative identity shaped through consistent color, atmosphere, navigation, titles, and a museum-like visitor path."
     },
     {
@@ -54,6 +60,7 @@
       "category": "Functional Art",
       "collection": "Functional Art",
       "projectHref": "merch-foundry.html#coasters",
+      "visualKind": "concept",
       "visualLabel": "Functional Art",
       "status": "Concept Direction",
       "price": "Available by inquiry",
