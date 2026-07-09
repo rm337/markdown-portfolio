@@ -1,0 +1,201 @@
+const state = {
+  allItems: [],
+  visibleItems: [],
+  currentIndex: 0
+};
+
+const els = {
+  grid: document.querySelector('#gallery-grid'),
+  featured: document.querySelector('#featured-panel'),
+  search: document.querySelector('#gallery-search'),
+  collection: document.querySelector('#collection-filter'),
+  type: document.querySelector('#type-filter'),
+  sort: document.querySelector('#sort-filter'),
+  count: document.querySelector('#gallery-count'),
+  empty: document.querySelector('#empty-state'),
+  lightbox: document.querySelector('#lightbox'),
+  lightboxImage: document.querySelector('#lightbox-image'),
+  lightboxTitle: document.querySelector('#lightbox-title'),
+  lightboxDescription: document.querySelector('#lightbox-description'),
+  lightboxKicker: document.querySelector('#lightbox-kicker'),
+  lightboxMeta: document.querySelector('#lightbox-meta'),
+  lightboxClose: document.querySelector('#lightbox-close'),
+  previous: document.querySelector('#lightbox-previous'),
+  next: document.querySelector('#lightbox-next')
+};
+
+async function initGallery() {
+  try {
+    const response = await fetch('data/portfolio-gallery.json', { cache: 'no-store' });
+    if (!response.ok) throw new Error(`Gallery JSON failed to load: ${response.status}`);
+    const data = await response.json();
+    state.allItems = Array.isArray(data.items) ? data.items.filter(item => item && item.image) : [];
+  } catch (error) {
+    console.warn(error);
+    state.allItems = [];
+  }
+
+  hydrateFilters();
+  bindEvents();
+  renderGallery();
+}
+
+function bindEvents() {
+  els.search.addEventListener('input', renderGallery);
+  els.collection.addEventListener('change', renderGallery);
+  els.type.addEventListener('change', renderGallery);
+  els.sort.addEventListener('change', renderGallery);
+  els.lightboxClose.addEventListener('click', closeLightbox);
+  els.previous.addEventListener('click', showPrevious);
+  els.next.addEventListener('click', showNext);
+
+  els.lightbox.addEventListener('click', (event) => {
+    if (event.target === els.lightbox) closeLightbox();
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (!els.lightbox.open) return;
+    if (event.key === 'Escape') closeLightbox();
+    if (event.key === 'ArrowLeft') showPrevious();
+    if (event.key === 'ArrowRight') showNext();
+  });
+}
+
+function hydrateFilters() {
+  uniqueSorted(state.allItems.map(item => item.collection).filter(Boolean))
+    .forEach(value => els.collection.append(new Option(value, value)));
+
+  uniqueSorted(state.allItems.map(item => item.type).filter(Boolean))
+    .forEach(value => els.type.append(new Option(value, value)));
+}
+
+function renderGallery() {
+  const query = els.search.value.trim().toLowerCase();
+  const collection = els.collection.value;
+  const type = els.type.value;
+
+  state.visibleItems = state.allItems
+    .filter(item => collection === 'all' || item.collection === collection)
+    .filter(item => type === 'all' || item.type === type)
+    .filter(item => {
+      if (!query) return true;
+      return [item.title, item.collection, item.type, item.medium, item.description, ...(item.tags || [])]
+        .filter(Boolean)
+        .join(' ')
+        .toLowerCase()
+        .includes(query);
+    })
+    .sort(sortItems);
+
+  renderFeatured();
+  renderCards();
+  els.count.textContent = `${state.visibleItems.length} image${state.visibleItems.length === 1 ? '' : 's'} showing`;
+  els.empty.hidden = state.visibleItems.length > 0;
+}
+
+function renderFeatured() {
+  const featuredItem = state.visibleItems.find(item => item.featured) || state.visibleItems[0];
+  if (!featuredItem) {
+    els.featured.innerHTML = '';
+    els.featured.hidden = true;
+    return;
+  }
+
+  els.featured.hidden = false;
+  els.featured.innerHTML = `
+    <img src="${escapeAttribute(featuredItem.image)}" alt="${escapeAttribute(featuredItem.alt || featuredItem.title)}" loading="lazy">
+    <div class="featured-copy">
+      <p class="eyebrow">Featured piece</p>
+      <h2>${escapeHtml(featuredItem.title)}</h2>
+      <p>${escapeHtml(featuredItem.description || '')}</p>
+      <div class="card-actions">
+        <button class="button primary" type="button" data-featured-open>Open Lightbox</button>
+        <a class="button" href="index.html#contact">Ask About This Piece</a>
+      </div>
+    </div>
+  `;
+  els.featured.querySelector('[data-featured-open]').addEventListener('click', () => openLightbox(0));
+}
+
+function renderCards() {
+  els.grid.innerHTML = '';
+
+  state.visibleItems.forEach((item, index) => {
+    const card = document.createElement('button');
+    card.type = 'button';
+    card.className = 'gallery-card';
+    card.innerHTML = `
+      <img src="${escapeAttribute(item.image)}" alt="${escapeAttribute(item.alt || item.title)}" loading="lazy">
+      <div class="card-body">
+        <h3>${escapeHtml(item.title)}</h3>
+        <p>${escapeHtml(item.collection || 'Portfolio')}</p>
+        <p>${escapeHtml(item.medium || '')}</p>
+        <div class="tag-row">${(item.tags || []).slice(0, 4).map(tag => `<span>${escapeHtml(tag)}</span>`).join('')}</div>
+      </div>
+    `;
+    card.addEventListener('click', () => openLightbox(index));
+    els.grid.append(card);
+  });
+}
+
+function openLightbox(index) {
+  state.currentIndex = index;
+  updateLightbox();
+  els.lightbox.showModal();
+}
+
+function updateLightbox() {
+  const item = state.visibleItems[state.currentIndex];
+  if (!item) return;
+
+  els.lightboxImage.src = item.image;
+  els.lightboxImage.alt = item.alt || item.title;
+  els.lightboxTitle.textContent = item.title;
+  els.lightboxDescription.textContent = item.description || '';
+  els.lightboxKicker.textContent = [item.collection, item.type].filter(Boolean).join(' · ');
+  els.lightboxMeta.innerHTML = '';
+
+  [['Medium', item.medium], ['Year', item.year], ['Priority', item.priority ? `Gallery ${item.priority}` : '']]
+    .filter(([, value]) => value)
+    .forEach(([label, value]) => {
+      const wrap = document.createElement('div');
+      wrap.innerHTML = `<dt>${escapeHtml(label)}</dt><dd>${escapeHtml(String(value))}</dd>`;
+      els.lightboxMeta.append(wrap);
+    });
+}
+
+function showPrevious() {
+  if (!state.visibleItems.length) return;
+  state.currentIndex = (state.currentIndex - 1 + state.visibleItems.length) % state.visibleItems.length;
+  updateLightbox();
+}
+
+function showNext() {
+  if (!state.visibleItems.length) return;
+  state.currentIndex = (state.currentIndex + 1) % state.visibleItems.length;
+  updateLightbox();
+}
+
+function closeLightbox() {
+  els.lightbox.close();
+}
+
+function sortItems(a, b) {
+  if (els.sort.value === 'title') return String(a.title).localeCompare(String(b.title));
+  if (els.sort.value === 'newest') return Number(b.year || 0) - Number(a.year || 0);
+  return Number(a.priority || 999) - Number(b.priority || 999);
+}
+
+function uniqueSorted(values) {
+  return [...new Set(values)].sort((a, b) => String(a).localeCompare(String(b)));
+}
+
+function escapeHtml(value) {
+  return String(value).replace(/[&<>'"]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[char]));
+}
+
+function escapeAttribute(value) {
+  return escapeHtml(value);
+}
+
+initGallery();
