@@ -4,17 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Inkspirations Gallery | Inkspirations Studios</title>
-  <meta name="description" content="A polished visual portfolio gallery for selected Inkspirations Studios artwork by Robert Marleton.">
+  <meta name="description" content="A calm, employer-friendly portfolio gallery for selected Inkspirations Studios artwork and creative direction by Robert Marleton.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://rm337.github.io/markdown-portfolio/portfolio.html">
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="style.css?v=20260709-focused-portfolio">
+  <link rel="stylesheet" href="portfolio-gallery.css?v=20260709-compass-gallery">
 </head>
 <body>
   <div class="ink-particles" aria-hidden="true">
     <span></span><span></span><span></span><span></span><span></span><span></span>
     <span></span><span></span><span></span><span></span><span></span><span></span>
   </div>
+
   <nav class="nav" aria-label="Primary navigation">
     <a class="brand" href="index.html#top">Inkspirations Studios</a>
     <div class="links">
@@ -30,10 +32,10 @@
       <div class="hero-copy">
         <p class="kicker">Inkspirations Gallery</p>
         <h1>Robert Marleton Gallery</h1>
-        <p class="welcome">A focused public portfolio for artwork, creative direction, brand presentation, and functional art concepts.</p>
-        <p>This gallery is intentionally curated. It leads with the strongest verified artwork image currently in the repository and supports it with clear studio directions instead of padded or broken image placeholders.</p>
+        <p class="welcome">A focused public portfolio for artwork, creative direction, brand presentation, and functional art paths.</p>
+        <p>Step into a clean gallery view led by a finished signature artwork, then move through selected studio directions that show how the Inkspirations world can grow.</p>
         <div class="gallery-mood" aria-label="Gallery notes">
-          <span>Selected Work</span><span>Clean Public View</span><span>Employer Friendly</span>
+          <span>Selected Work</span><span>Calm Presentation</span><span>Employer Friendly</span>
         </div>
         <div class="actions">
           <a class="btn primary" href="#portfolio">View the Gallery</a>
@@ -48,7 +50,7 @@
         <div>
           <p class="kicker">Studio Journey</p>
           <h2>A clear path through the work.</h2>
-          <p>The visitor sees the artwork first, then the studio identity, creative direction, writing, and functional art paths.</p>
+          <p>Visitors meet the strongest artwork first, then the studio identity, writing, functional art, and room-like creative spaces.</p>
         </div>
         <span class="meta">Curated Path</span>
       </div>
@@ -57,7 +59,7 @@
         <a class="world-card featured-world" href="#portfolio">
           <span class="room-kicker">Artwork</span>
           <strong>Artwork Gallery</strong>
-          <span>Finished visual work and supporting portfolio directions presented without exposing internal systems.</span>
+          <span>Finished visual work and supporting public portfolio directions presented in a clean gallery path.</span>
         </a>
         <a class="world-card" href="#writing">
           <span class="room-kicker">Words</span>
@@ -115,7 +117,7 @@
         <div>
           <p class="kicker">Writing / Poem</p>
           <h2>Robert's Poem</h2>
-          <p>A visible writing feature for the poem and the language side of Inkspirations Studios.</p>
+          <p>A visible writing feature for the language side of Inkspirations Studios.</p>
         </div>
         <article class="poem-card" aria-label="Robert's poem">
           <span class="slot-label">Studio Poem</span>
@@ -134,12 +136,12 @@
         <div>
           <p class="kicker">Functional Art</p>
           <h2>Objects people can live with.</h2>
-          <p>This section keeps the product direction public-facing without pretending unfinished or missing photos are ready. Future coaster and object photos can be added here when the final images are confirmed.</p>
+          <p>This section keeps the product direction public-facing and leaves room for future coaster and object photography when final images are ready.</p>
         </div>
         <div class="slot-grid" aria-label="Functional art directions">
           <article class="asset-slot"><span>Coaster Direction</span><strong>Blue Current Coasters</strong><small>Functional art concept</small></article>
           <article class="asset-slot"><span>Surface Study</span><strong>Usable Studio Objects</strong><small>Product-minded artwork</small></article>
-          <article class="asset-slot"><span>Future Photos</span><strong>Ready When Verified</strong><small>No broken placeholders</small></article>
+          <article class="asset-slot"><span>Future Photos</span><strong>Photography To Come</strong><small>Reserved for finished images</small></article>
         </div>
         <div class="actions">
           <a class="btn primary" href="index.html#contact">Ask About Functional Art</a>
@@ -162,7 +164,7 @@
         <a class="room-card featured-room" href="rooms.html#ocean-of-ink"><span class="room-kicker">Ocean of Ink</span><strong>Ocean Room</strong><span>The blue ink atmosphere that connects the rooms.</span></a>
         <a class="room-card" href="rooms.html#writing-room"><span class="room-kicker">Writing</span><strong>Writing Room</strong><span>A quiet path into Robert's words and reflective studio voice.</span></a>
         <a class="room-card" href="rooms.html#music-room"><span class="room-kicker">Music</span><strong>Music Room</strong><span>A softer doorway into the listening side of Inkspirations Studios.</span></a>
-        <a class="room-card" href="rooms.html"><span class="room-kicker">Explore</span><strong>Enter the Rooms</strong><span>Move deeper only after meeting the artwork, writing, and atmosphere.</span></a>
+        <a class="room-card" href="rooms.html"><span class="room-kicker">Explore</span><strong>Enter the Rooms</strong><span>Move deeper after meeting the artwork, writing, and atmosphere.</span></a>
       </div>
     </section>
   </main>
@@ -173,11 +175,11 @@
     <span>Inkspirations Gallery</span>
   </footer>
 
-  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Expanded artwork">
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDesc" hidden>
     <div class="modal-inner gallery-lightbox">
       <button class="modal-close" id="closeModal" type="button" aria-label="Close expanded artwork">Close</button>
       <button class="modal-nav modal-prev" id="modalPrev" type="button" aria-label="Previous artwork">Previous</button>
-      <img id="modalImg" alt="Expanded portfolio piece">
+      <div class="modal-visual" id="modalVisual"></div>
       <button class="modal-nav modal-next" id="modalNext" type="button" aria-label="Next artwork">Next</button>
       <div class="modal-bar">
         <div>
@@ -186,7 +188,7 @@
           <p id="modalDesc"></p>
           <dl class="modal-details" aria-label="Artwork details">
             <div><dt>Status</dt><dd id="modalStatus"></dd></div>
-            <div><dt>Price</dt><dd id="modalPrice"></dd></div>
+            <div><dt>Inquiry</dt><dd id="modalPrice"></dd></div>
             <div><dt>Dimensions</dt><dd id="modalDimensions"></dd></div>
             <div><dt>Medium</dt><dd id="modalMedium"></dd></div>
           </dl>
@@ -195,7 +197,8 @@
       </div>
     </div>
   </div>
-  <script src="portfolio.js?v=20260709-focused-portfolio"></script>
+
+  <script src="portfolio.js?v=20260709-compass-gallery"></script>
   <script src="bring-home.js?v=20260703-gallery-flow"></script>
   <script src="studio-audio.js?v=20260630-audio-safe"></script>
 </body>
