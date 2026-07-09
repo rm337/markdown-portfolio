@@ -1,0 +1,22 @@
+{
+  "galleryTitle": "Inkspirations Studios Interactive Portfolio Gallery",
+  "schemaVersion": "1.0.0",
+  "updated": "2026-07-09",
+  "note": "Live public gallery catalog. Keep this limited to verified visitor-ready images that exist in the repository.",
+  "items": [
+    {
+      "id": "fluid-soul-front-cover",
+      "title": "Fluid Soul",
+      "collection": "Signature Portfolio",
+      "type": "Finished Artwork",
+      "year": "2026",
+      "medium": "Digital artwork / visual composition",
+      "image": "assets/images/portfolio/Fluid_Soul_Front_Cover_edited.png",
+      "alt": "Fluid Soul front cover artwork with flowing blue visual energy.",
+      "description": "A finished Inkspirations Studios artwork used as the main visual anchor for the portfolio. Its blue current, layered texture, and emotional tone establish the public studio identity.",
+      "featured": true,
+      "priority": 1,
+      "tags": ["blue", "flow", "signature", "portfolio", "finished"]
+    }
+  ]
+}
