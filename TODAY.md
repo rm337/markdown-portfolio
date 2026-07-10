@@ -22,6 +22,7 @@ Every piece of artwork should encourage visitors to pause, explore, and continue
 • Improve navigation and flow.
 • Remove friction.
 • Strengthen storytelling.
+• Improve visual hierarchy.
 • Increase engagement.
 • Create moments of surprise and delight.
 • Make every interaction feel intentional.
