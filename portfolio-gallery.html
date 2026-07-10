@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Interactive Portfolio Gallery | Inkspirations Studios</title>
+  <meta name="description" content="An interactive portfolio gallery for selected Inkspirations Studios artwork by Robert Marleton.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://rm337.github.io/markdown-portfolio/portfolio-gallery.html">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="css/portfolio-gallery.css">
+</head>
+<body>
+  <a class="skip-link" href="#gallery-grid">Skip to gallery</a>
+
+  <header class="site-header" aria-label="Inkspirations Studios gallery header">
+    <nav class="top-nav" aria-label="Primary navigation">
+      <a class="brand-mark" href="index.html">Inkspirations Studios</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a aria-current="page" href="portfolio-gallery.html">Interactive Gallery</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+    </nav>
+
+    <section class="hero" aria-labelledby="gallery-title">
+      <p class="eyebrow">Portfolio Gallery</p>
+      <h1 id="gallery-title">A quiet room for selected work, studies, and visual discoveries.</h1>
+      <p class="hero-copy">Search, filter, open, and review portfolio pieces in a museum-like gallery powered by a simple JSON catalog.</p>
+      <div class="hero-actions">
+        <a class="button primary" href="#gallery-grid">Enter the Gallery</a>
+        <a class="button secondary" href="portfolio.html">Return to Portfolio</a>
+      </div>
+    </section>
+  </header>
+
+  <main>
+    <section class="gallery-shell" aria-labelledby="controls-title">
+      <div class="controls-panel">
+        <div>
+          <p class="eyebrow">Curate the view</p>
+          <h2 id="controls-title">Find the right image quickly.</h2>
+        </div>
+        <div class="controls-grid" role="search" aria-label="Gallery search and filters">
+          <label>
+            <span>Search</span>
+            <input id="gallery-search" type="search" placeholder="Search title, medium, tags..." autocomplete="off">
+          </label>
+          <label>
+            <span>Collection</span>
+            <select id="collection-filter"><option value="all">All collections</option></select>
+          </label>
+          <label>
+            <span>Type</span>
+            <select id="type-filter"><option value="all">All types</option></select>
+          </label>
+          <label>
+            <span>Sort</span>
+            <select id="sort-filter">
+              <option value="featured">Featured first</option>
+              <option value="title">Title A-Z</option>
+              <option value="newest">Newest first</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <section class="featured-panel" id="featured-panel" aria-live="polite"></section>
+      <div class="gallery-status" aria-live="polite"><span id="gallery-count">Loading gallery...</span></div>
+      <section id="gallery-grid" class="gallery-grid" aria-label="Portfolio images"></section>
+      <p id="empty-state" class="empty-state" hidden>No gallery pieces match those filters.</p>
+    </section>
+  </main>
+
+  <dialog class="lightbox" id="lightbox" aria-labelledby="lightbox-title">
+    <button class="lightbox-close" id="lightbox-close" type="button" aria-label="Close image viewer">×</button>
+    <button class="lightbox-nav previous" id="lightbox-previous" type="button" aria-label="Previous image">‹</button>
+    <figure>
+      <img id="lightbox-image" src="" alt="">
+      <figcaption>
+        <p class="eyebrow" id="lightbox-kicker"></p>
+        <h2 id="lightbox-title"></h2>
+        <p id="lightbox-description"></p>
+        <dl class="metadata-list" id="lightbox-meta"></dl>
+      </figcaption>
+    </figure>
+    <button class="lightbox-nav next" id="lightbox-next" type="button" aria-label="Next image">›</button>
+  </dialog>
+
+  <footer class="site-footer">
+    <p>Inkspirations Studios · Robert Marleton · Interactive Gallery</p>
+  </footer>
+
+  <script src="js/portfolio-gallery.js" defer></script>
+</body>
+</html>
