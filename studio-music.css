@@ -68,7 +68,7 @@ body[data-room-id="flight-deck"] .stage { opacity: 1; }
 body[data-room-id="flight-deck"] .performance { transform: scale(1); }
 body[data-room-id="flight-deck"] .dj {
   z-index: 16;
-  filter: drop-shadow(0 0 22px rgba(73,217,255,.5));
+  filter: drop-shadow(0 20px 24px rgba(0,0,0,.52)) drop-shadow(0 0 22px rgba(73,217,255,.4));
 }
 body[data-room-id="flight-deck"] .dj::after {
   content: "LIVE DJ";
@@ -84,6 +84,125 @@ body[data-room-id="flight-deck"] .dj::after {
   letter-spacing: .18em;
   white-space: nowrap;
   box-shadow: 0 0 22px rgba(73,217,255,.28);
+}
+
+/* Human detail and dimensional lighting for the animated performer. */
+body[data-room-id="flight-deck"] .head {
+  width: 92px;
+  height: 112px;
+  border-radius: 48% 48% 43% 43% / 40% 40% 58% 58%;
+  background: linear-gradient(100deg,#754230 0%,#c17b58 28%,#dfa077 54%,#8e513a 100%);
+  box-shadow: inset 12px 0 18px rgba(255,222,193,.13), inset -16px -15px 22px rgba(45,16,8,.36), 0 8px 18px rgba(0,0,0,.3);
+}
+body[data-room-id="flight-deck"] .head::before {
+  content:"";
+  position:absolute;
+  left:17px;
+  top:45px;
+  width:58px;
+  height:13px;
+  background: radial-gradient(ellipse at 15% 50%,#111 0 18%,#6c4335 22% 29%,transparent 34%), radial-gradient(ellipse at 85% 50%,#111 0 18%,#6c4335 22% 29%,transparent 34%);
+}
+body[data-room-id="flight-deck"] .head::after {
+  content:"";
+  position:absolute;
+  left:50%;
+  top:55px;
+  width:22px;
+  height:38px;
+  transform:translateX(-50%);
+  border-radius:45% 45% 55% 55%;
+  background:linear-gradient(90deg,transparent 0 24%,rgba(78,38,28,.36) 48%,rgba(255,211,178,.18) 66%,transparent 100%);
+  box-shadow:0 14px 0 -8px rgba(66,28,23,.62);
+}
+body[data-room-id="flight-deck"] .hair {
+  width:104px;
+  height:62px;
+  top:-13px;
+  border-radius:54px 54px 26px 25px;
+  background: radial-gradient(circle at 25% 32%,#252a35 0 11%,transparent 12%), radial-gradient(circle at 50% 18%,#313744 0 13%,transparent 14%), radial-gradient(circle at 76% 33%,#1c2029 0 12%,transparent 13%), linear-gradient(145deg,#2c323e,#080a10 72%);
+  box-shadow:inset 10px 8px 12px rgba(255,255,255,.05),0 7px 8px rgba(0,0,0,.28);
+  z-index:3;
+}
+body[data-room-id="flight-deck"] .face-glow {
+  left:31px;
+  top:92px;
+  width:30px;
+  height:7px;
+  border-radius:50%;
+  background:rgba(77,36,29,.72);
+  box-shadow:0 0 12px rgba(73,217,255,.14);
+}
+body[data-room-id="flight-deck"] .neck {
+  top:101px;
+  width:43px;
+  height:42px;
+  border-radius:0 0 18px 18px;
+  background:linear-gradient(90deg,#70402f,#bb7755 48%,#75402f);
+  box-shadow:inset 7px 0 10px rgba(255,218,188,.12),inset -8px -5px 10px rgba(30,8,5,.25);
+}
+body[data-room-id="flight-deck"] .headphones {
+  top:63px;
+  width:154px;
+  height:96px;
+  border-width:9px;
+  border-color:#202837;
+  border-top-color:transparent;
+  filter:drop-shadow(0 5px 7px rgba(0,0,0,.35));
+}
+body[data-room-id="flight-deck"] .headphones::before,
+body[data-room-id="flight-deck"] .headphones::after {
+  width:38px;
+  height:50px;
+  border-radius:14px;
+  background:linear-gradient(145deg,#253249,#080b11 68%);
+  box-shadow:inset 3px 3px 6px rgba(255,255,255,.06),0 0 14px rgba(73,217,255,.2);
+}
+body[data-room-id="flight-deck"] .torso {
+  top:126px;
+  width:196px;
+  height:178px;
+  border-radius:58px 58px 24px 24px;
+  background: radial-gradient(ellipse at 50% 0,rgba(96,184,255,.18),transparent 38%), linear-gradient(112deg,#17243a 0%,#0d1729 42%,#03070d 100%);
+  box-shadow:inset 18px 0 25px rgba(74,147,210,.08),inset -24px -18px 28px rgba(0,0,0,.38),0 16px 24px rgba(0,0,0,.3);
+}
+body[data-room-id="flight-deck"] .torso::before {
+  content:"";
+  position:absolute;
+  left:50%;
+  top:18px;
+  width:76px;
+  height:20px;
+  transform:translateX(-50%);
+  border-radius:0 0 45% 45%;
+  border-bottom:2px solid rgba(169,216,255,.22);
+}
+body[data-room-id="flight-deck"] .arm {
+  height:30px;
+  border-radius:18px;
+  background:linear-gradient(180deg,#253650,#101a2c 58%,#060a11);
+  box-shadow:inset 0 5px 8px rgba(255,255,255,.05),0 8px 10px rgba(0,0,0,.22);
+}
+body[data-room-id="flight-deck"] .hand {
+  width:31px;
+  height:34px;
+  top:-4px;
+  border-radius:48% 48% 42% 42%;
+  background:linear-gradient(120deg,#dfa079,#985840 65%,#613226);
+  box-shadow:inset 5px 4px 7px rgba(255,226,205,.17),0 5px 9px rgba(0,0,0,.22);
+}
+body[data-room-id="flight-deck"] .hand::after {
+  content:"";
+  position:absolute;
+  left:5px;
+  right:5px;
+  top:9px;
+  height:1px;
+  background:rgba(83,38,28,.35);
+  box-shadow:0 5px 0 rgba(83,38,28,.25),0 10px 0 rgba(83,38,28,.2);
+}
+body[data-room-id="flight-deck"] .booth {
+  box-shadow:0 -24px 90px rgba(64,174,255,.16),0 36px 120px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.07);
 }
 
 @media (max-width: 900px) {
