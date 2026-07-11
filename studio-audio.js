@@ -1,6 +1,14 @@
 (() => {
-  const buttons = [...document.querySelectorAll("[data-audio-toggle]")];
-  if (!buttons.length) return;
+  let buttons = [...document.querySelectorAll("[data-audio-toggle]")];
+  if (!buttons.length) {
+    const floating = document.createElement("button");
+    floating.type = "button";
+    floating.className = "rainstorm-toggle";
+    floating.setAttribute("data-audio-toggle", "");
+    floating.innerHTML = '<span aria-hidden="true">☂</span><span>Rainstorm Sound</span>';
+    document.body.appendChild(floating);
+    buttons = [floating];
+  }
 
   let context;
   let rainSource;
