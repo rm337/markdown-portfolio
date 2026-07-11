@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flight Deck | Inkspirations Studios</title>
+  <meta name="description" content="Inkspirations Studios Flight Deck: choose a guided path into artwork, music, writing, creative rooms, commissions, and the Ocean of Ink.">
+  <meta name="robots" content="index,follow">
+  <link rel="stylesheet" href="css/flight-deck.css">
+</head>
+<body>
+  <a class="skip-link" href="#flightDeckMain">Skip to Flight Deck choices</a>
+  <div class="flight-atmosphere" aria-hidden="true"><span class="orb orb-one"></span><span class="orb orb-two"></span><span class="orb orb-three"></span><span class="grid-glow"></span></div>
+  <header class="flight-header" id="top">
+    <a class="brand" href="index.html">Inkspirations Studios</a>
+    <nav class="flight-nav" aria-label="Flight Deck navigation"><a href="index.html">Home</a><a href="portfolio.html#portfolio">Portfolio</a><a href="mailto:r.marleton@gmail.com?subject=Inkspirations%20Studios%20Inquiry">Contact</a></nav>
+  </header>
+  <main class="flight-shell" id="flightDeckMain">
+    <section class="flight-hero" aria-labelledby="flightTitle">
+      <p class="kicker">Flight Deck / Guided Studio Navigation</p>
+      <h1 id="flightTitle">Choose your path into the studio.</h1>
+      <p class="hero-copy">Start with a guided selection. No typing required. The Flight Deck will help you enter artwork, music, writing, creative rooms, commissions, and hidden currents of Inkspirations Studios.</p>
+      <div class="hero-actions" aria-label="Flight Deck quick controls"><button class="btn primary" type="button" data-start-over>Start Over</button><button class="btn" type="button" data-surprise-me>Surprise Me</button></div>
+    </section>
+    <section class="music-panel" aria-labelledby="musicChoicesTitle"><div class="panel-head"><div><p class="kicker">Song Selection / Listening Paths</p><h2 id="musicChoicesTitle">Choose the music mood first.</h2></div><p class="panel-note">No guessing. Pick the atmosphere and let Flight Deck open the right door.</p></div><div class="music-grid" id="musicGrid" aria-label="Curated music choices"></div></section>
+    <section class="flight-panel" aria-labelledby="choicesTitle"><div class="panel-head"><div><p class="kicker">Guided Choices</p><h2 id="choicesTitle">Where would you like to go?</h2></div><p class="panel-note">Story first. The controls simply open the doors.</p></div><div class="choice-grid" id="choiceGrid" aria-live="polite"></div></section>
+    <section class="flight-detail" id="flightDetail" aria-labelledby="detailTitle" hidden><div class="detail-card"><button class="back-button" type="button" data-back-to-choices>← Back to choices</button><p class="kicker" id="detailCategory">Selected Path</p><h2 id="detailTitle">Selected destination</h2><p id="detailDescription"></p><div class="detail-actions" id="detailActions"></div></div></section>
+    <section class="request-panel" aria-labelledby="requestTitle"><div class="panel-head soft-head"><div><p class="kicker">Optional Request</p><h2 id="requestTitle">Have something else in mind?</h2></div><p class="panel-note">Use this only if the guided paths do not fit what you want.</p></div><form class="request-form" id="flightRequestForm"><label for="flightRequest">Tell Flight Deck what kind of experience you want.</label><textarea id="flightRequest" name="flightRequest" rows="4" placeholder="Example: Take me somewhere peaceful."></textarea><div class="suggestions" aria-label="Suggested requests"><button type="button" data-suggestion="Show me energetic music.">Show me energetic music.</button><button type="button" data-suggestion="Meet the DJ.">Meet the DJ.</button><button type="button" data-suggestion="Take me somewhere peaceful.">Take me somewhere peaceful.</button><button type="button" data-suggestion="Take me to Robert's latest artwork.">Take me to Robert’s latest artwork.</button><button type="button" data-suggestion="I want to explore something unexpected.">I want to explore something unexpected.</button><button type="button" data-suggestion="Show me available commissions.">Show me available commissions.</button></div><div class="form-actions"><button class="btn primary" type="submit">Guide Me</button><button class="btn" type="button" data-clear-request>Clear</button></div><p class="request-message" id="requestMessage" aria-live="polite"></p></form></section>
+  </main>
+  <footer class="flight-footer"><span>Inkspirations Studios</span><span>Flight Deck</span><span>Robert Marleton</span></footer>
+  <script src="js/flight-deck.js"></script>
+</body>
+</html>
