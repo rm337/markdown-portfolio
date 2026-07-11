@@ -47,7 +47,7 @@
       status:"Live",
       category:"Performance Room",
       tags:["dj","vinyl","flight","radar"],
-      hidden:true,
+      hidden:false,
       unlockType:null,
       unlockHint:null,
       discovered:false,
