@@ -1,82 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
-  
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Inkspirations Studios | Robert Marleton</title>
-  <meta name="description" content="Inkspirations Studios is Robert Marleton's public studio entry for artwork, writing, music, and interactive creative rooms.">
+  <meta name="description" content="Enter Robert Marleton's creative world of artwork, writing, music, functional art, and immersive studio rooms.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://rm337.github.io/markdown-portfolio/">
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="style.css?v=20260630-complete">
+  <link rel="stylesheet" href="accessibility.css?v=20260711-reef">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to the studio</a>
   <div class="ink-particles" aria-hidden="true">
     <span></span><span></span><span></span><span></span><span></span><span></span>
     <span></span><span></span><span></span><span></span><span></span><span></span>
   </div>
-  <!-- Navigation begins -->
   <nav class="nav" aria-label="Primary navigation">
     <a class="brand" href="index.html#top">Inkspirations Studios</a>
     <div class="links">
-      <a href="index.html#top">Home</a>
-      <a href="portfolio.html#portfolio">Portfolio</a>
-      <a href="index.html#about">About</a>
-      <a href="index.html#contact">Contact</a>
+      <a href="index.html#top" aria-current="page">Home</a>
+      <a href="portfolio.html">Gallery</a>
+      <a href="#places">Explore</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
     </div>
   </nav>
-  <!-- Navigation ends -->
 
-  <main id="top">
-    <!-- Hero begins -->
-    <header class="hero studio-entry">
+  <main id="main-content">
+    <header class="hero studio-entry" id="top">
       <div class="hero-copy">
         <p class="kicker">Robert Marleton / Creative Studio</p>
         <h1>Inkspirations Studios</h1>
-        <p class="welcome">A calm entry into Robert Marleton's artwork, writing, music, functional art, and interactive creative rooms.</p>
-        <p>This homepage is the studio lobby. Step into the portfolio when you are ready to explore the full Inkspirations world.</p>
+        <p class="welcome">Enter a living creative world shaped by artwork, words, sound, atmosphere, and objects made to be lived with.</p>
+        <p>Begin in the gallery or choose a doorway below. Each place offers a different way to experience Robert's work.</p>
         <div class="actions">
-          <a class="btn primary" href="portfolio.html#portfolio">Enter the Gallery</a>
-          <a class="btn" href="index.html#contact">Contact Robert</a>
+          <a class="btn primary" href="portfolio.html">Enter the Gallery</a>
+          <a class="btn" href="#places">Choose a Doorway</a>
         </div>
       </div>
     </header>
-    <!-- Hero ends -->
 
-
-
-    <!-- About begins -->
-    <section class="section" id="about">
-      <div class="about-panel">
-        <p class="kicker">About</p>
-        <h2>A creative home with room to enter.</h2>
-        <p>Inkspirations Studios gathers Robert's visual artwork, lettering, texture studies, functional art experiments, writing, music ideas, and interactive studio concepts into one calm public space.</p>
-        <p>The homepage stays quiet on purpose. Step deeper to find the artwork, writing, coasters, Ocean of Ink, listening rooms, and studio artifacts.</p>
+    <section class="section places-section" id="places" aria-labelledby="places-title">
+      <div class="section-head">
+        <div>
+          <p class="kicker">Places to Visit</p>
+          <h2 id="places-title">Where would you like to go?</h2>
+          <p>Move at your own pace. Follow the artwork first, step into an immersive room, or meet the ideas and processes that shape the studio.</p>
+        </div>
+        <span class="meta">Six Doorways</span>
+      </div>
+      <div class="place-grid">
+        <a class="place-card place-card-featured" href="portfolio.html">
+          <span class="place-number" aria-hidden="true">01</span>
+          <span class="room-kicker">Selected Work</span>
+          <strong>The Gallery</strong>
+          <span>Meet the artwork, creative direction, writing, and functional art at the heart of the studio.</span>
+          <span class="place-action">Enter the Gallery <span aria-hidden="true">→</span></span>
+        </a>
+        <a class="place-card" href="portfolio-gallery.html">
+          <span class="place-number" aria-hidden="true">02</span>
+          <span class="room-kicker">Look Closer</span>
+          <strong>Interactive Gallery</strong>
+          <span>Search, filter, and open selected pieces in a larger, focused viewing experience.</span>
+          <span class="place-action">Explore the Work <span aria-hidden="true">→</span></span>
+        </a>
+        <a class="place-card" href="rooms.html#ocean-of-ink">
+          <span class="place-number" aria-hidden="true">03</span>
+          <span class="room-kicker">Atmosphere</span>
+          <strong>Ocean of Ink</strong>
+          <span>Drift into the deep-water world of moving ink, quiet light, curiosity, and reflection.</span>
+          <span class="place-action">Enter the Ocean <span aria-hidden="true">→</span></span>
+        </a>
+        <a class="place-card" href="rooms.html#writing-room">
+          <span class="place-number" aria-hidden="true">04</span>
+          <span class="room-kicker">Words</span>
+          <strong>The Writing Room</strong>
+          <span>Pause with poems, reflections, stories, and the language side of Inkspirations Studios.</span>
+          <span class="place-action">Continue Reading <span aria-hidden="true">→</span></span>
+        </a>
+        <a class="place-card" href="rooms.html#music-room">
+          <span class="place-number" aria-hidden="true">05</span>
+          <span class="room-kicker">Sound</span>
+          <strong>The Music Room</strong>
+          <span>Discover the listening spaces, moods, and musical territories that move through the studio.</span>
+          <span class="place-action">Enter the Music Room <span aria-hidden="true">→</span></span>
+        </a>
+        <a class="place-card" href="systems-i-built.html">
+          <span class="place-number" aria-hidden="true">06</span>
+          <span class="room-kicker">Creative Practice</span>
+          <strong>How Robert Builds</strong>
+          <span>See how ideas become artwork, experiences, visual systems, and finished creative directions.</span>
+          <span class="place-action">Explore the Process <span aria-hidden="true">→</span></span>
+        </a>
       </div>
     </section>
-    <!-- About ends -->
 
-    <!-- Contact begins -->
-    <section class="section" id="contact">
+    <section class="section path-section" aria-labelledby="path-title">
+      <div class="path-panel">
+        <p class="kicker">First Visit?</p>
+        <h2 id="path-title">Take the curated path.</h2>
+        <p>Begin with the Gallery, drift through Ocean of Ink, pause in the Writing Room, and return here whenever you are ready for another doorway.</p>
+        <a class="btn primary" href="portfolio.html">Begin the Curated Path</a>
+      </div>
+    </section>
+
+    <section class="section" id="about" aria-labelledby="about-title">
+      <div class="about-panel">
+        <p class="kicker">About</p>
+        <h2 id="about-title">A creative home with room to enter.</h2>
+        <p>Inkspirations Studios is the creative world of Robert Marleton—an artist, designer, writer, maker, and creative director who brings visual storytelling, atmosphere, and thoughtful systems together.</p>
+        <p>This is not a collection of disconnected projects. Each gallery and room belongs to the same evolving studio: curious, welcoming, handcrafted, and alive.</p>
+      </div>
+    </section>
+
+    <section class="section" id="contact" aria-labelledby="contact-title">
       <div class="contact">
         <div>
           <p class="kicker">Contact</p>
-          <h2>Available for creative work.</h2>
-          <p>Artwork, commissions, writing, rooms, music atmosphere, and collaboration.</p>
+          <h2 id="contact-title">Start a conversation with Robert.</h2>
+          <p>Ask about artwork, commissions, creative direction, design work, collaboration, or bringing an Inkspirations piece home.</p>
         </div>
-        <a class="btn primary" href="mailto:r.marleton@gmail.com?subject=Inkspirations%20Studios%20Portfolio">Get in Touch</a>
+        <a class="btn primary" href="mailto:r.marleton@gmail.com?subject=Inkspirations%20Studios%20Inquiry">Contact Robert</a>
       </div>
     </section>
-    <!-- Contact ends -->
   </main>
 
   <footer>
     <span>Inkspirations Studios</span>
     <span>Robert Marleton</span>
-    <span>Studio Entry</span>
+    <a href="#top">Return to Top</a>
   </footer>
   <script src="studio-audio.js?v=20260630-audio-safe"></script>
 </body>
 </html>
-
