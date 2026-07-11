@@ -1,6 +1,6 @@
 {
-  "updated": "2026-07-09",
-  "note": "Public gallery source. Keep this focused on verified, visitor-ready portfolio entries. Do not list image paths unless the asset is confirmed in the repository.",
+  "updated": "2026-07-10",
+  "note": "Curated portfolio entries for the public Inkspirations Studios gallery.",
   "works": [
     {
       "type": "Featured Artwork",
@@ -17,7 +17,7 @@
       "printAvailable": false,
       "originalAvailable": false,
       "inquiryType": "prints",
-      "desc": "A finished Inkspirations Studios artwork used as the main visual anchor for the portfolio. Its blue current, layered texture, and emotional tone establish the public studio identity."
+      "desc": "A layered blue current of movement, texture, and emotion. Fluid Soul serves as a visual anchor for Inkspirations Studios and reflects Robert's interest in artwork that feels atmospheric, immersive, and alive."
     },
     {
       "type": "Creative Direction",
@@ -31,7 +31,7 @@
       "printAvailable": false,
       "originalAvailable": false,
       "inquiryType": "creative-direction",
-      "desc": "A calm blue studio world built around ink, water, memory, and discovery. This entry shows Robert's ability to organize artwork into a clear visual experience instead of a loose folder of images."
+      "desc": "A calm blue creative world shaped around ink, water, memory, and discovery. The project demonstrates Robert's approach to organizing atmosphere, artwork, and storytelling into one connected visual experience."
     },
     {
       "type": "Brand Presentation",
@@ -45,7 +45,7 @@
       "printAvailable": false,
       "originalAvailable": false,
       "inquiryType": "branding",
-      "desc": "A public-facing creative identity shaped through consistent color, atmosphere, navigation, titles, and a museum-like visitor path."
+      "desc": "A creative identity shaped through color, atmosphere, navigation, titles, and a museum-like visitor journey. The system balances clarity with a distinctive emotional sense of place."
     },
     {
       "type": "Functional Art Direction",
@@ -61,7 +61,7 @@
       "printAvailable": false,
       "originalAvailable": false,
       "inquiryType": "functional-art",
-      "desc": "A product-minded direction for coaster sets, usable surfaces, and studio objects. It signals how Inkspirations artwork can extend into physical pieces without overloading the public gallery."
+      "desc": "A product-minded exploration of coaster sets, usable surfaces, and studio objects—showing how Inkspirations artwork can move beyond the wall and become part of everyday life."
     }
   ]
 }
