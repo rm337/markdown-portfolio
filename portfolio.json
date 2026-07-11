@@ -1,6 +1,6 @@
 {
-  "updated": "2026-07-09",
-  "note": "Public gallery source. Keep this focused on verified, visitor-ready portfolio entries. Do not list image paths unless the asset is confirmed in the repository.",
+  "updated": "2026-07-11",
+  "note": "Public gallery source for visitor-ready artwork, functional art, and creative direction.",
   "works": [
     {
       "type": "Featured Artwork",
@@ -10,14 +10,65 @@
       "collection": "Signature Collection",
       "src": "assets/images/portfolio/Fluid_Soul_Front_Cover_edited.png",
       "thumb": "assets/images/portfolio/Fluid_Soul_Front_Cover_edited.png",
-      "status": "Portfolio Feature",
-      "price": "Available by inquiry",
+      "status": "Available by inquiry",
+      "price": "Price upon request",
       "dimensions": "1080 x 1080 digital presentation",
       "printUrl": "",
       "printAvailable": false,
       "originalAvailable": false,
       "inquiryType": "prints",
-      "desc": "A finished Inkspirations Studios artwork used as the main visual anchor for the portfolio. Its blue current, layered texture, and emotional tone establish the public studio identity."
+      "desc": "A finished Inkspirations Studios artwork whose blue current, layered texture, and emotional tone anchor the studio identity."
+    },
+    {
+      "type": "Functional Art",
+      "medium": "Handcrafted Functional Art / Coaster Study",
+      "title": "Blue Current",
+      "category": "Available Functional Art",
+      "collection": "Coaster Studies",
+      "src": "assets/images/portfolio/coasters/curved-blue-object-coaster-study.jpg",
+      "thumb": "assets/images/portfolio/coasters/thumbs/curved-blue-object-coaster-study-thumb.jpg",
+      "status": "Available by inquiry",
+      "price": "Price upon request",
+      "dimensions": "Details available by inquiry",
+      "printAvailable": false,
+      "originalAvailable": true,
+      "inquiryType": "functional-art",
+      "purchaseLabel": "Ask About Buying Blue Current",
+      "desc": "A curved blue functional-art study that carries the Ocean of Ink atmosphere into an object made to be lived with."
+    },
+    {
+      "type": "Functional Art",
+      "medium": "Wood Panel / Functional Art",
+      "title": "Blue Wave Wood Panel",
+      "category": "Available Functional Art",
+      "collection": "Wood and Surface Studies",
+      "src": "assets/images/portfolio/coasters/thumbs/blue-wave-wood-panel-functional-art-thumb.jpg",
+      "thumb": "assets/images/portfolio/coasters/thumbs/blue-wave-wood-panel-functional-art-thumb.jpg",
+      "status": "Available by inquiry",
+      "price": "Price upon request",
+      "dimensions": "Details available by inquiry",
+      "printAvailable": false,
+      "originalAvailable": true,
+      "inquiryType": "functional-art",
+      "purchaseLabel": "Ask About Buying This Piece",
+      "desc": "A blue wave composition on wood, combining natural material with the flowing visual language of Inkspirations Studios."
+    },
+    {
+      "type": "Functional Art",
+      "medium": "Natural Wood / Functional Art",
+      "title": "Natural Round",
+      "category": "Available Functional Art",
+      "collection": "Wood and Surface Studies",
+      "src": "assets/images/portfolio/coasters/thumbs/wood-round-functional-art-thumb.jpg",
+      "thumb": "assets/images/portfolio/coasters/thumbs/wood-round-functional-art-thumb.jpg",
+      "status": "Available by inquiry",
+      "price": "Price upon request",
+      "dimensions": "Details available by inquiry",
+      "printAvailable": false,
+      "originalAvailable": true,
+      "inquiryType": "functional-art",
+      "purchaseLabel": "Ask About Buying This Piece",
+      "desc": "A round natural-wood functional-art study that celebrates grain, shape, and the quiet character of the material."
     },
     {
       "type": "Creative Direction",
@@ -31,7 +82,7 @@
       "printAvailable": false,
       "originalAvailable": false,
       "inquiryType": "creative-direction",
-      "desc": "A calm blue studio world built around ink, water, memory, and discovery. This entry shows Robert's ability to organize artwork into a clear visual experience instead of a loose folder of images."
+      "desc": "A calm blue studio world built around ink, water, memory, and discovery, demonstrating Robert's approach to organizing artwork into an immersive visual experience."
     },
     {
       "type": "Brand Presentation",
@@ -45,23 +96,7 @@
       "printAvailable": false,
       "originalAvailable": false,
       "inquiryType": "branding",
-      "desc": "A public-facing creative identity shaped through consistent color, atmosphere, navigation, titles, and a museum-like visitor path."
-    },
-    {
-      "type": "Functional Art Direction",
-      "medium": "Product Concept / Usable Art",
-      "title": "Functional Art Concepts",
-      "category": "Functional Art",
-      "collection": "Functional Art",
-      "projectHref": "merch-foundry.html#coasters",
-      "visualLabel": "Functional Art",
-      "status": "Concept Direction",
-      "price": "Available by inquiry",
-      "dimensions": "Product study",
-      "printAvailable": false,
-      "originalAvailable": false,
-      "inquiryType": "functional-art",
-      "desc": "A product-minded direction for coaster sets, usable surfaces, and studio objects. It signals how Inkspirations artwork can extend into physical pieces without overloading the public gallery."
+      "desc": "A creative identity shaped through consistent color, atmosphere, navigation, titles, and a museum-like visitor path."
     }
   ]
 }
