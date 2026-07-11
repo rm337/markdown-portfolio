@@ -2,34 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Flight Deck | Inkspirations Studios</title>
-<meta name="description" content="Enter the Inkspirations Studios Flight Deck and choose a polished music atmosphere.">
+<meta name="description" content="Enter the Inkspirations Studios Flight Deck and choose a real destination.">
 <style>
-*{box-sizing:border-box}html{color-scheme:dark}body{margin:0;background:#02050c;color:#f8fbff;font-family:Inter,Segoe UI,Arial,sans-serif;line-height:1.55}a,button{font:inherit}.deck{min-height:100vh;background:radial-gradient(circle at 75% 20%,rgba(1,116,243,.28),transparent 24%),radial-gradient(circle at 25% 65%,rgba(86,217,255,.14),transparent 28%),linear-gradient(180deg,#02050c,#071427 58%,#02050c)}nav{display:flex;justify-content:space-between;gap:1rem;align-items:center;padding:1rem clamp(1rem,4vw,3rem);border-bottom:1px solid rgba(255,255,255,.14);background:rgba(2,5,12,.76);backdrop-filter:blur(16px)}nav a{color:#f8fbff;text-decoration:none;font-size:.75rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase}.links{display:flex;gap:1rem;flex-wrap:wrap}.hero{padding:clamp(5rem,12vh,8rem) clamp(1rem,6vw,5rem) 2rem;max-width:1100px}.kicker{color:#56d9ff;font-size:.7rem;font-weight:900;letter-spacing:.15em;text-transform:uppercase}.hero h1{font:700 clamp(3.5rem,10vw,8rem)/.86 Georgia,serif;margin:.4rem 0}.hero p{max-width:720px;color:rgba(248,251,255,.76);font-size:clamp(1rem,1.5vw,1.25rem)}main{padding:0 clamp(1rem,6vw,5rem) 5rem}.panel{border:1px solid rgba(255,255,255,.16);background:rgba(4,12,24,.82);padding:clamp(1rem,3vw,2rem);box-shadow:0 30px 90px rgba(0,0,0,.38)}.mode-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin-top:1rem}.mode{min-height:180px;padding:1rem;border:1px solid rgba(255,255,255,.16);background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.025));color:#f8fbff;text-align:left;cursor:pointer;display:flex;flex-direction:column;justify-content:space-between}.mode:hover,.mode:focus-visible,.mode[aria-pressed="true"]{outline:2px solid #56d9ff;outline-offset:3px;border-color:#56d9ff}.mode strong{font:700 1.35rem/1.05 Georgia,serif}.mode span{color:rgba(248,251,255,.72)}.active{margin-top:1rem;padding:1rem;border-left:3px solid #56d9ff;background:rgba(255,255,255,.04)}.active h2{font:700 clamp(2rem,4vw,3.5rem)/1 Georgia,serif;margin:.2rem 0}.status{color:#83f3ba;font-size:.72rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase}.actions{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:.75rem 1rem;border:1px solid rgba(86,217,255,.6);background:#076fc8;color:white;text-decoration:none;font-weight:800}.btn.secondary{background:rgba(255,255,255,.06)}footer{padding:1.5rem clamp(1rem,6vw,5rem);border-top:1px solid rgba(255,255,255,.12);color:rgba(248,251,255,.58);display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}@media(max-width:850px){.mode-grid{grid-template-columns:1fr 1fr}}@media(max-width:560px){.mode-grid{grid-template-columns:1fr}nav{align-items:flex-start}.links{justify-content:flex-end}}
-</style>
-</head>
-<body>
-<div class="deck">
-<nav aria-label="Flight Deck navigation"><a href="index.html">Inkspirations Studios</a><div class="links"><a href="rooms.html">Studio Rooms</a><a href="portfolio.html">Portfolio</a><a href="pricing.html">Pricing</a></div></nav>
-<header class="hero"><p class="kicker">C4 Territory / Flight Deck</p><h1>Choose the sound of the room.</h1><p>The Flight Deck now works as one complete room. Choose an atmosphere below without being sent through broken pages or circular redirects.</p></header>
-<main>
-<section class="panel" aria-labelledby="mode-title"><p class="kicker">Listening Modes</p><h2 id="mode-title">Set the room.</h2><div class="mode-grid" id="modeGrid">
-<button class="mode" type="button" data-title="C4 Territory" data-copy="High-energy electronic motion, deep pulse, and full-room momentum." aria-pressed="true"><span class="status">High Energy</span><strong>C4 Territory</strong><span>Progressive, cinematic, and built for motion.</span></button>
-<button class="mode" type="button" data-title="Resident DJ" data-copy="A polished studio-DJ atmosphere without a request form or dead link." aria-pressed="false"><span class="status">DJ Mode</span><strong>Resident DJ</strong><span>The deck takes over and holds the room.</span></button>
-<button class="mode" type="button" data-title="Peaceful Blue Current" data-copy="Oceanic, reflective, and slower for late-night studio work." aria-pressed="false"><span class="status">Calm</span><strong>Blue Current</strong><span>Deep-water atmosphere and quieter movement.</span></button>
-<button class="mode" type="button" data-title="Memory Lanterns" data-copy="Nostalgic and emotional, with room for reflection." aria-pressed="false"><span class="status">Reflective</span><strong>Memory Lanterns</strong><span>Warm memories and slower creative moments.</span></button>
-<button class="mode" type="button" data-title="Daylight District" data-copy="Warm, hopeful, and focused for making and building." aria-pressed="false"><span class="status">Creative</span><strong>Daylight District</strong><span>Forward motion without the hard edge.</span></button>
-<button class="mode" type="button" id="surprise" aria-pressed="false"><span class="status">Random</span><strong>Surprise Me</strong><span>Let the Flight Deck choose the atmosphere.</span></button>
-</div>
-<div class="active" aria-live="polite"><span class="status">Now Selected</span><h2 id="nowTitle">C4 Territory</h2><p id="nowCopy">High-energy electronic motion, deep pulse, and full-room momentum.</p><div class="actions"><a class="btn" href="rooms.html#music-room">Open Music Room</a><a class="btn secondary" href="portfolio.html">Return to Portfolio</a></div></div>
-<p style="color:rgba(248,251,255,.62);margin-top:1rem">Audio playback will only work after licensed or Robert-owned audio files are connected. This repaired page no longer pretends missing tracks are playable.</p>
-</section>
-</main>
-<footer><span>Inkspirations Studios</span><span>Flight Deck</span><span>Robert Marleton</span></footer>
-</div>
-<script>
-(()=>{const modes=[...document.querySelectorAll('.mode')];const title=document.getElementById('nowTitle');const copy=document.getElementById('nowCopy');function select(button){modes.forEach(item=>item.setAttribute('aria-pressed','false'));button.setAttribute('aria-pressed','true');title.textContent=button.dataset.title;copy.textContent=button.dataset.copy}modes.filter(button=>button.id!=='surprise').forEach(button=>button.addEventListener('click',()=>select(button)));document.getElementById('surprise').addEventListener('click',()=>{const choices=modes.filter(button=>button.id!=='surprise');select(choices[Math.floor(Math.random()*choices.length)])})})();
-</script>
-</body>
-</html>
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#02050c,#071427);color:#f8fbff;font-family:Arial,sans-serif;line-height:1.55}nav,footer{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding:1rem 5vw;border-color:#ffffff22;border-style:solid;border
