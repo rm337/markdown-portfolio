@@ -30,3 +30,25 @@
 @media (prefers-reduced-motion: reduce) {
   .studio-music-toggle.is-playing span:first-child { animation: none; }
 }
+.rainstorm-toggle {
+  position: fixed;
+  right: 1rem;
+  bottom: 4.8rem;
+  z-index: 901;
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  gap: .55rem;
+  padding: .75rem 1rem;
+  border: 1px solid rgba(86,217,255,.42);
+  border-radius: 999px;
+  background: rgba(2,5,12,.9);
+  color: #f6f3e8;
+  box-shadow: 0 14px 40px rgba(0,0,0,.35);
+  backdrop-filter: blur(14px);
+  cursor: pointer;
+  font: 800 .68rem/1 Inter,Arial,sans-serif;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.rainstorm-toggle[aria-pressed="true"] { background:#073a62; border-color:#8ff3e8; }
