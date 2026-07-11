@@ -163,7 +163,7 @@ body.modal-open { overflow: hidden; }
 }
 #modalImg.is-detail-zoomed,
 #lightbox-image.is-detail-zoomed {
-  transform: scale(1.85);
+  transform: scale(3.25);
   cursor: zoom-out;
 }
 .gallery-lightbox.has-detail-zoom,
@@ -182,8 +182,19 @@ body.modal-open { overflow: hidden; }
 }
 @media (max-width: 800px) {
   #modalImg.is-detail-zoomed,
-  #lightbox-image.is-detail-zoomed { transform: scale(2.25); }
+  #lightbox-image.is-detail-zoomed { transform: scale(3.5); }
 }
 @media (prefers-reduced-motion: reduce) {
   #modalImg, #lightbox-image { transition: none; }
 }
+
+#modalImg.is-detail-zoomed,
+#lightbox-image.is-detail-zoomed {
+  max-width: none !important;
+  max-height: none !important;
+  z-index: 1001;
+}
+.gallery-lightbox.has-detail-zoom .modal-close,
+.gallery-lightbox.has-detail-zoom .modal-nav,
+.lightbox.has-detail-zoom .lightbox-close,
+.lightbox.has-detail-zoom .lightbox-nav { opacity: .7; }
