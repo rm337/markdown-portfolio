@@ -1,22 +1,368 @@
 {
   "galleryTitle": "Inkspirations Studios Interactive Portfolio Gallery",
-  "schemaVersion": "1.0.0",
-  "updated": "2026-07-09",
-  "note": "Live public gallery catalog. Keep this limited to verified visitor-ready images that exist in the repository.",
+  "schemaVersion": "1.1.0",
+  "updated": "2026-07-11",
+  "note": "Recovered full public artwork gallery from repository history.",
   "items": [
     {
-      "id": "fluid-soul-front-cover",
-      "title": "Fluid Soul",
-      "collection": "Signature Portfolio",
-      "type": "Finished Artwork",
-      "year": "2026",
-      "medium": "Digital artwork / visual composition",
-      "image": "assets/images/portfolio/Fluid_Soul_Front_Cover_edited.png",
-      "alt": "Fluid Soul front cover artwork with flowing blue visual energy.",
-      "description": "A finished Inkspirations Studios artwork used as the main visual anchor for the portfolio. Its blue current, layered texture, and emotional tone establish the public studio identity.",
+      "id": "burned-motion-razorback",
+      "title": "Burned Motion / Razorback",
+      "collection": "Signature Collection",
+      "type": "Burned Motion Study",
+      "medium": "Woodburning / Mixed Media",
+      "image": "assets/images/portfolio/red-motion-panel.jpg",
+      "alt": "Burned Motion / Razorback, Woodburning / Mixed Media by Robert Marleton.",
+      "description": "A red motion study with a charging razorback form and a rough, energetic surface. The piece leads the portfolio as a signature work.",
       "featured": true,
       "priority": 1,
-      "tags": ["blue", "flow", "signature", "portfolio", "finished"]
+      "tags": [
+        "Signature Collection",
+        "Signature Collection",
+        "Woodburning / Mixed Media",
+        "Burned Motion Study"
+      ]
+    },
+    {
+      "id": "submersion",
+      "title": "Submersion",
+      "collection": "Fluid Soul Series",
+      "type": "Lettering / Ink Study",
+      "medium": "Digital Lettering / Ink Study",
+      "image": "assets/images/portfolio/soul-current.jpg",
+      "alt": "Submersion, Digital Lettering / Ink Study by Robert Marleton.",
+      "description": "A blue ink field with the word Submersion set into soft wash, suspended marks, and quiet depth.",
+      "featured": false,
+      "priority": 2,
+      "tags": [
+        "Fluid Soul Series",
+        "Fluid Soul Series",
+        "Digital Lettering / Ink Study",
+        "Lettering / Ink Study"
+      ]
+    },
+    {
+      "id": "sunflower-mandala",
+      "title": "Sunflower Mandala",
+      "collection": "Nature & Organic",
+      "type": "Pattern Study",
+      "medium": "Digital Pattern",
+      "image": "assets/images/portfolio/sunflower-mandala.jpg",
+      "alt": "Sunflower Mandala, Digital Pattern by Robert Marleton.",
+      "description": "A bright organic pattern study centered on a sunflower form. The piece adds warmth and structure to the collection.",
+      "featured": false,
+      "priority": 3,
+      "tags": [
+        "Nature & Organic",
+        "Nature & Organic",
+        "Digital Pattern",
+        "Pattern Study"
+      ]
+    },
+    {
+      "id": "release",
+      "title": "Release",
+      "collection": "Signature Collection",
+      "type": "Digital Lettering",
+      "medium": "Lettering / Digital",
+      "image": "assets/images/portfolio/blue-name-current.jpg",
+      "alt": "Release, Lettering / Digital by Robert Marleton.",
+      "description": "A blue lettering piece built around the word Release, with layered current-like movement surrounding the central script.",
+      "featured": false,
+      "priority": 4,
+      "tags": [
+        "Signature Collection",
+        "Signature Collection",
+        "Lettering / Digital",
+        "Digital Lettering"
+      ]
+    },
+    {
+      "id": "washed-out",
+      "title": "Washed Out",
+      "collection": "Signature Collection",
+      "type": "Digital Lettering",
+      "medium": "Lettering / Digital",
+      "image": "assets/images/portfolio/washed-out.jpg",
+      "alt": "Washed Out, Lettering / Digital by Robert Marleton.",
+      "description": "A blue and violet lettering piece with the phrase Washed Out set into a soft atmospheric field.",
+      "featured": false,
+      "priority": 5,
+      "tags": [
+        "Signature Collection",
+        "Signature Collection",
+        "Lettering / Digital",
+        "Digital Lettering"
+      ]
+    },
+    {
+      "id": "lest-we-forget",
+      "title": "Lest We Forget",
+      "collection": "Experimental Works",
+      "type": "Digital Collage",
+      "medium": "Digital Collage / Typographic Study",
+      "image": "assets/images/portfolio/lest-we-forget.jpg",
+      "alt": "Lest We Forget, Digital Collage / Typographic Study by Robert Marleton.",
+      "description": "A high-contrast digital collage centered on the phrase Lest We Forget, with red, blue, light, and rough texture layered together.",
+      "featured": false,
+      "priority": 6,
+      "tags": [
+        "Experimental Works",
+        "Experimental Works",
+        "Digital Collage / Typographic Study",
+        "Digital Collage"
+      ]
+    },
+    {
+      "id": "we-are-not-descended-from-fearful-men",
+      "title": "We Are Not Descended From Fearful Men",
+      "collection": "Nature & Organic",
+      "type": "Wood / Lettering",
+      "medium": "Woodburning / Lettering",
+      "image": "assets/images/portfolio/wood-warning.jpg",
+      "alt": "We Are Not Descended From Fearful Men, Woodburning / Lettering by Robert Marleton.",
+      "description": "A wood-burned lettering piece using the natural round, cracks, bark edge, and burned marks as part of the composition.",
+      "featured": false,
+      "priority": 7,
+      "tags": [
+        "Nature & Organic",
+        "Nature & Organic",
+        "Woodburning / Lettering",
+        "Wood / Lettering"
+      ]
+    },
+    {
+      "id": "rainline-study",
+      "title": "Rainline Study",
+      "collection": "Texture Studies",
+      "type": "Ink Study",
+      "medium": "Texture / Ink Study",
+      "image": "assets/images/portfolio/rainline-study.jpg",
+      "alt": "Rainline Study, Texture / Ink Study by Robert Marleton.",
+      "description": "A vertical texture study built from repeated marks and soft color movement. It reads as surface, rhythm, and weather.",
+      "featured": false,
+      "priority": 8,
+      "tags": [
+        "Texture Studies",
+        "Texture Studies",
+        "Texture / Ink Study",
+        "Ink Study"
+      ]
+    },
+    {
+      "id": "blue-field",
+      "title": "Blue Field",
+      "collection": "Texture Studies",
+      "type": "Texture Study",
+      "medium": "Digital Texture",
+      "image": "assets/images/portfolio/blue-field.jpg",
+      "alt": "Blue Field, Digital Texture by Robert Marleton.",
+      "description": "A quiet blue texture field focused on grain, tone, and surface movement. It functions as a supporting study rather than a main signature piece.",
+      "featured": false,
+      "priority": 9,
+      "tags": [
+        "Texture Studies",
+        "Texture Studies",
+        "Digital Texture",
+        "Texture Study"
+      ]
+    },
+    {
+      "id": "love-study-title-pending",
+      "title": "Love Study (Title Pending)",
+      "collection": "Words & Expressions",
+      "type": "Mixed Media",
+      "medium": "Lettering / Texture",
+      "image": "assets/images/portfolio/love-texture.jpg",
+      "alt": "Love Study (Title Pending), Lettering / Texture by Robert Marleton.",
+      "description": "A word-based texture piece centered on Love, with a worn layered surface. The final full title is still pending.",
+      "featured": false,
+      "priority": 10,
+      "tags": [
+        "Words & Expressions",
+        "Words & Expressions",
+        "Lettering / Texture",
+        "Mixed Media"
+      ]
+    },
+    {
+      "id": "between-waves",
+      "title": "Between Waves",
+      "collection": "Words & Expressions",
+      "type": "Lettering",
+      "medium": "Lettering / Water Study",
+      "image": "assets/images/portfolio/blessed-water.jpg",
+      "alt": "Between Waves, Lettering / Water Study by Robert Marleton.",
+      "description": "A soft lettering piece set into pale blue waterlike bands, with the phrase Between Waves moving through the lower edge.",
+      "featured": false,
+      "priority": 11,
+      "tags": [
+        "Words & Expressions",
+        "Words & Expressions",
+        "Lettering / Water Study",
+        "Lettering"
+      ]
+    },
+    {
+      "id": "electric-love",
+      "title": "Electric Love",
+      "collection": "Words & Expressions",
+      "type": "Lettering Study",
+      "medium": "Digital Lettering",
+      "image": "assets/images/portfolio/infinite-love-red.jpg",
+      "alt": "Electric Love, Digital Lettering by Robert Marleton.",
+      "description": "A saturated lettering study built around Electric Love, with strong color, script, and a charged central word form.",
+      "featured": false,
+      "priority": 12,
+      "tags": [
+        "Words & Expressions",
+        "Words & Expressions",
+        "Digital Lettering",
+        "Lettering Study"
+      ]
+    },
+    {
+      "id": "electric-love-blue-variation",
+      "title": "Electric Love, Blue Variation",
+      "collection": "Words & Expressions",
+      "type": "Lettering Study",
+      "medium": "Digital Lettering",
+      "image": "assets/images/portfolio/infinite-love-violet.jpg",
+      "alt": "Electric Love, Blue Variation, Digital Lettering by Robert Marleton.",
+      "description": "A cooler blue-violet variation of Electric Love, shifting the same phrase into a deeper atmospheric register.",
+      "featured": false,
+      "priority": 13,
+      "tags": [
+        "Words & Expressions",
+        "Words & Expressions",
+        "Digital Lettering",
+        "Lettering Study"
+      ]
+    },
+    {
+      "id": "u-r-priceless",
+      "title": "U R Priceless",
+      "collection": "Words & Expressions",
+      "type": "Lettering",
+      "medium": "Digital Lettering",
+      "image": "assets/images/portfolio/you-priceless.jpg",
+      "alt": "U R Priceless, Digital Lettering by Robert Marleton.",
+      "description": "A direct lettering piece centered on U R Priceless, with a soft red field and handmade script.",
+      "featured": false,
+      "priority": 14,
+      "tags": [
+        "Words & Expressions",
+        "Words & Expressions",
+        "Digital Lettering",
+        "Lettering"
+      ]
+    },
+    {
+      "id": "inkspirations-studio-mark",
+      "title": "Inkspirations Studio Mark",
+      "collection": "Experimental Works",
+      "type": "Brand Mark",
+      "medium": "Identity Design",
+      "image": "assets/images/portfolio/inkspirations-mark.jpg",
+      "alt": "Inkspirations Studio Mark, Identity Design by Robert Marleton.",
+      "description": "A studio mark exploration using blue lettering, splash, and atmosphere. It supports the identity system around the artwork.",
+      "featured": false,
+      "priority": 15,
+      "tags": [
+        "Experimental Works",
+        "Experimental Works",
+        "Identity Design",
+        "Brand Mark"
+      ]
+    },
+    {
+      "id": "studio-blue-identity-card",
+      "title": "Studio Blue Identity Card",
+      "collection": "Experimental Works",
+      "type": "Identity Design",
+      "medium": "Identity Design",
+      "image": "assets/images/portfolio/studio-blue-card.jpg",
+      "alt": "Studio Blue Identity Card, Identity Design by Robert Marleton.",
+      "description": "A compact identity card for Inkspirations Studios. It presents the studio voice in a clean public-facing format.",
+      "featured": false,
+      "priority": 16,
+      "tags": [
+        "Experimental Works",
+        "Experimental Works",
+        "Identity Design",
+        "Identity Design"
+      ]
+    },
+    {
+      "id": "inkspirations-logo-lockup",
+      "title": "Inkspirations Logo Lockup",
+      "collection": "Experimental Works",
+      "type": "Identity Design",
+      "medium": "Identity Design",
+      "image": "assets/images/portfolio/inkspirations-logo-card.jpg",
+      "alt": "Inkspirations Logo Lockup, Identity Design by Robert Marleton.",
+      "description": "A clean logo lockup pairing calligraphic emphasis with the studio name. It is organized as supporting identity work.",
+      "featured": false,
+      "priority": 17,
+      "tags": [
+        "Experimental Works",
+        "Experimental Works",
+        "Identity Design",
+        "Identity Design"
+      ]
+    },
+    {
+      "id": "say-no-to-provoke-and-blame",
+      "title": "Say No to Provoke and Blame",
+      "collection": "Words & Expressions",
+      "type": "Typographic Poster",
+      "medium": "Typographic Poster",
+      "image": "assets/images/portfolio/say-no-poster.jpg",
+      "alt": "Say No to Provoke and Blame, Typographic Poster by Robert Marleton.",
+      "description": "A stark typographic poster built from scale, contrast, and compression. The visible phrase gives the piece its structure.",
+      "featured": false,
+      "priority": 18,
+      "tags": [
+        "Words & Expressions",
+        "Words & Expressions",
+        "Typographic Poster",
+        "Typographic Poster"
+      ]
+    },
+    {
+      "id": "small-town-teacher",
+      "title": "Small Town Teacher",
+      "collection": "Experimental Works",
+      "type": "Identity Mark",
+      "medium": "Identity Design",
+      "image": "assets/images/portfolio/small-town-teacher.jpg",
+      "alt": "Small Town Teacher, Identity Design by Robert Marleton.",
+      "description": "A compact identity mark with a handmade, personal tone. It shows a softer side of the studio system.",
+      "featured": false,
+      "priority": 19,
+      "tags": [
+        "Experimental Works",
+        "Experimental Works",
+        "Identity Design",
+        "Identity Mark"
+      ]
+    },
+    {
+      "id": "inkspirations-coasters-functional-art",
+      "title": "Inkspirations Coasters / Functional Art",
+      "collection": "Functional Art",
+      "type": "Project",
+      "medium": "Functional Art / Product Study",
+      "image": "assets/images/portfolio/coasters/curved-blue-object-coaster-study.jpg",
+      "alt": "Inkspirations Coasters / Functional Art, Functional Art / Product Study by Robert Marleton.",
+      "description": "A functional art project for coaster sets, usable surfaces, and product-ready studio objects. These studies connect the artwork to objects people can live with.",
+      "featured": false,
+      "priority": 20,
+      "tags": [
+        "Functional Art",
+        "Functional Art",
+        "Functional Art / Product Study",
+        "Project"
+      ]
     }
   ]
 }
