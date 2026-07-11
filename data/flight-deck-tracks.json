@@ -1,0 +1,66 @@
+{
+  "schemaVersion": "1.0.0",
+  "updated": "2026-07-11",
+  "note": "Robert-approved Flight Deck selections. Public visitors see finished choices only; no song request form is exposed.",
+  "paths": [
+    {
+      "title": "C4 Territory",
+      "description": "High-energy electronic, progressive motion, and full-room momentum.",
+      "url": "c4.html",
+      "tone": "High Energy"
+    },
+    {
+      "title": "Meet the DJ",
+      "description": "Enter the resident DJ room without needing to type a request.",
+      "url": "dj.html",
+      "tone": "Resident DJ"
+    },
+    {
+      "title": "Peaceful Blue Current",
+      "description": "A calmer path for oceanic, reflective, late-night studio atmosphere.",
+      "url": "music.html#peaceful-blue-current",
+      "tone": "Peaceful"
+    },
+    {
+      "title": "Memory Lanterns",
+      "description": "Nostalgic, emotional, reflective listening for slower creative moments.",
+      "url": "music.html#memory-lanterns",
+      "tone": "Reflective"
+    },
+    {
+      "title": "Daylight District",
+      "description": "Warm, hopeful, creative music for building and making.",
+      "url": "music.html#daylight-district",
+      "tone": "Creative"
+    },
+    {
+      "title": "Surprise Me",
+      "description": "Let Flight Deck choose a path without opening a request form.",
+      "url": "#",
+      "tone": "Random"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "C4 Opening Signal",
+      "artist": "Inkspirations Studios",
+      "mood": "High Energy",
+      "url": "c4.html",
+      "status": "Listening Path"
+    },
+    {
+      "title": "Blue Current Drift",
+      "artist": "Inkspirations Studios",
+      "mood": "Peaceful",
+      "url": "music.html#peaceful-blue-current",
+      "status": "Listening Path"
+    },
+    {
+      "title": "Resident DJ Session",
+      "artist": "Inkspirations Studios",
+      "mood": "DJ Room",
+      "url": "dj.html",
+      "status": "Listening Path"
+    }
+  ]
+}
