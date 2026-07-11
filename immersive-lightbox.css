@@ -154,3 +154,36 @@ body.modal-open { overflow: hidden; }
   .lightbox figure > img { padding: 3.5rem .75rem 7rem; }
   .lightbox figcaption { max-height: 23dvh; padding: .75rem; }
 }
+
+/* Second-click detail magnification */
+#modalImg, #lightbox-image {
+  cursor: zoom-in;
+  transition: transform .28s ease;
+  transform-origin: center center;
+}
+#modalImg.is-detail-zoomed,
+#lightbox-image.is-detail-zoomed {
+  transform: scale(1.85);
+  cursor: zoom-out;
+}
+.gallery-lightbox.has-detail-zoom,
+.lightbox.has-detail-zoom {
+  overflow: auto;
+}
+.gallery-lightbox.has-detail-zoom .modal-bar,
+.lightbox.has-detail-zoom figcaption {
+  opacity: .12;
+  pointer-events: none;
+}
+#modalImg:focus-visible,
+#lightbox-image:focus-visible {
+  outline: 3px solid #ffe6ad;
+  outline-offset: -6px;
+}
+@media (max-width: 800px) {
+  #modalImg.is-detail-zoomed,
+  #lightbox-image.is-detail-zoomed { transform: scale(2.25); }
+}
+@media (prefers-reduced-motion: reduce) {
+  #modalImg, #lightbox-image { transition: none; }
+}
