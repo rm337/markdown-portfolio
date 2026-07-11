@@ -36,6 +36,17 @@
     }).observe(image.closest(".modal, dialog") || image, { attributes: true, attributeFilter: ["class", "open"] });
   });
 
+  document.querySelectorAll("[data-detail-zoom]").forEach(control => {
+    const image = document.getElementById(control.dataset.detailZoom);
+    if (!image) return;
+    control.addEventListener("click", () => {
+      image.click();
+      const zoomed = image.classList.contains("is-detail-zoomed");
+      control.textContent = zoomed ? "Fit to Screen" : "Zoom In";
+      control.setAttribute("aria-pressed", String(zoomed));
+    });
+  });
+
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") images.forEach(reset);
   });
