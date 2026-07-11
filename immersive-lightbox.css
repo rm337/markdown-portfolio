@@ -217,3 +217,23 @@ body.modal-open { overflow: hidden; }
 @media (max-width: 720px) {
   .c4-gallery-entry { grid-template-columns: 1fr; }
 }
+
+.detail-zoom-control {
+  position: fixed;
+  z-index: 1003;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  min-height: 48px;
+  padding: .7rem 1rem;
+  border: 1px solid #8ff3e8;
+  background: rgba(2,5,12,.92);
+  color: #fff;
+  cursor: pointer;
+  font: 800 .68rem/1 Inter, Arial, sans-serif;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+.detail-zoom-control:hover,
+.detail-zoom-control:focus-visible,
+.detail-zoom-control[aria-pressed="true"] { background: #0174F3; border-color: #ffe6ad; }
