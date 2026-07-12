@@ -9,6 +9,39 @@
       background: #07131f !important;
     }
 
+    .studio-entry::after {
+      display: none !important;
+      content: none !important;
+      background: none !important;
+    }
+
+    .detail-zoom-controls {
+      position: fixed;
+      z-index: 1003;
+      top: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: .5rem;
+      align-items: center;
+      padding: .35rem;
+      border: 1px solid rgba(143,243,232,.35);
+      background: rgba(2,5,12,.9);
+      backdrop-filter: blur(12px);
+    }
+
+    .detail-zoom-controls .detail-zoom-control {
+      position: static !important;
+      transform: none !important;
+      min-height: 42px;
+      padding: .65rem .85rem;
+    }
+
+    .detail-zoom-controls .detail-zoom-control:disabled {
+      opacity: .38;
+      cursor: not-allowed;
+    }
+
     #modalImg,
     #lightbox-image {
       width: 100% !important;
@@ -46,6 +79,21 @@
     .lightbox.has-detail-zoom figcaption {
       opacity: .08;
       pointer-events: none;
+    }
+
+    @media (max-width: 640px) {
+      .detail-zoom-controls {
+        top: .5rem;
+        width: calc(100% - 5.5rem);
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .detail-zoom-controls .detail-zoom-control {
+        flex: 1 1 auto;
+        min-width: 86px;
+        font-size: .6rem;
+      }
     }
   `;
   document.head.appendChild(style);
