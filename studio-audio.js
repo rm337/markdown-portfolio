@@ -1,198 +1,174 @@
 (() => {
   if (window.InkspirationsAudioEngine) return;
 
-  const SOURCES = {
-    c4: {
-      title: "C4 Flight Deck Session",
-      url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-      volume: 0.88
-    },
-    studio: {
-      title: "Inkspirations Studio Music",
-      url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-      volume: 0.72
-    },
-    rain: {
-      title: "Rainstorm Sound",
-      url: "https://www.soundjay.com/nature/sounds/rain-01.mp3",
-      volume: 0.82
-    }
+  const TRACK = {
+    title: "Inkspirations Mobile Track",
+    volume: 0.92,
+    sampleRate: 8000,
+    seconds: 2
   };
 
-  const players = {};
-  let activeMode = null;
+  function writeText(view, offset, text) {
+    for (let i = 0; i < text.length; i += 1) view.setUint8(offset + i, text.charCodeAt(i));
+  }
 
-  function getStatusPanel() {
+  function makeTrackDataUri() {
+    const sampleCount = TRACK.sampleRate * TRACK.seconds;
+    const buffer = new ArrayBuffer(44 + sampleCount * 2);
+    const view = new DataView(buffer);
+    writeText(view, 0, "RIFF");
+    view.setUint32(4, 36 + sampleCount * 2, true);
+    writeText(view, 8, "WAVE");
+    writeText(view, 12, "fmt ");
+    view.setUint32(16, 16, true);
+    view.setUint16(20, 1, true);
+    view.setUint16(22, 1, true);
+    view.setUint32(24, TRACK.sampleRate, true);
+    view.setUint32(28, TRACK.sampleRate * 2, true);
+    view.setUint16(32, 2, true);
+    view.setUint16(34, 16, true);
+    writeText(view, 36, "data");
+    view.setUint32(40, sampleCount * 2, true);
+
+    const notes = [220, 261.63, 329.63, 392];
+    for (let i = 0; i < sampleCount; i += 1) {
+      const t = i / TRACK.sampleRate;
+      const note = notes[Math.floor(t / 0.5) % notes.length];
+      const fade = Math.min(1, t / 0.08, (TRACK.seconds - t) / 0.12);
+      const beat = t % 0.5;
+      const melody = Math.sin(2 * Math.PI * note * t) + 0.45 * Math.sin(2 * Math.PI * note * 1.5 * t);
+      const bass = 0.4 * Math.sin(2 * Math.PI * 110 * t);
+      const kick = beat < 0.18 ? Math.sin(2 * Math.PI * (90 - 45 * Math.min(beat / 0.12, 1)) * t) * Math.exp(-beat * 25) : 0;
+      const sample = Math.max(-1, Math.min(1, (0.34 * melody + 0.18 * bass + 0.28 * kick) * fade));
+      view.setInt16(44 + i * 2, sample * 32767, true);
+    }
+
+    let binary = "";
+    const bytes = new Uint8Array(buffer);
+    for (let i = 0; i < bytes.length; i += 1) binary += String.fromCharCode(bytes[i]);
+    return `data:audio/wav;base64,${btoa(binary)}`;
+  }
+
+  let audio = null;
+  let playing = false;
+
+  function statusPanel() {
     let panel = document.getElementById("inkspirations-audio-status");
     if (panel) return panel;
     panel = document.createElement("div");
     panel.id = "inkspirations-audio-status";
     panel.setAttribute("role", "status");
     panel.setAttribute("aria-live", "polite");
-    panel.style.cssText = "position:fixed;left:1rem;bottom:1rem;z-index:10002;max-width:min(360px,calc(100vw - 2rem));padding:.75rem 1rem;border:1px solid rgba(86,217,255,.45);border-radius:12px;background:rgba(1,7,15,.94);color:#f5fbff;font:700 .82rem/1.4 Inter,Arial,sans-serif;box-shadow:0 14px 40px rgba(0,0,0,.4);";
-    panel.textContent = "Audio ready. Tap a sound button to begin.";
+    panel.style.cssText = "position:fixed;left:1rem;bottom:1rem;z-index:10002;max-width:min(360px,calc(100vw - 2rem));padding:.75rem 1rem;border:1px solid rgba(86,217,255,.55);border-radius:12px;background:rgba(1,7,15,.96);color:#f5fbff;font:700 .82rem/1.4 Inter,Arial,sans-serif;box-shadow:0 14px 40px rgba(0,0,0,.4)";
     document.body.appendChild(panel);
     return panel;
   }
 
-  function report(message, isError = false) {
-    const panel = getStatusPanel();
+  function report(message, error = false) {
+    const panel = statusPanel();
     panel.textContent = message;
-    panel.style.borderColor = isError ? "rgba(255,125,125,.8)" : "rgba(86,217,255,.45)";
-    if (isError) console.error(`[Inkspirations Audio] ${message}`);
-    else console.info(`[Inkspirations Audio] ${message}`);
+    panel.style.borderColor = error ? "#ff6e6e" : "rgba(86,217,255,.55)";
+    (error ? console.error : console.info)("[Inkspirations Audio]", message);
   }
 
-  function createPlayer(mode) {
-    if (players[mode]) return players[mode];
-    const source = SOURCES[mode];
-    const audio = new Audio();
-    audio.preload = "metadata";
+  function getAudio() {
+    if (audio) return audio;
+    audio = document.createElement("audio");
+    audio.preload = "auto";
     audio.loop = true;
     audio.muted = false;
-    audio.volume = source.volume;
-    audio.playsInline = true;
-    audio.src = source.url;
-    audio.dataset.mode = mode;
-
-    audio.addEventListener("loadstart", () => report(`Loading: ${source.title}…`));
-    audio.addEventListener("canplay", () => report(`Ready: ${source.title}. Tap play to listen.`));
+    audio.volume = TRACK.volume;
+    audio.src = makeTrackDataUri();
+    audio.setAttribute("playsinline", "");
     audio.addEventListener("playing", () => {
-      activeMode = mode;
-      report(`Now playing: ${source.title}`);
-      syncButtons();
+      playing = true;
+      report(`Now playing: ${TRACK.title}`);
+      syncControls();
     });
-    audio.addEventListener("pause", syncButtons);
-    audio.addEventListener("waiting", () => report(`Buffering: ${source.title}…`));
-    audio.addEventListener("stalled", () => report(`Audio stalled while loading ${source.title}.`, true));
+    audio.addEventListener("pause", () => {
+      playing = false;
+      syncControls();
+    });
+    audio.addEventListener("waiting", () => report(`Loading: ${TRACK.title}…`));
     audio.addEventListener("error", () => {
-      const code = audio.error ? audio.error.code : "unknown";
-      report(`Could not load ${source.title}. Audio error code: ${code}.`, true);
-      if (activeMode === mode) activeMode = null;
-      syncButtons();
+      playing = false;
+      report(`Audio failed. Error code: ${audio.error?.code || "unknown"}`, true);
+      syncControls();
     });
-
-    players[mode] = audio;
+    document.body.appendChild(audio);
     return audio;
   }
 
-  function stopAll(exceptMode = null) {
-    Object.entries(players).forEach(([mode, audio]) => {
-      if (mode === exceptMode) return;
-      audio.pause();
-      audio.currentTime = 0;
-    });
-    if (activeMode !== exceptMode) activeMode = exceptMode;
-  }
-
-  function buttonLabel(mode, playing) {
-    if (mode === "c4") return playing ? "Pause C4" : "Play C4";
-    if (mode === "studio") return playing ? "Pause Studio Music" : "Studio Music";
-    return playing ? "Pause Rainstorm" : "Rainstorm Sound";
-  }
-
-  function syncButtons() {
-    document.querySelectorAll("[data-ink-audio-mode]").forEach(button => {
-      const mode = button.dataset.inkAudioMode;
-      const audio = players[mode];
-      const isPlaying = Boolean(audio && !audio.paused && !audio.ended);
-      const labelNode = button.querySelector("span:last-child");
-      if (labelNode) labelNode.textContent = buttonLabel(mode, isPlaying);
-      else button.textContent = buttonLabel(mode, isPlaying);
-      button.setAttribute("aria-pressed", String(isPlaying));
+  function syncControls() {
+    document.querySelectorAll("[data-ink-audio-mode], .studio-music-toggle").forEach(button => {
+      const label = button.querySelector("span:last-child");
+      const text = playing ? "Pause Studio Music" : "Studio Music";
+      if (label) label.textContent = text;
+      else button.textContent = text;
+      button.setAttribute("aria-pressed", String(playing));
       button.disabled = false;
     });
-
-    const deckButton = document.getElementById("soundBtn");
-    if (deckButton) {
-      const audio = players.c4;
-      const isPlaying = Boolean(audio && !audio.paused && !audio.ended);
-      deckButton.textContent = buttonLabel("c4", isPlaying);
-      deckButton.setAttribute("aria-pressed", String(isPlaying));
-      deckButton.disabled = false;
-    }
-
-    const deckStatus = document.getElementById("soundStatus");
-    if (deckStatus) deckStatus.textContent = activeMode ? `Playing ${SOURCES[activeMode].title}` : "Audio ready";
+    const soundStatus = document.getElementById("soundStatus");
+    if (soundStatus) soundStatus.textContent = playing ? `Playing ${TRACK.title}` : "Audio ready";
     const trackStatus = document.getElementById("trackStatus");
-    if (trackStatus) trackStatus.textContent = activeMode ? `Now playing: ${SOURCES[activeMode].title}` : "Choose a sound to begin.";
+    if (trackStatus) trackStatus.textContent = playing ? `Now playing: ${TRACK.title}` : "Tap Studio Music to begin.";
   }
 
-  function playFromTap(mode) {
-    const audio = createPlayer(mode);
+  function toggleFromTap(event) {
+    event?.preventDefault();
+    const player = getAudio();
+    player.muted = false;
+    player.volume = TRACK.volume;
 
-    if (!audio.paused) {
-      audio.pause();
-      audio.currentTime = 0;
-      activeMode = null;
-      report(`${SOURCES[mode].title} paused.`);
-      syncButtons();
+    if (!player.paused) {
+      player.pause();
+      player.currentTime = 0;
+      report(`${TRACK.title} paused.`);
       return;
     }
 
-    stopAll(mode);
-    audio.muted = false;
-    audio.volume = SOURCES[mode].volume;
-
-    // iPhone requires play() to be called directly inside this tap handler.
-    const playPromise = audio.play();
-    report(`Starting: ${SOURCES[mode].title}…`);
-    syncButtons();
-
-    if (playPromise && typeof playPromise.catch === "function") {
+    const playPromise = player.play();
+    report(`Starting: ${TRACK.title}…`);
+    if (playPromise?.catch) {
       playPromise.catch(error => {
-        activeMode = null;
-        report(`Playback failed for ${SOURCES[mode].title}: ${error.name || "Error"} ${error.message || ""}`.trim(), true);
-        syncButtons();
+        playing = false;
+        report(`Playback failed: ${error.name || "Error"} ${error.message || ""}`.trim(), true);
+        syncControls();
       });
     }
   }
 
-  function makeFloatingButton(mode, className, icon, label) {
-    let button = document.querySelector(`[data-ink-audio-mode="${mode}"]`);
-    if (button) return button;
-    button = document.createElement("button");
-    button.type = "button";
-    button.className = className;
-    button.dataset.inkAudioMode = mode;
-    button.setAttribute("aria-pressed", "false");
-    button.innerHTML = `<span aria-hidden="true">${icon}</span><span>${label}</span>`;
-    document.body.appendChild(button);
-    return button;
+  let studioButton = document.querySelector(".studio-music-toggle");
+  if (!studioButton) {
+    studioButton = document.createElement("button");
+    studioButton.type = "button";
+    studioButton.className = "studio-music-toggle";
+    studioButton.innerHTML = '<span aria-hidden="true">♫</span><span>Studio Music</span>';
+    document.body.appendChild(studioButton);
   }
-
-  const studioButton = makeFloatingButton("studio", "studio-music-toggle", "♫", "Studio Music");
-  const rainButton = makeFloatingButton("rain", "rainstorm-toggle", "☂", "Rainstorm Sound");
-
-  [studioButton, rainButton].forEach(button => {
-    button.addEventListener("click", event => {
-      event.preventDefault();
-      playFromTap(button.dataset.inkAudioMode);
-    });
-  });
+  studioButton.dataset.inkAudioMode = "studio";
+  studioButton.setAttribute("aria-pressed", "false");
+  studioButton.addEventListener("click", toggleFromTap);
 
   const deckButton = document.getElementById("soundBtn");
   if (deckButton) {
-    deckButton.dataset.inkAudioMode = "c4";
-    deckButton.removeAttribute("data-href");
-    deckButton.addEventListener("click", event => {
-      event.preventDefault();
-      event.stopImmediatePropagation();
-      playFromTap("c4");
-    }, true);
+    deckButton.dataset.inkAudioMode = "studio";
+    deckButton.addEventListener("click", toggleFromTap, true);
   }
 
   window.InkspirationsAudioEngine = {
-    play: playFromTap,
-    stopAll: () => {
-      stopAll(null);
-      activeMode = null;
-      report("All Inkspirations audio stopped.");
-      syncButtons();
+    play: toggleFromTap,
+    stopAll() {
+      if (audio) {
+        audio.pause();
+        audio.currentTime = 0;
+      }
+      report("Audio stopped.");
+      syncControls();
     },
-    sources: SOURCES
+    track: TRACK
   };
 
-  getStatusPanel();
-  syncButtons();
+  report("Audio ready. Tap Studio Music to begin.");
+  syncControls();
 })();
