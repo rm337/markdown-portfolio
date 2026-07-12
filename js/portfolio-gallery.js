@@ -1,7 +1,9 @@
 const state = {
   allItems: [],
   visibleItems: [],
-  currentIndex: 0
+  currentIndex: 0,
+  imageCache: new Map(),
+  navigationLocked: false
 };
 
 const els = {
@@ -38,6 +40,7 @@ async function initGallery() {
   hydrateFilters();
   bindEvents();
   renderGallery();
+  preloadImages(state.allItems);
 }
 
 function bindEvents() {
@@ -91,6 +94,13 @@ function renderGallery() {
   renderCards();
   els.count.textContent = `${state.visibleItems.length} image${state.visibleItems.length === 1 ? '' : 's'} showing`;
   els.empty.hidden = state.visibleItems.length > 0;
+  preloadImages(state.visibleItems);
+}
+
+function createInquiryLink(item) {
+  const subject = encodeURIComponent(`Inkspirations Studios inquiry: ${item.title}`);
+  const body = encodeURIComponent(`Hello Robert,\n\nI would like to ask about “${item.title}.”\n\nPlease send me more information about availability, pricing, or commissioning related work.\n\nThank you.`);
+  return `mailto:r.marleton@gmail.com?subject=${subject}&body=${body}`;
 }
 
 function renderFeatured() {
@@ -101,20 +111,21 @@ function renderFeatured() {
     return;
   }
 
+  const featuredIndex = state.visibleItems.indexOf(featuredItem);
   els.featured.hidden = false;
   els.featured.innerHTML = `
-    <img src="${escapeAttribute(featuredItem.image)}" alt="${escapeAttribute(featuredItem.alt || featuredItem.title)}" loading="lazy">
+    <img src="${escapeAttribute(featuredItem.image)}" alt="${escapeAttribute(featuredItem.alt || featuredItem.title)}" loading="eager" decoding="async">
     <div class="featured-copy">
       <p class="eyebrow">Featured piece</p>
       <h2>${escapeHtml(featuredItem.title)}</h2>
       <p>${escapeHtml(featuredItem.description || '')}</p>
       <div class="card-actions">
         <button class="button primary" type="button" data-featured-open>Open Lightbox</button>
-        <a class="button" href="index.html#contact">Ask About This Piece</a>
+        <a class="button" href="${escapeAttribute(createInquiryLink(featuredItem))}">Ask About This Piece</a>
       </div>
     </div>
   `;
-  els.featured.querySelector('[data-featured-open]').addEventListener('click', () => openLightbox(0));
+  els.featured.querySelector('[data-featured-open]').addEventListener('click', () => openLightbox(featuredIndex));
 }
 
 function renderCards() {
@@ -125,7 +136,7 @@ function renderCards() {
     card.type = 'button';
     card.className = 'gallery-card';
     card.innerHTML = `
-      <img src="${escapeAttribute(item.image)}" alt="${escapeAttribute(item.alt || item.title)}" loading="lazy">
+      <img src="${escapeAttribute(item.image)}" alt="${escapeAttribute(item.alt || item.title)}" loading="lazy" decoding="async">
       <div class="card-body">
         <h3>${escapeHtml(item.title)}</h3>
         <p>${escapeHtml(item.collection || 'Portfolio')}</p>
@@ -138,16 +149,43 @@ function renderCards() {
   });
 }
 
+function preloadImage(src) {
+  if (!src || state.imageCache.has(src)) return state.imageCache.get(src);
+  const image = new Image();
+  image.decoding = 'async';
+  const ready = new Promise(resolve => {
+    image.onload = resolve;
+    image.onerror = resolve;
+  });
+  image.src = src;
+  state.imageCache.set(src, ready);
+  return ready;
+}
+
+function preloadImages(items) {
+  items.forEach(item => preloadImage(item.image));
+}
+
+function preloadNeighbors() {
+  if (!state.visibleItems.length) return;
+  const previousIndex = (state.currentIndex - 1 + state.visibleItems.length) % state.visibleItems.length;
+  const nextIndex = (state.currentIndex + 1) % state.visibleItems.length;
+  preloadImage(state.visibleItems[previousIndex]?.image);
+  preloadImage(state.visibleItems[nextIndex]?.image);
+}
+
 function openLightbox(index) {
   state.currentIndex = index;
   updateLightbox();
   els.lightbox.showModal();
+  preloadNeighbors();
 }
 
 function updateLightbox() {
   const item = state.visibleItems[state.currentIndex];
   if (!item) return;
 
+  els.lightboxImage.classList.add('is-switching');
   els.lightboxImage.src = item.image;
   els.lightboxImage.alt = item.alt || item.title;
   els.lightboxTitle.textContent = item.title;
@@ -162,18 +200,25 @@ function updateLightbox() {
       wrap.innerHTML = `<dt>${escapeHtml(label)}</dt><dd>${escapeHtml(String(value))}</dd>`;
       els.lightboxMeta.append(wrap);
     });
+
+  requestAnimationFrame(() => els.lightboxImage.classList.remove('is-switching'));
+  preloadNeighbors();
+}
+
+function navigate(direction) {
+  if (!state.visibleItems.length || state.navigationLocked) return;
+  state.navigationLocked = true;
+  state.currentIndex = (state.currentIndex + direction + state.visibleItems.length) % state.visibleItems.length;
+  updateLightbox();
+  window.setTimeout(() => { state.navigationLocked = false; }, 90);
 }
 
 function showPrevious() {
-  if (!state.visibleItems.length) return;
-  state.currentIndex = (state.currentIndex - 1 + state.visibleItems.length) % state.visibleItems.length;
-  updateLightbox();
+  navigate(-1);
 }
 
 function showNext() {
-  if (!state.visibleItems.length) return;
-  state.currentIndex = (state.currentIndex + 1) % state.visibleItems.length;
-  updateLightbox();
+  navigate(1);
 }
 
 function closeLightbox() {
