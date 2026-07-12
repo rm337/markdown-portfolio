@@ -20,7 +20,7 @@
   let playing = false;
   let bar = 0;
   const active = new Set();
-  const tempo = 104;
+  const tempo = 128;
   const beat = 60 / tempo;
   const roots = [55, 49, 65.41, 43.65];
 
@@ -34,15 +34,15 @@
     button.classList.toggle("is-playing", playing);
     button.setAttribute("aria-pressed", String(playing));
     button.setAttribute("aria-label", playing ? "Stop studio music" : "Play optional studio music");
-    button.querySelector("span:last-child").textContent = playing ? "Music On" : "Studio Music";
+    button.querySelector("span:last-child").textContent = playing ? "C4 On" : "Studio Music";
 
     if (deckButton) {
       deckButton.disabled = false;
-      deckButton.textContent = playing ? "Stop Flight Deck Mix" : "Play Flight Deck Mix";
+      deckButton.textContent = playing ? "Stop C4 Mix" : "Play C4 Mix";
       deckButton.setAttribute("aria-pressed", String(playing));
-      deckButton.setAttribute("aria-label", playing ? "Stop Flight Deck music" : "Play Flight Deck music");
+      deckButton.setAttribute("aria-label", playing ? "Stop C4 music" : "Play C4 music");
     }
-    if (deckStatus) deckStatus.textContent = playing ? "Live mix playing" : "Ready to play";
+    if (deckStatus) deckStatus.textContent = playing ? "C4 mix live" : "Ready to play";
     if (deckTrackStatus && message) deckTrackStatus.textContent = message;
     document.body.classList.toggle("deck-playing", playing);
   }
@@ -57,10 +57,10 @@
     oscillator.frequency.setValueAtTime(frequency, when);
     filter.type = "lowpass";
     filter.frequency.setValueAtTime(cutoff, when);
-    filter.Q.value = 0.45;
+    filter.Q.value = 0.7;
 
     gain.gain.setValueAtTime(0.0001, when);
-    gain.gain.exponentialRampToValueAtTime(volume, when + 0.18);
+    gain.gain.exponentialRampToValueAtTime(volume, when + 0.02);
     gain.gain.exponentialRampToValueAtTime(0.0001, when + duration);
 
     sendGain.gain.value = send;
@@ -74,21 +74,35 @@
     oscillator.stop(when + duration + 0.08);
   }
 
-  function kick(when, volume = 0.55) {
-    const oscillator = track(context.createOscillator());
-    const gain = context.createGain();
-    oscillator.type = "sine";
-    oscillator.frequency.setValueAtTime(105, when);
-    oscillator.frequency.exponentialRampToValueAtTime(44, when + 0.22);
-    gain.gain.setValueAtTime(volume, when);
-    gain.gain.exponentialRampToValueAtTime(0.0001, when + 0.3);
-    oscillator.connect(gain);
-    gain.connect(master);
-    oscillator.start(when);
-    oscillator.stop(when + 0.34);
+  function kick(when, volume = 0.9) {
+    const body = track(context.createOscillator());
+    const click = track(context.createOscillator());
+    const bodyGain = context.createGain();
+    const clickGain = context.createGain();
+
+    body.type = "sine";
+    body.frequency.setValueAtTime(170, when);
+    body.frequency.exponentialRampToValueAtTime(45, when + 0.18);
+    bodyGain.gain.setValueAtTime(volume, when);
+    bodyGain.gain.exponentialRampToValueAtTime(0.0001, when + 0.34);
+
+    click.type = "triangle";
+    click.frequency.setValueAtTime(1050, when);
+    click.frequency.exponentialRampToValueAtTime(180, when + 0.03);
+    clickGain.gain.setValueAtTime(0.17, when);
+    clickGain.gain.exponentialRampToValueAtTime(0.0001, when + 0.045);
+
+    body.connect(bodyGain);
+    click.connect(clickGain);
+    bodyGain.connect(master);
+    clickGain.connect(master);
+    body.start(when);
+    click.start(when);
+    body.stop(when + 0.36);
+    click.stop(when + 0.06);
   }
 
-  function softNoise(when, duration = 0.16, volume = 0.035, cutoff = 5200) {
+  function noiseHit(when, duration = 0.11, volume = 0.08, cutoff = 7200) {
     const length = Math.floor(context.sampleRate * duration);
     const buffer = context.createBuffer(1, length, context.sampleRate);
     const data = buffer.getChannelData(0);
@@ -97,7 +111,7 @@
     const filter = context.createBiquadFilter();
     const gain = context.createGain();
     source.buffer = buffer;
-    filter.type = "lowpass";
+    filter.type = "highpass";
     filter.frequency.value = cutoff;
     gain.gain.setValueAtTime(volume, when);
     gain.gain.exponentialRampToValueAtTime(0.0001, when + duration);
@@ -107,6 +121,11 @@
     source.start(when);
   }
 
+  function bassPulse(root, when, duration, volume = 0.25) {
+    filteredTone(root / 2, when, duration, volume, "sawtooth", 240, 0.08);
+    filteredTone(root, when, duration * 0.9, volume * 0.46, "square", 320, 0.05);
+  }
+
   function scheduleBar() {
     if (!playing) return;
     const start = context.currentTime + 0.06;
@@ -114,17 +133,18 @@
 
     for (let i = 0; i < 16; i += 1) {
       const when = start + i * beat / 4;
-      if (i % 4 === 0) kick(when, i === 0 ? 0.62 : 0.48);
-      if (i === 6 || i === 14) softNoise(when, 0.11, 0.028, 4200);
-      if (i === 10) softNoise(when, 0.22, 0.02, 2800);
+      if (i % 4 === 0) kick(when, i === 0 ? 0.98 : 0.82);
+      if (i % 2 === 0) noiseHit(when, 0.055, i % 4 === 2 ? 0.07 : 0.04, 7000);
+      if (i === 4 || i === 12) noiseHit(when, 0.16, 0.16, 1500);
+      if (i === 0 || i === 3 || i === 8 || i === 11) bassPulse(root, when, beat * 0.55, i === 0 ? 0.34 : 0.27);
     }
 
-    filteredTone(root, start, beat * 3.85, 0.16, "sine", 420, 0.22);
-    filteredTone(root * 1.5, start + beat * 0.5, beat * 3.25, 0.045, "sine", 760, 0.34);
-    filteredTone(root * 2, start + beat * 1.25, beat * 2.1, 0.026, "triangle", 980, 0.42);
+    filteredTone(root, start, beat * 3.9, 0.12, "sine", 360, 0.16);
+    filteredTone(root * 1.5, start + beat * 0.5, beat * 3.1, 0.05, "sawtooth", 820, 0.3);
 
     if (bar % 2 === 1) {
-      filteredTone(root * 2.25, start + beat * 2.5, beat * 0.75, 0.018, "sine", 1200, 0.5);
+      filteredTone(root * 2, start + beat * 2.5, beat * 0.45, 0.055, "square", 1200, 0.28);
+      filteredTone(root * 2.25, start + beat * 3.0, beat * 0.35, 0.045, "square", 1500, 0.32);
     }
 
     bar += 1;
@@ -146,14 +166,14 @@
     try { delay.disconnect(); } catch (error) {}
     try { delayFeedback.disconnect(); } catch (error) {}
 
-    master.gain.setValueAtTime(0.58, context.currentTime);
-    compressor.threshold.value = -24;
-    compressor.knee.value = 18;
-    compressor.ratio.value = 4;
-    compressor.attack.value = 0.02;
-    compressor.release.value = 0.28;
+    master.gain.setValueAtTime(0.78, context.currentTime);
+    compressor.threshold.value = -28;
+    compressor.knee.value = 8;
+    compressor.ratio.value = 10;
+    compressor.attack.value = 0.004;
+    compressor.release.value = 0.14;
     delay.delayTime.value = beat * 0.75;
-    delayFeedback.gain.value = 0.26;
+    delayFeedback.gain.value = 0.2;
 
     delay.connect(delayFeedback);
     delayFeedback.connect(delay);
@@ -166,7 +186,7 @@
     scheduleBar();
     timer = window.setInterval(scheduleBar, beat * 4 * 1000);
     localStorage.setItem("inkspirationsMusicPreference", "on");
-    syncControls("Cinematic studio mix is playing. Deep pulse, atmosphere, and no arcade tones.");
+    syncControls("C4 is live: harder kick, deeper bass, faster pulse, and full Flight Deck pressure.");
   }
 
   function stop() {
@@ -179,7 +199,7 @@
     try { delay?.disconnect(); } catch (error) {}
     try { delayFeedback?.disconnect(); } catch (error) {}
     localStorage.setItem("inkspirationsMusicPreference", "off");
-    syncControls("Studio mix stopped. Press play to begin again.");
+    syncControls("C4 mix stopped. Press play to bring the pressure back.");
   }
 
   async function toggle() {
@@ -218,7 +238,7 @@
 
   if (localStorage.getItem("inkspirationsMusicPreference") === "on") {
     button.title = "Press to resume your studio music";
-    button.querySelector("span:last-child").textContent = "Resume Music";
+    button.querySelector("span:last-child").textContent = "Resume C4";
   }
-  syncControls("Press Play Flight Deck Mix to begin the cinematic studio music.");
+  syncControls("Press Play C4 Mix to begin the Flight Deck music.");
 })();
