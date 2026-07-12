@@ -14,13 +14,15 @@
   let context;
   let master;
   let compressor;
+  let delay;
+  let delayFeedback;
   let timer;
   let playing = false;
-  let step = 0;
+  let bar = 0;
   const active = new Set();
-  const tempo = 118;
+  const tempo = 104;
   const beat = 60 / tempo;
-  const scale = [110, 130.81, 146.83, 164.81, 196, 220, 261.63];
+  const roots = [55, 49, 65.41, 43.65];
 
   function track(node) {
     active.add(node);
@@ -45,40 +47,49 @@
     document.body.classList.toggle("deck-playing", playing);
   }
 
-  function tone(frequency, when, duration, volume, type = "sine", cutoff = 1800) {
+  function filteredTone(frequency, when, duration, volume, type = "sine", cutoff = 900, send = 0.18) {
     const oscillator = track(context.createOscillator());
     const gain = context.createGain();
     const filter = context.createBiquadFilter();
+    const sendGain = context.createGain();
+
     oscillator.type = type;
     oscillator.frequency.setValueAtTime(frequency, when);
     filter.type = "lowpass";
     filter.frequency.setValueAtTime(cutoff, when);
+    filter.Q.value = 0.45;
+
     gain.gain.setValueAtTime(0.0001, when);
-    gain.gain.exponentialRampToValueAtTime(volume, when + 0.015);
+    gain.gain.exponentialRampToValueAtTime(volume, when + 0.18);
     gain.gain.exponentialRampToValueAtTime(0.0001, when + duration);
+
+    sendGain.gain.value = send;
     oscillator.connect(filter);
     filter.connect(gain);
     gain.connect(master);
+    gain.connect(sendGain);
+    sendGain.connect(delay);
+
     oscillator.start(when);
-    oscillator.stop(when + duration + 0.03);
+    oscillator.stop(when + duration + 0.08);
   }
 
-  function kick(when) {
+  function kick(when, volume = 0.55) {
     const oscillator = track(context.createOscillator());
     const gain = context.createGain();
     oscillator.type = "sine";
-    oscillator.frequency.setValueAtTime(155, when);
-    oscillator.frequency.exponentialRampToValueAtTime(46, when + 0.18);
-    gain.gain.setValueAtTime(0.9, when);
-    gain.gain.exponentialRampToValueAtTime(0.0001, when + 0.24);
+    oscillator.frequency.setValueAtTime(105, when);
+    oscillator.frequency.exponentialRampToValueAtTime(44, when + 0.22);
+    gain.gain.setValueAtTime(volume, when);
+    gain.gain.exponentialRampToValueAtTime(0.0001, when + 0.3);
     oscillator.connect(gain);
     gain.connect(master);
     oscillator.start(when);
-    oscillator.stop(when + 0.26);
+    oscillator.stop(when + 0.34);
   }
 
-  function hat(when, volume = 0.1) {
-    const length = Math.floor(context.sampleRate * 0.07);
+  function softNoise(when, duration = 0.16, volume = 0.035, cutoff = 5200) {
+    const length = Math.floor(context.sampleRate * duration);
     const buffer = context.createBuffer(1, length, context.sampleRate);
     const data = buffer.getChannelData(0);
     for (let i = 0; i < length; i += 1) data[i] = Math.random() * 2 - 1;
@@ -86,59 +97,37 @@
     const filter = context.createBiquadFilter();
     const gain = context.createGain();
     source.buffer = buffer;
-    filter.type = "highpass";
-    filter.frequency.value = 6200;
+    filter.type = "lowpass";
+    filter.frequency.value = cutoff;
     gain.gain.setValueAtTime(volume, when);
-    gain.gain.exponentialRampToValueAtTime(0.0001, when + 0.065);
+    gain.gain.exponentialRampToValueAtTime(0.0001, when + duration);
     source.connect(filter);
     filter.connect(gain);
     gain.connect(master);
     source.start(when);
   }
 
-  function clap(when) {
-    for (let offset = 0; offset < 3; offset += 1) {
-      const length = Math.floor(context.sampleRate * 0.045);
-      const buffer = context.createBuffer(1, length, context.sampleRate);
-      const data = buffer.getChannelData(0);
-      for (let i = 0; i < length; i += 1) data[i] = Math.random() * 2 - 1;
-      const source = track(context.createBufferSource());
-      const filter = context.createBiquadFilter();
-      const gain = context.createGain();
-      source.buffer = buffer;
-      filter.type = "bandpass";
-      filter.frequency.value = 1500;
-      gain.gain.setValueAtTime(0.18, when + offset * 0.018);
-      gain.gain.exponentialRampToValueAtTime(0.0001, when + 0.12 + offset * 0.018);
-      source.connect(filter);
-      filter.connect(gain);
-      gain.connect(master);
-      source.start(when + offset * 0.018);
-    }
-  }
-
   function scheduleBar() {
     if (!playing) return;
-    const start = context.currentTime + 0.05;
-    const root = scale[(step / 16) % scale.length | 0];
-    const pattern = [0, 2, 4, 2, 5, 4, 2, 1];
+    const start = context.currentTime + 0.06;
+    const root = roots[bar % roots.length];
 
     for (let i = 0; i < 16; i += 1) {
       const when = start + i * beat / 4;
-      if (i % 4 === 0) kick(when);
-      if (i === 4 || i === 12) clap(when);
-      hat(when, i % 4 === 2 ? 0.15 : 0.075);
-      if (i % 4 === 0) tone(root / 2, when, beat * 0.8, 0.22, "sawtooth", 560);
-      if (i % 2 === 0) {
-        const note = scale[(pattern[(i / 2) % pattern.length] + step / 16) % scale.length | 0] * 2;
-        tone(note, when, beat * 0.44, 0.075, "triangle", 2600);
-      }
+      if (i % 4 === 0) kick(when, i === 0 ? 0.62 : 0.48);
+      if (i === 6 || i === 14) softNoise(when, 0.11, 0.028, 4200);
+      if (i === 10) softNoise(when, 0.22, 0.02, 2800);
     }
 
-    tone(root, start, beat * 3.8, 0.075, "sine", 1300);
-    tone(root * 1.5, start, beat * 3.8, 0.05, "sine", 1500);
-    tone(root * 2, start, beat * 3.8, 0.035, "triangle", 1900);
-    step = (step + 16) % 112;
+    filteredTone(root, start, beat * 3.85, 0.16, "sine", 420, 0.22);
+    filteredTone(root * 1.5, start + beat * 0.5, beat * 3.25, 0.045, "sine", 760, 0.34);
+    filteredTone(root * 2, start + beat * 1.25, beat * 2.1, 0.026, "triangle", 980, 0.42);
+
+    if (bar % 2 === 1) {
+      filteredTone(root * 2.25, start + beat * 2.5, beat * 0.75, 0.018, "sine", 1200, 0.5);
+    }
+
+    bar += 1;
   }
 
   async function start() {
@@ -149,23 +138,35 @@
 
     master = master || context.createGain();
     compressor = compressor || context.createDynamicsCompressor();
+    delay = delay || context.createDelay(1.5);
+    delayFeedback = delayFeedback || context.createGain();
+
     try { master.disconnect(); } catch (error) {}
     try { compressor.disconnect(); } catch (error) {}
-    master.gain.setValueAtTime(0.78, context.currentTime);
-    compressor.threshold.value = -20;
-    compressor.knee.value = 16;
-    compressor.ratio.value = 6;
-    compressor.attack.value = 0.008;
-    compressor.release.value = 0.18;
+    try { delay.disconnect(); } catch (error) {}
+    try { delayFeedback.disconnect(); } catch (error) {}
+
+    master.gain.setValueAtTime(0.58, context.currentTime);
+    compressor.threshold.value = -24;
+    compressor.knee.value = 18;
+    compressor.ratio.value = 4;
+    compressor.attack.value = 0.02;
+    compressor.release.value = 0.28;
+    delay.delayTime.value = beat * 0.75;
+    delayFeedback.gain.value = 0.26;
+
+    delay.connect(delayFeedback);
+    delayFeedback.connect(delay);
+    delay.connect(master);
     master.connect(compressor);
     compressor.connect(context.destination);
 
     playing = true;
-    step = 0;
+    bar = 0;
     scheduleBar();
     timer = window.setInterval(scheduleBar, beat * 4 * 1000);
     localStorage.setItem("inkspirationsMusicPreference", "on");
-    syncControls("Flight Deck mix is now playing. Use the main button or the floating music button to stop it.");
+    syncControls("Cinematic studio mix is playing. Deep pulse, atmosphere, and no arcade tones.");
   }
 
   function stop() {
@@ -175,8 +176,10 @@
     active.clear();
     try { master?.disconnect(); } catch (error) {}
     try { compressor?.disconnect(); } catch (error) {}
+    try { delay?.disconnect(); } catch (error) {}
+    try { delayFeedback?.disconnect(); } catch (error) {}
     localStorage.setItem("inkspirationsMusicPreference", "off");
-    syncControls("Flight Deck mix stopped. Press Play Flight Deck Mix to start it again.");
+    syncControls("Studio mix stopped. Press play to begin again.");
   }
 
   async function toggle() {
@@ -217,5 +220,5 @@
     button.title = "Press to resume your studio music";
     button.querySelector("span:last-child").textContent = "Resume Music";
   }
-  syncControls("Press Play Flight Deck Mix to begin the local studio music.");
+  syncControls("Press Play Flight Deck Mix to begin the cinematic studio music.");
 })();
