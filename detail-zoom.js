@@ -1,6 +1,55 @@
 (() => {
   "use strict";
 
+  const style = document.createElement("style");
+  style.textContent = `
+    .gallery-card img,
+    .featured-panel img {
+      object-fit: contain !important;
+      background: #07131f !important;
+    }
+
+    #modalImg,
+    #lightbox-image {
+      width: 100% !important;
+      height: 100% !important;
+      max-width: 100vw !important;
+      max-height: 100dvh !important;
+      object-fit: contain !important;
+      transform: translate(var(--detail-x, 0px), var(--detail-y, 0px)) scale(var(--detail-scale, 1)) !important;
+      transform-origin: center center;
+      transition: transform .22s ease;
+      cursor: zoom-in;
+      touch-action: none;
+      user-select: none;
+    }
+
+    #modalImg.is-detail-zoomed,
+    #lightbox-image.is-detail-zoomed {
+      cursor: grab;
+      max-width: none !important;
+      max-height: none !important;
+    }
+
+    #modalImg.is-dragging,
+    #lightbox-image.is-dragging {
+      cursor: grabbing;
+      transition: none;
+    }
+
+    .gallery-lightbox,
+    .lightbox figure {
+      overflow: hidden !important;
+    }
+
+    .gallery-lightbox.has-detail-zoom .modal-bar,
+    .lightbox.has-detail-zoom figcaption {
+      opacity: .08;
+      pointer-events: none;
+    }
+  `;
+  document.head.appendChild(style);
+
   const images = [
     document.getElementById("modalImg"),
     document.getElementById("lightbox-image")
@@ -11,6 +60,8 @@
   function applyState(image, levelIndex = 0) {
     const scale = zoomLevels[levelIndex] || 1;
     image.dataset.zoomLevel = String(levelIndex);
+    image.dataset.panX = "0";
+    image.dataset.panY = "0";
     image.style.setProperty("--detail-scale", String(scale));
     image.style.setProperty("--detail-x", "0px");
     image.style.setProperty("--detail-y", "0px");
@@ -43,6 +94,7 @@
 
   function attachDrag(image) {
     let dragging = false;
+    let moved = false;
     let startX = 0;
     let startY = 0;
     let baseX = 0;
@@ -51,6 +103,7 @@
     image.addEventListener("pointerdown", (event) => {
       if (Number(image.dataset.zoomLevel || 0) === 0) return;
       dragging = true;
+      moved = false;
       startX = event.clientX;
       startY = event.clientY;
       baseX = Number(image.dataset.panX || 0);
@@ -62,8 +115,11 @@
 
     image.addEventListener("pointermove", (event) => {
       if (!dragging) return;
-      const x = baseX + (event.clientX - startX);
-      const y = baseY + (event.clientY - startY);
+      const dx = event.clientX - startX;
+      const dy = event.clientY - startY;
+      if (Math.abs(dx) > 3 || Math.abs(dy) > 3) moved = true;
+      const x = baseX + dx;
+      const y = baseY + dy;
       image.dataset.panX = String(x);
       image.dataset.panY = String(y);
       image.style.setProperty("--detail-x", `${x}px`);
@@ -75,6 +131,8 @@
       dragging = false;
       image.releasePointerCapture?.(event.pointerId);
       image.classList.remove("is-dragging");
+      if (moved) image.dataset.justDragged = "true";
+      window.setTimeout(() => delete image.dataset.justDragged, 0);
     };
 
     image.addEventListener("pointerup", endDrag);
@@ -84,34 +142,24 @@
   images.forEach((image) => {
     image.tabIndex = 0;
     image.setAttribute("role", "button");
-    image.dataset.panX = "0";
-    image.dataset.panY = "0";
     applyState(image, 0);
     attachDrag(image);
 
     image.addEventListener("click", (event) => {
-      if (image.classList.contains("is-dragging")) return;
-      image.dataset.panX = "0";
-      image.dataset.panY = "0";
+      if (image.dataset.justDragged === "true") return;
       cycleZoom(image, event);
     });
 
     image.addEventListener("keydown", (event) => {
       if (event.key === "Enter" || event.key === " ") {
         event.preventDefault();
-        image.dataset.panX = "0";
-        image.dataset.panY = "0";
         cycleZoom(image);
       }
     });
 
     const container = image.closest(".modal, dialog") || image;
     new MutationObserver(() => {
-      if (!image.closest(".open, [open]")) {
-        image.dataset.panX = "0";
-        image.dataset.panY = "0";
-        applyState(image, 0);
-      }
+      if (!image.closest(".open, [open]")) applyState(image, 0);
     }).observe(container, { attributes: true, attributeFilter: ["class", "open"] });
   });
 
@@ -127,12 +175,6 @@
   });
 
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
-      images.forEach((image) => {
-        image.dataset.panX = "0";
-        image.dataset.panY = "0";
-        applyState(image, 0);
-      });
-    }
+    if (event.key === "Escape") images.forEach((image) => applyState(image, 0));
   });
 })();
