@@ -97,6 +97,10 @@ function renderGallery() {
   preloadImages(state.visibleItems);
 }
 
+function isInquirable(item) {
+  return item && item.inquiryEnabled === true;
+}
+
 function createInquiryLink(item) {
   const subject = encodeURIComponent(`Inkspirations Studios inquiry: ${item.title}`);
   const body = encodeURIComponent(`Hello Robert,\n\nI would like to ask about “${item.title}.”\n\nPlease send me more information about availability, pricing, or commissioning related work.\n\nThank you.`);
@@ -112,6 +116,10 @@ function renderFeatured() {
   }
 
   const featuredIndex = state.visibleItems.indexOf(featuredItem);
+  const inquiryButton = isInquirable(featuredItem)
+    ? `<a class="button" href="${escapeAttribute(createInquiryLink(featuredItem))}">Ask About This Piece</a>`
+    : '';
+
   els.featured.hidden = false;
   els.featured.innerHTML = `
     <img src="${escapeAttribute(featuredItem.image)}" alt="${escapeAttribute(featuredItem.alt || featuredItem.title)}" loading="eager" decoding="async">
@@ -121,7 +129,7 @@ function renderFeatured() {
       <p>${escapeHtml(featuredItem.description || '')}</p>
       <div class="card-actions">
         <button class="button primary" type="button" data-featured-open>Open Lightbox</button>
-        <a class="button" href="${escapeAttribute(createInquiryLink(featuredItem))}">Ask About This Piece</a>
+        ${inquiryButton}
       </div>
     </div>
   `;
