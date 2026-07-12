@@ -1,13 +1,18 @@
 /* Inkspirations interaction and presentation hotfix */
 
-/* Remove the striped, beam, and line effects Robert rejected. */
+/* Remove only the striped and beam effects Robert rejected. */
 .studio-entry::after,
-.room-beam,
-.room-system-page::after {
+.room-beam {
   display: none !important;
   content: none !important;
   background: none !important;
   animation: none !important;
+}
+
+/* Keep the floating ink atmosphere visible. */
+.room-system-page::after {
+  display: block !important;
+  content: "" !important;
 }
 
 /* Decorative layers must never sit between a visitor and a link. */
