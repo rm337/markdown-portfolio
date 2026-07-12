@@ -1,167 +1,198 @@
 (() => {
-  let buttons = [...document.querySelectorAll("[data-audio-toggle]")];
-  if (!buttons.length) {
-    const floating = document.createElement("button");
-    floating.type = "button";
-    floating.className = "rainstorm-toggle";
-    floating.setAttribute("data-audio-toggle", "");
-    floating.innerHTML = '<span aria-hidden="true">☂</span><span>Rainstorm Sound</span>';
-    document.body.appendChild(floating);
-    buttons = [floating];
+  if (window.InkspirationsAudioEngine) return;
+
+  const SOURCES = {
+    c4: {
+      title: "C4 Flight Deck Session",
+      url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+      volume: 0.88
+    },
+    studio: {
+      title: "Inkspirations Studio Music",
+      url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+      volume: 0.72
+    },
+    rain: {
+      title: "Rainstorm Sound",
+      url: "https://www.soundjay.com/nature/sounds/rain-01.mp3",
+      volume: 0.82
+    }
+  };
+
+  const players = {};
+  let activeMode = null;
+
+  function getStatusPanel() {
+    let panel = document.getElementById("inkspirations-audio-status");
+    if (panel) return panel;
+    panel = document.createElement("div");
+    panel.id = "inkspirations-audio-status";
+    panel.setAttribute("role", "status");
+    panel.setAttribute("aria-live", "polite");
+    panel.style.cssText = "position:fixed;left:1rem;bottom:1rem;z-index:10002;max-width:min(360px,calc(100vw - 2rem));padding:.75rem 1rem;border:1px solid rgba(86,217,255,.45);border-radius:12px;background:rgba(1,7,15,.94);color:#f5fbff;font:700 .82rem/1.4 Inter,Arial,sans-serif;box-shadow:0 14px 40px rgba(0,0,0,.4);";
+    panel.textContent = "Audio ready. Tap a sound button to begin.";
+    document.body.appendChild(panel);
+    return panel;
   }
 
-  let context;
-  let rainSource;
-  let rainGain;
-  let rainFilter;
-  let hissSource;
-  let hissGain;
-  let hissFilter;
-  let rumble;
-  let rumbleGain;
-  let masterGain;
-  let playing = false;
+  function report(message, isError = false) {
+    const panel = getStatusPanel();
+    panel.textContent = message;
+    panel.style.borderColor = isError ? "rgba(255,125,125,.8)" : "rgba(86,217,255,.45)";
+    if (isError) console.error(`[Inkspirations Audio] ${message}`);
+    else console.info(`[Inkspirations Audio] ${message}`);
+  }
 
-  function sync(message) {
-    buttons.forEach(button => {
-      const label = message || (playing ? "Rainstorm On" : "Rainstorm Sound");
-      const text = button.querySelector("span:last-child");
-      if (text) text.textContent = label;
-      else button.textContent = label;
-      button.setAttribute("aria-pressed", String(playing));
-      button.setAttribute("aria-label", playing ? "Stop rainstorm sound" : "Play rainstorm sound");
+  function createPlayer(mode) {
+    if (players[mode]) return players[mode];
+    const source = SOURCES[mode];
+    const audio = new Audio();
+    audio.preload = "metadata";
+    audio.loop = true;
+    audio.muted = false;
+    audio.volume = source.volume;
+    audio.playsInline = true;
+    audio.src = source.url;
+    audio.dataset.mode = mode;
+
+    audio.addEventListener("loadstart", () => report(`Loading: ${source.title}…`));
+    audio.addEventListener("canplay", () => report(`Ready: ${source.title}. Tap play to listen.`));
+    audio.addEventListener("playing", () => {
+      activeMode = mode;
+      report(`Now playing: ${source.title}`);
+      syncButtons();
     });
+    audio.addEventListener("pause", syncButtons);
+    audio.addEventListener("waiting", () => report(`Buffering: ${source.title}…`));
+    audio.addEventListener("stalled", () => report(`Audio stalled while loading ${source.title}.`, true));
+    audio.addEventListener("error", () => {
+      const code = audio.error ? audio.error.code : "unknown";
+      report(`Could not load ${source.title}. Audio error code: ${code}.`, true);
+      if (activeMode === mode) activeMode = null;
+      syncButtons();
+    });
+
+    players[mode] = audio;
+    return audio;
   }
 
-  async function unlockAudio(audioContext) {
-    if (audioContext.state === "suspended") await audioContext.resume();
-    const buffer = audioContext.createBuffer(1, 1, audioContext.sampleRate);
-    const source = audioContext.createBufferSource();
-    source.buffer = buffer;
-    source.connect(audioContext.destination);
-    source.start(0);
-    await new Promise(resolve => window.setTimeout(resolve, 30));
-    if (audioContext.state !== "running") {
-      await audioContext.resume();
+  function stopAll(exceptMode = null) {
+    Object.entries(players).forEach(([mode, audio]) => {
+      if (mode === exceptMode) return;
+      audio.pause();
+      audio.currentTime = 0;
+    });
+    if (activeMode !== exceptMode) activeMode = exceptMode;
+  }
+
+  function buttonLabel(mode, playing) {
+    if (mode === "c4") return playing ? "Pause C4" : "Play C4";
+    if (mode === "studio") return playing ? "Pause Studio Music" : "Studio Music";
+    return playing ? "Pause Rainstorm" : "Rainstorm Sound";
+  }
+
+  function syncButtons() {
+    document.querySelectorAll("[data-ink-audio-mode]").forEach(button => {
+      const mode = button.dataset.inkAudioMode;
+      const audio = players[mode];
+      const isPlaying = Boolean(audio && !audio.paused && !audio.ended);
+      const labelNode = button.querySelector("span:last-child");
+      if (labelNode) labelNode.textContent = buttonLabel(mode, isPlaying);
+      else button.textContent = buttonLabel(mode, isPlaying);
+      button.setAttribute("aria-pressed", String(isPlaying));
+      button.disabled = false;
+    });
+
+    const deckButton = document.getElementById("soundBtn");
+    if (deckButton) {
+      const audio = players.c4;
+      const isPlaying = Boolean(audio && !audio.paused && !audio.ended);
+      deckButton.textContent = buttonLabel("c4", isPlaying);
+      deckButton.setAttribute("aria-pressed", String(isPlaying));
+      deckButton.disabled = false;
+    }
+
+    const deckStatus = document.getElementById("soundStatus");
+    if (deckStatus) deckStatus.textContent = activeMode ? `Playing ${SOURCES[activeMode].title}` : "Audio ready";
+    const trackStatus = document.getElementById("trackStatus");
+    if (trackStatus) trackStatus.textContent = activeMode ? `Now playing: ${SOURCES[activeMode].title}` : "Choose a sound to begin.";
+  }
+
+  function playFromTap(mode) {
+    const audio = createPlayer(mode);
+
+    if (!audio.paused) {
+      audio.pause();
+      audio.currentTime = 0;
+      activeMode = null;
+      report(`${SOURCES[mode].title} paused.`);
+      syncButtons();
+      return;
+    }
+
+    stopAll(mode);
+    audio.muted = false;
+    audio.volume = SOURCES[mode].volume;
+
+    // iPhone requires play() to be called directly inside this tap handler.
+    const playPromise = audio.play();
+    report(`Starting: ${SOURCES[mode].title}…`);
+    syncButtons();
+
+    if (playPromise && typeof playPromise.catch === "function") {
+      playPromise.catch(error => {
+        activeMode = null;
+        report(`Playback failed for ${SOURCES[mode].title}: ${error.name || "Error"} ${error.message || ""}`.trim(), true);
+        syncButtons();
+      });
     }
   }
 
-  function noiseBuffer(audioContext, seconds = 4, brownNoise = false) {
-    const buffer = audioContext.createBuffer(2, audioContext.sampleRate * seconds, audioContext.sampleRate);
-    for (let channel = 0; channel < buffer.numberOfChannels; channel += 1) {
-      const data = buffer.getChannelData(channel);
-      let brown = 0;
-      for (let i = 0; i < data.length; i += 1) {
-        const white = Math.random() * 2 - 1;
-        if (brownNoise) {
-          brown = (brown + 0.02 * white) / 1.02;
-          data[i] = Math.max(-1, Math.min(1, brown * 4));
-        } else {
-          data[i] = white * 0.55;
-        }
-      }
-    }
-    return buffer;
+  function makeFloatingButton(mode, className, icon, label) {
+    let button = document.querySelector(`[data-ink-audio-mode="${mode}"]`);
+    if (button) return button;
+    button = document.createElement("button");
+    button.type = "button";
+    button.className = className;
+    button.dataset.inkAudioMode = mode;
+    button.setAttribute("aria-pressed", "false");
+    button.innerHTML = `<span aria-hidden="true">${icon}</span><span>${label}</span>`;
+    document.body.appendChild(button);
+    return button;
   }
 
-  function stopNodes() {
-    try { rainSource?.stop(); } catch (error) {}
-    try { hissSource?.stop(); } catch (error) {}
-    try { rumble?.stop(); } catch (error) {}
-    try { masterGain?.disconnect(); } catch (error) {}
-    rainSource = null;
-    hissSource = null;
-    rumble = null;
-  }
+  const studioButton = makeFloatingButton("studio", "studio-music-toggle", "♫", "Studio Music");
+  const rainButton = makeFloatingButton("rain", "rainstorm-toggle", "☂", "Rainstorm Sound");
 
-  async function start() {
-    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-    if (!AudioContextClass) throw new Error("Web Audio is not supported in this browser.");
-
-    context = context || new AudioContextClass();
-    await unlockAudio(context);
-    if (context.state !== "running") throw new Error(`Audio context is ${context.state}.`);
-
-    stopNodes();
-
-    masterGain = context.createGain();
-    masterGain.gain.setValueAtTime(0.0001, context.currentTime);
-    masterGain.gain.exponentialRampToValueAtTime(0.92, context.currentTime + 0.25);
-    masterGain.connect(context.destination);
-
-    rainSource = context.createBufferSource();
-    rainSource.buffer = noiseBuffer(context, 4, true);
-    rainSource.loop = true;
-    rainFilter = context.createBiquadFilter();
-    rainFilter.type = "lowpass";
-    rainFilter.frequency.value = 3200;
-    rainFilter.Q.value = 0.3;
-    rainGain = context.createGain();
-    rainGain.gain.value = 0.72;
-    rainSource.connect(rainFilter);
-    rainFilter.connect(rainGain);
-    rainGain.connect(masterGain);
-
-    hissSource = context.createBufferSource();
-    hissSource.buffer = noiseBuffer(context, 3, false);
-    hissSource.loop = true;
-    hissFilter = context.createBiquadFilter();
-    hissFilter.type = "bandpass";
-    hissFilter.frequency.value = 2800;
-    hissFilter.Q.value = 0.45;
-    hissGain = context.createGain();
-    hissGain.gain.value = 0.34;
-    hissSource.connect(hissFilter);
-    hissFilter.connect(hissGain);
-    hissGain.connect(masterGain);
-
-    rumble = context.createOscillator();
-    rumble.type = "sine";
-    rumble.frequency.value = 72;
-    rumbleGain = context.createGain();
-    rumbleGain.gain.value = 0.025;
-    rumble.connect(rumbleGain);
-    rumbleGain.connect(masterGain);
-
-    rainSource.start();
-    hissSource.start();
-    rumble.start();
-    playing = true;
-    sync();
-  }
-
-  function stop() {
-    if (masterGain && context) {
-      masterGain.gain.cancelScheduledValues(context.currentTime);
-      masterGain.gain.setValueAtTime(Math.max(masterGain.gain.value, 0.0001), context.currentTime);
-      masterGain.gain.exponentialRampToValueAtTime(0.0001, context.currentTime + 0.2);
-    }
-    window.setTimeout(stopNodes, 240);
-    playing = false;
-    sync();
-  }
-
-  buttons.forEach(button => {
-    button.addEventListener("click", async () => {
-      button.disabled = true;
-      try {
-        if (playing) stop();
-        else await start();
-      } catch (error) {
-        playing = false;
-        stopNodes();
-        sync("Tap To Retry Sound");
-        console.error("Rainstorm audio could not start", error);
-      } finally {
-        button.disabled = false;
-      }
+  [studioButton, rainButton].forEach(button => {
+    button.addEventListener("click", event => {
+      event.preventDefault();
+      playFromTap(button.dataset.inkAudioMode);
     });
   });
 
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden || !playing || !context) return;
-    context.resume().catch(() => {});
-  });
+  const deckButton = document.getElementById("soundBtn");
+  if (deckButton) {
+    deckButton.dataset.inkAudioMode = "c4";
+    deckButton.removeAttribute("data-href");
+    deckButton.addEventListener("click", event => {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      playFromTap("c4");
+    }, true);
+  }
 
-  sync();
+  window.InkspirationsAudioEngine = {
+    play: playFromTap,
+    stopAll: () => {
+      stopAll(null);
+      activeMode = null;
+      report("All Inkspirations audio stopped.");
+      syncButtons();
+    },
+    sources: SOURCES
+  };
+
+  getStatusPanel();
+  syncButtons();
 })();
