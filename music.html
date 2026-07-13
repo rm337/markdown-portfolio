@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Music Room | Inkspirations Studios</title>
-  <meta name="description" content="Enter the Inkspirations Studios Music Room for atmospheric listening paths and the Flight Deck DJ experience.">
+  <meta name="description" content="Enter the Inkspirations Studios Music Room for curated Yotto and Charlotte de Witte listening paths.">
   <link rel="stylesheet" href="css/rooms.css">
   <link rel="stylesheet" href="css/atmosphere.css">
   <style>
@@ -13,33 +13,56 @@
     h1,h2{font-family:Georgia,"Times New Roman",serif;color:#ffe6ad;font-weight:500}
     h1{font-size:clamp(3rem,8vw,7rem);line-height:.9;margin:.4rem 0 1rem}
     .lead{max-width:760px;color:rgba(246,243,232,.78);font-size:1.1rem;line-height:1.7}
-    .paths{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin-top:2rem}
-    .path{display:block;min-height:220px;padding:1.4rem;border:1px solid rgba(143,243,232,.24);background:rgba(3,7,14,.72);color:inherit;text-decoration:none;box-shadow:0 22px 70px rgba(0,0,0,.3)}
-    .path:hover,.path:focus-visible{border-color:#8ff3e8;transform:translateY(-2px)}
-    .path strong{display:block;margin:.4rem 0 .7rem;color:#ffe6ad;font-family:Georgia,"Times New Roman",serif;font-size:1.8rem;font-weight:500}
-    .path span{color:rgba(246,243,232,.72);line-height:1.5}
+    .artists{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-top:2rem}
+    .artist{padding:1.4rem;border:1px solid rgba(143,243,232,.24);background:rgba(3,7,14,.72);box-shadow:0 22px 70px rgba(0,0,0,.3)}
+    .artist h2{font-size:clamp(2rem,5vw,3.3rem);margin:.2rem 0 .5rem}
+    .artist p{color:rgba(246,243,232,.72);line-height:1.55}
+    .tracks{display:grid;gap:.7rem;margin-top:1rem}
+    .track{display:block;padding:.85rem 1rem;border:1px solid rgba(143,243,232,.25);background:rgba(1,116,243,.14);color:#fff;text-decoration:none}
+    .track:hover,.track:focus-visible{border-color:#8ff3e8;background:rgba(1,116,243,.25)}
+    .track strong{display:block;color:#ffe6ad}
+    .track span{display:block;margin-top:.2rem;color:rgba(246,243,232,.65);font-size:.88rem}
     .actions{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:2rem}.actions a{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:.8rem 1rem;border:1px solid rgba(143,243,232,.35);background:rgba(1,116,243,.18);color:#fff;text-decoration:none}
     .listening-note{max-width:760px;margin-top:1rem;color:rgba(246,243,232,.68);line-height:1.6}
-    @media(max-width:760px){.paths{grid-template-columns:1fr}main{padding:3rem 0}}
+    @media(max-width:760px){.artists{grid-template-columns:1fr}main{padding:3rem 0}}
   </style>
 </head>
 <body data-room-id="music-room">
   <main>
     <p>INKSPIRATIONS STUDIOS</p>
     <h1>Music Room</h1>
-    <p class="lead">A working doorway into rhythm, atmosphere, memory, and motion. Choose a listening path below, then open music through the service that works best on your device.</p>
-    <section class="paths" aria-label="Music Room listening paths">
-      <a class="path" href="flight-deck.html"><small>C4 TERRITORY</small><strong>Flight Deck DJ</strong><span>Enter the cinematic performance room for progressive movement and curated artist discovery.</span></a>
-      <a class="path" href="beats.html"><small>BEATFORGE</small><strong>Beat Studio</strong><span>Explore the browser-based music-making direction and future interactive sound tools.</span></a>
-      <a class="path" href="rooms.html"><small>ATMOSPHERE</small><strong>Return to the Rooms</strong><span>Move back through Ocean of Ink, the Writing Room, and the wider studio world.</span></a>
+    <p class="lead">A curated doorway into melody, atmosphere, motion, and C4 energy. Choose a song below and open it through Spotify on your device.</p>
+
+    <section class="artists" aria-label="Featured artists and songs">
+      <article class="artist">
+        <small>MELODIC CURRENT</small>
+        <h2>Yotto</h2>
+        <p>Expansive, emotional electronic music with forward motion and deep atmosphere.</p>
+        <div class="tracks">
+          <a class="track" href="https://open.spotify.com/search/Yotto%20The%20One%20You%20Left%20Behind" target="_blank" rel="noopener noreferrer"><strong>The One You Left Behind</strong><span>Open in Spotify</span></a>
+          <a class="track" href="https://open.spotify.com/search/Yotto%20Nova" target="_blank" rel="noopener noreferrer"><strong>Nova</strong><span>Open in Spotify</span></a>
+          <a class="track" href="https://open.spotify.com/search/Yotto%20Fire%20Walk" target="_blank" rel="noopener noreferrer"><strong>Fire Walk</strong><span>Open in Spotify</span></a>
+        </div>
+      </article>
+
+      <article class="artist">
+        <small>C4 TERRITORY</small>
+        <h2>Charlotte de Witte</h2>
+        <p>Dark, driving techno with pressure, momentum, and full-room electricity.</p>
+        <div class="tracks">
+          <a class="track" href="https://open.spotify.com/search/Charlotte%20de%20Witte%20The%20Age%20of%20Love" target="_blank" rel="noopener noreferrer"><strong>The Age of Love</strong><span>Charlotte de Witte &amp; Enrico Sangiuliano remix</span></a>
+          <a class="track" href="https://open.spotify.com/search/Charlotte%20de%20Witte%20Doppler" target="_blank" rel="noopener noreferrer"><strong>Doppler</strong><span>Open in Spotify</span></a>
+          <a class="track" href="https://open.spotify.com/search/Charlotte%20de%20Witte%20Overdrive" target="_blank" rel="noopener noreferrer"><strong>Overdrive</strong><span>Open in Spotify</span></a>
+        </div>
+      </article>
     </section>
-    <div class="actions" aria-label="Official music services">
-      <a href="https://open.spotify.com/artist/5Dyfxq0ZrFjjeFBdSNxDbo" target="_blank" rel="noopener noreferrer">Open Yotto on Spotify</a>
-      <a href="https://music.apple.com/us/artist/yotto/684589498" target="_blank" rel="noopener noreferrer">Open Yotto on Apple Music</a>
-      <a href="portfolio.html">Return to Portfolio</a>
+
+    <div class="actions">
+      <a href="flight-deck.html">Enter Flight Deck DJ</a>
+      <a href="rooms.html">Return to the Rooms</a>
       <a href="index.html">Return Home</a>
     </div>
-    <p class="listening-note">The short synthetic browser loop has been removed. Visitors can now choose Apple Music or Spotify, which is more reliable across iPhone, Android, Safari, Chrome, and other mobile browsers.</p>
+    <p class="listening-note">No synthetic browser loop is used. Each song opens through an official streaming service for more reliable mobile playback.</p>
   </main>
 </body>
 </html>
