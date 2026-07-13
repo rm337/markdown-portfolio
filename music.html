@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="css/atmosphere.css">
   <style>
     body{margin:0;min-height:100vh;background:radial-gradient(circle at 20% 10%,rgba(1,116,243,.28),transparent 34rem),linear-gradient(160deg,#02050c,#071d33);color:#f6f3e8;font-family:Inter,Arial,sans-serif}
+    body.gateway-open{overflow:hidden}
     main{width:min(1100px,calc(100% - 2rem));margin:auto;padding:5rem 0}
     h1,h2{font-family:Georgia,"Times New Roman",serif;color:#ffe6ad;font-weight:500}
     h1{font-size:clamp(3rem,8vw,7rem);line-height:.9;margin:.4rem 0 1rem}
@@ -24,10 +25,29 @@
     .track span{display:block;margin-top:.2rem;color:rgba(246,243,232,.65);font-size:.88rem}
     .actions{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:2rem}.actions a{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:.8rem 1rem;border:1px solid rgba(143,243,232,.35);background:rgba(1,116,243,.18);color:#fff;text-decoration:none}
     .listening-note{max-width:760px;margin-top:1rem;color:rgba(246,243,232,.68);line-height:1.6}
+    .music-gateway{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;padding:1.25rem;background:radial-gradient(circle at 50% 35%,rgba(1,116,243,.36),transparent 24rem),linear-gradient(160deg,rgba(2,5,12,.98),rgba(2,17,32,.98));transition:opacity .6s ease,visibility .6s ease}
+    .music-gateway[hidden]{display:none}
+    .gateway-card{width:min(680px,100%);padding:clamp(1.5rem,5vw,3rem);border:1px solid rgba(143,243,232,.35);background:rgba(2,8,18,.82);text-align:center;box-shadow:0 30px 110px rgba(0,0,0,.65);backdrop-filter:blur(20px)}
+    .gateway-kicker{margin:0 0 .8rem;color:#8ff3e8;font-size:.72rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase}
+    .gateway-card h2{margin:.2rem 0 1rem;font-size:clamp(2.8rem,10vw,6.5rem);line-height:.88}
+    .gateway-card p{max-width:520px;margin:0 auto;color:rgba(246,243,232,.76);line-height:1.65}
+    .gateway-button{display:inline-flex;align-items:center;justify-content:center;min-height:58px;margin-top:1.6rem;padding:1rem 1.5rem;border:1px solid #8ff3e8;background:linear-gradient(180deg,#087fe5,#0457a8);color:#fff;font:800 .82rem/1 Inter,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;box-shadow:0 14px 44px rgba(1,116,243,.35)}
+    .gateway-quiet{display:block;margin:1rem auto 0;border:0;background:transparent;color:rgba(246,243,232,.62);text-decoration:underline;cursor:pointer}
     @media(max-width:760px){.artists{grid-template-columns:1fr}main{padding:3rem 0}}
+    @media(prefers-reduced-motion:reduce){.music-gateway{transition:none}}
   </style>
 </head>
-<body data-room-id="music-room">
+<body class="gateway-open" data-room-id="music-room">
+  <div class="music-gateway" id="musicGateway" role="dialog" aria-modal="true" aria-labelledby="gatewayTitle">
+    <div class="gateway-card">
+      <p class="gateway-kicker">Inkspirations Studios · Music Room</p>
+      <h2 id="gatewayTitle">Enter with music.</h2>
+      <p>One tap opens the first listening selection and unlocks the room on mobile.</p>
+      <button class="gateway-button" id="enterWithMusic" type="button">Enter With Music</button>
+      <button class="gateway-quiet" id="enterQuietly" type="button">Enter quietly</button>
+    </div>
+  </div>
+
   <main>
     <p>INKSPIRATIONS STUDIOS</p>
     <h1>Music Room</h1>
@@ -62,7 +82,28 @@
       <a href="rooms.html">Return to the Rooms</a>
       <a href="index.html">Return Home</a>
     </div>
-    <p class="listening-note">No synthetic browser loop is used. Each song opens through an official streaming service for more reliable mobile playback.</p>
+    <p class="listening-note">Mobile browsers require one visitor tap before opening audible music. The entrance screen makes that tap part of the experience.</p>
   </main>
+
+  <script>
+    (() => {
+      const gateway = document.getElementById('musicGateway');
+      const musicButton = document.getElementById('enterWithMusic');
+      const quietButton = document.getElementById('enterQuietly');
+      const firstTrack = 'https://open.spotify.com/search/Yotto%20The%20One%20You%20Left%20Behind';
+
+      function revealRoom() {
+        gateway.hidden = true;
+        document.body.classList.remove('gateway-open');
+      }
+
+      musicButton.addEventListener('click', () => {
+        revealRoom();
+        window.location.href = firstTrack;
+      });
+
+      quietButton.addEventListener('click', revealRoom);
+    })();
+  </script>
 </body>
 </html>
