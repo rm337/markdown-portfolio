@@ -41,9 +41,9 @@
   <div class="music-gateway" id="musicGateway" role="dialog" aria-modal="true" aria-labelledby="gatewayTitle">
     <div class="gateway-card">
       <p class="gateway-kicker">Inkspirations Studios · Music Room</p>
-      <h2 id="gatewayTitle">Enter with music.</h2>
-      <p>One tap opens the first listening selection and unlocks the room on mobile.</p>
-      <button class="gateway-button" id="enterWithMusic" type="button">Enter With Music</button>
+      <h2 id="gatewayTitle">Enter the Music Room.</h2>
+      <p>Step inside first, then choose a listening path that opens through the artist’s official platform.</p>
+      <button class="gateway-button" id="enterWithMusic" type="button">Enter Music Room</button>
       <button class="gateway-quiet" id="enterQuietly" type="button">Enter quietly</button>
     </div>
   </div>
@@ -82,7 +82,7 @@
       <a href="rooms.html">Return to the Rooms</a>
       <a href="index.html">Return Home</a>
     </div>
-    <p class="listening-note">Mobile browsers require one visitor tap before opening audible music. The entrance screen makes that tap part of the experience.</p>
+    <p class="listening-note">Listening paths open through official artist platforms.</p>
   </main>
 
   <script>
@@ -90,18 +90,13 @@
       const gateway = document.getElementById('musicGateway');
       const musicButton = document.getElementById('enterWithMusic');
       const quietButton = document.getElementById('enterQuietly');
-      const firstTrack = 'https://open.spotify.com/search/Yotto%20The%20One%20You%20Left%20Behind';
 
       function revealRoom() {
         gateway.hidden = true;
         document.body.classList.remove('gateway-open');
       }
 
-      musicButton.addEventListener('click', () => {
-        revealRoom();
-        window.location.href = firstTrack;
-      });
-
+      musicButton.addEventListener('click', revealRoom);
       quietButton.addEventListener('click', revealRoom);
     })();
   </script>
