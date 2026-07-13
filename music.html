@@ -7,7 +7,6 @@
   <meta name="description" content="Enter the Inkspirations Studios Music Room for atmospheric listening paths and the Flight Deck DJ experience.">
   <link rel="stylesheet" href="css/rooms.css">
   <link rel="stylesheet" href="css/atmosphere.css">
-  <link rel="stylesheet" href="studio-music.css">
   <style>
     body{margin:0;min-height:100vh;background:radial-gradient(circle at 20% 10%,rgba(1,116,243,.28),transparent 34rem),linear-gradient(160deg,#02050c,#071d33);color:#f6f3e8;font-family:Inter,Arial,sans-serif}
     main{width:min(1100px,calc(100% - 2rem));margin:auto;padding:5rem 0}
@@ -19,7 +18,8 @@
     .path:hover,.path:focus-visible{border-color:#8ff3e8;transform:translateY(-2px)}
     .path strong{display:block;margin:.4rem 0 .7rem;color:#ffe6ad;font-family:Georgia,"Times New Roman",serif;font-size:1.8rem;font-weight:500}
     .path span{color:rgba(246,243,232,.72);line-height:1.5}
-    .actions{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:2rem}.actions a,.actions button{min-height:46px;padding:.8rem 1rem;border:1px solid rgba(143,243,232,.35);background:rgba(1,116,243,.18);color:#fff;text-decoration:none;cursor:pointer}
+    .actions{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:2rem}.actions a{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:.8rem 1rem;border:1px solid rgba(143,243,232,.35);background:rgba(1,116,243,.18);color:#fff;text-decoration:none}
+    .listening-note{max-width:760px;margin-top:1rem;color:rgba(246,243,232,.68);line-height:1.6}
     @media(max-width:760px){.paths{grid-template-columns:1fr}main{padding:3rem 0}}
   </style>
 </head>
@@ -27,20 +27,19 @@
   <main>
     <p>INKSPIRATIONS STUDIOS</p>
     <h1>Music Room</h1>
-    <p class="lead">A working doorway into rhythm, atmosphere, memory, and motion. Choose a listening path below. Studio-generated sound is optional and starts only after you press the button.</p>
+    <p class="lead">A working doorway into rhythm, atmosphere, memory, and motion. Choose a listening path below, then open music through the service that works best on your device.</p>
     <section class="paths" aria-label="Music Room listening paths">
-      <a class="path" href="flight-deck.html"><small>C4 TERRITORY</small><strong>Flight Deck DJ</strong><span>Enter the cinematic performance room for progressive movement and a live studio mix.</span></a>
+      <a class="path" href="flight-deck.html"><small>C4 TERRITORY</small><strong>Flight Deck DJ</strong><span>Enter the cinematic performance room for progressive movement and curated artist discovery.</span></a>
       <a class="path" href="beats.html"><small>BEATFORGE</small><strong>Beat Studio</strong><span>Explore the browser-based music-making direction and future interactive sound tools.</span></a>
       <a class="path" href="rooms.html"><small>ATMOSPHERE</small><strong>Return to the Rooms</strong><span>Move back through Ocean of Ink, the Writing Room, and the wider studio world.</span></a>
     </section>
-    <div class="actions">
-      <button type="button" id="soundBtn">Play Studio Music</button>
+    <div class="actions" aria-label="Official music services">
+      <a href="https://open.spotify.com/artist/5Dyfxq0ZrFjjeFBdSNxDbo" target="_blank" rel="noopener noreferrer">Open Yotto on Spotify</a>
+      <a href="https://music.apple.com/us/artist/yotto/684589498" target="_blank" rel="noopener noreferrer">Open Yotto on Apple Music</a>
       <a href="portfolio.html">Return to Portfolio</a>
       <a href="index.html">Return Home</a>
     </div>
-    <p id="soundStatus" aria-live="polite">Ready to play</p>
-    <p id="trackStatus" aria-live="polite">Press Play Studio Music to begin.</p>
+    <p class="listening-note">The short synthetic browser loop has been removed. Visitors can now choose Apple Music or Spotify, which is more reliable across iPhone, Android, Safari, Chrome, and other mobile browsers.</p>
   </main>
-  <script src="studio-music.js?v=20260712-music-room"></script>
 </body>
 </html>
