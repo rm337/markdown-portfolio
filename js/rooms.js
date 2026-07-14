@@ -3,12 +3,14 @@
 
   const rooms = [
     {
-      id:"ocean-of-ink",
-      title:"Ocean of Ink",
-      subtitle:"Deep water, moving ink, light, and reflection.",
-      description:"An immersive blue atmosphere built around drifting ink, suspended particles, bubbles, and soft light from above.",
-      url:"rooms.html#ocean-of-ink",
-      directUrl:null,
-      theme:"ocean",
+      id:"home",
+      title:"Home",
+      subtitle:"The front door of the studio.",
+      description:"A calm entry into Robert Marleton's artwork, rooms, sound, and studio artifacts.",
+      url:"index.html",
+      theme:"home",
       accent:"#0174F3",
-      category:"Immersive Room",
+      status:"Live",
+      category:"Core",
+      hidden:false,
+      atmosphere:{dust:true,glow
