@@ -3,14 +3,11 @@
 
   const rooms = [
     {
-      id:"home",
-      title:"Home",
-      subtitle:"The front door of the studio.",
-      description:"A calm entry into Robert Marleton's artwork, rooms, sound, and studio artifacts.",
-      url:"index.html",
-      theme:"home",
-      accent:"#0174F3",
-      status:"Live",
-      category:"Core",
-      hidden:false,
-      atmosphere:{dust:true,glow
+      id:"gallery",
+      title:"The Gallery",
+      subtitle:"Artwork presented in quiet light.",
+      description:"Selected artwork and creative pieces in a calm, focused gallery setting.",
+      url:"portfolio.html",
+      directUrl:"portfolio.html",
+      theme:"gallery",
+      accent
