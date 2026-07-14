@@ -3,9 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Shop & Custom Orders | Inkspirations Studios</title>
-  <meta name="description" content="Shop Inkspirations Studios artwork and learn how custom orders are handled.">
-  <link rel="stylesheet" href="style.css?v=20260712-pricing-repair">
+  <title>Order Artwork | Inkspirations Studios</title>
+  <meta name="description" content="Start an order or availability request for artwork, prints, coasters, functional art, and commissions from Inkspirations Studios.">
+  <link rel="stylesheet" href="style.css?v=20260714-order-repair">
+  <style>
+    .order-shell{width:min(1100px,calc(100% - 2rem));margin:0 auto;padding:7rem 0 5rem}
+    .order-hero,.order-panel{border:1px solid rgba(255,255,255,.15);background:rgba(5,14,28,.78);box-shadow:0 24px 80px rgba(0,0,0,.35);backdrop-filter:blur(14px)}
+    .order-hero{padding:clamp(1.5rem,5vw,4rem);margin-bottom:1rem;background:radial-gradient(circle at 18% 12%,rgba(86,217,255,.2),transparent 34%),linear-gradient(145deg,rgba(5,14,28,.9),rgba(1,42,88,.82))}
+    .order-hero h1{font-size:clamp(2.8rem,8vw,6.4rem);line-height:.92;margin:.35rem 0 1rem}
+    .order-hero p{max-width:760px;font-size:clamp(1.05rem,2vw,1.28rem)}
+    .order-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+    .order-panel{padding:clamp(1.25rem,3vw,2rem)}
+    .order-panel h2{margin-top:0}
+    .order-list{display:grid;gap:.75rem;padding:0;list-style:none}
+    .order-list li{padding:.85rem;border-left:3px solid #56d9ff;background:rgba(255,255,255,.045)}
+    .order-actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.25rem}
+    .order-actions a{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:.75rem 1rem;border:1px solid rgba(255,255,255,.2);text-decoration:none}
+    .order-actions .primary{background:#0174F3;border-color:#56d9ff;color:#fff}
+    .order-note{margin-top:1rem;color:rgba(255,255,255,.7)}
+    .trust-note{margin-top:1rem;padding:1rem;border:1px solid rgba(131,243,186,.25);background:rgba(131,243,186,.07)}
+    @media(max-width:760px){.order-grid{grid-template-columns:1fr}.order-shell{padding-top:5.5rem}}
+  </style>
 </head>
 <body>
   <header class="site-header">
@@ -13,34 +31,59 @@
     <nav aria-label="Primary navigation">
       <a href="portfolio.html">Portfolio</a>
       <a href="rooms.html">Studio Rooms</a>
-      <a href="pricing.html" aria-current="page">Shop</a>
+      <a href="pricing.html" aria-current="page">Order Artwork</a>
       <a href="index.html#contact">Contact</a>
     </nav>
   </header>
 
-  <main class="page-shell">
-    <section class="hero-panel">
-      <p class="eyebrow">Artwork, prints, and custom pieces</p>
-      <h1>Shop Inkspirations Studios</h1>
-      <p>Finished products will open at the exact trusted production partner selected for that item. Payment, printing, shipping, and order updates are handled by that partner.</p>
+  <main class="order-shell">
+    <section class="order-hero">
+      <p class="eyebrow">Bring a piece home</p>
+      <h1>Start an artwork order.</h1>
+      <p>Choose the kind of piece you are interested in, then send Robert a direct request. Availability, exact size, material, price, and delivery details are confirmed before payment.</p>
+      <div class="order-actions">
+        <a class="primary" href="index.html#contact">Start an Order</a>
+        <a href="portfolio.html#portfolio">Return to the Gallery</a>
+      </div>
     </section>
 
-    <section class="content-panel" aria-labelledby="ready-title">
-      <h2 id="ready-title">Ready-to-order artwork</h2>
-      <p>Product links will be connected directly to the matching artwork and product page, rather than sending visitors to a general printer homepage.</p>
-      <p><strong>Primary fulfillment direction:</strong> Pixels for finished art products. Other printers remain private production alternatives until a specific product requires them.</p>
-    </section>
+    <div class="order-grid">
+      <section class="order-panel" aria-labelledby="available-title">
+        <h2 id="available-title">Artwork and prints</h2>
+        <ul class="order-list">
+          <li><strong>Original artwork</strong><br>Ask whether the selected piece is available.</li>
+          <li><strong>Fine art prints</strong><br>Request the artwork, size, surface, and quantity you prefer.</li>
+          <li><strong>Canvas or framed editions</strong><br>Available only after the exact production details are confirmed.</li>
+        </ul>
+        <div class="order-actions"><a class="primary" href="index.html#contact">Request Artwork</a></div>
+      </section>
 
-    <section class="content-panel" aria-labelledby="custom-title">
-      <h2 id="custom-title">Custom orders and commissions</h2>
-      <p>Custom requests are reviewed before production so artwork, size, material, price, and shipping details are correct. No order is sent to a printer until payment and production details are verified.</p>
-      <a class="button" href="index.html#contact">Start a custom request</a>
-    </section>
+      <section class="order-panel" aria-labelledby="functional-title">
+        <h2 id="functional-title">Functional art</h2>
+        <ul class="order-list">
+          <li><strong>Coasters and decorative tiles</strong><br>Request a set, a single piece, or a custom direction.</li>
+          <li><strong>Wood and mixed-material pieces</strong><br>Availability is confirmed individually.</li>
+          <li><strong>Studio artifacts</strong><br>Ask about Ocean of Ink and Robertism-inspired pieces.</li>
+        </ul>
+        <div class="order-actions"><a class="primary" href="index.html#contact">Ask About Functional Art</a></div>
+      </section>
 
-    <section class="content-panel" aria-labelledby="disclosure-title">
-      <h2 id="disclosure-title">Partner disclosure</h2>
-      <p>Inkspirations Studios may receive compensation from selected recommended partners at no additional cost to the customer. Recommendations are chosen for quality and suitability first.</p>
-    </section>
+      <section class="order-panel" aria-labelledby="commission-title">
+        <h2 id="commission-title">Custom work and commissions</h2>
+        <p>Custom work begins with a conversation about the idea, dimensions, materials, budget, timeline, and intended setting.</p>
+        <div class="order-actions"><a class="primary" href="index.html#contact">Request a Commission</a></div>
+      </section>
+
+      <section class="order-panel" aria-labelledby="process-title">
+        <h2 id="process-title">What happens next</h2>
+        <ol class="order-list">
+          <li>Tell Robert which piece or product interests you.</li>
+          <li>Robert confirms availability and the exact order details.</li>
+          <li>You receive the final price and payment instructions before production or shipping begins.</li>
+        </ol>
+        <div class="trust-note"><strong>No surprise redirect.</strong> This page does not send visitors to a generic partner or disclosure page. A production partner is introduced only when a specific order actually requires one.</div>
+      </section>
+    </div>
   </main>
 
   <footer class="site-footer">
