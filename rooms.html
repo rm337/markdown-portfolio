@@ -4,10 +4,21 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Studio Rooms | Inkspirations Studios</title>
-  <link rel="stylesheet" href="css/rooms.css?v=20260712-roomfix2">
-  <link rel="stylesheet" href="css/atmosphere.css?v=20260712-roomfix2">
-  <link rel="stylesheet" href="css/surface-light.css?v=20260712-roomfix2">
-  <link rel="stylesheet" href="css/interaction-hotfix.css?v=20260712-roomfix2">
+  <link rel="stylesheet" href="css/rooms.css?v=20260714-focusedrooms">
+  <link rel="stylesheet" href="css/atmosphere.css?v=20260714-focusedrooms">
+  <link rel="stylesheet" href="css/surface-light.css?v=20260714-focusedrooms">
+  <link rel="stylesheet" href="css/interaction-hotfix.css?v=20260714-focusedrooms">
+  <style>
+    .focused-room{display:none;max-width:900px;margin:0 auto;padding:48px 20px 80px;position:relative;z-index:2}
+    .focused-room.is-open{display:block}
+    .focused-room-panel{padding:clamp(28px,5vw,60px);border:1px solid rgba(255,255,255,.16);border-radius:28px;background:rgba(4,18,32,.72);backdrop-filter:blur(14px);box-shadow:0 24px 80px rgba(0,0,0,.34)}
+    .focused-room h1{font-size:clamp(2.6rem,8vw,5.8rem);line-height:1;margin:.3rem 0 1rem}
+    .focused-room p{font-size:1.1rem;max-width:720px}
+    .focused-room-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+    .focused-room-actions a{display:inline-flex;padding:12px 18px;border-radius:999px;border:1px solid rgba(255,255,255,.22);text-decoration:none;background:rgba(255,255,255,.08)}
+    .focused-room-actions a:first-child{background:#0174F3;border-color:#0174F3;color:white}
+    body.room-focused main>.room-hub-hero,body.room-focused .room-hub-grid{display:none}
+  </style>
 </head>
 <body class="room-system-page">
   <div data-room-atmosphere></div>
@@ -26,41 +37,51 @@
       <p id="roomHubDescription">Ocean light, floating ink, writing, listening, and the deeper creative rooms of Inkspirations Studios.</p>
     </header>
     <section class="room-hub-grid" data-room-cards></section>
+    <section class="focused-room" id="focusedRoom" aria-live="polite">
+      <div class="focused-room-panel">
+        <p class="room-kicker" id="focusedRoomKicker">Studio Room</p>
+        <h1 id="focusedRoomTitle"></h1>
+        <p id="focusedRoomDescription"></p>
+        <div class="focused-room-actions">
+          <a id="focusedRoomPrimary" href="rooms.html">Enter</a>
+          <a href="rooms.html">View All Rooms</a>
+        </div>
+      </div>
+    </section>
   </main>
-  <script src="js/rooms.js?v=20260712-roomfix2"></script>
+  <script src="js/rooms.js?v=20260714-focusedrooms"></script>
   <script>
     (() => {
-      function tidyRoomView() {
+      function openFocusedRoom() {
         const hash = window.location.hash.replace('#', '');
-        if (!hash) return;
-        const active = document.querySelector(`[data-room-card="${CSS.escape(hash)}"]`);
-        if (active) active.remove();
-        const room = window.InkRooms?.byId?.(hash);
-        const title = document.getElementById('roomHubTitle');
-        const description = document.getElementById('roomHubDescription');
-        if (room && title && description) {
-          title.textContent = room.title;
-          description.textContent = room.description;
+        const room = hash ? window.InkRooms?.byId?.(hash) : null;
+        const focused = document.getElementById('focusedRoom');
+        if (!room || !focused) {
+          document.body.classList.remove('room-focused');
+          focused?.classList.remove('is-open');
+          return;
         }
+        document.body.classList.add('room-focused');
+        focused.classList.add('is-open');
+        document.getElementById('focusedRoomKicker').textContent = room.category || 'Studio Room';
+        document.getElementById('focusedRoomTitle').textContent = room.title;
+        document.getElementById('focusedRoomDescription').textContent = room.description;
+        const primary = document.getElementById('focusedRoomPrimary');
+        if (room.id === 'music-room') {
+          primary.textContent = 'Enter the Music Room';
+          primary.href = 'music.html';
+        } else if (room.id === 'coasters-tiles') {
+          primary.textContent = 'View Coasters & Decorative Tiles';
+          primary.href = 'coasters-tiles.html';
+        } else {
+          primary.textContent = 'Stay in This Room';
+          primary.href = '#'+room.id;
+        }
+        window.scrollTo({top:0,behavior:'auto'});
       }
-
-      function forceSingleTapNavigation(event) {
-        const card = event.target.closest('a.room-card');
-        if (!card) return;
-        event.preventDefault();
-        const destination = new URL(card.href, window.location.href);
-        if (destination.href === window.location.href) return;
-        window.location.assign(destination.href);
-      }
-
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', tidyRoomView);
-      } else {
-        tidyRoomView();
-      }
-
-      document.addEventListener('click', forceSingleTapNavigation, { passive: false });
-      window.addEventListener('hashchange', tidyRoomView);
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', openFocusedRoom);
+      else openFocusedRoom();
+      window.addEventListener('hashchange', openFocusedRoom);
     })();
   </script>
 </body>
