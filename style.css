@@ -163,6 +163,21 @@ body.modal-open { overflow: hidden; }
 .gallery-lightbox .modal-bar { align-items: flex-end; }
 @media (max-width: 980px) { .gallery-grid { column-count: 2; } .gallery-fields { grid-template-columns: 1fr; } .field-label { margin-top: .2rem; } .tour-card { grid-template-columns: 1fr; } .tour-media { min-height: 420px; } }
 @media (max-width: 560px) { .gallery-section { padding-left: .85rem; padding-right: .85rem; } .gallery-tools { padding: .8rem; } .filter-chip { flex: 1 1 auto; } .gallery-grid { column-count: 1; } .gallery-image-wrap img { max-height: none; } .tour-media { min-height: 320px; } .tour-actions .btn { width: 100%; } .gallery-lightbox { width: 100vw; height: 100vh; border-left: 0; border-right: 0; } .modal-nav { top: 42%; bottom: auto; } .modal-prev { left: .55rem; } .modal-next { right: .55rem; } .modal-bar { display: block; padding: .9rem; } .modal-bar h3 { font-size: 1.45rem; } .modal-bar .btn { width: 100%; margin-top: .75rem; } .modal-details { grid-template-columns: 1fr; } }
+
+.resume-interactive { display: grid; gap: 1.2rem; max-width: 880px; }
+.resume-copy { margin: 0 0 1rem; color: rgba(246, 243, 232, .72); }
+.resume-tabs { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: .65rem; }
+.resume-tab { min-height: 48px; padding: .85rem .95rem; border: 1px solid rgba(246, 243, 232, .18); background: rgba(246, 243, 232, .05); color: #f6f3e8; font: inherit; text-transform: uppercase; letter-spacing: .1em; font-weight: 800; cursor: pointer; transition: transform .15s ease, border-color .15s ease, background .15s ease; }
+.resume-tab:hover, .resume-tab:focus-visible { border-color: #8ff3e8; outline: none; transform: translateY(-1px); }
+.resume-tab.active { color: #06101b; background: #8ff3e8; border-color: #8ff3e8; }
+.resume-panel { padding: 1.4rem 1.25rem; border: 1px solid rgba(246, 243, 232, .12); background: rgba(3, 7, 14, .84); }
+.resume-panel h3 { margin: 0 0 .85rem; font-size: clamp(1.75rem, 2.6vw, 2.55rem); color: #ffe6ad; }
+.resume-panel p { margin: .75rem 0 0; color: rgba(246, 243, 232, .72); }
+.resume-panel a { color: #8ff3e8; text-decoration: none; }
+.resume-panel a:hover { text-decoration: underline; }
+
+@media (max-width: 920px) { .resume-tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .resume-tabs { grid-template-columns: 1fr; } }
 /* Static studio atmosphere: ocean depth and soft overhead light. */
 body { position: relative; isolation: isolate; }
 body::before { content: ""; position: fixed; inset: 0; z-index: -2; background: radial-gradient(ellipse at 50% -12%, rgba(255, 230, 173, .12), transparent 30%), radial-gradient(ellipse at 82% 18%, rgba(86, 217, 255, .14), transparent 34%), linear-gradient(120deg, #050913 0%, #073a62 48%, #08111c 100%); }
