@@ -1,4 +1,4 @@
-const galleryDataUrl = "portfolio.json?v=20260703-gallery-flow";
+const galleryDataUrl = "portfolio.json?v=20260717-21works";
 const imageFolders = {
   artwork: "assets/images/artwork/",
   coasters: "assets/images/coasters/",
