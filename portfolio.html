@@ -11,8 +11,10 @@
   <link rel="stylesheet" href="style.css?v=20260712-mailfix">
   <link rel="stylesheet" href="immersive-lightbox.css?v=20260712-zoom4">
   <link rel="stylesheet" href="studio-music.css?v=20260711">
+  <link rel="stylesheet" href="site-nav.css?v=20260722">
 </head>
 <body>
+  <a class="skip-link" href="#portfolio">Skip to the gallery</a>
   <div class="ink-particles" aria-hidden="true">
     <span></span><span></span><span></span><span></span><span></span><span></span>
     <span></span><span></span><span></span><span></span><span></span><span></span>
@@ -46,7 +48,7 @@
           <a class="btn" href="pricing.html">View Pricing & Order</a>
           <a class="btn" href="portfolio-gallery.html">Open Interactive Gallery</a>
           <a class="btn" href="index.html#contact">Contact Robert</a>
-          <button class="btn audio-toggle" type="button" data-audio-toggle aria-pressed="false">Rainstorm Sound</button>
+          <button class="btn audio-toggle" type="button" data-audio-mode="studio" aria-pressed="false">Play Blue Current</button>
         </div>
       </div>
     </header>
@@ -199,7 +201,7 @@
     <a href="pricing.html">Pricing & Orders</a>
   </footer>
 
-  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Expanded artwork">
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modalTitle">
     <div class="modal-inner gallery-lightbox">
       <button class="modal-close" id="closeModal" type="button" aria-label="Close expanded artwork">Close</button>
       <button class="modal-nav modal-prev" id="modalPrev" type="button" aria-label="Previous artwork">Previous</button>
@@ -226,35 +228,11 @@
       </div>
     </div>
   </div>
-  <script src="portfolio.js?v=20260717-21works"></script>
-  <script>
-    (() => {
-      const safeOrderUrl = 'pricing.html';
-      const protectMailLinks = () => {
-        document.querySelectorAll('a[href^="mailto:"]').forEach(link => {
-          link.href = safeOrderUrl;
-          link.removeAttribute('target');
-          link.removeAttribute('rel');
-        });
-        const primary = document.getElementById('modalPrimaryAction');
-        if (primary && primary.getAttribute('href')?.startsWith('mailto:')) {
-          primary.href = safeOrderUrl;
-          primary.textContent = 'View Pricing & Order';
-        }
-      };
-      protectMailLinks();
-      new MutationObserver(protectMailLinks).observe(document.body, { subtree: true, attributes: true, attributeFilter: ['href'] });
-      document.addEventListener('click', event => {
-        const link = event.target.closest('a[href^="mailto:"]');
-        if (!link) return;
-        event.preventDefault();
-        window.location.href = safeOrderUrl;
-      }, true);
-    })();
-  </script>
+  <script src="portfolio.js?v=20260722-visitor-repairs"></script>
   <script src="bring-home.js?v=20260703-gallery-flow"></script>
-  <script src="studio-audio.js?v=20260711-rain3"></script>
+  <script src="studio-audio.js?v=20260722"></script>
   <script src="detail-zoom.js?v=20260712-zoom4"></script>
-  <script src="studio-music.js?v=20260711"></script>
+  <script src="studio-music.js?v=20260722"></script>
+  <script src="site-nav.js?v=20260722"></script>
 </body>
 </html>

@@ -21,6 +21,7 @@ const els = {
   lightboxDescription: document.querySelector('#lightbox-description'),
   lightboxKicker: document.querySelector('#lightbox-kicker'),
   lightboxMeta: document.querySelector('#lightbox-meta'),
+  takeHome: document.querySelector('#lightbox-take-home'),
   lightboxClose: document.querySelector('#lightbox-close'),
   previous: document.querySelector('#lightbox-previous'),
   next: document.querySelector('#lightbox-next')
@@ -98,7 +99,7 @@ function renderGallery() {
 }
 
 function isInquirable(item) {
-  return item && item.inquiryEnabled === true;
+  return Boolean(item) && item.inquiryEnabled !== false;
 }
 
 function createInquiryLink(item) {
@@ -183,6 +184,7 @@ function preloadNeighbors() {
 }
 
 function openLightbox(index) {
+  state.lastTrigger = document.activeElement;
   state.currentIndex = index;
   updateLightbox();
   els.lightbox.showModal();
@@ -200,6 +202,11 @@ function updateLightbox() {
   els.lightboxDescription.textContent = item.description || '';
   els.lightboxKicker.textContent = [item.collection, item.type].filter(Boolean).join(' · ');
   els.lightboxMeta.innerHTML = '';
+  if (els.takeHome) {
+    const canInquire = isInquirable(item);
+    els.takeHome.href = canInquire ? createInquiryLink(item) : 'pricing.html';
+    els.takeHome.textContent = canInquire ? 'Ask About This Piece' : 'View Pricing';
+  }
 
   [['Medium', item.medium], ['Year', item.year], ['Priority', item.priority ? `Gallery ${item.priority}` : '']]
     .filter(([, value]) => value)
@@ -231,6 +238,7 @@ function showNext() {
 
 function closeLightbox() {
   els.lightbox.close();
+  if (state.lastTrigger instanceof HTMLElement) state.lastTrigger.focus();
 }
 
 function sortItems(a, b) {

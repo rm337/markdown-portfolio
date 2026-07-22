@@ -363,6 +363,32 @@
         "Functional Art / Product Study",
         "Project"
       ]
+    },
+    {
+      "id": "blue-wave-wood-panel",
+      "title": "Blue Wave Wood Panel",
+      "collection": "Coasters & Decorative Tiles",
+      "type": "Functional Art",
+      "medium": "Wood Panel / Product Study",
+      "image": "assets/images/portfolio/coasters/blue-wave-wood-panel-functional-art.jpg",
+      "alt": "Blue wave wood panel functional art by Robert Marleton.",
+      "description": "A blue-current functional art study that brings layered movement and hand-finished texture onto a wood surface.",
+      "featured": false,
+      "priority": 21,
+      "tags": ["Functional Art", "Coaster", "Decorative Tile", "Wood Panel"]
+    },
+    {
+      "id": "natural-wood-round",
+      "title": "Natural Wood Round",
+      "collection": "Coasters & Decorative Tiles",
+      "type": "Functional Art",
+      "medium": "Wood Round / Product Study",
+      "image": "assets/images/portfolio/coasters/wood-round-functional-art.jpg",
+      "alt": "Natural round wood functional art study by Robert Marleton.",
+      "description": "A round wood functional-art study that keeps the natural material visible while exploring a useful, display-ready form.",
+      "featured": false,
+      "priority": 22,
+      "tags": ["Functional Art", "Coaster", "Decorative Tile", "Natural Wood"]
     }
   ]
 }

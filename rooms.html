@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="css/atmosphere.css?v=20260714-focusedrooms">
   <link rel="stylesheet" href="css/surface-light.css?v=20260714-focusedrooms">
   <link rel="stylesheet" href="css/interaction-hotfix.css?v=20260714-focusedrooms">
+  <link rel="stylesheet" href="site-nav.css?v=20260722">
   <style>
     .focused-room{display:none;max-width:900px;margin:0 auto;padding:48px 20px 80px;position:relative;z-index:2}
     .focused-room.is-open{display:block}
@@ -21,6 +22,7 @@
   </style>
 </head>
 <body class="room-system-page">
+  <a class="skip-link" href="#main-content">Skip to studio rooms</a>
   <div data-room-atmosphere></div>
   <nav class="room-hub-nav">
     <a class="room-brand" href="index.html">Inkspirations Studios</a>
@@ -30,7 +32,7 @@
       <a href="index.html#contact">Contact</a>
     </div>
   </nav>
-  <main>
+  <main id="main-content">
     <header class="room-hub-hero">
       <p class="room-kicker">Studio Rooms</p>
       <h1 id="roomHubTitle">Choose a room and step inside.</h1>
@@ -50,6 +52,7 @@
     </section>
   </main>
   <script src="js/rooms.js?v=20260714-focusedrooms"></script>
+  <script src="site-nav.js?v=20260722"></script>
   <script>
     (() => {
       function openFocusedRoom() {

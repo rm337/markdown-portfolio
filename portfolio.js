@@ -28,6 +28,7 @@ let searchTerm = "";
 let sortMode = "curated";
 let visibleWorks = [];
 let activeIndex = 0;
+let lastGalleryTrigger = null;
 
 const siteBase = location.hostname.endsWith("github.io") ? "/markdown-portfolio/" : "";
 
@@ -62,6 +63,67 @@ window.InkspirationsBringHomeData = Object.assign(window.InkspirationsBringHomeD
     source: "Portfolio Functional Art Section"
   }
 });
+
+const fallbackCatalog = [
+  ["red-motion-panel", "Burned Motion / Razorback", "Signature Collection", "Burned Motion Study"],
+  ["soul-current", "Submersion", "Fluid Soul Series", "Lettering / Ink Study"],
+  ["sunflower-mandala", "Sunflower Mandala", "Nature & Organic", "Pattern Study"],
+  ["blue-name-current", "Release", "Signature Collection", "Digital Lettering"],
+  ["washed-out", "Washed Out", "Signature Collection", "Digital Lettering"],
+  ["lest-we-forget", "Lest We Forget", "Experimental Works", "Digital Collage"],
+  ["wood-warning", "We Are Not Descended From Fearful Men", "Nature & Organic", "Wood / Lettering"],
+  ["rainline-study", "Rainline Study", "Texture Studies", "Ink Study"],
+  ["blue-field", "Blue Field", "Texture Studies", "Texture Study"],
+  ["love-texture", "Love Study (Title Pending)", "Words & Expressions", "Mixed Media"],
+  ["blessed-water", "Between Waves", "Words & Expressions", "Lettering"],
+  ["infinite-love-red", "Electric Love", "Words & Expressions", "Lettering Study"],
+  ["infinite-love-violet", "Electric Love, Blue Variation", "Words & Expressions", "Lettering Study"],
+  ["you-priceless", "U R Priceless", "Words & Expressions", "Lettering"],
+  ["inkspirations-mark", "Inkspirations Studio Mark", "Experimental Works", "Brand Mark"],
+  ["studio-blue-card", "Studio Blue Identity Card", "Experimental Works", "Identity Design"],
+  ["inkspirations-logo-card", "Inkspirations Logo Lockup", "Experimental Works", "Identity Design"],
+  ["say-no-poster", "Say No to Provoke and Blame", "Words & Expressions", "Typographic Poster"],
+  ["small-town-teacher", "Small Town Teacher", "Experimental Works", "Identity Mark"]
+].map(([stem, title, category, medium]) => ({
+  title,
+  category,
+  collection: category,
+  medium,
+  src: `assets/images/portfolio/${stem}.jpg`,
+  thumb: `assets/images/portfolio/thumbs/${stem}-thumb.jpg`,
+  desc: `${title}, a selected ${medium.toLowerCase()} from Inkspirations Studios.`
+})).concat([
+  {
+    title: "Blue Current Coaster Study",
+    category: "Functional Art",
+    collection: "Coasters & Decorative Tiles",
+    medium: "Functional Art / Product Study",
+    src: "assets/images/portfolio/coasters/curved-blue-object-coaster-study.jpg",
+    thumb: "assets/images/portfolio/coasters/thumbs/curved-blue-object-coaster-study-thumb.jpg",
+    inquiryType: "tiles",
+    desc: "A curved blue-current coaster study connecting the gallery to useful studio objects."
+  },
+  {
+    title: "Blue Wave Wood Panel",
+    category: "Functional Art",
+    collection: "Coasters & Decorative Tiles",
+    medium: "Wood Panel / Product Study",
+    src: "assets/images/portfolio/coasters/blue-wave-wood-panel-functional-art.jpg",
+    thumb: "assets/images/portfolio/coasters/thumbs/blue-wave-wood-panel-functional-art-thumb.jpg",
+    inquiryType: "tiles",
+    desc: "Layered blue movement and hand-finished texture on a wood surface."
+  },
+  {
+    title: "Natural Wood Round",
+    category: "Functional Art",
+    collection: "Coasters & Decorative Tiles",
+    medium: "Wood Round / Product Study",
+    src: "assets/images/portfolio/coasters/wood-round-functional-art.jpg",
+    thumb: "assets/images/portfolio/coasters/thumbs/wood-round-functional-art-thumb.jpg",
+    inquiryType: "tiles",
+    desc: "A round wood functional-art study with the natural material kept visible."
+  }
+]);
 
 function assetPath(path) {
   if (!path) return "";
@@ -247,6 +309,7 @@ function renderGallery() {
     const title = escapeHtml(work.title);
     const safeCategory = escapeHtml(work.category);
     const safeMedium = escapeHtml(work.medium);
+    const inquiry = escapeHtml(askHref(work));
     return `<article class="gallery-card photographer-card" data-position="${position}">
       <button class="gallery-open" type="button" data-action="details" aria-label="View details for ${title}">
         <span class="gallery-image-wrap"><img src="${thumb}" alt="${title}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='${full}';"></span>
@@ -258,6 +321,7 @@ function renderGallery() {
       </button>
       <span class="gallery-card-actions">
         <button class="mini-action" type="button" data-action="details">View Details</button>
+        <a class="mini-action" href="${inquiry}" data-action="inquiry">Ask About This Piece</a>
       </span>
     </article>`;
   }).join("");
@@ -265,6 +329,7 @@ function renderGallery() {
 
 function openLightbox(position) {
   if (!visibleWorks.length) return;
+  lastGalleryTrigger = document.activeElement;
   activeIndex = (position + visibleWorks.length) % visibleWorks.length;
   const work = visibleWorks[activeIndex];
   modalImg.src = imagePath(work, "src") || imagePath(work, "thumb") || visualCard(work);
@@ -289,13 +354,17 @@ function openLightbox(position) {
     }
   }
   modal.classList.add("open");
+  modal.setAttribute("aria-hidden", "false");
   document.body.classList.add("modal-open");
   document.getElementById("closeModal").focus();
 }
 
 function closeModal() {
+  if (!modal.classList.contains("open")) return;
   modal.classList.remove("open");
+  modal.setAttribute("aria-hidden", "true");
   document.body.classList.remove("modal-open");
+  if (lastGalleryTrigger instanceof HTMLElement) lastGalleryTrigger.focus();
 }
 
 function moveLightbox(direction) {
@@ -304,6 +373,9 @@ function moveLightbox(direction) {
 }
 
 async function loadGallery() {
+  works = fallbackCatalog.map(normalizeWork);
+  renderFilters();
+  renderGallery();
   try {
     const response = await fetch(assetPath(galleryDataUrl), { cache: "no-store" });
     if (!response.ok) throw new Error(`Gallery list returned ${response.status}`);
@@ -312,11 +384,7 @@ async function loadGallery() {
     renderFilters();
     renderGallery();
   } catch (error) {
-    galleryGrid.innerHTML = "";
-    emptyGallery.hidden = false;
-    emptyGallery.textContent = "The gallery list could not load yet. Open this page from the website server, then refresh.";
-    galleryCount.textContent = "Gallery";
-    console.warn("Inkspirations gallery list did not load.", error);
+    console.warn("Using the built-in gallery catalog because the JSON catalog did not load.", error);
   }
 }
 
@@ -342,6 +410,7 @@ galleryGrid.addEventListener("click", (event) => {
   const card = event.target.closest(".gallery-card");
   if (!card) return;
   const action = event.target.closest("[data-action]")?.dataset.action;
+  if (action === "inquiry") return;
   if (action === "details") openLightbox(Number(card.dataset.position));
 });
 
@@ -357,6 +426,20 @@ window.addEventListener("keydown", (event) => {
   if (event.key === "Escape") closeModal();
   if (event.key === "ArrowRight") moveLightbox(1);
   if (event.key === "ArrowLeft") moveLightbox(-1);
+  if (event.key === "Tab" && modal.classList.contains("open")) {
+    const focusable = [...modal.querySelectorAll('button:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])')]
+      .filter((element) => element.getClientRects().length > 0);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
 });
 
 loadGallery();

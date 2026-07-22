@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "updated": "2026-07-11",
+  "updated": "2026-07-22",
   "note": "Robert-approved Flight Deck selections. Public visitors see finished choices only; no song request form is exposed.",
   "paths": [
     {
@@ -12,7 +12,7 @@
     {
       "title": "Meet the DJ",
       "description": "Enter the resident DJ room without needing to type a request.",
-      "url": "dj.html",
+      "url": "flight-deck.html#main-content",
       "tone": "Resident DJ"
     },
     {
@@ -36,7 +36,7 @@
     {
       "title": "Surprise Me",
       "description": "Let Flight Deck choose a path without opening a request form.",
-      "url": "#",
+      "url": "flight-deck.html#main-content",
       "tone": "Random"
     }
   ],
@@ -59,7 +59,7 @@
       "title": "Resident DJ Session",
       "artist": "Inkspirations Studios",
       "mood": "DJ Room",
-      "url": "dj.html",
+      "url": "flight-deck.html#main-content",
       "status": "Listening Path"
     }
   ]

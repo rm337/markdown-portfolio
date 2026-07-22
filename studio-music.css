@@ -23,6 +23,21 @@
 .studio-music-toggle:focus-visible { border-color: #ffe6ad; background: #073a62; }
 .studio-music-toggle.is-playing { border-color: #8ff3e8; background: #0174F3; }
 .studio-music-toggle.is-playing span:first-child { animation: music-pulse 1.8s ease-in-out infinite; }
+.ink-audio-status {
+  position: fixed;
+  left: 1rem;
+  bottom: 1rem;
+  z-index: 10002;
+  max-width: min(390px, calc(100vw - 2rem));
+  padding: .75rem 1rem;
+  border: 1px solid rgba(86,217,255,.55);
+  border-radius: 12px;
+  background: rgba(1,7,15,.96);
+  color: #f5fbff;
+  box-shadow: 0 14px 40px rgba(0,0,0,.4);
+  font: 700 .78rem/1.45 Inter,Arial,sans-serif;
+}
+.ink-audio-status.is-error { border-color: #ff7a7a; }
 @keyframes music-pulse { 50% { transform: scale(1.25); } }
 @media (max-width: 620px) {
   .studio-music-toggle { right: .65rem; bottom: .65rem; }

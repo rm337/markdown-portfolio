@@ -7,6 +7,8 @@
   <meta name="description" content="Enter the Inkspirations Studios Music Room for curated Yotto and Charlotte de Witte listening paths.">
   <link rel="stylesheet" href="css/rooms.css">
   <link rel="stylesheet" href="css/atmosphere.css">
+  <link rel="stylesheet" href="studio-music.css?v=20260722">
+  <link rel="stylesheet" href="site-nav.css?v=20260722">
   <style>
     body{margin:0;min-height:100vh;background:radial-gradient(circle at 20% 10%,rgba(1,116,243,.28),transparent 34rem),linear-gradient(160deg,#02050c,#071d33);color:#f6f3e8;font-family:Inter,Arial,sans-serif}
     body.gateway-open{overflow:hidden}
@@ -19,7 +21,7 @@
     .artist h2{font-size:clamp(2rem,5vw,3.3rem);margin:.2rem 0 .5rem}
     .artist p{color:rgba(246,243,232,.72);line-height:1.55}
     .tracks{display:grid;gap:.7rem;margin-top:1rem}
-    .track{display:block;padding:.85rem 1rem;border:1px solid rgba(143,243,232,.25);background:rgba(1,116,243,.14);color:#fff;text-decoration:none}
+    .track{display:block;width:100%;padding:.85rem 1rem;border:1px solid rgba(143,243,232,.25);background:rgba(1,116,243,.14);color:#fff;text-decoration:none;text-align:left;font:inherit;cursor:pointer}
     .track:hover,.track:focus-visible{border-color:#8ff3e8;background:rgba(1,116,243,.25)}
     .track strong{display:block;color:#ffe6ad}
     .track span{display:block;margin-top:.2rem;color:rgba(246,243,232,.65);font-size:.88rem}
@@ -38,22 +40,38 @@
   </style>
 </head>
 <body class="gateway-open" data-room-id="music-room">
-  <div class="music-gateway" id="musicGateway" role="dialog" aria-modal="true" aria-labelledby="gatewayTitle">
+  <a class="skip-link" href="#main-content">Skip to the Music Room</a>
+  <div class="music-gateway" id="musicGateway" role="dialog" aria-modal="true" aria-labelledby="gatewayTitle" aria-describedby="gatewayDescription">
     <div class="gateway-card">
       <p class="gateway-kicker">Inkspirations Studios · Music Room</p>
       <h2 id="gatewayTitle">Enter the Music Room.</h2>
-      <p>Step inside first, then choose a listening path that opens through the artist’s official platform.</p>
-      <button class="gateway-button" id="enterWithMusic" type="button">Enter Music Room</button>
+      <p id="gatewayDescription">Step inside with an original Inkspirations session, or enter quietly and choose a listening path.</p>
+      <button class="gateway-button" id="enterWithMusic" type="button" data-audio-mode="studio" aria-pressed="false">Enter with Blue Current</button>
       <button class="gateway-quiet" id="enterQuietly" type="button">Enter quietly</button>
     </div>
   </div>
 
-  <main>
+  <nav class="nav" aria-label="Primary navigation">
+    <a class="brand" href="index.html">Inkspirations Studios</a>
+    <div class="links"><a href="index.html">Home</a><a href="portfolio.html">Gallery</a><a href="rooms.html">Studio Rooms</a><a href="flight-deck.html">Flight Deck</a></div>
+  </nav>
+
+  <main id="main-content">
     <p>INKSPIRATIONS STUDIOS</p>
     <h1>Music Room</h1>
-    <p class="lead">A curated doorway into melody, atmosphere, motion, and C4 energy. Choose a song below and open it through Spotify on your device.</p>
+    <p class="lead">A curated doorway into melody, atmosphere, motion, and C4 energy. Play an original browser session here, or continue to an artist’s official streaming page.</p>
 
     <section class="artists" aria-label="Featured artists and songs">
+      <article class="artist">
+        <small>INKSPIRATIONS ORIGINAL SESSIONS</small>
+        <h2>Studio Signals</h2>
+        <p>Three lightweight, original instrumental loops created in the browser. Playback begins only after you choose it.</p>
+        <div class="tracks">
+          <button class="track" id="peaceful-blue-current" type="button" data-audio-mode="studio" aria-pressed="false"><strong>Blue Current</strong><span>Melodic studio pulse</span></button>
+          <button class="track" id="memory-lanterns" type="button" data-audio-mode="calm" aria-pressed="false"><strong>Memory Lanterns</strong><span>Slower reflective sequence</span></button>
+          <button class="track" id="daylight-district" type="button" data-audio-mode="c4" aria-pressed="false"><strong>Daylight District</strong><span>Brighter forward motion</span></button>
+        </div>
+      </article>
       <article class="artist">
         <small>MELODIC CURRENT</small>
         <h2>Yotto</h2>
@@ -82,9 +100,12 @@
       <a href="rooms.html">Return to the Rooms</a>
       <a href="index.html">Return Home</a>
     </div>
-    <p class="listening-note">Listening paths open through official artist platforms.</p>
+    <p class="listening-note">Inkspirations sessions play locally in your browser. Artist links open official streaming searches in a new tab.</p>
   </main>
 
+  <script src="studio-audio.js?v=20260722"></script>
+  <script src="studio-music.js?v=20260722"></script>
+  <script src="site-nav.js?v=20260722"></script>
   <script>
     (() => {
       const gateway = document.getElementById('musicGateway');
