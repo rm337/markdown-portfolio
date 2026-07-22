@@ -55,7 +55,12 @@ const document = {
   createElement: () => status,
   getElementById: (id) => id === "inkspirations-audio-status" ? status : id === "soundStatus" ? soundStatus : null,
   querySelector: () => control,
-  querySelectorAll: (selector) => selector.includes("data-audio") || selector.includes("soundBtn") ? [control] : [],
+  querySelectorAll: (selector) => {
+    if (selector.includes("[data-audio-mode]") && !selector.includes("button[data-audio-mode]")) {
+      return [documentElement, control];
+    }
+    return selector.includes("button[data-audio") || selector.includes("button#soundBtn") ? [control] : [];
+  },
   addEventListener() {}
 };
 const windowObject = {
@@ -81,6 +86,7 @@ assert.equal(playingState.mode, "c4");
 assert.equal(playingState.contextState, "running");
 assert.equal(control.getAttribute("aria-pressed"), "true");
 assert.match(soundStatus.textContent, /Playing C4 Flight Signal/);
+assert.equal(documentElement.dataset.audioLabel, undefined, "The document root must never be treated as an audio control");
 windowObject.InkspirationsAudioEngine.pause();
 assert.equal(windowObject.InkspirationsAudioEngine.getState().playing, false);
 

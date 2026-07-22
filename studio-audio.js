@@ -34,6 +34,7 @@
   let step = 0;
   let activeMode = null;
   let playing = false;
+  const CONTROL_SELECTOR = "button[data-audio-mode], button[data-audio-toggle], button#soundBtn";
 
   function statusPanel() {
     let panel = document.getElementById("inkspirations-audio-status");
@@ -107,7 +108,7 @@
   }
 
   function syncControls() {
-    document.querySelectorAll("[data-audio-mode], [data-audio-toggle], #soundBtn").forEach((control) => {
+    document.querySelectorAll(CONTROL_SELECTOR).forEach((control) => {
       const mode = control.dataset.audioMode || "studio";
       const track = TRACKS[mode] || TRACKS.studio;
       const isCurrent = playing && activeMode === mode;
@@ -161,7 +162,7 @@
   }
 
   function bindControls() {
-    const controls = document.querySelectorAll("[data-audio-mode], [data-audio-toggle], #soundBtn");
+    const controls = document.querySelectorAll(CONTROL_SELECTOR);
     controls.forEach((control) => {
       if (control.dataset.audioBound === "true") return;
       control.dataset.audioBound = "true";
