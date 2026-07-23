@@ -13,16 +13,6 @@
       status: "Open"
     },
     {
-      id: "writing-room",
-      title: "Writing Room",
-      subtitle: "Words, reflection, and Robertisms.",
-      description: "A quieter room for poetry, phrases, case files, and the studio’s written voice.",
-      url: "rooms.html#writing-room",
-      accent: "#ffe6ad",
-      category: "Writing",
-      status: "Open"
-    },
-    {
       id: "music-room",
       title: "Music Room",
       subtitle: "Original studio signals and listening paths.",
