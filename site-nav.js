@@ -42,4 +42,28 @@
       if (window.innerWidth > 760) setOpen(false);
     });
   });
+
+  const removeUnapprovedPortfolioContent = () => {
+    if (window.InkspirationsBringHomeData) {
+      delete window.InkspirationsBringHomeData["roberts-poem"];
+    }
+
+    document.querySelectorAll("#writing, a[href*='writing-room'], [data-id='roberts-poem'], [data-work-id='roberts-poem']").forEach((element) => {
+      const card = element.closest(".world-card, .room-card, .gallery-card, .feature-section") || element;
+      card.remove();
+    });
+
+    document.querySelectorAll(".gallery-card").forEach((card) => {
+      const text = card.textContent.toLowerCase();
+      const image = card.querySelector("img");
+      const isPoem = text.includes("robert's poem") || text.includes("writing piece") || text.includes("rain at the studio window");
+      const isPlaceholder = !image || image.src.startsWith("data:image/svg+xml");
+      if (isPoem || isPlaceholder) card.remove();
+    });
+  };
+
+  removeUnapprovedPortfolioContent();
+  const observer = new MutationObserver(removeUnapprovedPortfolioContent);
+  observer.observe(document.body, { childList: true, subtree: true });
+  window.setTimeout(() => observer.disconnect(), 10000);
 })();
