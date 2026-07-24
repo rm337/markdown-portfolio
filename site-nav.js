@@ -50,27 +50,18 @@
 
   const findTarget = (hash) => {
     if (!hash || hash === "#") return null;
-    try {
-      return document.getElementById(decodeURIComponent(hash.slice(1)));
-    } catch {
-      return document.getElementById(hash.slice(1));
-    }
+    try { return document.getElementById(decodeURIComponent(hash.slice(1))); }
+    catch { return document.getElementById(hash.slice(1)); }
   };
 
   const scrollToTarget = (target, updateHistory = true) => {
     if (!target) return false;
-
-    if (updateHistory && target.id) {
-      history.pushState(null, "", `#${encodeURIComponent(target.id)}`);
-    }
-
+    if (updateHistory && target.id) history.pushState(null, "", `#${encodeURIComponent(target.id)}`);
     target.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
-
     if (!target.hasAttribute("tabindex")) {
       target.setAttribute("tabindex", "-1");
       target.dataset.temporaryScrollFocus = "true";
     }
-
     window.setTimeout(() => {
       target.focus({ preventScroll: true });
       if (target.dataset.temporaryScrollFocus === "true") {
@@ -80,42 +71,49 @@
         }, { once: true });
       }
     }, 450);
-
     return true;
   };
 
   document.addEventListener("click", (event) => {
     if (event.defaultPrevented || event.button > 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-
     const link = event.target.closest("a[href]");
     if (!link || link.target === "_blank" || link.hasAttribute("download")) return;
 
-    let url;
-    try {
-      url = new URL(link.getAttribute("href"), window.location.href);
-    } catch {
+    const href = link.getAttribute("href") || "";
+    if (href.startsWith("mailto:") && /inquiry about|ask about|interested in/i.test(decodeURIComponent(href))) {
+      event.preventDefault();
+      const cardTitle = link.closest(".gallery-card")?.querySelector(".gallery-card-title")?.textContent?.trim() || "Artwork inquiry";
+      const source = `${location.pathname.split("/").pop() || "portfolio.html"}${location.hash || "#portfolio"}`;
+      location.href = `lead-intake.html?type=${encodeURIComponent("Artwork Inquiry")}&item=${encodeURIComponent(cardTitle)}&source=${encodeURIComponent(source)}`;
       return;
     }
 
-    const samePage = url.origin === window.location.origin &&
-      normalizedPath(url.pathname) === normalizedPath(window.location.pathname) &&
-      url.search === window.location.search;
-
+    let url;
+    try { url = new URL(href, window.location.href); } catch { return; }
+    const samePage = url.origin === window.location.origin && normalizedPath(url.pathname) === normalizedPath(window.location.pathname) && url.search === window.location.search;
     if (!samePage || !url.hash) return;
-
     const target = findTarget(url.hash);
     if (!target) return;
-
     event.preventDefault();
     scrollToTarget(target, true);
   });
+
+  const backToTop = document.createElement("button");
+  backToTop.type = "button";
+  backToTop.className = "back-to-top";
+  backToTop.setAttribute("aria-label", "Back to top");
+  backToTop.textContent = "Top ↑";
+  document.body.appendChild(backToTop);
+  const updateBackToTop = () => backToTop.classList.toggle("is-visible", window.scrollY > 520);
+  backToTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+  window.addEventListener("scroll", updateBackToTop, { passive: true });
+  updateBackToTop();
 
   const restoreHashPosition = () => {
     const target = findTarget(window.location.hash);
     if (!target) return;
     window.setTimeout(() => scrollToTarget(target, false), 100);
   };
-
   window.addEventListener("popstate", restoreHashPosition);
   window.addEventListener("hashchange", restoreHashPosition);
   window.addEventListener("load", restoreHashPosition);
