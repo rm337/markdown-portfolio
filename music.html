@@ -4,10 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Music Room | Inkspirations Studios</title>
-  <meta name="description" content="Enter the Inkspirations Studios Music Room for curated Yotto and Charlotte de Witte listening paths.">
+  <meta name="description" content="Enter the Inkspirations Studios Music Room for original browser sessions and curated artist listening paths.">
   <link rel="stylesheet" href="css/rooms.css">
   <link rel="stylesheet" href="css/atmosphere.css">
-  <link rel="stylesheet" href="studio-music.css?v=20260722">
   <link rel="stylesheet" href="site-nav.css?v=20260722">
   <style>
     body{margin:0;min-height:100vh;background:radial-gradient(circle at 20% 10%,rgba(1,116,243,.28),transparent 34rem),linear-gradient(160deg,#02050c,#071d33);color:#f6f3e8;font-family:Inter,Arial,sans-serif}
@@ -23,8 +22,10 @@
     .tracks{display:grid;gap:.7rem;margin-top:1rem}
     .track{display:block;width:100%;padding:.85rem 1rem;border:1px solid rgba(143,243,232,.25);background:rgba(1,116,243,.14);color:#fff;text-decoration:none;text-align:left;font:inherit;cursor:pointer}
     .track:hover,.track:focus-visible{border-color:#8ff3e8;background:rgba(1,116,243,.25)}
-    .track strong{display:block;color:#ffe6ad}
+    .track[aria-pressed="true"]{border-color:#8ff3e8;background:rgba(86,217,255,.2);box-shadow:inset 0 0 0 1px rgba(143,243,232,.5)}
+    .track strong{display:block;color:#ffe6ad;font-size:1.05rem}
     .track span{display:block;margin-top:.2rem;color:rgba(246,243,232,.65);font-size:.88rem}
+    .track .track-state{margin-top:.45rem;color:#8ff3e8;font-weight:800;text-transform:uppercase;letter-spacing:.12em;font-size:.72rem}
     .actions{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:2rem}.actions a{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:.8rem 1rem;border:1px solid rgba(143,243,232,.35);background:rgba(1,116,243,.18);color:#fff;text-decoration:none}
     .listening-note{max-width:760px;margin-top:1rem;color:rgba(246,243,232,.68);line-height:1.6}
     .music-gateway{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;padding:1.25rem;background:radial-gradient(circle at 50% 35%,rgba(1,116,243,.36),transparent 24rem),linear-gradient(160deg,rgba(2,5,12,.98),rgba(2,17,32,.98));transition:opacity .6s ease,visibility .6s ease}
@@ -46,7 +47,7 @@
       <p class="gateway-kicker">Inkspirations Studios · Music Room</p>
       <h2 id="gatewayTitle">Enter the Music Room.</h2>
       <p id="gatewayDescription">Step inside with an original Inkspirations session, or enter quietly and choose a listening path.</p>
-      <button class="gateway-button" id="enterWithMusic" type="button" data-audio-mode="studio" aria-pressed="false">Enter with Blue Current</button>
+      <button class="gateway-button" id="enterWithMusic" type="button">Enter with Blue Current</button>
       <button class="gateway-quiet" id="enterQuietly" type="button">Enter quietly</button>
     </div>
   </div>
@@ -67,11 +68,12 @@
         <h2>Studio Signals</h2>
         <p>Three lightweight, original instrumental loops created in the browser. Playback begins only after you choose it.</p>
         <div class="tracks">
-          <button class="track" id="peaceful-blue-current" type="button" data-audio-mode="studio" aria-pressed="false"><strong>Blue Current</strong><span>Melodic studio pulse</span></button>
-          <button class="track" id="memory-lanterns" type="button" data-audio-mode="calm" aria-pressed="false"><strong>Memory Lanterns</strong><span>Slower reflective sequence</span></button>
-          <button class="track" id="daylight-district" type="button" data-audio-mode="c4" aria-pressed="false"><strong>Daylight District</strong><span>Brighter forward motion</span></button>
+          <button class="track" id="peaceful-blue-current" type="button" data-session="blue" aria-pressed="false"><strong>Blue Current</strong><span>Melodic studio pulse</span><span class="track-state">Play session</span></button>
+          <button class="track" id="memory-lanterns" type="button" data-session="lanterns" aria-pressed="false"><strong>Memory Lanterns</strong><span>Slower reflective sequence</span><span class="track-state">Play session</span></button>
+          <button class="track" id="daylight-district" type="button" data-session="daylight" aria-pressed="false"><strong>Daylight District</strong><span>Brighter forward motion</span><span class="track-state">Play session</span></button>
         </div>
       </article>
+
       <article class="artist">
         <small>MELODIC CURRENT</small>
         <h2>Yotto</h2>
@@ -103,22 +105,95 @@
     <p class="listening-note">Inkspirations sessions play locally in your browser. Artist links open official streaming searches in a new tab.</p>
   </main>
 
-  <script src="studio-audio.js?v=20260722-gallery-fix"></script>
-  <script src="studio-music.js?v=20260722"></script>
   <script src="site-nav.js?v=20260722"></script>
   <script>
     (() => {
       const gateway = document.getElementById('musicGateway');
       const musicButton = document.getElementById('enterWithMusic');
       const quietButton = document.getElementById('enterQuietly');
+      const sessionButtons = [...document.querySelectorAll('[data-session]')];
+      let context = null;
+      let activeNodes = [];
+      let activeButton = null;
+      let pulseTimer = null;
+
+      const presets = {
+        blue: { notes:[110,164.81,220], rate:760, wave:'sine', gain:.055 },
+        lanterns: { notes:[98,146.83,196], rate:1100, wave:'triangle', gain:.045 },
+        daylight: { notes:[130.81,196,261.63], rate:520, wave:'sine', gain:.05 }
+      };
+
+      function ensureContext() {
+        if (!context) context = new (window.AudioContext || window.webkitAudioContext)();
+        if (context.state === 'suspended') context.resume();
+        return context;
+      }
+
+      function resetButtons() {
+        sessionButtons.forEach(button => {
+          button.setAttribute('aria-pressed','false');
+          button.querySelector('.track-state').textContent = 'Play session';
+        });
+      }
+
+      function stopSession() {
+        if (pulseTimer) clearInterval(pulseTimer);
+        pulseTimer = null;
+        activeNodes.forEach(node => { try { node.stop?.(); } catch (_) {} try { node.disconnect?.(); } catch (_) {} });
+        activeNodes = [];
+        activeButton = null;
+        resetButtons();
+      }
+
+      function playSession(button) {
+        if (activeButton === button) { stopSession(); return; }
+        stopSession();
+        const audio = ensureContext();
+        const preset = presets[button.dataset.session];
+        const master = audio.createGain();
+        master.gain.value = preset.gain;
+        master.connect(audio.destination);
+        activeNodes.push(master);
+
+        preset.notes.forEach((frequency,index) => {
+          const oscillator = audio.createOscillator();
+          const gain = audio.createGain();
+          oscillator.type = preset.wave;
+          oscillator.frequency.value = frequency;
+          gain.gain.value = index === 0 ? .8 : .35;
+          oscillator.connect(gain).connect(master);
+          oscillator.start();
+          activeNodes.push(oscillator,gain);
+        });
+
+        let step = 0;
+        pulseTimer = setInterval(() => {
+          const now = audio.currentTime;
+          master.gain.cancelScheduledValues(now);
+          master.gain.setValueAtTime(Math.max(.01, preset.gain*.35), now);
+          master.gain.linearRampToValueAtTime(preset.gain, now+.08);
+          master.gain.exponentialRampToValueAtTime(Math.max(.01,preset.gain*.3), now+.42);
+          step += 1;
+        }, preset.rate);
+
+        activeButton = button;
+        button.setAttribute('aria-pressed','true');
+        button.querySelector('.track-state').textContent = 'Stop session';
+      }
 
       function revealRoom() {
         gateway.hidden = true;
         document.body.classList.remove('gateway-open');
       }
 
-      musicButton.addEventListener('click', revealRoom);
+      musicButton.addEventListener('click', () => {
+        revealRoom();
+        requestAnimationFrame(() => playSession(document.getElementById('peaceful-blue-current')));
+      });
       quietButton.addEventListener('click', revealRoom);
+      sessionButtons.forEach(button => button.addEventListener('click', () => playSession(button)));
+      window.addEventListener('pagehide', stopSession);
+      document.addEventListener('visibilitychange', () => { if (document.hidden) stopSession(); });
     })();
   </script>
 </body>
