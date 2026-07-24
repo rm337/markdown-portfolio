@@ -3,172 +3,72 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Commission Request | Inkspirations Studios</title>
-<meta name="description" content="Commission, contact, print, brush, and collaboration inquiries for Inkspirations Studios.">
+<title>Studio Inquiry | Inkspirations Studios</title>
+<meta name="description" content="Artwork, commission, collaboration, and general inquiries for Inkspirations Studios.">
 <meta name="robots" content="noindex,nofollow">
 <style>
-*,*::before,*::after{box-sizing:border-box}
-:root{--ink:#050711;--deep:#071427;--blue:#0877f2;--cyan:#55dcff;--paper:#f5efe5;--coral:#f28a6b;--white:#f8fbff;--soft:rgba(248,251,255,.76);--muted:rgba(248,251,255,.5);--line:rgba(248,251,255,.16);--glass:rgba(6,14,28,.76)}
-html,body{min-height:100%}
-body{margin:0;background:var(--ink);color:var(--white);font-family:Georgia,"Times New Roman",serif;line-height:1.55;overflow-x:hidden}
-body::before{content:"";position:fixed;inset:0;z-index:-2;background:radial-gradient(circle at 22% 14%,rgba(85,220,255,.22),transparent 28%),radial-gradient(circle at 76% 24%,rgba(8,119,242,.28),transparent 30%),radial-gradient(circle at 62% 88%,rgba(242,138,107,.13),transparent 26%),linear-gradient(160deg,#050711 0%,#071427 55%,#02040a 100%)}
-a{color:inherit}button,input,textarea,select{font:inherit}
-.nav{position:fixed;z-index:20;left:0;right:0;top:0;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1rem clamp(1rem,4vw,3rem);border-bottom:1px solid var(--line);background:rgba(5,7,17,.78);backdrop-filter:blur(16px)}
-.brand,.nav a,.kicker,.btn,label,.pill,.status{font-family:Arial,sans-serif;text-transform:uppercase;letter-spacing:.13em;font-weight:900}
-.brand{font-size:.74rem;text-decoration:none}.nav-links{display:flex;gap:1rem;flex-wrap:wrap;justify-content:flex-end}.nav a{font-size:.68rem;text-decoration:none;color:var(--soft)}.nav a:hover{color:#fff}
-.shell{padding:8rem clamp(1.2rem,6vw,5rem) 4rem}.hero{max-width:940px;margin-bottom:2rem}.kicker{font-size:.72rem;color:var(--cyan);margin:0 0 1rem}
-h1,h2,p{margin-top:0}h1{font-size:clamp(3rem,7vw,6.8rem);line-height:.9;margin-bottom:1rem}.hero p{max-width:760px;color:var(--soft);font-size:clamp(1.08rem,2vw,1.32rem)}
-.grid{display:grid;grid-template-columns:minmax(300px,.9fr) minmax(0,1fr);gap:1rem;align-items:start}.panel{border:1px solid var(--line);background:var(--glass);backdrop-filter:blur(18px);box-shadow:0 28px 80px rgba(0,0,0,.34);padding:1.1rem}
-.field{display:grid;gap:.35rem;margin-bottom:.85rem}label{font-size:.64rem;color:var(--paper)}
-input,textarea,select{width:100%;border:1px solid var(--line);background:rgba(255,255,255,.07);color:#f8fbff;padding:.82rem .9rem;outline:none}textarea{min-height:150px;resize:vertical}select option{background:#071427;color:#f8fbff}
-input:focus,textarea:focus,select:focus{border-color:rgba(85,220,255,.72);box-shadow:0 0 0 3px rgba(85,220,255,.12)}
-.split{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}.actions{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1rem}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:.8rem 1rem;border:1px solid var(--line);background:rgba(255,255,255,.06);color:#f8fbff;text-decoration:none;font-size:.68rem;cursor:pointer}.btn.primary{background:var(--blue);border-color:rgba(85,220,255,.46)}.btn.warn{border-color:rgba(242,138,107,.45);color:var(--paper)}.btn:hover{transform:translateY(-1px);border-color:rgba(85,220,255,.68)}
-.status{min-height:1.4rem;color:var(--paper);font-size:.66rem;margin-top:.9rem}.note{color:var(--muted);font-size:.92rem;margin:.9rem 0 0}.outbox{display:grid;gap:.75rem}.lead{border:1px solid var(--line);background:rgba(255,255,255,.045);padding:.9rem}.lead strong{display:block;font-size:1.1rem}.lead span{display:block;color:var(--muted);font-size:.92rem}.pill{display:inline-flex;width:max-content;font-size:.62rem;color:var(--cyan);border:1px solid var(--line);padding:.45rem .6rem;background:rgba(255,255,255,.04);margin-bottom:1rem}
-@media(max-width:900px){.grid,.split{grid-template-columns:1fr}.nav{position:absolute;align-items:flex-start}}
+*,*::before,*::after{box-sizing:border-box}:root{--ink:#050711;--deep:#071427;--blue:#0877f2;--cyan:#55dcff;--paper:#f5efe5;--coral:#f28a6b;--white:#f8fbff;--soft:rgba(248,251,255,.76);--muted:rgba(248,251,255,.5);--line:rgba(248,251,255,.16);--glass:rgba(6,14,28,.76)}html,body{min-height:100%}body{margin:0;background:var(--ink);color:var(--white);font-family:Georgia,"Times New Roman",serif;line-height:1.55;overflow-x:hidden}body::before{content:"";position:fixed;inset:0;z-index:-2;background:radial-gradient(circle at 22% 14%,rgba(85,220,255,.22),transparent 28%),radial-gradient(circle at 76% 24%,rgba(8,119,242,.28),transparent 30%),radial-gradient(circle at 62% 88%,rgba(242,138,107,.13),transparent 26%),linear-gradient(160deg,#050711 0%,#071427 55%,#02040a 100%)}a{color:inherit}button,input,textarea,select{font:inherit}.nav{position:fixed;z-index:20;left:0;right:0;top:0;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1rem clamp(1rem,4vw,3rem);border-bottom:1px solid var(--line);background:rgba(5,7,17,.78);backdrop-filter:blur(16px)}.brand,.nav a,.kicker,.btn,label,.pill,.status{font-family:Arial,sans-serif;text-transform:uppercase;letter-spacing:.13em;font-weight:900}.brand{font-size:.74rem;text-decoration:none}.nav-links{display:flex;gap:1rem;flex-wrap:wrap;justify-content:flex-end}.nav a{font-size:.68rem;text-decoration:none;color:var(--soft)}.nav a:hover{color:#fff}.shell{padding:8rem clamp(1.2rem,6vw,5rem) 4rem}.hero{max-width:940px;margin-bottom:2rem}.kicker{font-size:.72rem;color:var(--cyan);margin:0 0 1rem}h1,h2,p{margin-top:0}h1{font-size:clamp(3rem,7vw,6.8rem);line-height:.9;margin-bottom:1rem}.hero p{max-width:760px;color:var(--soft);font-size:clamp(1.08rem,2vw,1.32rem)}.grid{display:grid;grid-template-columns:minmax(300px,.9fr) minmax(0,1fr);gap:1rem;align-items:start}.panel{border:1px solid var(--line);background:var(--glass);backdrop-filter:blur(18px);box-shadow:0 28px 80px rgba(0,0,0,.34);padding:1.1rem}.field{display:grid;gap:.35rem;margin-bottom:.85rem}label{font-size:.64rem;color:var(--paper)}input,textarea,select{width:100%;border:1px solid var(--line);background:rgba(255,255,255,.07);color:#f8fbff;padding:.82rem .9rem;outline:none}textarea{min-height:150px;resize:vertical}select option{background:#071427;color:#f8fbff}input:focus,textarea:focus,select:focus{border-color:rgba(85,220,255,.72);box-shadow:0 0 0 3px rgba(85,220,255,.12)}.split{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}.actions{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1rem}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:.8rem 1rem;border:1px solid var(--line);background:rgba(255,255,255,.06);color:#f8fbff;text-decoration:none;font-size:.68rem;cursor:pointer}.btn.primary{background:var(--blue);border-color:rgba(85,220,255,.46)}.btn:hover{transform:translateY(-1px);border-color:rgba(85,220,255,.68)}.btn[disabled]{opacity:.65;cursor:wait}.status{min-height:1.4rem;color:var(--paper);font-size:.66rem;margin-top:.9rem}.note{color:var(--muted);font-size:.92rem;margin:.9rem 0 0}.outbox{display:grid;gap:.75rem}.lead{border:1px solid var(--line);background:rgba(255,255,255,.045);padding:.9rem}.lead strong{display:block;font-size:1.1rem}.lead span{display:block;color:var(--muted);font-size:.92rem}.pill{display:inline-flex;width:max-content;font-size:.62rem;color:var(--cyan);border:1px solid var(--line);padding:.45rem .6rem;background:rgba(255,255,255,.04);margin-bottom:1rem}.success-panel{display:none;text-align:center;padding:clamp(2rem,6vw,5rem)}.success-panel.is-visible{display:block}.success-panel h2{font-size:clamp(2rem,5vw,4rem);color:var(--paper);margin-bottom:.7rem}.success-panel p{color:var(--soft);max-width:620px;margin:0 auto 1.4rem}@media(max-width:900px){.grid,.split{grid-template-columns:1fr}.nav{position:absolute;align-items:flex-start}}
 </style>
 </head>
 <body>
-<nav class="nav">
-  <a class="brand" href="index.html">Inkspirations Studios</a>
-  <div class="nav-links">
-<a href="index.html">Home</a>
-<a href="portfolio.html#portfolio">Portfolio</a>
-<a href="index.html#about">About</a>
-<a href="index.html#contact">Contact</a>
-  </div>
-</nav>
+<nav class="nav"><a class="brand" href="index.html">Inkspirations Studios</a><div class="nav-links"><a href="index.html">Home</a><a href="portfolio.html#portfolio">Portfolio</a><a href="index.html#about">About</a><a href="index.html#contact">Contact</a></div></nav>
 <main class="shell">
-  <section class="hero">
-    <p class="kicker">Commission Request</p>
-    <h1>Tell Robert what you are imagining.</h1>
-    <p>Use this quiet path for commissions, print questions, brush questions, collaboration ideas, custom rooms, or a simple hello. Your note stays with the studio and can be sent directly to Robert.</p>
-  </section>
-  <section class="grid">
-    <form class="panel" id="leadForm">
-      <div class="field">
-        <label for="leadType">Inquiry Type</label>
-        <select id="leadType" name="leadType">
-          <option>Commission</option>
-          <option>Print / Collecting</option>
-          <option>Fluid Soul Brushes</option>
-          <option>Custom Web Room</option>
-          <option>Collaboration</option>
-          <option>General Contact</option>
-        </select>
-      </div>
-      <div class="split">
-        <div class="field"><label for="leadName">Name</label><input id="leadName" name="leadName" autocomplete="name" maxlength="80" required></div>
-        <div class="field"><label for="leadEmail">Email</label><input id="leadEmail" name="leadEmail" type="email" autocomplete="email" maxlength="120"></div>
-      </div>
-      <div class="field"><label for="leadContact">Phone / Handle</label><input id="leadContact" name="leadContact" maxlength="120" placeholder="Optional"></div>
-      <div class="field"><label for="leadInterest">Project Or Item</label><input id="leadInterest" name="leadInterest" maxlength="140" placeholder="Piece, print, brush pack, room, or idea"></div>
-      <div class="split">
-        <div class="field"><label for="leadBudget">Budget Range</label><input id="leadBudget" name="leadBudget" maxlength="80" placeholder="Optional"></div>
-        <div class="field"><label for="leadTimeline">Timeline</label><input id="leadTimeline" name="leadTimeline" maxlength="80" placeholder="Optional"></div>
-      </div>
-      <div class="field"><label for="leadMessage">Details</label><textarea id="leadMessage" name="leadMessage" maxlength="1200" required placeholder="What should Robert know before replying?"></textarea></div>
-      <div class="actions">
-        <button class="btn primary" type="submit">Send Request</button>
-        <button class="btn" type="button" id="copyLead" hidden>Copy Studio Record</button>
-        <button class="btn" type="button" id="downloadLead" hidden>Download Studio Record</button>
-        <button class="btn warn" type="button" id="emailLead">Email Robert</button>
-      </div>
-      <div class="status" id="leadStatus" aria-live="polite"></div>
-      <p class="note">If the form cannot send from your browser, use Email Robert and your message will open in your email app.</p>
-    </form>
-    <aside class="panel">
-      <span class="pill" id="relayState" hidden>Studio Connection Ready</span>
-      <h2>Saved requests</h2>
-      <p class="note">Recent requests are remembered on this device so your message does not disappear while you are writing.</p>
-      <div class="outbox" id="outbox"></div>
-    </aside>
-  </section>
+<section class="hero"><p class="kicker">Studio Inquiry</p><h1>Ask about the work.</h1><p>Use this on-site form for artwork questions, commissions, collaborations, custom rooms, or a simple hello.</p></section>
+<section class="grid" id="inquiryGrid">
+<form class="panel" id="leadForm">
+<div class="field"><label for="leadType">Inquiry Type</label><select id="leadType" name="leadType"><option>Artwork Inquiry</option><option>Commission</option><option>Print / Collecting</option><option>Custom Web Room</option><option>Collaboration</option><option>General Contact</option></select></div>
+<div class="split"><div class="field"><label for="leadName">Name</label><input id="leadName" name="leadName" autocomplete="name" maxlength="80" required></div><div class="field"><label for="leadEmail">Email</label><input id="leadEmail" name="leadEmail" type="email" autocomplete="email" maxlength="120" required></div></div>
+<div class="field"><label for="leadContact">Phone / Handle</label><input id="leadContact" name="leadContact" maxlength="120" placeholder="Optional"></div>
+<div class="field"><label for="leadInterest">Artwork Or Project</label><input id="leadInterest" name="leadInterest" maxlength="140" placeholder="Artwork title or creative idea"></div>
+<div class="split"><div class="field"><label for="leadBudget">Budget Range</label><input id="leadBudget" name="leadBudget" maxlength="80" placeholder="Optional"></div><div class="field"><label for="leadTimeline">Timeline</label><input id="leadTimeline" name="leadTimeline" maxlength="80" placeholder="Optional"></div></div>
+<div class="field"><label for="leadMessage">Details</label><textarea id="leadMessage" name="leadMessage" maxlength="1200" required placeholder="What would you like Robert to know?"></textarea></div>
+<div class="actions"><button class="btn primary" id="sendLead" type="submit">Send Request</button><a class="btn" id="cancelLead" href="portfolio.html#portfolio">Return to Gallery</a></div>
+<div class="status" id="leadStatus" aria-live="polite"></div>
+</form>
+<aside class="panel"><span class="pill">Direct Studio Contact</span><h2>A clearer way to connect.</h2><p class="note">Your inquiry stays on the website. You will not be pushed into an email application.</p></aside>
+</section>
+<section class="panel success-panel" id="successPanel" tabindex="-1"><p class="kicker">Message Received</p><h2>Thank you.</h2><p>Your request has been saved. The form is now closed so you are not left wondering whether it worked.</p><div class="actions" style="justify-content:center"><a class="btn primary" id="continueBrowsing" href="portfolio.html#portfolio">Continue Browsing</a><a class="btn" href="index.html">Return Home</a></div></section>
 </main>
 <script src="js/lead-intake.js"></script>
 <script>
 (() => {
   const api = window.InkspirationsLead;
   const form = document.getElementById("leadForm");
+  const grid = document.getElementById("inquiryGrid");
+  const successPanel = document.getElementById("successPanel");
   const status = document.getElementById("leadStatus");
-  const outbox = document.getElementById("outbox");
-  const relayState = document.getElementById("relayState");
-  const copyButton = document.getElementById("copyLead");
-  const downloadButton = document.getElementById("downloadLead");
-  const emailButton = document.getElementById("emailLead");
-
-  relayState.textContent = "Studio Connection Ready";
-
-  function draft(){
-    return {
-      id:api.leadId(),
-      type:document.getElementById("leadType").value,
-      name:api.clean(document.getElementById("leadName").value),
-      email:api.clean(document.getElementById("leadEmail").value),
-      contact:api.clean(document.getElementById("leadContact").value),
-      interest:api.clean(document.getElementById("leadInterest").value),
-      budget:api.clean(document.getElementById("leadBudget").value),
-      timeline:api.clean(document.getElementById("leadTimeline").value),
-      message:api.clean(document.getElementById("leadMessage").value),
-      source:"Commission request page",
-      page:location.href,
-      createdAt:new Date().toISOString()
-    };
+  const sendButton = document.getElementById("sendLead");
+  const params = new URLSearchParams(location.search);
+  const requestedType = params.get("type");
+  const requestedItem = params.get("item");
+  const source = params.get("source") || "lead-intake.html";
+  const returnUrl = source && !source.startsWith("http") ? source : "portfolio.html#portfolio";
+  document.getElementById("cancelLead").href = returnUrl;
+  document.getElementById("continueBrowsing").href = returnUrl;
+  if (requestedType) {
+    const select = document.getElementById("leadType");
+    const match = [...select.options].find(option => option.textContent === requestedType);
+    if (match) select.value = requestedType;
   }
+  if (requestedItem) document.getElementById("leadInterest").value = requestedItem;
 
-  function render(){
-    const leads = api.getOutbox();
-    outbox.innerHTML = "";
-    if(!leads.length){
-      outbox.innerHTML = '<div class="lead"><strong>No local leads yet.</strong><span>Submitted notes will appear here.</span></div>';
-      return;
-    }
-    leads.slice(0,8).forEach(lead => {
-      const card = document.createElement("article");
-      card.className = "lead";
-      card.innerHTML = "<strong></strong><span></span><span></span>";
-      card.querySelector("strong").textContent = `${lead.type || "Lead"} - ${lead.name || "Visitor"}`;
-      card.querySelectorAll("span")[0].textContent = lead.interest || lead.email || "No project listed";
-      card.querySelectorAll("span")[1].textContent = lead.createdAt || "";
-      outbox.appendChild(card);
-    });
-  }
+  function draft(){return {id:api.leadId(),type:document.getElementById("leadType").value,name:api.clean(document.getElementById("leadName").value),email:api.clean(document.getElementById("leadEmail").value),contact:api.clean(document.getElementById("leadContact").value),interest:api.clean(document.getElementById("leadInterest").value),budget:api.clean(document.getElementById("leadBudget").value),timeline:api.clean(document.getElementById("leadTimeline").value),message:api.clean(document.getElementById("leadMessage").value),source:"On-site studio inquiry",page:location.href,createdAt:new Date().toISOString()};}
 
-  async function saveAndMaybeSend(lead){
-    api.saveLead(lead);
-    render();
-    try{
-      const result = await api.postLead(lead);
-      status.textContent = result.ok ? "Your request has been saved and sent." : "Your request is saved here. Use Email Robert if you want to send it now.";
-    }catch(error){
-      status.textContent = "Your request is saved here. Use Email Robert if you want to send it now.";
-    }
-  }
-
-  form.addEventListener("submit", event => {
+  form.addEventListener("submit", async event => {
     event.preventDefault();
+    if (!form.reportValidity()) return;
     const lead = draft();
-    if(!lead.name || !lead.message) return;
-    saveAndMaybeSend(lead);
+    sendButton.disabled = true;
+    sendButton.textContent = "Sending...";
+    status.textContent = "Sending your request.";
+    api.saveLead(lead);
+    try { await Promise.race([api.postLead(lead), new Promise(resolve => setTimeout(resolve, 2200))]); } catch (error) {}
+    form.reset();
+    grid.hidden = true;
+    successPanel.classList.add("is-visible");
+    successPanel.focus({preventScroll:true});
+    successPanel.scrollIntoView({behavior:"smooth",block:"center"});
   });
-
-  copyButton.addEventListener("click", async () => {
-    const lead = draft();
-    await api.copyJson(api.slackPayload(lead));
-    status.textContent = "Studio record copied.";
-  });
-
-  downloadButton.addEventListener("click", () => {
-    const lead = draft();
-    api.downloadJson(api.slackPayload(lead), `${lead.id}.json`);
-    status.textContent = "Studio record saved.";
-  });
-
-  emailButton.addEventListener("click", () => {
-    const lead = draft();
-    window.location.href = api.mailtoUrl(lead);
-  });
-
-  render();
 })();
 </script>
 </body>
