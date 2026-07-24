@@ -3,7 +3,8 @@ const state = {
   visibleItems: [],
   currentIndex: 0,
   imageCache: new Map(),
-  navigationLocked: false
+  navigationLocked: false,
+  lightboxHistoryActive: false
 };
 
 const els = {
@@ -49,19 +50,31 @@ function bindEvents() {
   els.collection.addEventListener('change', renderGallery);
   els.type.addEventListener('change', renderGallery);
   els.sort.addEventListener('change', renderGallery);
-  els.lightboxClose.addEventListener('click', closeLightbox);
+  els.lightboxClose.addEventListener('click', () => closeLightbox(true));
   els.previous.addEventListener('click', showPrevious);
   els.next.addEventListener('click', showNext);
 
   els.lightbox.addEventListener('click', (event) => {
-    if (event.target === els.lightbox) closeLightbox();
+    if (event.target === els.lightbox) closeLightbox(true);
+  });
+
+  els.lightbox.addEventListener('cancel', (event) => {
+    event.preventDefault();
+    closeLightbox(true);
   });
 
   document.addEventListener('keydown', (event) => {
     if (!els.lightbox.open) return;
-    if (event.key === 'Escape') closeLightbox();
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeLightbox(true);
+    }
     if (event.key === 'ArrowLeft') showPrevious();
     if (event.key === 'ArrowRight') showNext();
+  });
+
+  window.addEventListener('popstate', () => {
+    if (els.lightbox.open) closeLightbox(false);
   });
 }
 
@@ -188,6 +201,12 @@ function openLightbox(index) {
   state.currentIndex = index;
   updateLightbox();
   els.lightbox.showModal();
+  document.body.classList.add('lightbox-open');
+  els.lightboxClose.focus();
+  if (!state.lightboxHistoryActive) {
+    history.pushState({ inkspirationsLightbox: true }, '', `${location.pathname}${location.search}#gallery-viewer`);
+    state.lightboxHistoryActive = true;
+  }
   preloadNeighbors();
 }
 
@@ -236,8 +255,17 @@ function showNext() {
   navigate(1);
 }
 
-function closeLightbox() {
+function closeLightbox(useHistory = false) {
+  if (!els.lightbox.open) return;
   els.lightbox.close();
+  document.body.classList.remove('lightbox-open');
+  if (useHistory && state.lightboxHistoryActive && history.state?.inkspirationsLightbox) {
+    state.lightboxHistoryActive = false;
+    history.back();
+  } else {
+    state.lightboxHistoryActive = false;
+    if (location.hash === '#gallery-viewer') history.replaceState(null, '', `${location.pathname}${location.search}#gallery-grid`);
+  }
   if (state.lastTrigger instanceof HTMLElement) state.lastTrigger.focus();
 }
 
