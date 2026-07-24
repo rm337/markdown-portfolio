@@ -89,11 +89,61 @@
     });
   }
 
+  function enhanceMerchFoundryNotes() {
+    if (document.body?.dataset.roomId !== "merch-concept-foundry") return;
+
+    const ideaWall = document.getElementById("ideaWall");
+    const detail = document.querySelector(".panel.detail");
+    if (!ideaWall || !detail) return;
+
+    detail.id = detail.id || "artifact-note-detail";
+    detail.setAttribute("tabindex", "-1");
+
+    let returnButton = document.getElementById("returnToFoundryNotes");
+    if (!returnButton) {
+      returnButton = document.createElement("button");
+      returnButton.type = "button";
+      returnButton.id = "returnToFoundryNotes";
+      returnButton.className = "btn";
+      returnButton.textContent = "Back to Notes";
+      returnButton.setAttribute("aria-label", "Return to the selected Foundry note");
+      const actions = detail.querySelector(".actions");
+      if (actions) actions.prepend(returnButton);
+    }
+
+    let lastCard = null;
+
+    ideaWall.addEventListener("click", (event) => {
+      const card = event.target.closest(".idea-card");
+      if (!card) return;
+      lastCard = card;
+      window.setTimeout(() => {
+        detail.scrollIntoView({ behavior: "smooth", block: "start" });
+        detail.focus({ preventScroll: true });
+      }, 40);
+    });
+
+    returnButton.addEventListener("click", () => {
+      const activeCard = ideaWall.querySelector(".idea-card.active") || lastCard;
+      if (!activeCard) {
+        ideaWall.scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
+      activeCard.scrollIntoView({ behavior: "smooth", block: "center" });
+      window.setTimeout(() => activeCard.focus({ preventScroll: true }), 350);
+    });
+  }
+
+  function init() {
+    renderRooms();
+    enhanceMerchFoundryNotes();
+  }
+
   window.InkRooms = {
     all: () => rooms.map((room) => ({ ...room })),
     byId: (id) => rooms.find((room) => room.id === id) || null
   };
 
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", renderRooms, { once: true });
-  else renderRooms();
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init, { once: true });
+  else init();
 })();
