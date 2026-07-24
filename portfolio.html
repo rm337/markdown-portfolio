@@ -21,10 +21,20 @@
     #modal.open .gallery-lightbox{display:grid!important;grid-template-rows:minmax(0,1fr) auto!important}
     #modal.open #modalImg{width:100%!important;height:100%!important;max-height:none!important;object-fit:contain!important}
     #modal.open .modal-bar{max-height:32dvh!important;overflow-y:auto!important}
+    .gallery-float-nav{position:fixed;left:50%;bottom:max(12px,env(safe-area-inset-bottom));transform:translateX(-50%) translateY(140%);z-index:80;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;width:min(94vw,520px);padding:8px;border:1px solid rgba(143,243,232,.34);border-radius:18px;background:rgba(2,8,16,.93);box-shadow:0 16px 42px rgba(0,0,0,.48);backdrop-filter:blur(14px);transition:transform .22s ease,opacity .22s ease;opacity:0;pointer-events:none}
+    .gallery-float-nav.visible{transform:translateX(-50%) translateY(0);opacity:1;pointer-events:auto}
+    .gallery-float-nav button{min-height:48px;border:1px solid rgba(143,243,232,.28);border-radius:12px;background:rgba(1,116,243,.16);color:#f6f3e8;font:inherit;font-weight:700;cursor:pointer}
+    .gallery-float-nav button:active{transform:scale(.97)}
+    .gallery-float-nav button:disabled{opacity:.38;cursor:default}
+    .gallery-float-nav .filters-button{background:rgba(143,243,232,.16);color:#8ff3e8}
+    body.gallery-nav-active{padding-bottom:88px}
+    @media(min-width:901px){.gallery-float-nav{width:430px}}
     @media(max-width:700px){
       #modal.open .modal-bar{max-height:28dvh!important}
       #modal.open .modal-details{display:none!important}
       #modal.open #modalDesc{display:none!important}
+      .gallery-float-nav{bottom:max(8px,env(safe-area-inset-bottom));width:calc(100vw - 18px)}
+      .gallery-float-nav button{font-size:.84rem;padding:8px 5px}
     }
   </style>
 </head>
@@ -41,8 +51,13 @@
     <section class="section interactive-section" id="interactive"><div class="section-head gallery-head"><div><p class="kicker">Rooms To Enter</p><h2>Rooms that open into the studio.</h2><p>Studio rooms, listening spaces, writing paths, atmosphere, and acquisition routes are gathered here after the main portfolio.</p></div><span class="meta">Rooms</span></div><div class="room-grid" aria-label="Interactive portfolio rooms"><a class="room-card featured-room" href="rooms.html#ocean-of-ink"><span class="room-kicker">Ocean of Ink</span><strong>Ocean Room</strong><span>The blue ink atmosphere that connects the rooms.</span></a><a class="room-card" href="rooms.html#writing-room"><span class="room-kicker">Writing</span><strong>Writing Room</strong><span>A quiet path into Robert's words and reflective studio voice.</span></a><a class="room-card" href="rooms.html#music-room"><span class="room-kicker">Music</span><strong>Music Room</strong><span>A softer doorway into the listening side of Inkspirations Studios.</span></a><a class="room-card featured-room" href="flight-deck.html"><span class="room-kicker">C4 Territory</span><strong>Flight Deck DJ</strong><span>Enter the live-performance cockpit for melodic motion, vinyl, lights, and progressive energy.</span></a><a class="room-card featured-room" href="pricing.html"><span class="room-kicker">Acquire</span><strong>Pricing & Orders</strong><span>Choose a format, review starting prices, and begin a print or commission order.</span></a><a class="room-card" href="rooms.html"><span class="room-kicker">Explore</span><strong>Enter the Rooms</strong><span>Move deeper only after meeting the artwork, writing, and atmosphere.</span></a></div></section>
   </main>
   <footer><span>Inkspirations Studios</span><span>Robert Marleton</span><a href="pricing.html">Pricing & Orders</a></footer>
+  <nav class="gallery-float-nav" id="galleryFloatNav" aria-label="Gallery movement controls">
+    <button id="galleryPrevious" type="button" aria-label="Go to previous artwork">↑ Previous</button>
+    <button class="filters-button" id="galleryFilters" type="button" aria-label="Return to gallery filters">Filters</button>
+    <button id="galleryNext" type="button" aria-label="Go to next artwork">Next ↓</button>
+  </nav>
   <div class="modal" id="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modalTitle"><div class="modal-inner gallery-lightbox"><button class="modal-close" id="closeModal" type="button" aria-label="Close expanded artwork">Close</button><button class="modal-nav modal-prev" id="modalPrev" type="button" aria-label="Previous artwork">Previous</button><img id="modalImg" alt="Expanded portfolio piece"><button class="modal-nav modal-next" id="modalNext" type="button" aria-label="Next artwork">Next</button><div class="detail-zoom-controls" role="group" aria-label="Artwork zoom controls"><button class="detail-zoom-control" type="button" data-detail-zoom-out="modalImg">Zoom Out</button><button class="detail-zoom-control" type="button" data-detail-zoom-in="modalImg">Zoom In</button><button class="detail-zoom-control" type="button" data-detail-zoom-reset="modalImg">Fit to Screen</button></div><div class="modal-bar"><div><span id="modalType" class="meta"></span><h3 id="modalTitle"></h3><p id="modalDesc"></p><dl class="modal-details" aria-label="Artwork details"><div><dt>Status</dt><dd id="modalStatus"></dd></div><div><dt>Price</dt><dd id="modalPrice"></dd></div><div><dt>Dimensions</dt><dd id="modalDimensions"></dd></div><div><dt>Medium</dt><dd id="modalMedium"></dd></div></dl></div><a class="btn primary" id="modalPrimaryAction" href="pricing.html">View Pricing & Order</a></div></div></div>
-  <script src="portfolio.js?v=20260724-anchor-stabilized"></script>
+  <script src="portfolio.js?v=20260724-floating-gallery-nav"></script>
   <script src="bring-home.js?v=20260703-gallery-flow"></script>
   <script src="studio-audio.js?v=20260722-gallery-fix"></script>
   <script src="detail-zoom.js?v=20260712-zoom4"></script>
@@ -52,13 +67,16 @@
     (() => {
       const modal = document.getElementById('modal');
       const closeButton = document.getElementById('closeModal');
+      const portfolio = document.getElementById('portfolio');
       const filterRow = document.getElementById('filterRow');
       const galleryGrid = document.getElementById('galleryGrid');
-      const gallerySearch = document.getElementById('gallerySearch');
-      const gallerySort = document.getElementById('gallerySort');
+      const floatNav = document.getElementById('galleryFloatNav');
+      const previousButton = document.getElementById('galleryPrevious');
+      const filtersButton = document.getElementById('galleryFilters');
+      const nextButton = document.getElementById('galleryNext');
       let savedY = 0;
       let locked = false;
-      let settleRequested = false;
+      let currentCardIndex = 0;
 
       const lock = () => {
         if (locked) return;
@@ -80,34 +98,67 @@
       };
 
       new MutationObserver(() => {
-        if (modal.classList.contains('open')) lock();
-        else unlock();
+        if (modal.classList.contains('open')) {
+          lock();
+          floatNav.classList.remove('visible');
+        } else {
+          unlock();
+          updateFloatingNav();
+        }
       }).observe(modal, {attributes:true, attributeFilter:['class']});
 
-      const settleOnFirstResult = async () => {
-        const firstCard = galleryGrid.querySelector('.gallery-card');
-        if (!firstCard) return;
-        const images = [...galleryGrid.querySelectorAll('img')];
-        await Promise.all(images.slice(0,4).map(image => image.decode ? image.decode().catch(() => {}) : Promise.resolve()));
-        requestAnimationFrame(() => requestAnimationFrame(() => {
-          const top = firstCard.getBoundingClientRect().top + window.scrollY - 12;
-          window.scrollTo({top,left:0,behavior:'auto'});
-          window.setTimeout(() => window.scrollTo(0, top), 220);
-        }));
+      const cards = () => [...galleryGrid.querySelectorAll('.gallery-card')];
+
+      const nearestCardIndex = () => {
+        const available = cards();
+        if (!available.length) return 0;
+        const targetY = window.innerHeight * .42;
+        let bestIndex = 0;
+        let bestDistance = Infinity;
+        available.forEach((card,index) => {
+          const rect = card.getBoundingClientRect();
+          const center = rect.top + Math.min(rect.height,window.innerHeight) / 2;
+          const distance = Math.abs(center - targetY);
+          if (distance < bestDistance) {
+            bestDistance = distance;
+            bestIndex = index;
+          }
+        });
+        return bestIndex;
       };
 
-      const requestSettle = () => { settleRequested = true; };
-      filterRow.addEventListener('click', event => {
-        if (event.target.closest('button[data-filter]')) requestSettle();
-      }, true);
-      gallerySearch.addEventListener('input', requestSettle, true);
-      gallerySort.addEventListener('change', requestSettle, true);
+      const updateFloatingNav = () => {
+        const rect = portfolio.getBoundingClientRect();
+        const inGallery = rect.top < window.innerHeight * .8 && rect.bottom > window.innerHeight * .2;
+        const available = cards();
+        const visible = inGallery && available.length > 0 && !modal.classList.contains('open');
+        floatNav.classList.toggle('visible',visible);
+        document.body.classList.toggle('gallery-nav-active',visible);
+        if (!visible) return;
+        currentCardIndex = nearestCardIndex();
+        previousButton.disabled = currentCardIndex <= 0;
+        nextButton.disabled = currentCardIndex >= available.length - 1;
+      };
 
-      new MutationObserver(() => {
-        if (!settleRequested) return;
-        settleRequested = false;
-        settleOnFirstResult();
-      }).observe(galleryGrid, {childList:true});
+      const goToCard = index => {
+        const available = cards();
+        if (!available.length) return;
+        currentCardIndex = Math.max(0,Math.min(index,available.length - 1));
+        available[currentCardIndex].scrollIntoView({behavior:'smooth',block:'center'});
+        window.setTimeout(updateFloatingNav,450);
+      };
+
+      previousButton.addEventListener('click',() => goToCard(nearestCardIndex() - 1));
+      nextButton.addEventListener('click',() => goToCard(nearestCardIndex() + 1));
+      filtersButton.addEventListener('click',() => {
+        filterRow.scrollIntoView({behavior:'smooth',block:'center'});
+        window.setTimeout(updateFloatingNav,450);
+      });
+
+      window.addEventListener('scroll',updateFloatingNav,{passive:true});
+      window.addEventListener('resize',updateFloatingNav);
+      new MutationObserver(() => window.setTimeout(updateFloatingNav,80)).observe(galleryGrid,{childList:true});
+      window.setTimeout(updateFloatingNav,400);
     })();
   </script>
 </body>
