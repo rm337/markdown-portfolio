@@ -43,6 +43,20 @@
     });
   });
 
+  const normalizedPath = (pathname) => {
+    const decoded = decodeURIComponent(pathname || "/");
+    return decoded.replace(/\/index\.html$/i, "/").replace(/\/$/, "") || "/";
+  };
+
+  const findTarget = (hash) => {
+    if (!hash || hash === "#") return null;
+    try {
+      return document.getElementById(decodeURIComponent(hash.slice(1)));
+    } catch {
+      return document.getElementById(hash.slice(1));
+    }
+  };
+
   const scrollToTarget = (target, updateHistory = true) => {
     if (!target) return false;
 
@@ -50,7 +64,7 @@
       history.pushState(null, "", `#${encodeURIComponent(target.id)}`);
     }
 
-    target.scrollIntoView({ behavior: "smooth", block: "start" });
+    target.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
 
     if (!target.hasAttribute("tabindex")) {
       target.setAttribute("tabindex", "-1");
@@ -71,63 +85,38 @@
   };
 
   document.addEventListener("click", (event) => {
+    if (event.defaultPrevented || event.button > 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
     const link = event.target.closest("a[href]");
     if (!link || link.target === "_blank" || link.hasAttribute("download")) return;
 
     let url;
     try {
-      url = new URL(link.href, window.location.href);
+      url = new URL(link.getAttribute("href"), window.location.href);
     } catch {
       return;
     }
 
     const samePage = url.origin === window.location.origin &&
-      url.pathname.replace(/\/$/, "") === window.location.pathname.replace(/\/$/, "") &&
+      normalizedPath(url.pathname) === normalizedPath(window.location.pathname) &&
       url.search === window.location.search;
 
     if (!samePage || !url.hash) return;
 
-    const id = decodeURIComponent(url.hash.slice(1));
-    const target = document.getElementById(id);
+    const target = findTarget(url.hash);
     if (!target) return;
 
     event.preventDefault();
     scrollToTarget(target, true);
   });
 
-  window.addEventListener("popstate", () => {
-    if (!window.location.hash) return;
-    const target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
-    scrollToTarget(target, false);
-  });
-
-  window.addEventListener("load", () => {
-    if (!window.location.hash) return;
-    const target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
-    if (target) window.setTimeout(() => scrollToTarget(target, false), 100);
-  });
-
-  const removeUnapprovedPortfolioContent = () => {
-    if (window.InkspirationsBringHomeData) {
-      delete window.InkspirationsBringHomeData["roberts-poem"];
-    }
-
-    document.querySelectorAll("#writing, a[href*='writing-room'], [data-id='roberts-poem'], [data-work-id='roberts-poem']").forEach((element) => {
-      const card = element.closest(".world-card, .room-card, .gallery-card, .feature-section") || element;
-      card.remove();
-    });
-
-    document.querySelectorAll(".gallery-card").forEach((card) => {
-      const text = card.textContent.toLowerCase();
-      const image = card.querySelector("img");
-      const isPoem = text.includes("robert's poem") || text.includes("writing piece") || text.includes("rain at the studio window");
-      const isPlaceholder = !image || image.src.startsWith("data:image/svg+xml");
-      if (isPoem || isPlaceholder) card.remove();
-    });
+  const restoreHashPosition = () => {
+    const target = findTarget(window.location.hash);
+    if (!target) return;
+    window.setTimeout(() => scrollToTarget(target, false), 100);
   };
 
-  removeUnapprovedPortfolioContent();
-  const observer = new MutationObserver(removeUnapprovedPortfolioContent);
-  observer.observe(document.body, { childList: true, subtree: true });
-  window.setTimeout(() => observer.disconnect(), 10000);
+  window.addEventListener("popstate", restoreHashPosition);
+  window.addEventListener("hashchange", restoreHashPosition);
+  window.addEventListener("load", restoreHashPosition);
 })();
