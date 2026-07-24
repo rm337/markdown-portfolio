@@ -15,9 +15,11 @@
     .focused-room-panel{padding:clamp(28px,5vw,60px);border:1px solid rgba(255,255,255,.16);border-radius:28px;background:rgba(4,18,32,.72);backdrop-filter:blur(14px);box-shadow:0 24px 80px rgba(0,0,0,.34)}
     .focused-room h1{font-size:clamp(2.6rem,8vw,5.8rem);line-height:1;margin:.3rem 0 1rem}
     .focused-room p{font-size:1.1rem;max-width:720px}
-    .focused-room-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
-    .focused-room-actions a{display:inline-flex;padding:12px 18px;border-radius:999px;border:1px solid rgba(255,255,255,.22);text-decoration:none;background:rgba(255,255,255,.08)}
+    .focused-room-actions,.focused-room-travel{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+    .focused-room-actions a,.focused-room-travel a{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:12px 18px;border-radius:999px;border:1px solid rgba(255,255,255,.22);text-decoration:none;background:rgba(255,255,255,.08)}
     .focused-room-actions a:first-child{background:#0174F3;border-color:#0174F3;color:white}
+    .focused-room-travel{padding-top:22px;border-top:1px solid rgba(255,255,255,.13)}
+    .focused-room-travel a{flex:1 1 190px}
     body.room-focused main>.room-hub-hero,body.room-focused .room-hub-grid{display:none}
   </style>
 </head>
@@ -28,6 +30,7 @@
     <a class="room-brand" href="index.html">Inkspirations Studios</a>
     <div class="room-hub-links">
       <a href="index.html">Home</a>
+      <a href="rooms.html">All Rooms</a>
       <a href="portfolio.html">Portfolio</a>
       <a href="index.html#contact">Contact</a>
     </div>
@@ -45,43 +48,64 @@
         <h1 id="focusedRoomTitle"></h1>
         <p id="focusedRoomDescription"></p>
         <div class="focused-room-actions">
-          <a id="focusedRoomPrimary" href="rooms.html">Enter</a>
+          <a id="focusedRoomPrimary" href="rooms.html">Continue</a>
           <a href="rooms.html">View All Rooms</a>
         </div>
+        <nav class="focused-room-travel" aria-label="Move between studio rooms">
+          <a id="focusedRoomPrevious" href="rooms.html">← Previous Room</a>
+          <a href="index.html#places">Exit to Studio Home</a>
+          <a id="focusedRoomNext" href="rooms.html">Next Room →</a>
+        </nav>
       </div>
     </section>
   </main>
-  <script src="js/rooms.js?v=20260714-focusedrooms"></script>
-  <script src="site-nav.js?v=20260722"></script>
+  <script src="js/rooms.js?v=20260724-room-travel"></script>
+  <script src="site-nav.js?v=20260724-room-travel"></script>
   <script>
     (() => {
+      function destination(room) {
+        if (!room) return 'rooms.html';
+        return room.url || `rooms.html#${room.id}`;
+      }
+
       function openFocusedRoom() {
         const hash = window.location.hash.replace('#', '');
         const room = hash ? window.InkRooms?.byId?.(hash) : null;
+        const rooms = window.InkRooms?.all?.() || [];
         const focused = document.getElementById('focusedRoom');
         if (!room || !focused) {
           document.body.classList.remove('room-focused');
           focused?.classList.remove('is-open');
           return;
         }
+
         document.body.classList.add('room-focused');
         focused.classList.add('is-open');
         document.getElementById('focusedRoomKicker').textContent = room.category || 'Studio Room';
         document.getElementById('focusedRoomTitle').textContent = room.title;
         document.getElementById('focusedRoomDescription').textContent = room.description;
+
         const primary = document.getElementById('focusedRoomPrimary');
-        if (room.id === 'music-room') {
-          primary.textContent = 'Enter the Music Room';
-          primary.href = 'music.html';
-        } else if (room.id === 'coasters-tiles') {
-          primary.textContent = 'View Coasters & Decorative Tiles';
-          primary.href = 'coasters-tiles.html';
+        if (room.url && room.url !== `rooms.html#${room.id}`) {
+          primary.textContent = `Enter ${room.title}`;
+          primary.href = room.url;
         } else {
-          primary.textContent = 'Stay in This Room';
-          primary.href = '#'+room.id;
+          primary.textContent = 'Return to All Rooms';
+          primary.href = 'rooms.html';
         }
+
+        const index = rooms.findIndex((entry) => entry.id === room.id);
+        const previous = rooms[(index - 1 + rooms.length) % rooms.length];
+        const next = rooms[(index + 1) % rooms.length];
+        const previousLink = document.getElementById('focusedRoomPrevious');
+        const nextLink = document.getElementById('focusedRoomNext');
+        previousLink.href = destination(previous);
+        previousLink.textContent = `← ${previous?.title || 'Previous Room'}`;
+        nextLink.href = destination(next);
+        nextLink.textContent = `${next?.title || 'Next Room'} →`;
         window.scrollTo({top:0,behavior:'auto'});
       }
+
       if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', openFocusedRoom);
       else openFocusedRoom();
       window.addEventListener('hashchange', openFocusedRoom);
