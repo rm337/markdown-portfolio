@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="site-nav.css?v=20260722">
   <style>
     html,body,#portfolio,.gallery-tools,#galleryGrid,.gallery-card{overflow-anchor:none!important}
+    #portfolio,#writing,#functional,#interactive{scroll-margin-top:24px}
     html.selected-work-open,body.selected-work-open{overflow:hidden!important;overscroll-behavior:none!important}
     body.selected-work-open{position:fixed!important;left:0!important;right:0!important;width:100%!important}
     #modal.open{position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;overflow:hidden!important}
@@ -21,20 +22,22 @@
     #modal.open .gallery-lightbox{display:grid!important;grid-template-rows:minmax(0,1fr) auto!important}
     #modal.open #modalImg{width:100%!important;height:100%!important;max-height:none!important;object-fit:contain!important}
     #modal.open .modal-bar{max-height:32dvh!important;overflow-y:auto!important}
-    .gallery-float-nav{position:fixed;left:50%;bottom:max(12px,env(safe-area-inset-bottom));transform:translateX(-50%) translateY(140%);z-index:80;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;width:min(94vw,520px);padding:8px;border:1px solid rgba(143,243,232,.34);border-radius:18px;background:rgba(2,8,16,.93);box-shadow:0 16px 42px rgba(0,0,0,.48);backdrop-filter:blur(14px);transition:transform .22s ease,opacity .22s ease;opacity:0;pointer-events:none}
-    .gallery-float-nav.visible{transform:translateX(-50%) translateY(0);opacity:1;pointer-events:auto}
-    .gallery-float-nav button{min-height:48px;border:1px solid rgba(143,243,232,.28);border-radius:12px;background:rgba(1,116,243,.16);color:#f6f3e8;font:inherit;font-weight:700;cursor:pointer}
-    .gallery-float-nav button:active{transform:scale(.97)}
+    .gallery-float-nav,.page-return-nav{position:fixed;left:50%;bottom:max(12px,env(safe-area-inset-bottom));transform:translateX(-50%) translateY(140%);z-index:80;display:grid;gap:8px;width:min(94vw,520px);padding:8px;border:1px solid rgba(143,243,232,.34);border-radius:18px;background:rgba(2,8,16,.93);box-shadow:0 16px 42px rgba(0,0,0,.48);backdrop-filter:blur(14px);transition:transform .22s ease,opacity .22s ease;opacity:0;pointer-events:none}
+    .gallery-float-nav{grid-template-columns:1fr 1fr 1fr}
+    .page-return-nav{grid-template-columns:1fr 1fr}
+    .gallery-float-nav.visible,.page-return-nav.visible{transform:translateX(-50%) translateY(0);opacity:1;pointer-events:auto}
+    .gallery-float-nav button,.page-return-nav button{min-height:48px;border:1px solid rgba(143,243,232,.28);border-radius:12px;background:rgba(1,116,243,.16);color:#f6f3e8;font:inherit;font-weight:700;cursor:pointer}
+    .gallery-float-nav button:active,.page-return-nav button:active{transform:scale(.97)}
     .gallery-float-nav button:disabled{opacity:.38;cursor:default}
-    .gallery-float-nav .filters-button{background:rgba(143,243,232,.16);color:#8ff3e8}
-    body.gallery-nav-active{padding-bottom:88px}
-    @media(min-width:901px){.gallery-float-nav{width:430px}}
+    .gallery-float-nav .filters-button,.page-return-nav .gallery-return{background:rgba(143,243,232,.16);color:#8ff3e8}
+    body.gallery-nav-active,body.page-return-active{padding-bottom:88px}
+    @media(min-width:901px){.gallery-float-nav,.page-return-nav{width:430px}}
     @media(max-width:700px){
       #modal.open .modal-bar{max-height:28dvh!important}
       #modal.open .modal-details{display:none!important}
       #modal.open #modalDesc{display:none!important}
-      .gallery-float-nav{bottom:max(8px,env(safe-area-inset-bottom));width:calc(100vw - 18px)}
-      .gallery-float-nav button{font-size:.84rem;padding:8px 5px}
+      .gallery-float-nav,.page-return-nav{bottom:max(8px,env(safe-area-inset-bottom));width:calc(100vw - 18px)}
+      .gallery-float-nav button,.page-return-nav button{font-size:.84rem;padding:8px 5px}
     }
   </style>
 </head>
@@ -43,21 +46,18 @@
   <div class="ink-particles" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
   <nav class="nav" aria-label="Primary navigation"><a class="brand" href="index.html#top">Inkspirations Studios</a><div class="links"><a href="index.html#top">Home</a><a href="portfolio.html#portfolio">Portfolio</a><a href="portfolio-gallery.html">Interactive Gallery</a><a href="pricing.html">Pricing & Orders</a><a href="index.html#about">About</a><a href="index.html#contact">Contact</a></div></nav>
   <main id="top">
-    <header class="hero studio-entry gallery-entry"><div class="hero-copy"><p class="kicker">Inkspirations Gallery</p><h1>Robert Marleton Gallery</h1><p class="welcome">A focused public portfolio for artwork, creative direction, brand presentation, and functional art concepts.</p><p>This gallery is intentionally curated. It leads with the strongest verified artwork image currently in the repository and supports it with clear studio directions instead of padded or broken image placeholders.</p><nav class="gallery-mood" aria-label="Gallery shortcuts"><a href="#portfolio">Selected Work</a><a href="pricing.html">Pricing & Orders</a><a href="#interactive">Rooms To Enter</a></nav><div class="actions"><a class="btn primary" href="#portfolio">View the Gallery</a><a class="btn" href="pricing.html">View Pricing & Order</a><a class="btn" href="portfolio-gallery.html">Open Interactive Gallery</a><a class="btn" href="index.html#contact">Contact Robert</a><button class="btn audio-toggle" type="button" data-audio-mode="studio" aria-pressed="false">Play Blue Current</button></div></div></header>
-    <section class="section world-section" id="world"><div class="section-head gallery-head"><div><p class="kicker">Studio Journey</p><h2>A clear path through the work.</h2><p>The visitor sees the artwork first, then the studio identity, creative direction, writing, functional art, and ways to order.</p></div><span class="meta">Curated Path</span></div><div class="world-grid" aria-label="Inkspirations Studios portfolio areas"><a class="world-card featured-world" href="#portfolio"><span class="room-kicker">Artwork</span><strong>Artwork Gallery</strong><span>Finished visual work and supporting portfolio directions presented without exposing internal systems.</span></a><a class="world-card featured-world" href="pricing.html"><span class="room-kicker">Acquire</span><strong>Pricing & Orders</strong><span>Clear starting prices for prints, canvas, coasters, shirts, originals, and commissions.</span></a><a class="world-card" href="portfolio-gallery.html"><span class="room-kicker">Interactive</span><strong>Interactive Gallery</strong><span>Search, filter, and open selected work in a larger lightbox gallery.</span></a><a class="world-card" href="#writing"><span class="room-kicker">Words</span><strong>Writing Room</strong><span>A quiet home for the language side of Inkspirations Studios.</span></a><a class="world-card" href="#functional"><span class="room-kicker">Functional Art</span><strong>Functional Art Concepts</strong><span>Product-minded creative direction for objects, coasters, and usable surfaces.</span></a><a class="world-card" href="rooms.html#ocean-of-ink"><span class="room-kicker">Atmosphere</span><strong>Ocean of Ink</strong><span>The blue ink-in-water atmosphere that connects the studio identity.</span></a><a class="world-card featured-world" href="flight-deck.html"><span class="room-kicker">C4 Territory</span><strong>Flight Deck DJ</strong><span>A cinematic performance room with vinyl, melodic techno energy, radar, lights, and a DJ at the controls.</span></a><a class="world-card" href="#interactive"><span class="room-kicker">Rooms</span><strong>Rooms To Enter</strong><span>A doorway into writing, music, atmosphere, and deeper studio spaces.</span></a></div></section>
+    <header class="hero studio-entry gallery-entry"><div class="hero-copy"><p class="kicker">Inkspirations Gallery</p><h1>Robert Marleton Gallery</h1><p class="welcome">A focused public portfolio for artwork, creative direction, brand presentation, and functional art concepts.</p><p>This gallery is intentionally curated. It leads with the strongest verified artwork image currently in the repository and supports it with clear studio directions instead of padded or broken image placeholders.</p><nav class="gallery-mood" aria-label="Gallery shortcuts"><a href="#portfolio">Selected Work</a><a href="pricing.html">Pricing & Orders</a><a href="#interactive" data-jump="rooms">Rooms To Enter</a></nav><div class="actions"><a class="btn primary" href="#portfolio">View the Gallery</a><a class="btn" href="pricing.html">View Pricing & Order</a><a class="btn" href="portfolio-gallery.html">Open Interactive Gallery</a><a class="btn" href="index.html#contact">Contact Robert</a><button class="btn audio-toggle" type="button" data-audio-mode="studio" aria-pressed="false">Play Blue Current</button></div></div></header>
+    <section class="section world-section" id="world"><div class="section-head gallery-head"><div><p class="kicker">Studio Journey</p><h2>A clear path through the work.</h2><p>The visitor sees the artwork first, then the studio identity, creative direction, writing, functional art, and ways to order.</p></div><span class="meta">Curated Path</span></div><div class="world-grid" aria-label="Inkspirations Studios portfolio areas"><a class="world-card featured-world" href="#portfolio"><span class="room-kicker">Artwork</span><strong>Artwork Gallery</strong><span>Finished visual work and supporting portfolio directions presented without exposing internal systems.</span></a><a class="world-card featured-world" href="pricing.html"><span class="room-kicker">Acquire</span><strong>Pricing & Orders</strong><span>Clear starting prices for prints, canvas, coasters, shirts, originals, and commissions.</span></a><a class="world-card" href="portfolio-gallery.html"><span class="room-kicker">Interactive</span><strong>Interactive Gallery</strong><span>Search, filter, and open selected work in a larger lightbox gallery.</span></a><a class="world-card" href="#writing"><span class="room-kicker">Words</span><strong>Writing Room</strong><span>A quiet home for the language side of Inkspirations Studios.</span></a><a class="world-card" href="#functional"><span class="room-kicker">Functional Art</span><strong>Functional Art Concepts</strong><span>Product-minded creative direction for objects, coasters, and usable surfaces.</span></a><a class="world-card" href="rooms.html#ocean-of-ink"><span class="room-kicker">Atmosphere</span><strong>Ocean of Ink</strong><span>The blue ink-in-water atmosphere that connects the studio identity.</span></a><a class="world-card featured-world" href="flight-deck.html"><span class="room-kicker">C4 Territory</span><strong>Flight Deck DJ</strong><span>A cinematic performance room with vinyl, melodic techno energy, radar, lights, and a DJ at the controls.</span></a><a class="world-card" href="#interactive" data-jump="rooms"><span class="room-kicker">Rooms</span><strong>Rooms To Enter</strong><span>A doorway into writing, music, atmosphere, and deeper studio spaces.</span></a></div></section>
     <section class="section gallery-section photographer-gallery" id="portfolio"><div class="section-head gallery-head"><div><p class="kicker">Artwork</p><h2>Selected work, clearly presented.</h2><p>Open a card to see the piece larger, read the portfolio note, and use Pricing & Orders for available formats.</p></div><span class="meta" id="galleryCount">Gallery</span></div><div class="gallery-tools photographer-tools" aria-label="Gallery controls"><div class="filter-row" id="filterRow" aria-label="Filter artwork by category"></div><div class="gallery-fields"><label class="field-label" for="gallerySearch">Search</label><input id="gallerySearch" class="gallery-input" type="search" placeholder="Search artwork, medium, or title"><label class="field-label" for="gallerySort">Sort</label><select id="gallerySort" class="gallery-select"><option value="curated">Gallery order</option><option value="title">Title A-Z</option><option value="category">Artwork type</option></select></div></div><div class="gallery-grid photographer-grid" id="galleryGrid" aria-live="polite"></div><p class="empty-gallery" id="emptyGallery" hidden>No works match this view yet. Try another path through the gallery.</p><div class="actions" style="margin-top:1rem"><a class="btn primary" href="pricing.html">See Pricing & Start an Order</a></div></section>
     <section class="section feature-section" id="writing"><div class="feature-panel feature-panel-wide"><div><p class="kicker">Writing</p><h2>Writing Room</h2><p>Robert's original writing belongs here. No substitute text or invented poem is being shown.</p></div><div class="actions"><a class="btn primary" href="rooms.html#writing-room">Enter the Writing Room</a></div></div></section>
     <section class="section feature-section" id="functional"><div class="feature-panel feature-panel-wide"><div><p class="kicker">Functional Art</p><h2>Objects people can live with.</h2><p>Coaster sets, art tiles, and usable studio objects now have a public starting-price structure and a direct order route.</p></div><div class="slot-grid" aria-label="Functional art directions"><article class="asset-slot"><span>Coaster Direction</span><strong>Blue Current Coasters</strong><small>Sets from $48</small></article><article class="asset-slot"><span>Art Tile</span><strong>Usable Studio Objects</strong><small>From $28</small></article><article class="asset-slot"><span>Custom Work</span><strong>Made for Your Space</strong><small>Quoted individually</small></article></div><div class="actions"><a class="btn primary" href="pricing.html#pricing">View Functional Art Pricing</a><a class="btn" href="pricing.html#pricing">Start an Order</a></div></div></section>
     <section class="section interactive-section" id="interactive"><div class="section-head gallery-head"><div><p class="kicker">Rooms To Enter</p><h2>Rooms that open into the studio.</h2><p>Studio rooms, listening spaces, writing paths, atmosphere, and acquisition routes are gathered here after the main portfolio.</p></div><span class="meta">Rooms</span></div><div class="room-grid" aria-label="Interactive portfolio rooms"><a class="room-card featured-room" href="rooms.html#ocean-of-ink"><span class="room-kicker">Ocean of Ink</span><strong>Ocean Room</strong><span>The blue ink atmosphere that connects the rooms.</span></a><a class="room-card" href="rooms.html#writing-room"><span class="room-kicker">Writing</span><strong>Writing Room</strong><span>A quiet path into Robert's words and reflective studio voice.</span></a><a class="room-card" href="rooms.html#music-room"><span class="room-kicker">Music</span><strong>Music Room</strong><span>A softer doorway into the listening side of Inkspirations Studios.</span></a><a class="room-card featured-room" href="flight-deck.html"><span class="room-kicker">C4 Territory</span><strong>Flight Deck DJ</strong><span>Enter the live-performance cockpit for melodic motion, vinyl, lights, and progressive energy.</span></a><a class="room-card featured-room" href="pricing.html"><span class="room-kicker">Acquire</span><strong>Pricing & Orders</strong><span>Choose a format, review starting prices, and begin a print or commission order.</span></a><a class="room-card" href="rooms.html"><span class="room-kicker">Explore</span><strong>Enter the Rooms</strong><span>Move deeper only after meeting the artwork, writing, and atmosphere.</span></a></div></section>
   </main>
   <footer><span>Inkspirations Studios</span><span>Robert Marleton</span><a href="pricing.html">Pricing & Orders</a></footer>
-  <nav class="gallery-float-nav" id="galleryFloatNav" aria-label="Gallery movement controls">
-    <button id="galleryPrevious" type="button" aria-label="Go to previous artwork">↑ Previous</button>
-    <button class="filters-button" id="galleryFilters" type="button" aria-label="Return to gallery filters">Filters</button>
-    <button id="galleryNext" type="button" aria-label="Go to next artwork">Next ↓</button>
-  </nav>
+  <nav class="gallery-float-nav" id="galleryFloatNav" aria-label="Gallery movement controls"><button id="galleryPrevious" type="button" aria-label="Go to previous artwork">↑ Previous</button><button class="filters-button" id="galleryFilters" type="button" aria-label="Return to gallery filters">Filters</button><button id="galleryNext" type="button" aria-label="Go to next artwork">Next ↓</button></nav>
+  <nav class="page-return-nav" id="pageReturnNav" aria-label="Return navigation"><button class="gallery-return" id="returnGallery" type="button">↑ Back to Gallery</button><button id="returnTop" type="button">Top ↑</button></nav>
   <div class="modal" id="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modalTitle"><div class="modal-inner gallery-lightbox"><button class="modal-close" id="closeModal" type="button" aria-label="Close expanded artwork">Close</button><button class="modal-nav modal-prev" id="modalPrev" type="button" aria-label="Previous artwork">Previous</button><img id="modalImg" alt="Expanded portfolio piece"><button class="modal-nav modal-next" id="modalNext" type="button" aria-label="Next artwork">Next</button><div class="detail-zoom-controls" role="group" aria-label="Artwork zoom controls"><button class="detail-zoom-control" type="button" data-detail-zoom-out="modalImg">Zoom Out</button><button class="detail-zoom-control" type="button" data-detail-zoom-in="modalImg">Zoom In</button><button class="detail-zoom-control" type="button" data-detail-zoom-reset="modalImg">Fit to Screen</button></div><div class="modal-bar"><div><span id="modalType" class="meta"></span><h3 id="modalTitle"></h3><p id="modalDesc"></p><dl class="modal-details" aria-label="Artwork details"><div><dt>Status</dt><dd id="modalStatus"></dd></div><div><dt>Price</dt><dd id="modalPrice"></dd></div><div><dt>Dimensions</dt><dd id="modalDimensions"></dd></div><div><dt>Medium</dt><dd id="modalMedium"></dd></div></dl></div><a class="btn primary" id="modalPrimaryAction" href="pricing.html">View Pricing & Order</a></div></div></div>
-  <script src="portfolio.js?v=20260724-floating-gallery-nav"></script>
+  <script src="portfolio.js?v=20260724-return-navigation"></script>
   <script src="bring-home.js?v=20260703-gallery-flow"></script>
   <script src="studio-audio.js?v=20260722-gallery-fix"></script>
   <script src="detail-zoom.js?v=20260712-zoom4"></script>
@@ -68,15 +68,28 @@
       const modal = document.getElementById('modal');
       const closeButton = document.getElementById('closeModal');
       const portfolio = document.getElementById('portfolio');
+      const interactive = document.getElementById('interactive');
       const filterRow = document.getElementById('filterRow');
       const galleryGrid = document.getElementById('galleryGrid');
       const floatNav = document.getElementById('galleryFloatNav');
+      const pageReturnNav = document.getElementById('pageReturnNav');
       const previousButton = document.getElementById('galleryPrevious');
       const filtersButton = document.getElementById('galleryFilters');
       const nextButton = document.getElementById('galleryNext');
       let savedY = 0;
       let locked = false;
       let currentCardIndex = 0;
+
+      const scrollToElement = element => {
+        const top = element.getBoundingClientRect().top + window.scrollY - 12;
+        window.scrollTo({top,left:0,behavior:'smooth'});
+      };
+
+      document.querySelectorAll('[data-jump="rooms"]').forEach(link => link.addEventListener('click',event => {
+        event.preventDefault();
+        scrollToElement(interactive);
+        history.replaceState(null,'','#interactive');
+      }));
 
       const lock = () => {
         if (locked) return;
@@ -93,7 +106,7 @@
         document.documentElement.classList.remove('selected-work-open');
         document.body.classList.remove('selected-work-open');
         document.body.style.top = '';
-        window.scrollTo(0, savedY);
+        window.scrollTo(0,savedY);
         locked = false;
       };
 
@@ -101,14 +114,14 @@
         if (modal.classList.contains('open')) {
           lock();
           floatNav.classList.remove('visible');
+          pageReturnNav.classList.remove('visible');
         } else {
           unlock();
-          updateFloatingNav();
+          updateNavigation();
         }
-      }).observe(modal, {attributes:true, attributeFilter:['class']});
+      }).observe(modal,{attributes:true,attributeFilter:['class']});
 
       const cards = () => [...galleryGrid.querySelectorAll('.gallery-card')];
-
       const nearestCardIndex = () => {
         const available = cards();
         if (!available.length) return 0;
@@ -119,25 +132,28 @@
           const rect = card.getBoundingClientRect();
           const center = rect.top + Math.min(rect.height,window.innerHeight) / 2;
           const distance = Math.abs(center - targetY);
-          if (distance < bestDistance) {
-            bestDistance = distance;
-            bestIndex = index;
-          }
+          if (distance < bestDistance) { bestDistance = distance; bestIndex = index; }
         });
         return bestIndex;
       };
 
-      const updateFloatingNav = () => {
-        const rect = portfolio.getBoundingClientRect();
-        const inGallery = rect.top < window.innerHeight * .8 && rect.bottom > window.innerHeight * .2;
+      const updateNavigation = () => {
+        const galleryRect = portfolio.getBoundingClientRect();
         const available = cards();
-        const visible = inGallery && available.length > 0 && !modal.classList.contains('open');
-        floatNav.classList.toggle('visible',visible);
-        document.body.classList.toggle('gallery-nav-active',visible);
-        if (!visible) return;
-        currentCardIndex = nearestCardIndex();
-        previousButton.disabled = currentCardIndex <= 0;
-        nextButton.disabled = currentCardIndex >= available.length - 1;
+        const inGallery = galleryRect.top < window.innerHeight * .8 && galleryRect.bottom > window.innerHeight * .2;
+        const belowGallery = galleryRect.bottom <= window.innerHeight * .35;
+        const modalOpen = modal.classList.contains('open');
+        const galleryVisible = inGallery && available.length > 0 && !modalOpen;
+        const returnVisible = belowGallery && !modalOpen;
+        floatNav.classList.toggle('visible',galleryVisible);
+        pageReturnNav.classList.toggle('visible',returnVisible);
+        document.body.classList.toggle('gallery-nav-active',galleryVisible);
+        document.body.classList.toggle('page-return-active',returnVisible);
+        if (galleryVisible) {
+          currentCardIndex = nearestCardIndex();
+          previousButton.disabled = currentCardIndex <= 0;
+          nextButton.disabled = currentCardIndex >= available.length - 1;
+        }
       };
 
       const goToCard = index => {
@@ -145,20 +161,19 @@
         if (!available.length) return;
         currentCardIndex = Math.max(0,Math.min(index,available.length - 1));
         available[currentCardIndex].scrollIntoView({behavior:'smooth',block:'center'});
-        window.setTimeout(updateFloatingNav,450);
+        window.setTimeout(updateNavigation,450);
       };
 
       previousButton.addEventListener('click',() => goToCard(nearestCardIndex() - 1));
       nextButton.addEventListener('click',() => goToCard(nearestCardIndex() + 1));
-      filtersButton.addEventListener('click',() => {
-        filterRow.scrollIntoView({behavior:'smooth',block:'center'});
-        window.setTimeout(updateFloatingNav,450);
-      });
+      filtersButton.addEventListener('click',() => scrollToElement(filterRow));
+      document.getElementById('returnGallery').addEventListener('click',() => scrollToElement(filterRow));
+      document.getElementById('returnTop').addEventListener('click',() => window.scrollTo({top:0,left:0,behavior:'smooth'}));
 
-      window.addEventListener('scroll',updateFloatingNav,{passive:true});
-      window.addEventListener('resize',updateFloatingNav);
-      new MutationObserver(() => window.setTimeout(updateFloatingNav,80)).observe(galleryGrid,{childList:true});
-      window.setTimeout(updateFloatingNav,400);
+      window.addEventListener('scroll',updateNavigation,{passive:true});
+      window.addEventListener('resize',updateNavigation);
+      new MutationObserver(() => window.setTimeout(updateNavigation,80)).observe(galleryGrid,{childList:true});
+      window.setTimeout(updateNavigation,400);
     })();
   </script>
 </body>
