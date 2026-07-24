@@ -3,7 +3,9 @@ const state = {
   visibleItems: [],
   currentIndex: 0,
   imageCache: new Map(),
-  navigationLocked: false
+  navigationLocked: false,
+  lastTrigger: null,
+  lockedScrollY: 0
 };
 
 const els = {
@@ -53,13 +55,21 @@ function bindEvents() {
   els.previous.addEventListener('click', showPrevious);
   els.next.addEventListener('click', showNext);
 
-  els.lightbox.addEventListener('click', (event) => {
+  els.lightbox.addEventListener('click', event => {
     if (event.target === els.lightbox) closeLightbox();
   });
 
-  document.addEventListener('keydown', (event) => {
+  els.lightbox.addEventListener('cancel', event => {
+    event.preventDefault();
+    closeLightbox();
+  });
+
+  document.addEventListener('keydown', event => {
     if (!els.lightbox.open) return;
-    if (event.key === 'Escape') closeLightbox();
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeLightbox();
+    }
     if (event.key === 'ArrowLeft') showPrevious();
     if (event.key === 'ArrowRight') showNext();
   });
@@ -183,11 +193,37 @@ function preloadNeighbors() {
   preloadImage(state.visibleItems[nextIndex]?.image);
 }
 
+function lockPage() {
+  state.lockedScrollY = window.scrollY || document.documentElement.scrollTop || 0;
+  document.documentElement.classList.add('lightbox-open');
+  document.body.classList.add('lightbox-open');
+  document.body.style.position = 'fixed';
+  document.body.style.top = `-${state.lockedScrollY}px`;
+  document.body.style.left = '0';
+  document.body.style.right = '0';
+  document.body.style.width = '100%';
+}
+
+function unlockPage() {
+  document.documentElement.classList.remove('lightbox-open');
+  document.body.classList.remove('lightbox-open');
+  document.body.style.position = '';
+  document.body.style.top = '';
+  document.body.style.left = '';
+  document.body.style.right = '';
+  document.body.style.width = '';
+  window.scrollTo(0, state.lockedScrollY);
+}
+
 function openLightbox(index) {
+  if (!state.visibleItems[index] || els.lightbox.open) return;
   state.lastTrigger = document.activeElement;
   state.currentIndex = index;
   updateLightbox();
+  lockPage();
   els.lightbox.showModal();
+  els.lightbox.scrollTop = 0;
+  els.lightboxClose.focus({ preventScroll: true });
   preloadNeighbors();
 }
 
@@ -237,8 +273,12 @@ function showNext() {
 }
 
 function closeLightbox() {
+  if (!els.lightbox.open) return;
   els.lightbox.close();
-  if (state.lastTrigger instanceof HTMLElement) state.lastTrigger.focus();
+  unlockPage();
+  if (state.lastTrigger instanceof HTMLElement) {
+    requestAnimationFrame(() => state.lastTrigger.focus({ preventScroll: true }));
+  }
 }
 
 function sortItems(a, b) {
