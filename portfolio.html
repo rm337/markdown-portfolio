@@ -41,7 +41,7 @@
   </main>
   <footer><span>Inkspirations Studios</span><span>Robert Marleton</span><a href="pricing.html">Pricing & Orders</a></footer>
   <div class="modal" id="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modalTitle"><div class="modal-inner gallery-lightbox"><button class="modal-close" id="closeModal" type="button" aria-label="Close expanded artwork">Close</button><button class="modal-nav modal-prev" id="modalPrev" type="button" aria-label="Previous artwork">Previous</button><img id="modalImg" alt="Expanded portfolio piece"><button class="modal-nav modal-next" id="modalNext" type="button" aria-label="Next artwork">Next</button><div class="detail-zoom-controls" role="group" aria-label="Artwork zoom controls"><button class="detail-zoom-control" type="button" data-detail-zoom-out="modalImg">Zoom Out</button><button class="detail-zoom-control" type="button" data-detail-zoom-in="modalImg">Zoom In</button><button class="detail-zoom-control" type="button" data-detail-zoom-reset="modalImg">Fit to Screen</button></div><div class="modal-bar"><div><span id="modalType" class="meta"></span><h3 id="modalTitle"></h3><p id="modalDesc"></p><dl class="modal-details" aria-label="Artwork details"><div><dt>Status</dt><dd id="modalStatus"></dd></div><div><dt>Price</dt><dd id="modalPrice"></dd></div><div><dt>Dimensions</dt><dd id="modalDimensions"></dd></div><div><dt>Medium</dt><dd id="modalMedium"></dd></div></dl></div><a class="btn primary" id="modalPrimaryAction" href="pricing.html">View Pricing & Order</a></div></div></div>
-  <script src="portfolio.js?v=20260724-auto-result-scroll"></script>
+  <script src="portfolio.js?v=20260724-filter-jump-v2"></script>
   <script src="bring-home.js?v=20260703-gallery-flow"></script>
   <script src="studio-audio.js?v=20260722-gallery-fix"></script>
   <script src="detail-zoom.js?v=20260712-zoom4"></script>
@@ -82,29 +82,27 @@
         else unlock();
       }).observe(modal, {attributes:true, attributeFilter:['class']});
 
-      const showFirstResult = () => {
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            const firstCard = galleryGrid.querySelector('.gallery-card');
-            if (!firstCard) return;
-            const top = firstCard.getBoundingClientRect().top + window.scrollY - 16;
-            window.scrollTo({top, left:0, behavior:'smooth'});
-          });
-        });
+      const jumpToFirstResult = () => {
+        window.setTimeout(() => {
+          const firstCard = galleryGrid.querySelector('.gallery-card');
+          if (!firstCard) return;
+          firstCard.scrollIntoView({behavior:'auto',block:'start'});
+          window.scrollBy(0,-12);
+        },140);
       };
 
       filterRow.addEventListener('click', event => {
         if (!event.target.closest('button[data-filter]')) return;
-        showFirstResult();
-      });
+        jumpToFirstResult();
+      }, true);
 
-      gallerySort.addEventListener('change', showFirstResult);
+      gallerySort.addEventListener('change', jumpToFirstResult, true);
 
       let searchTimer;
       gallerySearch.addEventListener('input', () => {
         clearTimeout(searchTimer);
-        searchTimer = setTimeout(showFirstResult, 250);
-      });
+        searchTimer = window.setTimeout(jumpToFirstResult,300);
+      }, true);
     })();
   </script>
 </body>
