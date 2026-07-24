@@ -11,6 +11,11 @@
   <link rel="stylesheet" href="style.css?v=20260630-complete">
   <link rel="stylesheet" href="accessibility.css?v=20260711-reef">
   <link rel="stylesheet" href="site-nav.css?v=20260722">
+  <style>
+    .place-card,.btn,.nav a{touch-action:manipulation;-webkit-tap-highlight-color:rgba(86,217,255,.22)}
+    .place-card{position:relative;z-index:2;pointer-events:auto;cursor:pointer}
+    .place-card>*{pointer-events:none}
+  </style>
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to the studio</a>
@@ -55,99 +60,50 @@
       </div>
       <div class="place-grid">
         <a class="place-card place-card-featured" href="portfolio.html">
-          <span class="place-number" aria-hidden="true">01</span>
-          <span class="room-kicker">Selected Work</span>
-          <strong>The Gallery</strong>
-          <span>Meet the artwork, creative direction, writing, and functional art at the heart of the studio.</span>
-          <span class="place-action">Enter the Gallery <span aria-hidden="true">→</span></span>
+          <span class="place-number" aria-hidden="true">01</span><span class="room-kicker">Selected Work</span><strong>The Gallery</strong><span>Meet the artwork, creative direction, writing, and functional art at the heart of the studio.</span><span class="place-action">Enter the Gallery <span aria-hidden="true">→</span></span>
         </a>
         <a class="place-card" href="portfolio-gallery.html">
-          <span class="place-number" aria-hidden="true">02</span>
-          <span class="room-kicker">Look Closer</span>
-          <strong>Interactive Gallery</strong>
-          <span>Search, filter, and open selected pieces in a larger, focused viewing experience.</span>
-          <span class="place-action">Explore the Work <span aria-hidden="true">→</span></span>
+          <span class="place-number" aria-hidden="true">02</span><span class="room-kicker">Look Closer</span><strong>Interactive Gallery</strong><span>Search, filter, and open selected pieces in a larger, focused viewing experience.</span><span class="place-action">Explore the Work <span aria-hidden="true">→</span></span>
         </a>
         <a class="place-card" href="rooms.html#ocean-of-ink">
-          <span class="place-number" aria-hidden="true">03</span>
-          <span class="room-kicker">Atmosphere</span>
-          <strong>Ocean of Ink</strong>
-          <span>Drift into the deep-water world of moving ink, quiet light, curiosity, and reflection.</span>
-          <span class="place-action">Enter the Ocean <span aria-hidden="true">→</span></span>
+          <span class="place-number" aria-hidden="true">03</span><span class="room-kicker">Atmosphere</span><strong>Ocean of Ink</strong><span>Drift into the deep-water world of moving ink, quiet light, curiosity, and reflection.</span><span class="place-action">Enter the Ocean <span aria-hidden="true">→</span></span>
         </a>
         <a class="place-card" href="rooms.html#writing-room">
-          <span class="place-number" aria-hidden="true">04</span>
-          <span class="room-kicker">Words</span>
-          <strong>The Writing Room</strong>
-          <span>Pause with poems, reflections, stories, and the language side of Inkspirations Studios.</span>
-          <span class="place-action">Continue Reading <span aria-hidden="true">→</span></span>
+          <span class="place-number" aria-hidden="true">04</span><span class="room-kicker">Words</span><strong>The Writing Room</strong><span>Pause with poems, reflections, stories, and the language side of Inkspirations Studios.</span><span class="place-action">Continue Reading <span aria-hidden="true">→</span></span>
         </a>
         <a class="place-card" href="music.html">
-          <span class="place-number" aria-hidden="true">05</span>
-          <span class="room-kicker">Sound</span>
-          <strong>The Music Room</strong>
-          <span>Discover the listening spaces, moods, and musical territories that move through the studio.</span>
-          <span class="place-action">Enter the Music Room <span aria-hidden="true">→</span></span>
+          <span class="place-number" aria-hidden="true">05</span><span class="room-kicker">Sound</span><strong>The Music Room</strong><span>Discover the listening spaces, moods, and musical territories that move through the studio.</span><span class="place-action">Enter the Music Room <span aria-hidden="true">→</span></span>
         </a>
         <a class="place-card place-card-featured" href="flight-deck.html">
-          <span class="place-number" aria-hidden="true">06</span>
-          <span class="room-kicker">C4 Territory / Live Performance</span>
-          <strong>Flight Deck DJ</strong>
-          <span>Enter Robert's cinematic DJ cockpit for melodic techno, progressive motion, vinyl, lights, radar, and C4 energy.</span>
-          <span class="place-action">Enter C4 Territory <span aria-hidden="true">→</span></span>
+          <span class="place-number" aria-hidden="true">06</span><span class="room-kicker">C4 Territory / Live Performance</span><strong>Flight Deck DJ</strong><span>Enter Robert's cinematic DJ cockpit for melodic techno, progressive motion, vinyl, lights, radar, and C4 energy.</span><span class="place-action">Enter C4 Territory <span aria-hidden="true">→</span></span>
         </a>
         <a class="place-card" href="systems-i-built.html">
-          <span class="place-number" aria-hidden="true">07</span>
-          <span class="room-kicker">Creative Practice</span>
-          <strong>How Robert Builds</strong>
-          <span>See how ideas become artwork, experiences, visual systems, and finished creative directions.</span>
-          <span class="place-action">Explore the Process <span aria-hidden="true">→</span></span>
+          <span class="place-number" aria-hidden="true">07</span><span class="room-kicker">Creative Practice</span><strong>How Robert Builds</strong><span>See how ideas become artwork, experiences, visual systems, and finished creative directions.</span><span class="place-action">Explore the Process <span aria-hidden="true">→</span></span>
         </a>
         <a class="place-card place-card-featured" href="resume.html">
-          <span class="place-number" aria-hidden="true">08</span>
-          <span class="room-kicker">Professional Profile</span>
-          <strong>Robert's Resume</strong>
-          <span>Explore Robert's experience, creative technology skills, selected projects, and professional strengths.</span>
-          <span class="place-action">View the Resume <span aria-hidden="true">→</span></span>
+          <span class="place-number" aria-hidden="true">08</span><span class="room-kicker">Professional Profile</span><strong>Robert's Resume</strong><span>Explore Robert's experience, creative technology skills, selected projects, and professional strengths.</span><span class="place-action">View the Resume <span aria-hidden="true">→</span></span>
         </a>
       </div>
     </section>
 
-    <section class="section path-section" aria-labelledby="path-title">
-      <div class="path-panel">
-        <p class="kicker">First Visit?</p>
-        <h2 id="path-title">Take the curated path.</h2>
-        <p>Begin with the Gallery, drift through Ocean of Ink, pause in the Writing Room, and return here whenever you are ready for another doorway.</p>
-        <a class="btn primary" href="portfolio.html">Begin the Curated Path</a>
-      </div>
-    </section>
+    <section class="section path-section" aria-labelledby="path-title"><div class="path-panel"><p class="kicker">First Visit?</p><h2 id="path-title">Take the curated path.</h2><p>Begin with the Gallery, drift through Ocean of Ink, pause in the Writing Room, and return here whenever you are ready for another doorway.</p><a class="btn primary" href="portfolio.html">Begin the Curated Path</a></div></section>
 
-    <section class="section" id="about" aria-labelledby="about-title">
-      <div class="about-panel">
-        <p class="kicker">About</p>
-        <h2 id="about-title">A creative home with room to enter.</h2>
-        <p>Inkspirations Studios is the creative world of Robert Marleton—an artist, designer, writer, maker, and creative director who brings visual storytelling, atmosphere, and thoughtful systems together.</p>
-        <p>This is not a collection of disconnected projects. Each gallery and room belongs to the same evolving studio: curious, welcoming, handcrafted, and alive.</p>
-      </div>
-    </section>
+    <section class="section" id="about" aria-labelledby="about-title"><div class="about-panel"><p class="kicker">About</p><h2 id="about-title">A creative home with room to enter.</h2><p>Inkspirations Studios is the creative world of Robert Marleton—an artist, designer, writer, maker, and creative director who brings visual storytelling, atmosphere, and thoughtful systems together.</p><p>This is not a collection of disconnected projects. Each gallery and room belongs to the same evolving studio: curious, welcoming, handcrafted, and alive.</p></div></section>
 
-    <section class="section" id="contact" aria-labelledby="contact-title">
-      <div class="contact">
-        <div>
-          <p class="kicker">Contact</p>
-          <h2 id="contact-title">Start a conversation with Robert.</h2>
-          <p>Ask about artwork, commissions, creative direction, design work, collaboration, or bringing an Inkspirations piece home.</p>
-        </div>
-        <a class="btn primary" href="mailto:r.marleton@gmail.com?subject=Inkspirations%20Studios%20Inquiry">Contact Robert</a>
-      </div>
-    </section>
+    <section class="section" id="contact" aria-labelledby="contact-title"><div class="contact"><div><p class="kicker">Contact</p><h2 id="contact-title">Start a conversation with Robert.</h2><p>Ask about artwork, commissions, creative direction, design work, collaboration, or bringing an Inkspirations piece home.</p></div><a class="btn primary" href="mailto:r.marleton@gmail.com?subject=Inkspirations%20Studios%20Inquiry">Contact Robert</a></div></section>
   </main>
 
-  <footer>
-    <span>Inkspirations Studios</span>
-    <span>Robert Marleton</span>
-    <a href="#top">Return to Top</a>
-  </footer>
+  <footer><span>Inkspirations Studios</span><span>Robert Marleton</span><a href="#top">Return to Top</a></footer>
   <script src="site-nav.js?v=20260722" defer></script>
+  <script>
+    document.addEventListener('click',function(event){
+      const card=event.target.closest('.place-card');
+      if(!card)return;
+      const href=card.getAttribute('href');
+      if(!href)return;
+      event.preventDefault();
+      window.location.assign(href);
+    },true);
+  </script>
 </body>
 </html>
