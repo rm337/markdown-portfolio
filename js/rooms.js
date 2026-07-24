@@ -13,6 +13,16 @@
       status: "Open"
     },
     {
+      id: "writing-room",
+      title: "Writing Room",
+      subtitle: "Words, expressions, and reflective studio writing.",
+      description: "A dedicated room for the language side of Inkspirations Studios, including original writing and word-based creative work.",
+      url: "rooms.html#writing-room",
+      accent: "#ffe6ad",
+      category: "Writing / Words & Expressions",
+      status: "Open"
+    },
+    {
       id: "music-room",
       title: "Music Room",
       subtitle: "Original studio signals and listening paths.",
@@ -47,7 +57,7 @@
       title: "Artwork Gallery",
       subtitle: "The main collection.",
       description: "Browse selected artwork, open images full screen, and ask directly about a piece.",
-      url: "portfolio.html",
+      url: "portfolio.html#portfolio",
       accent: "#0174f3",
       category: "Gallery",
       status: "Open"
