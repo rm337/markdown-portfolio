@@ -57,14 +57,25 @@
     }
   };
 
-  const scrollToTarget = (target, updateHistory = true) => {
+  const prefersReducedMotion = () => window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+
+  const targetTop = (target) => {
+    const scrollMargin = Number.parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
+    return Math.max(0, target.getBoundingClientRect().top + window.scrollY - scrollMargin);
+  };
+
+  const scrollToTarget = (target, updateHistory = true, behavior = "smooth") => {
     if (!target) return false;
 
     if (updateHistory && target.id) {
       history.pushState(null, "", `#${encodeURIComponent(target.id)}`);
     }
 
-    target.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+    window.scrollTo({
+      top: targetTop(target),
+      left: 0,
+      behavior: prefersReducedMotion() ? "auto" : behavior
+    });
 
     if (!target.hasAttribute("tabindex")) {
       target.setAttribute("tabindex", "-1");
@@ -79,9 +90,36 @@
           delete target.dataset.temporaryScrollFocus;
         }, { once: true });
       }
-    }, 450);
+    }, behavior === "auto" ? 80 : 450);
 
     return true;
+  };
+
+  const stabilizeHashPosition = () => {
+    const target = findTarget(window.location.hash);
+    if (!target) return;
+
+    let previousTop = null;
+    let stablePasses = 0;
+    let attempts = 0;
+
+    const settle = () => {
+      attempts += 1;
+      const nextTop = targetTop(target);
+      const drift = previousTop === null ? Infinity : Math.abs(nextTop - previousTop);
+
+      if (drift < 2) stablePasses += 1;
+      else stablePasses = 0;
+
+      previousTop = nextTop;
+      window.scrollTo({ top: nextTop, left: 0, behavior: "auto" });
+
+      if (stablePasses < 2 && attempts < 10) {
+        window.setTimeout(settle, attempts < 4 ? 90 : 180);
+      }
+    };
+
+    requestAnimationFrame(settle);
   };
 
   document.addEventListener("click", (event) => {
@@ -108,15 +146,26 @@
 
     event.preventDefault();
     scrollToTarget(target, true);
+    window.setTimeout(stabilizeHashPosition, 500);
   });
 
   const restoreHashPosition = () => {
     const target = findTarget(window.location.hash);
     if (!target) return;
-    window.setTimeout(() => scrollToTarget(target, false), 100);
+    scrollToTarget(target, false, "auto");
+    stabilizeHashPosition();
   };
 
   window.addEventListener("popstate", restoreHashPosition);
   window.addEventListener("hashchange", restoreHashPosition);
   window.addEventListener("load", restoreHashPosition);
+  document.addEventListener("DOMContentLoaded", restoreHashPosition, { once: true });
+
+  const layoutObserver = new MutationObserver(() => {
+    if (!window.location.hash) return;
+    window.clearTimeout(layoutObserver.timer);
+    layoutObserver.timer = window.setTimeout(stabilizeHashPosition, 60);
+  });
+
+  layoutObserver.observe(document.body, { childList: true, subtree: true });
 })();
