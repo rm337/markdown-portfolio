@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="studio-music.css?v=20260711">
   <link rel="stylesheet" href="site-nav.css?v=20260722">
   <style>
+    html,body,#portfolio,.gallery-tools,#galleryGrid,.gallery-card{overflow-anchor:none!important}
     html.selected-work-open,body.selected-work-open{overflow:hidden!important;overscroll-behavior:none!important}
     body.selected-work-open{position:fixed!important;left:0!important;right:0!important;width:100%!important}
     #modal.open{position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;overflow:hidden!important}
@@ -41,7 +42,7 @@
   </main>
   <footer><span>Inkspirations Studios</span><span>Robert Marleton</span><a href="pricing.html">Pricing & Orders</a></footer>
   <div class="modal" id="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modalTitle"><div class="modal-inner gallery-lightbox"><button class="modal-close" id="closeModal" type="button" aria-label="Close expanded artwork">Close</button><button class="modal-nav modal-prev" id="modalPrev" type="button" aria-label="Previous artwork">Previous</button><img id="modalImg" alt="Expanded portfolio piece"><button class="modal-nav modal-next" id="modalNext" type="button" aria-label="Next artwork">Next</button><div class="detail-zoom-controls" role="group" aria-label="Artwork zoom controls"><button class="detail-zoom-control" type="button" data-detail-zoom-out="modalImg">Zoom Out</button><button class="detail-zoom-control" type="button" data-detail-zoom-in="modalImg">Zoom In</button><button class="detail-zoom-control" type="button" data-detail-zoom-reset="modalImg">Fit to Screen</button></div><div class="modal-bar"><div><span id="modalType" class="meta"></span><h3 id="modalTitle"></h3><p id="modalDesc"></p><dl class="modal-details" aria-label="Artwork details"><div><dt>Status</dt><dd id="modalStatus"></dd></div><div><dt>Price</dt><dd id="modalPrice"></dd></div><div><dt>Dimensions</dt><dd id="modalDimensions"></dd></div><div><dt>Medium</dt><dd id="modalMedium"></dd></div></dl></div><a class="btn primary" id="modalPrimaryAction" href="pricing.html">View Pricing & Order</a></div></div></div>
-  <script src="portfolio.js?v=20260724-single-scroll-handler"></script>
+  <script src="portfolio.js?v=20260724-anchor-stabilized"></script>
   <script src="bring-home.js?v=20260703-gallery-flow"></script>
   <script src="studio-audio.js?v=20260722-gallery-fix"></script>
   <script src="detail-zoom.js?v=20260712-zoom4"></script>
@@ -51,8 +52,13 @@
     (() => {
       const modal = document.getElementById('modal');
       const closeButton = document.getElementById('closeModal');
+      const filterRow = document.getElementById('filterRow');
+      const galleryGrid = document.getElementById('galleryGrid');
+      const gallerySearch = document.getElementById('gallerySearch');
+      const gallerySort = document.getElementById('gallerySort');
       let savedY = 0;
       let locked = false;
+      let settleRequested = false;
 
       const lock = () => {
         if (locked) return;
@@ -77,6 +83,31 @@
         if (modal.classList.contains('open')) lock();
         else unlock();
       }).observe(modal, {attributes:true, attributeFilter:['class']});
+
+      const settleOnFirstResult = async () => {
+        const firstCard = galleryGrid.querySelector('.gallery-card');
+        if (!firstCard) return;
+        const images = [...galleryGrid.querySelectorAll('img')];
+        await Promise.all(images.slice(0,4).map(image => image.decode ? image.decode().catch(() => {}) : Promise.resolve()));
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          const top = firstCard.getBoundingClientRect().top + window.scrollY - 12;
+          window.scrollTo({top,left:0,behavior:'auto'});
+          window.setTimeout(() => window.scrollTo(0, top), 220);
+        }));
+      };
+
+      const requestSettle = () => { settleRequested = true; };
+      filterRow.addEventListener('click', event => {
+        if (event.target.closest('button[data-filter]')) requestSettle();
+      }, true);
+      gallerySearch.addEventListener('input', requestSettle, true);
+      gallerySort.addEventListener('change', requestSettle, true);
+
+      new MutationObserver(() => {
+        if (!settleRequested) return;
+        settleRequested = false;
+        settleOnFirstResult();
+      }).observe(galleryGrid, {childList:true});
     })();
   </script>
 </body>
