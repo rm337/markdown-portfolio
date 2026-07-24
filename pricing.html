@@ -8,16 +8,18 @@
 <link rel="stylesheet" href="style.css?v=20260714-pricing-update">
 <style>
 :root{--ink:#050711;--panel:#0a1730;--blue:#0174F3;--cyan:#56d9ff;--paper:#f7f2e8;--soft:rgba(248,251,255,.76);--line:rgba(255,255,255,.15)}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 15% 10%,rgba(1,116,243,.25),transparent 28%),linear-gradient(160deg,#050711,#071427 60%,#02040a);color:#f8fbff;font-family:Arial,sans-serif}.sales-shell{max-width:1180px;margin:auto;padding:6rem 1rem 4rem}.sales-hero{max-width:860px;margin-bottom:2rem}.kicker{text-transform:uppercase;letter-spacing:.16em;font-weight:800;color:var(--cyan);font-size:.74rem}.sales-hero h1{font-family:Georgia,serif;font-size:clamp(3rem,7vw,6rem);line-height:.95;margin:.5rem 0 1rem}.sales-hero p{font-size:1.15rem;line-height:1.7;color:var(--soft)}.sales-nav{display:flex;gap:.65rem;flex-wrap:wrap;margin:1.25rem 0}.sales-nav a,.order-link{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:.75rem 1rem;border:1px solid var(--line);color:white;text-decoration:none;font-weight:800}.sales-nav a:first-child,.order-link.primary{background:var(--blue)}.pricing-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}.price-card,.production-card{border:1px solid var(--line);background:rgba(7,20,39,.82);padding:1.15rem;box-shadow:0 24px 70px rgba(0,0,0,.3)}.price-card h2,.production-card h2{font-family:Georgia,serif;margin:.2rem 0 .65rem}.price{font-size:1.8rem;font-weight:900;color:var(--paper)}.price-card p,.production-card p,.price-card li{color:var(--soft);line-height:1.55}.price-card ul{padding-left:1.1rem}.wide-section{margin-top:1.25rem}.production-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}.order-box{margin-top:1.25rem;border:1px solid rgba(86,217,255,.4);background:rgba(1,116,243,.12);padding:1.25rem}.order-box h2{font-family:Georgia,serif;font-size:2rem;margin-top:0}.small-note{font-size:.9rem;color:var(--soft)}footer{max-width:1180px;margin:auto;padding:0 1rem 3rem;color:var(--soft)}@media(max-width:900px){.pricing-grid,.production-grid{grid-template-columns:1fr 1fr}}@media(max-width:620px){.pricing-grid,.production-grid{grid-template-columns:1fr}.sales-shell{padding-top:3rem}}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 15% 10%,rgba(1,116,243,.25),transparent 28%),linear-gradient(160deg,#050711,#071427 60%,#02040a);color:#f8fbff;font-family:Arial,sans-serif}.sales-shell{max-width:1180px;margin:auto;padding:6rem 1rem 5.5rem}.sales-hero{max-width:860px;margin-bottom:2rem}.kicker{text-transform:uppercase;letter-spacing:.16em;font-weight:800;color:var(--cyan);font-size:.74rem}.sales-hero h1{font-family:Georgia,serif;font-size:clamp(3rem,7vw,6rem);line-height:.95;margin:.5rem 0 1rem}.sales-hero p{font-size:1.15rem;line-height:1.7;color:var(--soft)}.sales-nav{display:flex;gap:.65rem;flex-wrap:wrap;margin:1.25rem 0}.sales-nav a,.order-link,.return-button{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:.75rem 1rem;border:1px solid var(--line);color:white;text-decoration:none;font-weight:800}.sales-nav a:first-child,.order-link.primary{background:var(--blue)}.pricing-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}.price-card,.production-card{border:1px solid var(--line);background:rgba(7,20,39,.82);padding:1.15rem;box-shadow:0 24px 70px rgba(0,0,0,.3)}.price-card h2,.production-card h2{font-family:Georgia,serif;margin:.2rem 0 .65rem}.price{font-size:1.8rem;font-weight:900;color:var(--paper)}.price-card p,.production-card p,.price-card li{color:var(--soft);line-height:1.55}.price-card ul{padding-left:1.1rem}.wide-section{margin-top:1.25rem}.production-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}.order-box{margin-top:1.25rem;border:1px solid rgba(86,217,255,.4);background:rgba(1,116,243,.12);padding:1.25rem}.order-box h2{font-family:Georgia,serif;font-size:2rem;margin-top:0}.small-note{font-size:.9rem;color:var(--soft)}footer{max-width:1180px;margin:auto;padding:0 1rem 3rem;color:var(--soft)}.return-button{position:fixed;left:max(1rem,env(safe-area-inset-left));bottom:max(1rem,env(safe-area-inset-bottom));z-index:1000;border-color:rgba(86,217,255,.55);background:rgba(2,5,12,.94);box-shadow:0 12px 40px rgba(0,0,0,.42);backdrop-filter:blur(14px);cursor:pointer}.return-button:focus-visible,.return-button:hover{background:var(--blue);border-color:var(--paper)}@media(max-width:900px){.pricing-grid,.production-grid{grid-template-columns:1fr 1fr}}@media(max-width:620px){.pricing-grid,.production-grid{grid-template-columns:1fr}.sales-shell{padding-top:3rem}.return-button{left:.75rem;right:.75rem;width:calc(100% - 1.5rem)}}
 </style>
 </head>
 <body>
+<button class="return-button" id="returnButton" type="button">← Back to Previous Page</button>
 <main class="sales-shell">
 <header class="sales-hero">
 <p class="kicker">Inkspirations Studios</p>
 <h1>Pricing & Orders</h1>
 <p>Explore starting prices for artwork, prints, handcrafted pieces, wearable art, and custom creative work. Final totals are confirmed before production based on size, materials, framing, shipping, taxes, and custom specifications.</p>
 <nav class="sales-nav" aria-label="Pricing navigation">
+<a href="portfolio-gallery.html#gallery-grid">Return to Gallery</a>
 <a href="portfolio.html#portfolio">Browse Artwork</a>
 <a href="#pricing">View Pricing</a>
 <a href="#production">Print-on-Demand Options</a>
@@ -51,5 +53,16 @@
 </section>
 </main>
 <footer>Inkspirations Studios · Robert Marleton</footer>
+<script>
+(() => {
+  const button = document.getElementById('returnButton');
+  const fallback = 'portfolio-gallery.html#gallery-grid';
+  button.addEventListener('click', () => {
+    const sameSiteReferrer = document.referrer && new URL(document.referrer).origin === location.origin;
+    if (sameSiteReferrer && history.length > 1) history.back();
+    else location.href = fallback;
+  });
+})();
+</script>
 </body>
 </html>
