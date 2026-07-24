@@ -64,6 +64,39 @@
     }
   ];
 
+  const foundryPuns = [
+    {
+      title: "My Code Turned Into $pagetti",
+      label: "Tech Wordplay",
+      description: "A debugging joke built from the familiar moment when clean logic becomes tangled code. The dollar sign turns the phrase into a compact visual pun with strong appeal for developers, designers, and anyone who has survived a stubborn refactor."
+    },
+    {
+      title: "All My PUPS Are on a Leash",
+      label: "Controlled Chaos",
+      description: "A playful line about keeping processes, programs, or unpredictable little systems under control. The joke works because it sounds domestic and orderly while quietly nodding to the unruly energy of technical work."
+    },
+    {
+      title: "Browser Wars",
+      label: "Digital Culture",
+      description: "A broad technology satire about compatibility battles, competing platforms, endless tabs, and the daily diplomacy of building for the web. It is concise, recognizable, and flexible enough for apparel, posters, or editorial-style artwork."
+    },
+    {
+      title: "Cheese Burglar",
+      label: "Absurdist Humor",
+      description: "A compact character concept with immediate visual personality. The humor comes from treating a tiny, ridiculous offense with the gravity of a full criminal case, making it ideal for restrained illustration, stickers, or a deliberately serious case-file treatment."
+    },
+    {
+      title: "FLITLE Deck",
+      label: "Studio Oddity",
+      description: "An intentional near-miss that turns a familiar phrase into a strange little artifact. Rather than correcting the oddity, the concept preserves it as part of the studio voice, where an almost-right phrase becomes more memorable than the ordinary version."
+    },
+    {
+      title: "Very Polite Dictionary",
+      label: "Gentle Wordplay",
+      description: "A quiet linguistic joke built around the idea of definitions with manners. Its charm comes from restraint: formal typography, understated humor, and the imagined courtesy of words that wait their turn before explaining themselves."
+    }
+  ];
+
   function escapeHtml(value) {
     return String(value).replace(/[&<>"']/g, (character) => ({
       "&": "&amp;",
@@ -87,6 +120,52 @@
     document.querySelectorAll("[data-room-cards]").forEach((container) => {
       container.innerHTML = rooms.map(roomCard).join("");
     });
+  }
+
+  function addFoundryPunGallery() {
+    if (document.body?.dataset.roomId !== "merch-concept-foundry") return;
+    if (document.getElementById("punsAndDescriptions")) return;
+
+    const foundryGrid = document.querySelector(".foundry-grid");
+    if (!foundryGrid) return;
+
+    const style = document.createElement("style");
+    style.textContent = `
+      .pun-gallery{margin:1rem 0;border:1px solid var(--line);background:rgba(6,14,28,.72);box-shadow:var(--shadow);backdrop-filter:blur(16px)}
+      .pun-gallery-head{padding:1rem;border-bottom:1px solid var(--line)}
+      .pun-gallery-head h2{margin:0;font-size:1.75rem}
+      .pun-gallery-head p:last-child{margin:.45rem 0 0;color:var(--soft);max-width:820px}
+      .pun-gallery-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.85rem;padding:1rem}
+      .pun-entry{border:1px solid var(--line);background:linear-gradient(145deg,rgba(1,116,243,.12),rgba(86,217,255,.035));padding:1rem;min-height:205px}
+      .pun-entry small{display:block;color:var(--cyan);font-family:Arial,sans-serif;font-size:.62rem;font-weight:900;letter-spacing:.13em;text-transform:uppercase;margin-bottom:.65rem}
+      .pun-entry h3{font-size:1.45rem;line-height:1.05;color:var(--paper);margin:0 0 .65rem}
+      .pun-entry p{color:var(--soft);margin:0}
+      @media(max-width:700px){.pun-gallery-grid{grid-template-columns:1fr}.pun-entry{min-height:auto}}
+    `;
+    document.head.appendChild(style);
+
+    const section = document.createElement("section");
+    section.className = "pun-gallery";
+    section.id = "punsAndDescriptions";
+    section.setAttribute("aria-labelledby", "punsAndDescriptionsTitle");
+    section.innerHTML = `
+      <div class="pun-gallery-head">
+        <p class="kicker">Puns and Descriptions</p>
+        <h2 id="punsAndDescriptionsTitle">Wordplay with a reason for being here.</h2>
+        <p>Each phrase is treated as a creative artifact, with its humor, meaning, audience, and visual possibilities explained in the same polished spirit as the Robertisms case files.</p>
+      </div>
+      <div class="pun-gallery-grid">
+        ${foundryPuns.map((pun) => `
+          <article class="pun-entry">
+            <small>${escapeHtml(pun.label)}</small>
+            <h3>${escapeHtml(pun.title)}</h3>
+            <p>${escapeHtml(pun.description)}</p>
+          </article>
+        `).join("")}
+      </div>
+    `;
+
+    foundryGrid.parentNode.insertBefore(section, foundryGrid);
   }
 
   function enhanceMerchFoundryNotes() {
@@ -136,6 +215,7 @@
 
   function init() {
     renderRooms();
+    addFoundryPunGallery();
     enhanceMerchFoundryNotes();
   }
 
