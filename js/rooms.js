@@ -150,9 +150,9 @@
     section.setAttribute("aria-labelledby", "punsAndDescriptionsTitle");
     section.innerHTML = `
       <div class="pun-gallery-head">
-        <p class="kicker">Puns and Descriptions</p>
-        <h2 id="punsAndDescriptionsTitle">Wordplay with a reason for being here.</h2>
-        <p>Each phrase is treated as a creative artifact, with its humor, meaning, audience, and visual possibilities explained in the same polished spirit as the Robertisms case files.</p>
+        <p class="kicker">Robert's Puns</p>
+        <h2 id="punsAndDescriptionsTitle">The phrases that escaped before anyone could stop them.</h2>
+        <p>Robert's original puns, job-script jokes, technical wordplay, surreal one-liners, and studio oddities are collected here with polished descriptions and deliberately cross-mixed for maximum comic whiplash.</p>
       </div>
       <div class="pun-gallery-grid">
         ${foundryPuns.map((pun) => `
