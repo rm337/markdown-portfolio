@@ -9,9 +9,28 @@
   <link rel="canonical" href="https://rm337.github.io/markdown-portfolio/portfolio-gallery.html">
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="css/portfolio-gallery.css?v=20260712-takehome1">
-  <link rel="stylesheet" href="immersive-lightbox.css?v=20260712-takehome1">
+  <link rel="stylesheet" href="immersive-lightbox.css?v=20260724-layout-repair">
   <link rel="stylesheet" href="studio-music.css?v=20260712-final1">
-  <link rel="stylesheet" href="site-nav.css?v=20260722">
+  <link rel="stylesheet" href="site-nav.css?v=20260724-room-travel">
+  <style>
+    .lightbox[open]{display:block!important;background:#01040a!important;color:#f6f3e8!important;overflow:hidden!important}
+    .lightbox[open] figure{position:relative!important;width:100vw!important;height:100dvh!important;max-width:none!important;margin:0!important;display:grid!important;grid-template-columns:1fr!important;grid-template-rows:1fr!important;place-items:center!important;background:#01040a!important;overflow:hidden!important}
+    .lightbox[open] figure>img{display:block!important;width:100vw!important;height:100dvh!important;max-width:none!important;max-height:none!important;padding:4rem 4.5rem 12rem!important;object-fit:contain!important;background:#01040a!important}
+    .lightbox[open] figcaption{position:fixed!important;left:1rem!important;right:1rem!important;bottom:1rem!important;z-index:1002!important;width:auto!important;max-width:none!important;max-height:28dvh!important;margin:0!important;padding:1rem 1.2rem!important;overflow-y:auto!important;color:#f6f3e8!important;background:linear-gradient(90deg,rgba(2,5,12,.96),rgba(7,26,42,.92))!important;border:1px solid rgba(143,243,232,.28)!important;border-radius:0!important;box-shadow:0 18px 60px rgba(0,0,0,.42)!important;backdrop-filter:blur(16px)!important}
+    .lightbox[open] figcaption h2{margin:.2rem 0 .4rem;color:#ffe6ad}
+    .lightbox[open] figcaption p{margin:.25rem 0;color:rgba(246,243,232,.82)}
+    .lightbox[open] .metadata-list{margin:.65rem 0 0;color:#f6f3e8}
+    .lightbox[open] .metadata-list dt{color:#8ff3e8}
+    .detail-zoom-controls{position:fixed!important;z-index:1004!important;top:1rem!important;left:50%!important;transform:translateX(-50%)!important;display:flex!important;gap:.4rem!important;padding:.35rem!important;background:rgba(2,5,12,.86)!important;border:1px solid rgba(143,243,232,.25)!important}
+    .detail-zoom-controls .detail-zoom-control{position:static!important;transform:none!important;min-width:0!important;white-space:nowrap!important}
+    @media(max-width:800px){
+      .lightbox[open] figure>img{padding:4.25rem .75rem 10rem!important}
+      .lightbox[open] figcaption{max-height:26dvh!important;padding:.75rem!important}
+      .lightbox[open] figcaption p,.lightbox[open] .metadata-list{display:none!important}
+      .detail-zoom-controls{max-width:calc(100vw - 5rem);overflow-x:auto}
+      .detail-zoom-controls .detail-zoom-control{font-size:.58rem;padding:.6rem .7rem}
+    }
+  </style>
 </head>
 <body>
   <a class="skip-link" href="#gallery-grid">Skip to gallery</a>
@@ -42,11 +61,11 @@
   <main>
     <aside class="c4-gallery-entry" aria-labelledby="c4-gallery-title">
       <div>
-        <p class="eyebrow">Live Performance Room</p>
-        <h2 id="c4-gallery-title">The DJ is on the Flight Deck.</h2>
-        <p>Step from the visual gallery into C4 Territory for vinyl, melodic techno energy, progressive motion, radar, lights, and a DJ at the controls.</p>
+        <p class="eyebrow">Resident DJ Session</p>
+        <h2 id="c4-gallery-title">The Flight Deck is online.</h2>
+        <p>Step from the visual gallery into C4 Territory for vinyl, melodic techno energy, progressive motion, radar, lights, and a resident DJ session.</p>
       </div>
-      <a class="button primary" href="flight-deck.html">Open Flight Deck DJ</a>
+      <a class="button primary" href="flight-deck.html">Open Flight Deck</a>
     </aside>
 
     <section class="gallery-shell" aria-labelledby="controls-title">
@@ -99,6 +118,6 @@
   <script src="detail-zoom.js?v=20260712-takehome1" defer></script>
   <script src="studio-audio.js?v=20260722-gallery-fix" defer></script>
   <script src="studio-music.js?v=20260722" defer></script>
-  <script src="site-nav.js?v=20260722" defer></script>
+  <script src="site-nav.js?v=20260724-room-travel" defer></script>
 </body>
 </html>
