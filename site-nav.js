@@ -1,6 +1,27 @@
 (() => {
   "use strict";
 
+  const originalScrollTo = window.scrollTo.bind(window);
+  window.scrollTo = (...args) => {
+    const options = args.length === 1 && typeof args[0] === "object" ? args[0] : null;
+    const active = document.activeElement;
+    const galleryControlActive = active instanceof Element && Boolean(active.closest("#filterRow, #gallerySearch, #gallerySort, #galleryFloatNav"));
+    if (galleryControlActive && options?.behavior === "smooth") return;
+    originalScrollTo(...args);
+  };
+
+  const removeUnneededGalleryControls = () => {
+    document.getElementById("galleryFloatNav")?.remove();
+    document.getElementById("pageReturnNav")?.remove();
+    document.body.classList.remove("gallery-nav-active", "page-return-active");
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", removeUnneededGalleryControls, { once: true });
+  } else {
+    removeUnneededGalleryControls();
+  }
+
   const navs = document.querySelectorAll("[data-site-nav], .nav, .top-nav, .room-hub-nav");
 
   navs.forEach((nav, index) => {
@@ -69,7 +90,7 @@
       history.pushState(null, "", `#${encodeURIComponent(target.id)}`);
     }
 
-    window.scrollTo({
+    originalScrollTo({
       top: targetTop(target),
       left: 0,
       behavior: "auto"
