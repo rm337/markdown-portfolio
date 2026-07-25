@@ -2,6 +2,7 @@
   "use strict";
 
   const originalScrollTo = window.scrollTo.bind(window);
+
   window.scrollTo = (...args) => {
     const options = args.length === 1 && typeof args[0] === "object" ? args[0] : null;
     const active = document.activeElement;
@@ -10,16 +11,76 @@
     originalScrollTo(...args);
   };
 
-  const removeUnneededGalleryControls = () => {
+  const cleanPublicGallery = () => {
     document.getElementById("galleryFloatNav")?.remove();
     document.getElementById("pageReturnNav")?.remove();
     document.body.classList.remove("gallery-nav-active", "page-return-active");
+
+    document.querySelectorAll("#galleryGrid .gallery-card").forEach((card) => {
+      const title = card.querySelector(".gallery-card-title")?.textContent?.trim().toLowerCase() || "";
+      if (title === "studio blue identity card" || title === "inkspirations studios identity card") {
+        card.remove();
+      }
+    });
+  };
+
+  const fixGalleryFilters = () => {
+    const filterRow = document.getElementById("filterRow");
+    const search = document.getElementById("gallerySearch");
+    const grid = document.getElementById("galleryGrid");
+    if (!filterRow) return;
+
+    filterRow.addEventListener("click", (event) => {
+      const button = event.target.closest("button[data-filter]");
+      if (!button) return;
+
+      const label = button.textContent?.trim().toLowerCase() || "";
+
+      if (label.includes("writing") || label.includes("poem")) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        window.location.href = "rooms.html#writing-room";
+        return;
+      }
+
+      if (search && search.value) {
+        search.value = "";
+        search.dispatchEvent(new Event("input", { bubbles: true }));
+      }
+
+      window.setTimeout(cleanPublicGallery, 80);
+    }, true);
+
+    if (grid) {
+      new MutationObserver(cleanPublicGallery).observe(grid, { childList: true, subtree: true });
+    }
+  };
+
+  const addOrderBackToTop = () => {
+    const builder = document.getElementById("order-builder");
+    if (!builder || document.getElementById("orderBackToTop")) return;
+    const actions = builder.querySelector(".builder-actions");
+    if (!actions) return;
+
+    const button = document.createElement("button");
+    button.id = "orderBackToTop";
+    button.type = "button";
+    button.className = "builder-button";
+    button.textContent = "Back to Top ↑";
+    button.addEventListener("click", () => originalScrollTo({ top: 0, left: 0, behavior: "auto" }));
+    actions.append(button);
+  };
+
+  const initializePageFixes = () => {
+    cleanPublicGallery();
+    fixGalleryFilters();
+    addOrderBackToTop();
   };
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", removeUnneededGalleryControls, { once: true });
+    document.addEventListener("DOMContentLoaded", initializePageFixes, { once: true });
   } else {
-    removeUnneededGalleryControls();
+    initializePageFixes();
   }
 
   const navs = document.querySelectorAll("[data-site-nav], .nav, .top-nav, .room-hub-nav");
@@ -90,12 +151,7 @@
       history.pushState(null, "", `#${encodeURIComponent(target.id)}`);
     }
 
-    originalScrollTo({
-      top: targetTop(target),
-      left: 0,
-      behavior: "auto"
-    });
-
+    originalScrollTo({ top: targetTop(target), left: 0, behavior: "auto" });
     return true;
   };
 
