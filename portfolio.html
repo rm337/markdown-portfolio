@@ -31,6 +31,9 @@
     .gallery-float-nav button:disabled{opacity:.38;cursor:default}
     .gallery-float-nav .filters-button,.page-return-nav .gallery-return{background:rgba(143,243,232,.16);color:#8ff3e8}
     body.gallery-nav-active,body.page-return-active{padding-bottom:88px}
+    #writing .poem-text{position:relative;isolation:isolate;overflow:hidden;padding:clamp(1rem,3vw,2rem);border:1px solid rgba(143,243,232,.2);user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+    #writing .poem-text::after{content:"© ROBERT MARLETON • © ROBERT MARLETON • © ROBERT MARLETON";position:absolute;inset:-15%;z-index:2;display:grid;place-items:center;transform:rotate(-24deg);color:rgba(246,243,232,.055);font:800 clamp(.8rem,2vw,1.15rem)/4 Inter,Arial,sans-serif;letter-spacing:.18em;word-spacing:1.2em;text-align:center;pointer-events:none;white-space:normal}
+    #writing .poem-text p{position:relative;z-index:1}
     @media(min-width:901px){.gallery-float-nav,.page-return-nav{width:430px}}
     @media(max-width:700px){
       #modal.open .modal-bar{max-height:28dvh!important}
@@ -66,6 +69,13 @@
   <script>
     (() => {
       const modal = document.getElementById('modal');
+      const protectedPoem = document.querySelector('#writing .poem-text');
+      if (protectedPoem) {
+        ['contextmenu','copy','cut','dragstart'].forEach(type => protectedPoem.addEventListener(type,event => event.preventDefault()));
+        protectedPoem.setAttribute('data-copyright-owner','Robert Marleton');
+        protectedPoem.setAttribute('data-rights','All rights reserved');
+        protectedPoem.setAttribute('title','© Robert Marleton — All rights reserved');
+      }
       const closeButton = document.getElementById('closeModal');
       const portfolio = document.getElementById('portfolio');
       const interactive = document.getElementById('interactive');
