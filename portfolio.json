@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-03",
+  "updated": "2026-07-25",
   "note": "Gallery loader source. New Lightroom exports can use folder plus file, such as folder artwork and file blue-current-study.jpg.",
   "works": [
     {
@@ -315,18 +315,21 @@
       "desc": "A round wood functional-art study that keeps the natural material visible while exploring a useful, display-ready form."
     },
     {
-      "type": "Writing",
-      "medium": "Writing / Poem",
-      "title": "Robert's Poem / Writing Piece",
+      "type": "Original Poetry",
+      "medium": "Original Poem / Poetry Print",
+      "title": "Shades of Blue",
       "category": "Writing / Poem",
-      "collection": "Writing / Poem",
+      "collection": "Original Poetry",
       "projectHref": "portfolio.html#writing",
-      "visualLabel": "Studio Poem",
+      "visualLabel": "Shades of Blue",
       "printUrl": "",
       "printAvailable": false,
       "originalAvailable": false,
       "inquiryType": "prints",
-      "desc": "A dedicated writing feature for Robert's poem and the language side of Inkspirations Studios. The piece gives the studio world a quieter verbal entry point."
+      "desc": "“Shades of Blue,” an original poem by Robert Marleton, presented as a paid poetry print. All rights reserved; purchase does not transfer copyright.",
+      "status": "Available as a paid poetry print",
+      "price": "From $35",
+      "purchaseLabel": "Purchase This Poem"
     }
   ]
 }
