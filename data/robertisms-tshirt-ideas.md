@@ -53,6 +53,28 @@ A clean double meaning: concise communication and an effective AI prompt.
 **Front idea:** PROMPT AND TO THE POINT.  
 **Optional small line:** Better input. Better output.
 
+## Unable to Reproduce Issue
+
+**Category:** Tech Support Humor / JavaScript / T-Shirt Concept  
+**Status:** Seed
+
+A rear camera works perfectly while Samsung Support is watching, then immediately fails the moment the call ends.
+
+**Primary code design:**
+
+```javascript
+while (support.isOnCall()) {
+  camera.workPerfectly();
+}
+
+support.hangUp();
+camera.breakImmediately();
+```
+
+**Punchline:** UNABLE TO REPRODUCE ISSUE.
+
+**Visual direction:** A phone camera wears a halo during the support call, then switches to a black screen after hang-up. The design can remain code-first and minimalist, with the punchline set beneath the JavaScript.
+
 ## Archive Notes
 
 These entries belong to Robert Marleton’s larger Robertisms dictionary, which contains substantially more historical entries. This file is not the complete master dictionary. It preserves the currently confirmed T-shirt ideas from this conversation until the full archive is located and merged.
