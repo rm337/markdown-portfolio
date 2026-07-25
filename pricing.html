@@ -43,7 +43,7 @@
 <form id="orderForm">
 <div class="builder-grid">
 <div class="field full"><label for="artworkTitle">Artwork title</label><input id="artworkTitle" name="artworkTitle" required placeholder="Example: Submersion"></div>
-<div class="field"><label for="productType">Product</label><select id="productType" name="productType" required><option value="">Choose a product</option><option>Paper Print</option><option>Canvas Print</option><option>Framed Print</option><option>Art Tile</option><option>Coaster Set</option><option>T-Shirt</option><option>Original Artwork</option><option>Commission</option><option>Other / Custom</option></select></div>
+<div class="field"><label for="productType">Product</label><select id="productType" name="productType" required><option value="">Choose a product</option><option>Paper Print</option><option>Poetry Print</option><option>Canvas Print</option><option>Framed Print</option><option>Art Tile</option><option>Coaster Set</option><option>T-Shirt</option><option>Original Artwork</option><option>Commission</option><option>Other / Custom</option></select></div>
 <div class="field"><label for="size">Size or format</label><input id="size" name="size" required placeholder="Example: 16 × 20"></div>
 <div class="field"><label for="quantity">Quantity</label><input id="quantity" name="quantity" type="number" min="1" value="1" required></div>
 <div class="field"><label for="finish">Finish / material</label><input id="finish" name="finish" placeholder="Matte, framed, premium shirt, wood, etc."></div>
@@ -92,6 +92,15 @@
   const editOrder = document.getElementById('editOrder');
   const statusMessage = document.getElementById('statusMessage');
   const fallback = 'portfolio-gallery.html#gallery-grid';
+  const params = new URLSearchParams(location.search);
+  const requestedArtwork = params.get('artwork');
+  const requestedProduct = params.get('product');
+  if (requestedArtwork) document.getElementById('artworkTitle').value = requestedArtwork;
+  if (requestedProduct) {
+    const productField = document.getElementById('productType');
+    if ([...productField.options].some(option => option.value === requestedProduct)) productField.value = requestedProduct;
+  }
+
   const providers = {
     Pixels: 'https://pixels.com',
     Printful: 'https://www.printful.com/custom/wall-art',
