@@ -13,6 +13,16 @@
       status: "Open"
     },
     {
+      id: "grand-unified-studio",
+      title: "The Grand Unified Studio",
+      subtitle: "The living blueprint beneath every room.",
+      description: "Explore the creative architecture that protects Robert's authority, connects the studio departments, and preserves the work for the future.",
+      url: "grand-unified-studio.html",
+      accent: "#69cfff",
+      category: "Living Blueprint",
+      status: "Interactive"
+    },
+    {
       id: "writing-room",
       title: "Writing Room",
       subtitle: "Words, expressions, and reflective studio writing.",
