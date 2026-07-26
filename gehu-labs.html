@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GEHU Labs | Inkspirations Studios</title>
+  <meta name="description" content="Enter GEHU Labs to decode words, create Salad Mixes, explore future learning labs, and preview ideas for custom products.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://rm337.github.io/markdown-portfolio/gehu-labs.html">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css?v=20260630-complete">
+  <link rel="stylesheet" href="accessibility.css?v=20260711-reef">
+  <link rel="stylesheet" href="site-nav.css?v=20260722">
+  <link rel="stylesheet" href="gehu-labs.css?v=20260725">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to GEHU Labs</a>
+
+  <nav class="nav" aria-label="Primary navigation">
+    <a class="brand" href="index.html#top">Inkspirations Studios</a>
+    <div class="links">
+      <a href="index.html">Home</a>
+      <a href="portfolio.html">Gallery</a>
+      <a href="#decoder">Decoder</a>
+      <a href="#labs">Labs</a>
+      <a href="#forge">Product Forge</a>
+    </div>
+  </nav>
+
+  <main id="main-content">
+    <header class="gehu-hero" id="top">
+      <div class="gehu-hero-copy">
+        <p class="kicker">Inkspirations Studios presents</p>
+        <h1>GEHU Labs</h1>
+        <p class="gehu-tagline">Think it. Mix it. Make it.</p>
+        <p>Enter a growing laboratory where words, codes, formulas, jokes, patterns, and curious ideas become experiments you can decode, remix, preview, and eventually bring into the physical world.</p>
+        <div class="actions">
+          <a class="btn primary" href="#decoder">Enter the Decoder Lab</a>
+          <a class="btn" href="#labs">Explore the Future Labs</a>
+        </div>
+      </div>
+      <div class="gehu-orb" aria-hidden="true"><span>GEHU</span></div>
+    </header>
+
+    <section class="section" id="decoder" aria-labelledby="decoder-title">
+      <div class="section-head">
+        <div>
+          <p class="kicker">Lab 01 / Working Prototype</p>
+          <h2 id="decoder-title">The Geek Decoder</h2>
+          <p>Type a phrase, choose a transformation, and let GEHU compile it into something delightfully strange.</p>
+        </div>
+        <span class="meta">Live Experiment</span>
+      </div>
+
+      <div class="decoder-shell">
+        <form class="decoder-panel" id="decoder-form">
+          <label for="source-text">Your words, idea, joke, or secret transmission</label>
+          <textarea id="source-text" name="source-text" rows="5" maxlength="240" placeholder="Example: I appreciate your prompt reply" required></textarea>
+          <div class="character-row"><span id="character-count">0</span><span>/ 240 characters</span></div>
+
+          <div class="control-grid">
+            <label>Code style
+              <select id="code-style" name="code-style">
+                <option value="leet">Leetspeak</option>
+                <option value="binary">Binary</option>
+                <option value="hex">Hexadecimal</option>
+                <option value="morse">Morse code</option>
+                <option value="base64">Base64</option>
+                <option value="reverse">Reverse text</option>
+              </select>
+            </label>
+
+            <label>Salad Mix
+              <select id="salad-level" name="salad-level">
+                <option value="off">Off, keep it clean</option>
+                <option value="light">Light Salad</option>
+                <option value="house">House Salad</option>
+                <option value="everything">Everything Salad</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="decoder-actions">
+            <button class="btn primary" type="submit">Compile</button>
+            <button class="btn" type="button" id="decode-button">Decode</button>
+            <button class="btn" type="button" id="clear-button">Clear</button>
+          </div>
+        </form>
+
+        <section class="result-panel" aria-labelledby="result-title" aria-live="polite">
+          <p class="room-kicker">GEHU Output</p>
+          <h3 id="result-title">Awaiting transmission...</h3>
+          <pre id="result-output">Type something and press Compile.</pre>
+          <p class="gehu-comment" id="gehu-comment">Warning: this laboratory may contain traces of binary.</p>
+          <div class="decoder-actions">
+            <button class="btn" type="button" id="copy-button">Copy Result</button>
+            <button class="btn primary" type="button" id="preview-button">Preview on a Shirt</button>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section class="section" id="forge" aria-labelledby="forge-title">
+      <div class="section-head">
+        <div>
+          <p class="kicker">Prototype Preview</p>
+          <h2 id="forge-title">The Product Forge</h2>
+          <p>Your compiled result can be placed into a private mockup. Buying and manufacturing will only happen after a visitor deliberately chooses to continue.</p>
+        </div>
+        <span class="meta">Preview Only</span>
+      </div>
+
+      <div class="forge-grid">
+        <div class="shirt-stage" aria-label="T-shirt preview">
+          <div class="shirt-shape" aria-hidden="true"></div>
+          <div class="shirt-print" id="shirt-print">YOUR IDEA</div>
+        </div>
+        <div class="forge-copy">
+          <p class="room-kicker">Private Creation</p>
+          <h3>See the idea before you buy it.</h3>
+          <p>Future versions will let visitors choose the product, layout, size, placement, and approved design treatment. Public publishing will never happen automatically.</p>
+          <button class="btn primary" type="button" disabled aria-disabled="true">Buying Comes in a Later Phase</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="labs" aria-labelledby="labs-title">
+      <div class="section-head">
+        <div>
+          <p class="kicker">The Expanding Laboratory</p>
+          <h2 id="labs-title">More doors are being built.</h2>
+          <p>Each subject will become its own experiment room while sharing one creative engine behind the curtain.</p>
+        </div>
+        <span class="meta">Future Wings</span>
+      </div>
+
+      <div class="lab-grid">
+        <article class="lab-card active"><span>01</span><h3>Geek Decoder</h3><p>Codes, transformations, decoding, descrambling, and Salad Mixes.</p></article>
+        <article class="lab-card"><span>02</span><h3>Algebra Lab</h3><p>Equations, symbols, patterns, puzzles, and mathematical typography.</p></article>
+        <article class="lab-card"><span>03</span><h3>Geometry Lab</h3><p>Shapes, tessellations, diagrams, spatial puzzles, and wearable patterns.</p></article>
+        <article class="lab-card"><span>04</span><h3>Trigonometry Lab</h3><p>Angles, waves, motion, functions, and visual mathematics.</p></article>
+        <article class="lab-card"><span>05</span><h3>Science Wing</h3><p>Physics, chemistry, biology, Earth science, and astronomy.</p></article>
+        <article class="lab-card"><span>06</span><h3>Code Wing</h3><p>Programming, cryptography, debugging humor, and machine language.</p></article>
+        <article class="lab-card"><span>07</span><h3>Creative Wing</h3><p>Writing, comedy, music, art, photography, games, and puzzles.</p></article>
+        <article class="lab-card"><span>∞</span><h3>The List Goes On</h3><p>GEHU Labs is designed to expand without turning into a crowded control panel.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer><span>GEHU Labs</span><span>Inkspirations Studios</span><a href="#top">Return to Top</a></footer>
+  <script src="site-nav.js?v=20260722" defer></script>
+  <script src="gehu-labs.js?v=20260725" defer></script>
+</body>
+</html>
