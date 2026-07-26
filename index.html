@@ -15,6 +15,23 @@
     .place-card,.btn,.nav a{touch-action:manipulation;-webkit-tap-highlight-color:rgba(86,217,255,.22)}
     .place-card{position:relative;z-index:2;pointer-events:auto;cursor:pointer}
     .place-card>*{pointer-events:none}
+    .lobby-table-section{padding-top:3.25rem;padding-bottom:3.25rem}
+    .lobby-table{position:relative;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(1rem,3vw,2rem);padding:clamp(1.1rem,3vw,2rem);border:1px solid rgba(143,243,232,.25);background:linear-gradient(145deg,rgba(1,116,243,.13),rgba(6,16,27,.94));box-shadow:0 28px 90px rgba(0,0,0,.32),inset 0 1px 0 rgba(246,243,232,.05)}
+    .lobby-table::before{content:"";position:absolute;inset:auto 8% -12px;height:12px;background:rgba(1,7,13,.72);filter:blur(7px);border-radius:50%;pointer-events:none}
+    .lobby-intro p{max-width:560px;color:rgba(246,243,232,.76)}
+    .lobby-note{padding:.9rem 1rem;border-left:3px solid rgba(143,243,232,.6);background:rgba(2,5,12,.45);color:rgba(246,243,232,.78);font-size:.94rem}
+    .card-tray{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+    .paper-card{padding:1rem;border:1px solid rgba(255,230,173,.25);background:linear-gradient(180deg,rgba(246,243,232,.1),rgba(246,243,232,.045));box-shadow:0 15px 45px rgba(0,0,0,.24)}
+    .paper-card h3{margin:.2rem 0 .35rem;color:#ffe6ad;font-family:Georgia,"Times New Roman",serif;font-size:1.55rem;font-weight:500}
+    .paper-card p{margin:.25rem 0 .9rem;color:rgba(246,243,232,.68);font-size:.9rem}
+    .paper-card label{display:block;margin:.75rem 0 .28rem;color:rgba(143,243,232,.88);font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+    .paper-card input,.paper-card textarea{width:100%;padding:.72rem .76rem;border:1px solid rgba(246,243,232,.16);border-radius:0;background:rgba(2,5,12,.62);color:#f6f3e8;font:inherit}
+    .paper-card textarea{min-height:112px;resize:vertical}
+    .paper-card input:focus,.paper-card textarea:focus{outline:2px solid rgba(86,217,255,.7);outline-offset:2px;border-color:#56d9ff}
+    .optional-mark{color:rgba(246,243,232,.48);font-weight:500;text-transform:none;letter-spacing:0}
+    .form-status{min-height:1.4em;margin:.7rem 0 0;color:#8ff3e8;font-size:.86rem}
+    .privacy-line{display:block;margin-top:.75rem;color:rgba(246,243,232,.5);font-size:.76rem;line-height:1.45}
+    @media(max-width:940px){.lobby-table{grid-template-columns:1fr}.card-tray{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
@@ -27,6 +44,7 @@
     <a class="brand" href="index.html#top">Inkspirations Studios</a>
     <div class="links">
       <a href="index.html#top" aria-current="page">Home</a>
+      <a href="#lobby-table">Guest Table</a>
       <a href="portfolio.html">Gallery</a>
       <a href="#places">Explore</a>
       <a href="#about">About</a>
@@ -48,6 +66,47 @@
         </div>
       </div>
     </header>
+
+    <section class="section lobby-table-section" id="lobby-table" aria-labelledby="lobby-table-title">
+      <div class="lobby-table">
+        <div class="lobby-intro">
+          <p class="kicker">The Lobby Table</p>
+          <h2 id="lobby-table-title">Welcome. Nothing here is required.</h2>
+          <p>The studio is already open. The guest book and comment cards are simply here for anyone who feels like leaving a name, a thought, a favorite moment, or a quiet hello for Robert.</p>
+          <div class="lobby-note"><strong>Walk straight in, sign the book, leave a card, or do none of the above.</strong> Every doorway remains open either way.</div>
+        </div>
+
+        <div class="card-tray">
+          <form class="paper-card mail-card" data-card-type="Guest Book Entry">
+            <p class="kicker">On the Table</p>
+            <h3>Guest Book</h3>
+            <p>A small record of who wandered through the studio.</p>
+            <label for="guest-name">Name or nickname <span class="optional-mark">optional</span></label>
+            <input id="guest-name" name="name" autocomplete="name" placeholder="How should Robert know you?">
+            <label for="guest-message">A brief note <span class="optional-mark">optional</span></label>
+            <textarea id="guest-message" name="message" placeholder="Hello from the lobby..."></textarea>
+            <button class="btn primary" type="submit">Sign the Guest Book</button>
+            <p class="form-status" role="status" aria-live="polite"></p>
+            <small class="privacy-line">Your note is prepared privately for Robert. It is never posted publicly by this page.</small>
+          </form>
+
+          <form class="paper-card mail-card" data-card-type="Private Comment Card">
+            <p class="kicker">Leave Robert a Note</p>
+            <h3>Comment Card</h3>
+            <p>Share a reaction, suggestion, favorite piece, or anything the studio stirred up.</p>
+            <label for="comment-name">Name or nickname <span class="optional-mark">optional</span></label>
+            <input id="comment-name" name="name" autocomplete="name" placeholder="Your name, if you wish">
+            <label for="comment-room">Room or artwork <span class="optional-mark">optional</span></label>
+            <input id="comment-room" name="room" placeholder="Ocean of Ink, Writing Room, a particular piece...">
+            <label for="comment-message">Your comment</label>
+            <textarea id="comment-message" name="message" required placeholder="Write your card here..."></textarea>
+            <button class="btn primary" type="submit">Place Card in the Box</button>
+            <p class="form-status" role="status" aria-live="polite"></p>
+            <small class="privacy-line">This opens your email app with the card addressed directly to Robert. Nothing is added to a public wall.</small>
+          </form>
+        </div>
+      </div>
+    </section>
 
     <section class="section places-section" id="places" aria-labelledby="places-title">
       <div class="section-head">
@@ -107,6 +166,25 @@
       event.preventDefault();
       window.location.assign(href);
     },true);
+
+    document.querySelectorAll('.mail-card').forEach(function(form){
+      form.addEventListener('submit',function(event){
+        event.preventDefault();
+        const data=new FormData(form);
+        const type=form.dataset.cardType||'Studio Note';
+        const name=(data.get('name')||'').toString().trim()||'Anonymous guest';
+        const room=(data.get('room')||'').toString().trim();
+        const message=(data.get('message')||'').toString().trim()||'Signed the guest book.';
+        const lines=['Name: '+name];
+        if(room)lines.push('Room or artwork: '+room);
+        lines.push('',message,'','Sent from the Inkspirations Studios lobby table.');
+        const subject=encodeURIComponent('Inkspirations Studios: '+type);
+        const body=encodeURIComponent(lines.join('\n'));
+        const status=form.querySelector('.form-status');
+        if(status)status.textContent='Your card is ready. Opening your email app now...';
+        window.location.href='mailto:r.marleton@gmail.com?subject='+subject+'&body='+body;
+      });
+    });
   </script>
 </body>
 </html>
