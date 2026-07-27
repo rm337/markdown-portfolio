@@ -11,6 +11,47 @@
     originalScrollTo(...args);
   };
 
+  const removePublicSalesOptions = () => {
+    const salesSelectors = [
+      'a[href*="pricing.html"]',
+      'a[href*="coasters-tiles.html"]',
+      'a[href*="merch-foundry.html"]',
+      'a[href*="#functional-art"]',
+      '#functional'
+    ];
+
+    document.querySelectorAll(salesSelectors.join(",")).forEach((element) => {
+      const removableCard = element.closest(".world-card, .room-card, .work-card, .asset-slot");
+      (removableCard || element).remove();
+    });
+
+    document.querySelectorAll("section, article, div").forEach((element) => {
+      const text = element.textContent?.trim().toLowerCase() || "";
+      const isProductBlock =
+        text.includes("coaster sets") ||
+        text.includes("blue current coasters") ||
+        text.includes("pricing & orders") ||
+        text.includes("purchase options for shades of blue");
+      if (isProductBlock && element.closest("main")) {
+        const specific = element.closest("section, article, .world-card, .room-card, .asset-slot");
+        if (specific && specific !== document.querySelector("main")) specific.remove();
+      }
+    });
+
+    const replacements = new Map([
+      ["A focused public portfolio for artwork, creative direction, brand presentation, and functional art concepts.", "A focused public portfolio for artwork, creative direction, brand presentation, photography, and visual storytelling."],
+      ["The visitor sees the artwork first, then the studio identity, creative direction, writing, functional art, and ways to order.", "The visitor sees the artwork first, followed by studio identity, creative direction, writing, and atmospheric experiences."],
+      ["Open a card to see the piece larger, read the portfolio note, and use Pricing & Orders for available formats.", "Open a card to see the piece larger and read the portfolio note."],
+      ["Studio rooms, writing paths, atmosphere, and acquisition routes are gathered here after the main portfolio.", "Studio rooms, writing paths, and atmosphere are gathered here after the main portfolio."],
+      ["Original Poetry · Available for Purchase", "Original Poetry"]
+    ]);
+
+    document.querySelectorAll("p, span, h1, h2, h3, strong, small").forEach((element) => {
+      const current = element.textContent?.trim();
+      if (replacements.has(current)) element.textContent = replacements.get(current);
+    });
+  };
+
   const cleanPublicGallery = () => {
     document.getElementById("galleryFloatNav")?.remove();
     document.getElementById("pageReturnNav")?.remove();
@@ -56,25 +97,10 @@
     }
   };
 
-  const addOrderBackToTop = () => {
-    const builder = document.getElementById("order-builder");
-    if (!builder || document.getElementById("orderBackToTop")) return;
-    const actions = builder.querySelector(".builder-actions");
-    if (!actions) return;
-
-    const button = document.createElement("button");
-    button.id = "orderBackToTop";
-    button.type = "button";
-    button.className = "builder-button";
-    button.textContent = "Back to Top ↑";
-    button.addEventListener("click", () => originalScrollTo({ top: 0, left: 0, behavior: "auto" }));
-    actions.append(button);
-  };
-
   const initializePageFixes = () => {
+    removePublicSalesOptions();
     cleanPublicGallery();
     fixGalleryFilters();
-    addOrderBackToTop();
   };
 
   if (document.readyState === "loading") {
