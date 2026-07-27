@@ -7,7 +7,7 @@
       title: "Ocean of Ink",
       subtitle: "The atmospheric center of the studio.",
       description: "A living blue environment of drifting pigment, layered light, and selected visual work. Move slowly, look closely, and follow the current back into the portfolio.",
-      url: "rooms.html#ocean-of-ink",
+      url: "ocean-of-ink.html",
       accent: "#56d9ff",
       category: "Atmosphere",
       status: "Open"
