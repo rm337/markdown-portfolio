@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1200" role="img" aria-labelledby="title desc">
+  <title id="title">Shades of Blue by Robert Marleton</title>
+  <desc id="desc">A designed presentation of the poem Shades of Blue.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#05182f"/>
+      <stop offset="0.5" stop-color="#0a4e8f"/>
+      <stop offset="1" stop-color="#020711"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="18%" r="65%">
+      <stop offset="0" stop-color="#72e8ff" stop-opacity="0.34"/>
+      <stop offset="1" stop-color="#72e8ff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="900" height="1200" fill="url(#bg)"/>
+  <rect width="900" height="1200" fill="url(#glow)"/>
+  <circle cx="115" cy="155" r="150" fill="#0174f3" opacity="0.18"/>
+  <circle cx="790" cy="1050" r="210" fill="#67e3ff" opacity="0.11"/>
+  <rect x="58" y="58" width="784" height="1084" rx="2" fill="none" stroke="#8ff3e8" stroke-opacity="0.42" stroke-width="2"/>
+  <text x="450" y="150" text-anchor="middle" fill="#8ff3e8" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="7">ORIGINAL POETRY</text>
+  <text x="450" y="245" text-anchor="middle" fill="#f7f4ec" font-family="Georgia, serif" font-size="72">Shades of Blue</text>
+  <text x="450" y="292" text-anchor="middle" fill="#d9f5ff" font-family="Arial, sans-serif" font-size="23" letter-spacing="3">ROBERT MARLETON</text>
+  <g fill="#f7f4ec" font-family="Georgia, serif" font-size="28" text-anchor="middle">
+    <text x="450" y="400">Shades of blue color the sky;</text>
+    <text x="450" y="442">The sun peeks through the canvas;</text>
+    <text x="450" y="484">Shades of warmth envelop the clouds.</text>
+    <text x="450" y="568">It begins to rain, creating a palette</text>
+    <text x="450" y="610">of blue against itself;</text>
+    <text x="450" y="652">The sun emerges again,</text>
+    <text x="450" y="694">bathing in its own warmth and beauty.</text>
+    <text x="450" y="778">It’s raining again—</text>
+    <text x="450" y="820">forces of nature in remorseful conflict.</text>
+    <text x="450" y="862">The rain consumes the sky now,</text>
+    <text x="450" y="904">spilling over like unshed tears.</text>
+    <text x="450" y="988">The storm rages on, nothing breaks;</text>
+    <text x="450" y="1030">Shades of blue color the sky…</text>
+  </g>
+  <text x="450" y="1105" text-anchor="middle" fill="#8ff3e8" font-family="Arial, sans-serif" font-size="18" letter-spacing="2">© 2026 ROBERT MARLETON · ALL RIGHTS RESERVED</text>
+</svg>
