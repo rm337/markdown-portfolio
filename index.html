@@ -280,6 +280,7 @@
     }
 
     .contact p { max-width: 600px; color: rgba(244,240,232,.65); }
+    .contact-actions { display: flex; flex-wrap: wrap; gap: .8rem; }
     footer {
       display: flex;
       justify-content: space-between;
@@ -295,8 +296,7 @@
     @keyframes drift { from { transform: translateX(-2%) rotate(-8deg); } to { transform: translateX(5%) rotate(-6deg); } }
 
     @media (max-width: 760px) {
-      .nav-links a:not(:last-child) { display: none; }
-      .hero::after { inset: 18% -35% 8% 43%; opacity: .45; }
+      .nav-links { display: none; }
       .statement,.feature { grid-template-columns: 1fr; }
       .work-grid { grid-template-columns: 1fr; }
       .work-card { min-height: 360px; }
@@ -399,9 +399,12 @@
     <section class="contact" id="contact">
       <div>
         <h2>Start a conversation.</h2>
-        <p>For creative direction, design, commissions, collaborations, artwork, or professional opportunities.</p>
+        <p>For creative direction, design, commissions, collaborations, artwork, or professional opportunities. Payments may be sent securely through Venmo to <strong>@Robert-Marleton</strong>.</p>
       </div>
-      <a class="btn primary" href="mailto:r.marleton@gmail.com?subject=Inkspirations%20Studios%20Inquiry">Contact Robert</a>
+      <div class="contact-actions">
+        <a class="btn primary" href="mailto:r.marleton@gmail.com?subject=Inkspirations%20Studios%20Inquiry">Contact Robert</a>
+        <a class="btn" href="https://venmo.com/u/Robert-Marleton" target="_blank" rel="noopener noreferrer" aria-label="Pay Robert Marleton with Venmo">Pay with Venmo</a>
+      </div>
     </section>
   </main>
 
