@@ -4,41 +4,42 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Inkspirations Studios | Robert Marleton</title>
-  <meta name="description" content="Enter Inkspirations Studios, Robert Marleton's immersive plant-filled creative studio and art gallery.">
+  <meta name="description" content="Enter Inkspirations Studios, Robert Marleton's organic, plant-filled creative studio and art gallery.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://rm337.github.io/markdown-portfolio/">
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="accessibility.css?v=20260711-reef">
   <link rel="stylesheet" href="site-nav.css?v=20260722">
   <style>
-    :root{--ink:#07100d;--paper:#f1ede4;--mist:#b8c7cf;--leaf:#8fcf9b;--cyan:#8ff3e8;--line:rgba(255,255,255,.14)}
+    :root{--night:#07100d;--stone:#d8d1c3;--paper:#f3efe6;--leaf:#90c99a;--deep-leaf:#274b35;--wood:#9b7654;--water:#75bec8;--line:rgba(255,255,255,.14)}
     *{box-sizing:border-box}
-    html{scroll-behavior:smooth;background:var(--ink)}
-    body{margin:0;background:radial-gradient(circle at 55% -10%,rgba(46,111,83,.28),transparent 35%),linear-gradient(180deg,#0a1712 0%,#040806 62%,#07100d 100%);color:var(--paper);font-family:Inter,Arial,sans-serif;line-height:1.55;overflow-x:hidden}
-    a{color:inherit}.skip-link{position:absolute;left:-9999px}.skip-link:focus{left:1rem;top:1rem;z-index:1000;background:#fff;color:#000;padding:.8rem}
-    .nav{position:fixed;inset:0 0 auto;z-index:30;display:flex;justify-content:space-between;align-items:center;padding:1rem clamp(1rem,4vw,4rem);background:linear-gradient(180deg,rgba(3,8,6,.95),rgba(3,8,6,.4),transparent);backdrop-filter:blur(6px)}
-    .nav .brand{font-family:Georgia,serif;font-size:clamp(1rem,2vw,1.3rem);text-decoration:none}.nav .links{display:flex;gap:1.2rem}.nav .links a{text-decoration:none;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(241,237,228,.74)}
-    .hero{min-height:100svh;display:grid;place-items:end start;position:relative;padding:clamp(7rem,15vw,12rem) clamp(1.2rem,6vw,6rem) clamp(3.5rem,8vw,7rem);isolation:isolate;overflow:hidden}
-    .hero:before{content:"";position:absolute;inset:0;z-index:-3;background:linear-gradient(90deg,rgba(2,7,5,.98),rgba(4,12,9,.72) 44%,rgba(5,14,10,.18) 74%),radial-gradient(circle at 78% 38%,rgba(119,195,139,.24),transparent 23%),linear-gradient(150deg,#183427,#0b1812 48%,#030706)}
-    .hero:after{content:"";position:absolute;right:-4vw;top:8vh;width:min(54vw,760px);height:78vh;z-index:-2;background:radial-gradient(ellipse at 30% 22%,rgba(139,203,153,.8) 0 5%,transparent 6%),radial-gradient(ellipse at 52% 30%,rgba(92,157,111,.72) 0 7%,transparent 8%),radial-gradient(ellipse at 70% 18%,rgba(129,184,111,.7) 0 6%,transparent 7%),radial-gradient(ellipse at 64% 50%,rgba(76,135,93,.78) 0 10%,transparent 11%),radial-gradient(ellipse at 32% 58%,rgba(103,168,122,.7) 0 9%,transparent 10%),radial-gradient(ellipse at 80% 72%,rgba(86,145,101,.64) 0 11%,transparent 12%);filter:blur(1px);opacity:.9}
-    .plant-shadow{position:absolute;right:5vw;bottom:0;width:34vw;height:56vh;z-index:-1;border-left:2px solid rgba(119,167,112,.35);transform:skew(-8deg);box-shadow:80px -110px 0 -76px rgba(119,167,112,.22),130px -210px 0 -122px rgba(119,167,112,.18)}
-    .hero-copy{max-width:760px}.eyebrow{margin:0 0 1rem;color:var(--leaf);font-size:.72rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase}.hero h1{margin:0;font-family:Georgia,serif;font-size:clamp(3.8rem,11vw,9.5rem);font-weight:400;line-height:.86;letter-spacing:-.055em}.hero h1 span{display:block;color:rgba(241,237,228,.5);font-size:.42em;letter-spacing:.02em;margin-top:.35em}.hero .lead{max-width:680px;margin:1.7rem 0 0;color:rgba(241,237,228,.82);font-size:clamp(1.05rem,2vw,1.35rem)}
-    .actions{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:.8rem 1.15rem;border:1px solid var(--line);text-decoration:none;font-size:.77rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;transition:.25s ease}.btn.primary{background:var(--paper);color:#071018;border-color:var(--paper)}.btn:hover,.btn:focus-visible{transform:translateY(-2px);border-color:var(--leaf)}
-    .manifesto{padding:clamp(4rem,10vw,8rem) clamp(1.2rem,6vw,6rem);display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(2rem,8vw,8rem);align-items:start;border-top:1px solid var(--line)}
-    .manifesto h2{margin:0;font:400 clamp(2.4rem,6vw,5.5rem)/.98 Georgia,serif;letter-spacing:-.04em}.manifesto p{margin:0;color:rgba(241,237,228,.72);font-size:clamp(1rem,1.8vw,1.25rem)}
-    .spaces{padding:0 clamp(1.2rem,6vw,6rem) clamp(5rem,10vw,9rem)}
-    .space{position:relative;min-height:min(76vh,740px);display:flex;align-items:flex-end;margin:0 0 clamp(1.2rem,3vw,2.5rem);padding:clamp(1.4rem,4vw,3.5rem);overflow:hidden;border:1px solid var(--line);text-decoration:none;isolation:isolate}
-    .space:before{content:"";position:absolute;inset:0;z-index:-2;background:linear-gradient(90deg,rgba(1,5,3,.94),rgba(1,5,3,.42) 60%,rgba(1,5,3,.12)),var(--scene);transition:transform .7s ease,filter .7s ease;background-size:cover;background-position:center}.space:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,transparent 35%,rgba(0,0,0,.74))}.space:hover:before{transform:scale(1.025);filter:brightness(1.1)}
-    .space-copy{max-width:700px}.space .number{display:block;margin-bottom:.5rem;color:var(--leaf);font-size:.72rem;font-weight:800;letter-spacing:.22em}.space h3{margin:0;font:400 clamp(2.8rem,7vw,6.8rem)/.92 Georgia,serif;letter-spacing:-.05em}.space p{max-width:620px;margin:1rem 0 0;color:rgba(241,237,228,.75);font-size:clamp(.96rem,1.5vw,1.14rem)}.space .enter{display:inline-block;margin-top:1.4rem;border-bottom:1px solid rgba(143,207,155,.6);padding-bottom:.25rem;color:var(--leaf);font-size:.74rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
-    .gallery{--scene:radial-gradient(circle at 72% 34%,rgba(139,203,153,.2),transparent 18%),linear-gradient(120deg,#1a2821,#0b1410 58%,#1b2720)}
-    .objects{--scene:radial-gradient(circle at 68% 32%,rgba(177,123,69,.2),transparent 20%),linear-gradient(120deg,#191715,#0b0c0a 58%,#241f18)}
-    .writing{--scene:radial-gradient(circle at 73% 38%,rgba(199,213,188,.18),transparent 20%),linear-gradient(120deg,#151b17,#080d0a 58%,#1c221d)}
-    .ocean{--scene:radial-gradient(circle at 73% 45%,rgba(48,168,227,.28),transparent 25%),linear-gradient(120deg,#07131c,#02070c 55%,#05253b)}
-    .music{--scene:radial-gradient(circle at 72% 42%,rgba(109,78,255,.2),transparent 22%),linear-gradient(120deg,#11141a,#07090b 58%,#17142b)}
-    .studio-note{padding:clamp(4rem,9vw,8rem) clamp(1.2rem,6vw,6rem);border-top:1px solid var(--line);text-align:center}.studio-note blockquote{max-width:950px;margin:0 auto;font:400 clamp(2rem,5vw,4.8rem)/1.06 Georgia,serif;letter-spacing:-.035em}.studio-note p{margin:1.5rem 0 0;color:rgba(241,237,228,.55)}
-    .contact{display:flex;justify-content:space-between;align-items:center;gap:2rem;padding:clamp(3rem,7vw,6rem) clamp(1.2rem,6vw,6rem);border-top:1px solid var(--line)}.contact h2{margin:0;font:400 clamp(2rem,5vw,4rem) Georgia,serif}.contact p{max-width:600px;color:rgba(241,237,228,.65)}
-    footer{display:flex;justify-content:space-between;gap:1rem;padding:1.2rem clamp(1.2rem,6vw,6rem);border-top:1px solid var(--line);color:rgba(241,237,228,.48);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase}
-    @media(max-width:760px){.nav .links a:not(:last-child){display:none}.hero:after{right:-25vw;width:92vw;opacity:.62}.manifesto{grid-template-columns:1fr}.space{min-height:66vh}.contact{align-items:flex-start;flex-direction:column}footer{flex-direction:column}.hero h1{font-size:clamp(3.35rem,19vw,6rem)}}
+    html{scroll-behavior:smooth;background:var(--night)}
+    body{margin:0;background:#07100d;color:var(--paper);font-family:Inter,Arial,sans-serif;line-height:1.55;overflow-x:hidden}
+    a{color:inherit}.skip-link{position:absolute;left:-9999px}.skip-link:focus{left:1rem;top:1rem;z-index:100;background:#fff;color:#000;padding:.8rem}
+    .nav{position:fixed;inset:0 0 auto;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:1rem clamp(1rem,4vw,4rem);background:linear-gradient(180deg,rgba(4,10,7,.95),rgba(4,10,7,.4),transparent);backdrop-filter:blur(7px)}
+    .brand{font:400 clamp(1rem,2vw,1.3rem) Georgia,serif;text-decoration:none}.nav-links{display:flex;gap:1.2rem}.nav-links a{text-decoration:none;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(243,239,230,.74)}
+    .atrium{min-height:100svh;position:relative;display:grid;align-items:end;padding:clamp(8rem,16vw,13rem) clamp(1.2rem,6vw,6rem) clamp(4rem,8vw,7rem);overflow:hidden;isolation:isolate}
+    .atrium:before{content:"";position:absolute;inset:0;z-index:-5;background:linear-gradient(90deg,rgba(2,7,5,.98) 0%,rgba(5,13,9,.78) 42%,rgba(7,20,14,.18) 74%),linear-gradient(145deg,#244132 0%,#101f18 47%,#050a07 100%)}
+    .glass-wall{position:absolute;right:3vw;top:8vh;width:min(56vw,780px);height:76vh;z-index:-4;border:1px solid rgba(232,244,233,.18);background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.015) 48%,rgba(111,181,143,.08));box-shadow:inset 0 0 90px rgba(111,181,143,.12),0 35px 100px rgba(0,0,0,.38)}
+    .glass-wall:before,.glass-wall:after{content:"";position:absolute;background:rgba(232,244,233,.12)}.glass-wall:before{left:33%;top:0;bottom:0;width:1px;box-shadow:210px 0 rgba(232,244,233,.12)}.glass-wall:after{left:0;right:0;top:50%;height:1px}
+    .canopy{position:absolute;right:-2vw;top:4vh;width:min(62vw,900px);height:83vh;z-index:-3;background:radial-gradient(ellipse at 20% 20%,rgba(148,207,153,.95) 0 4%,transparent 5%),radial-gradient(ellipse at 37% 17%,rgba(97,165,113,.86) 0 7%,transparent 8%),radial-gradient(ellipse at 56% 28%,rgba(128,190,131,.88) 0 8%,transparent 9%),radial-gradient(ellipse at 76% 16%,rgba(87,151,100,.82) 0 7%,transparent 8%),radial-gradient(ellipse at 30% 50%,rgba(105,177,120,.9) 0 10%,transparent 11%),radial-gradient(ellipse at 60% 52%,rgba(74,139,91,.88) 0 12%,transparent 13%),radial-gradient(ellipse at 82% 66%,rgba(97,161,108,.8) 0 13%,transparent 14%),radial-gradient(ellipse at 43% 78%,rgba(67,124,80,.76) 0 12%,transparent 13%);filter:drop-shadow(0 30px 30px rgba(0,0,0,.35))}
+    .water-line{position:absolute;right:8vw;bottom:8vh;width:min(42vw,620px);height:8vh;z-index:-2;border-top:1px solid rgba(117,190,200,.7);background:linear-gradient(180deg,rgba(117,190,200,.16),transparent);box-shadow:0 -12px 40px rgba(117,190,200,.12)}
+    .hero-copy{max-width:790px}.eyebrow{margin:0 0 1rem;color:var(--leaf);font-size:.72rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase}.hero-copy h1{margin:0;font:400 clamp(3.8rem,11vw,9.5rem)/.86 Georgia,serif;letter-spacing:-.055em}.hero-copy h1 span{display:block;color:rgba(243,239,230,.5);font-size:.42em;letter-spacing:.02em;margin-top:.35em}.lead{max-width:680px;margin:1.7rem 0 0;color:rgba(243,239,230,.82);font-size:clamp(1.05rem,2vw,1.35rem)}
+    .actions{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:.8rem 1.15rem;border:1px solid var(--line);text-decoration:none;font-size:.77rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;transition:.25s}.btn.primary{background:var(--paper);color:#071018;border-color:var(--paper)}.btn:hover,.btn:focus-visible{transform:translateY(-2px);border-color:var(--leaf)}
+    .design-statement{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(2rem,8vw,8rem);padding:clamp(5rem,10vw,9rem) clamp(1.2rem,6vw,6rem);background:linear-gradient(180deg,#0b1711,#09120e);border-top:1px solid var(--line)}
+    .design-statement h2{margin:0;font:400 clamp(2.5rem,6vw,5.6rem)/.98 Georgia,serif;letter-spacing:-.04em}.design-statement p{margin:0;color:rgba(243,239,230,.72);font-size:clamp(1rem,1.8vw,1.25rem)}
+    .gallery-walk{padding:0 clamp(1.2rem,6vw,6rem) clamp(6rem,11vw,10rem);background:#09120e}
+    .wing{position:relative;min-height:min(75vh,720px);display:flex;align-items:flex-end;margin-bottom:clamp(1.4rem,3vw,2.8rem);padding:clamp(1.5rem,4vw,3.8rem);overflow:hidden;border:1px solid var(--line);text-decoration:none;isolation:isolate}
+    .wing:before{content:"";position:absolute;inset:0;z-index:-3;background:linear-gradient(90deg,rgba(2,7,5,.95),rgba(2,7,5,.45) 58%,rgba(2,7,5,.12)),var(--scene);transition:transform .7s ease,filter .7s ease}.wing:after{content:"";position:absolute;inset:0;z-index:-2;background:linear-gradient(180deg,transparent 35%,rgba(0,0,0,.78))}.wing:hover:before{transform:scale(1.025);filter:brightness(1.08)}
+    .plant-marker{position:absolute;right:5%;bottom:0;width:20%;height:58%;z-index:-1;background:radial-gradient(ellipse at 50% 20%,rgba(115,181,121,.65) 0 11%,transparent 12%),radial-gradient(ellipse at 26% 42%,rgba(91,153,105,.58) 0 14%,transparent 15%),radial-gradient(ellipse at 74% 48%,rgba(72,133,91,.6) 0 15%,transparent 16%);opacity:.72}
+    .wing-copy{max-width:700px}.kicker{display:block;margin-bottom:.55rem;color:var(--leaf);font-size:.72rem;font-weight:800;letter-spacing:.22em}.wing h3{margin:0;font:400 clamp(2.8rem,7vw,6.8rem)/.92 Georgia,serif;letter-spacing:-.05em}.wing p{max-width:620px;margin:1rem 0 0;color:rgba(243,239,230,.75);font-size:clamp(.96rem,1.5vw,1.14rem)}.enter{display:inline-block;margin-top:1.4rem;border-bottom:1px solid rgba(144,201,154,.65);padding-bottom:.25rem;color:var(--leaf);font-size:.74rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    .art{--scene:radial-gradient(circle at 72% 30%,rgba(218,205,170,.18),transparent 18%),linear-gradient(120deg,#263029,#0d1510 58%,#273127)}.objects{--scene:radial-gradient(circle at 70% 30%,rgba(173,126,80,.2),transparent 20%),linear-gradient(120deg,#211c17,#0d0d0a 58%,#2b241c)}.writing{--scene:radial-gradient(circle at 72% 34%,rgba(215,222,197,.17),transparent 20%),linear-gradient(120deg,#1b211c,#0b100c 58%,#242b24)}.ocean{--scene:radial-gradient(circle at 72% 42%,rgba(56,177,203,.3),transparent 25%),linear-gradient(120deg,#091820,#02080c 55%,#063047)}.music{--scene:radial-gradient(circle at 72% 40%,rgba(112,94,194,.22),transparent 22%),linear-gradient(120deg,#151820,#090a0e 58%,#211d31)}
+    .courtyard{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(2rem,7vw,7rem);align-items:center;padding:clamp(5rem,10vw,9rem) clamp(1.2rem,6vw,6rem);background:linear-gradient(135deg,#13261b,#09120d);border-top:1px solid var(--line)}
+    .courtyard-visual{min-height:420px;position:relative;border:1px solid var(--line);background:linear-gradient(180deg,rgba(145,197,151,.12),transparent),linear-gradient(145deg,#223d2c,#101b14)}.courtyard-visual:before{content:"";position:absolute;inset:12% 10%;border:1px solid rgba(255,255,255,.13);background:radial-gradient(ellipse at 20% 30%,rgba(132,192,139,.72) 0 9%,transparent 10%),radial-gradient(ellipse at 44% 24%,rgba(91,153,104,.64) 0 12%,transparent 13%),radial-gradient(ellipse at 74% 40%,rgba(112,175,118,.65) 0 13%,transparent 14%),linear-gradient(180deg,transparent 62%,rgba(99,178,188,.18) 63%,rgba(99,178,188,.08) 72%,transparent 73%)}
+    .courtyard h2{margin:0;font:400 clamp(2.5rem,5vw,5rem)/1 Georgia,serif;letter-spacing:-.04em}.courtyard p{color:rgba(243,239,230,.72);font-size:1.08rem}
+    .contact{display:flex;justify-content:space-between;align-items:center;gap:2rem;padding:clamp(4rem,8vw,7rem) clamp(1.2rem,6vw,6rem);background:#07100d;border-top:1px solid var(--line)}.contact h2{margin:0;font:400 clamp(2rem,5vw,4rem) Georgia,serif}.contact p{max-width:600px;color:rgba(243,239,230,.65)}
+    footer{display:flex;justify-content:space-between;gap:1rem;padding:1.2rem clamp(1.2rem,6vw,6rem);border-top:1px solid var(--line);color:rgba(243,239,230,.48);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase}
+    @media(max-width:760px){.nav-links a:not(:last-child){display:none}.glass-wall{right:-30vw;width:100vw;opacity:.6}.canopy{right:-32vw;width:120vw;opacity:.75}.design-statement,.courtyard{grid-template-columns:1fr}.wing{min-height:65vh}.contact{align-items:flex-start;flex-direction:column}footer{flex-direction:column}.hero-copy h1{font-size:clamp(3.3rem,19vw,6rem)}}
     @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
   </style>
 </head>
@@ -46,34 +47,40 @@
   <a class="skip-link" href="#main-content">Skip to the studio</a>
   <nav class="nav" aria-label="Primary navigation">
     <a class="brand" href="#top">Inkspirations Studios</a>
-    <div class="links"><a href="#spaces">Explore</a><a href="resume.html">Resume</a><a href="#contact">Contact</a></div>
+    <div class="nav-links"><a href="#gallery-walk">Gallery Walk</a><a href="resume.html">Resume</a><a href="#contact">Contact</a></div>
   </nav>
 
   <main id="main-content">
-    <header class="hero" id="top">
-      <div class="plant-shadow" aria-hidden="true"></div>
+    <header class="atrium" id="top">
+      <div class="glass-wall" aria-hidden="true"></div>
+      <div class="canopy" aria-hidden="true"></div>
+      <div class="water-line" aria-hidden="true"></div>
       <div class="hero-copy">
-        <p class="eyebrow">Robert Marleton / Creative Director</p>
+        <p class="eyebrow">Robert Marleton / Founder & Creative Director</p>
         <h1>Inkspirations<span>Studios</span></h1>
-        <p class="lead">A living creative studio filled with artwork, objects, writing, music, natural textures, and abundant plant life.</p>
-        <div class="actions"><a class="btn primary" href="#spaces">Enter the Studio</a><a class="btn" href="portfolio.html">View the Artwork</a></div>
+        <p class="lead">An organic creative studio where architecture, artwork, wood, water, light, and abundant plant life belong to one continuous environment.</p>
+        <div class="actions"><a class="btn primary" href="#gallery-walk">Walk Into the Studio</a><a class="btn" href="portfolio.html">View Selected Work</a></div>
       </div>
     </header>
 
-    <section class="manifesto" aria-labelledby="manifesto-title">
-      <h2 id="manifesto-title">A studio that feels alive.</h2>
-      <p>Inkspirations Studios is not a theater and not a maze of little rooms. It is one expansive creative environment. Artwork lives on the walls. Wood pieces and coasters rest on shelves. Writing occupies a working desk. Plants soften the architecture and make the entire studio feel collected, calm, and real.</p>
+    <section class="design-statement" aria-labelledby="statement-title">
+      <h2 id="statement-title">Built to feel calm before it asks to be explored.</h2>
+      <p>The studio draws from organic architecture rather than conventional website navigation. Broad glass, warm wood, stone, quiet water, layered greenery, and open sightlines create a place where visitors can slow down. The artwork remains central, but the environment prepares people to truly see it.</p>
     </section>
 
-    <section class="spaces" id="spaces" aria-label="Studio spaces">
-      <a class="space gallery" href="portfolio.html"><div class="space-copy"><span class="number">ARTWORK / WALLS</span><h3>The Art Gallery</h3><p>Original work presented with scale, breathing room, natural light, and plants woven throughout the space.</p><span class="enter">View the Artwork</span></div></a>
-      <a class="space objects" href="portfolio.html#functional-art"><div class="space-copy"><span class="number">OBJECTS / SHELVES</span><h3>Wood & Functional Art</h3><p>Coasters, wood pieces, and tactile work arranged on shelves and pedestals as crafted objects.</p><span class="enter">View the Collection</span></div></a>
-      <a class="space writing" href="rooms.html#writing-room"><div class="space-copy"><span class="number">WRITING / DESK</span><h3>The Writing Area</h3><p>A quiet working corner for poetry, reflection, and story, surrounded by books, paper, and greenery.</p><span class="enter">Read the Work</span></div></a>
-      <a class="space ocean" href="ocean-of-ink.html"><div class="space-copy"><span class="number">IMMERSIVE PASSAGE</span><h3>Ocean of Ink</h3><p>A deeper atmospheric section of the studio shaped by movement, water, light, and curiosity.</p><span class="enter">Enter the Ocean</span></div></a>
-      <a class="space music" href="music.html"><div class="space-copy"><span class="number">MUSIC / LISTENING AREA</span><h3>The Music Space</h3><p>A relaxed listening environment where sound, mood, and visual direction share the same air.</p><span class="enter">Listen</span></div></a>
+    <section class="gallery-walk" id="gallery-walk" aria-label="Studio gallery walk">
+      <a class="wing art" href="portfolio.html"><span class="plant-marker" aria-hidden="true"></span><div class="wing-copy"><span class="kicker">THE MAIN WALLS</span><h3>Original Artwork</h3><p>Large-scale presentation, generous spacing, natural light, quiet seating, and greenery placed between visual moments.</p><span class="enter">Walk the Gallery</span></div></a>
+      <a class="wing objects" href="portfolio.html#functional-art"><span class="plant-marker" aria-hidden="true"></span><div class="wing-copy"><span class="kicker">THE MATERIAL LIBRARY</span><h3>Wood & Functional Art</h3><p>Coasters and wood pieces displayed on integrated shelving, stone plinths, and warm architectural surfaces.</p><span class="enter">Explore the Objects</span></div></a>
+      <a class="wing writing" href="rooms.html#writing-room"><span class="plant-marker" aria-hidden="true"></span><div class="wing-copy"><span class="kicker">THE QUIET STUDY</span><h3>Writing</h3><p>A sheltered reading and writing area with books, paper, filtered daylight, and plants softening the corners.</p><span class="enter">Read the Work</span></div></a>
+      <a class="wing ocean" href="ocean-of-ink.html"><span class="plant-marker" aria-hidden="true"></span><div class="wing-copy"><span class="kicker">THE WATER PASSAGE</span><h3>Ocean of Ink</h3><p>A cooler, more atmospheric passage shaped by reflections, movement, deep blue light, and the sound of water.</p><span class="enter">Enter the Ocean</span></div></a>
+      <a class="wing music" href="music.html"><span class="plant-marker" aria-hidden="true"></span><div class="wing-copy"><span class="kicker">THE LISTENING LOUNGE</span><h3>Music</h3><p>A relaxed listening area with low seating, warm timber, deep shadows, and living plants surrounding the sound.</p><span class="enter">Listen</span></div></a>
     </section>
 
-    <section class="studio-note"><blockquote>“Creative direction is deciding what belongs in the space, what receives attention, and what the visitor remembers.”</blockquote><p>Robert Marleton, Founder & Creative Director</p></section>
+    <section class="courtyard">
+      <div class="courtyard-visual" aria-hidden="true"></div>
+      <div><p class="eyebrow">THE INNER COURTYARD</p><h2>Nature is not decoration here.</h2><p>Plants, light, and water are part of the architecture. They guide movement, separate spaces without closing them off, and create the peace that allows creative work to breathe.</p></div>
+    </section>
+
     <section class="contact" id="contact"><div><h2>Start a conversation.</h2><p>For creative direction, design, commissions, collaborations, or artwork inquiries.</p></div><a class="btn primary" href="mailto:r.marleton@gmail.com?subject=Inkspirations%20Studios%20Inquiry">Contact Robert</a></section>
   </main>
 
