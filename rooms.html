@@ -70,10 +70,7 @@
         document.getElementById('focusedRoomTitle').textContent = room.title;
         document.getElementById('focusedRoomDescription').textContent = room.description;
         const primary = document.getElementById('focusedRoomPrimary');
-        if (room.id === 'music-room') {
-          primary.textContent = 'Enter the Music Room';
-          primary.href = 'music.html';
-        } else if (room.id === 'coasters-tiles') {
+        if (room.id === 'coasters-tiles') {
           primary.textContent = 'View Coasters & Decorative Tiles';
           primary.href = 'coasters-tiles.html';
         } else {

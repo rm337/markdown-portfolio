@@ -33,26 +33,6 @@
       status: "Open"
     },
     {
-      id: "music-room",
-      title: "Music Room",
-      subtitle: "Original studio signals and listening paths.",
-      description: "Play an Inkspirations browser session or continue to official artist platforms.",
-      url: "music.html",
-      accent: "#8ff3e8",
-      category: "Sound",
-      status: "Playing"
-    },
-    {
-      id: "flight-deck",
-      title: "Flight Deck DJ",
-      subtitle: "C4 Territory is online.",
-      description: "A cinematic resident-DJ room with original playback and official listening paths.",
-      url: "flight-deck.html",
-      accent: "#ff6b9d",
-      category: "Performance",
-      status: "Live"
-    },
-    {
       id: "coasters-tiles",
       title: "Coasters & Decorative Tiles",
       subtitle: "Functional art made to live with.",
