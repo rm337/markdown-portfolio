@@ -4,187 +4,100 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Inkspirations Studios | Robert Marleton</title>
-  <meta name="description" content="Enter Robert Marleton's creative world of artwork, writing, music, functional art, and immersive studio rooms.">
+  <meta name="description" content="Enter Inkspirations Studios, Robert Marleton's cinematic creative portfolio of artwork, writing, music, functional art, and immersive experiences.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://rm337.github.io/markdown-portfolio/">
   <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="style.css?v=20260630-complete">
   <link rel="stylesheet" href="accessibility.css?v=20260711-reef">
   <link rel="stylesheet" href="site-nav.css?v=20260722">
   <style>
-    .place-card,.btn,.nav a{touch-action:manipulation;-webkit-tap-highlight-color:rgba(86,217,255,.22)}
-    .place-card{position:relative;z-index:2;pointer-events:auto;cursor:pointer}
-    .place-card>*{pointer-events:none}
-    .lobby-table-section{padding-top:3.25rem;padding-bottom:3.25rem}
-    .lobby-table{position:relative;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(1rem,3vw,2rem);padding:clamp(1.1rem,3vw,2rem);border:1px solid rgba(143,243,232,.25);background:linear-gradient(145deg,rgba(1,116,243,.13),rgba(6,16,27,.94));box-shadow:0 28px 90px rgba(0,0,0,.32),inset 0 1px 0 rgba(246,243,232,.05)}
-    .lobby-table::before{content:"";position:absolute;inset:auto 8% -12px;height:12px;background:rgba(1,7,13,.72);filter:blur(7px);border-radius:50%;pointer-events:none}
-    .lobby-intro p{max-width:560px;color:rgba(246,243,232,.76)}
-    .lobby-note{padding:.9rem 1rem;border-left:3px solid rgba(143,243,232,.6);background:rgba(2,5,12,.45);color:rgba(246,243,232,.78);font-size:.94rem}
-    .card-tray{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
-    .paper-card{padding:1rem;border:1px solid rgba(255,230,173,.25);background:linear-gradient(180deg,rgba(246,243,232,.1),rgba(246,243,232,.045));box-shadow:0 15px 45px rgba(0,0,0,.24)}
-    .paper-card h3{margin:.2rem 0 .35rem;color:#ffe6ad;font-family:Georgia,"Times New Roman",serif;font-size:1.55rem;font-weight:500}
-    .paper-card p{margin:.25rem 0 .9rem;color:rgba(246,243,232,.68);font-size:.9rem}
-    .paper-card label{display:block;margin:.75rem 0 .28rem;color:rgba(143,243,232,.88);font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
-    .paper-card input,.paper-card textarea{width:100%;padding:.72rem .76rem;border:1px solid rgba(246,243,232,.16);border-radius:0;background:rgba(2,5,12,.62);color:#f6f3e8;font:inherit}
-    .paper-card textarea{min-height:112px;resize:vertical}
-    .paper-card input:focus,.paper-card textarea:focus{outline:2px solid rgba(86,217,255,.7);outline-offset:2px;border-color:#56d9ff}
-    .optional-mark{color:rgba(246,243,232,.48);font-weight:500;text-transform:none;letter-spacing:0}
-    .form-status{min-height:1.4em;margin:.7rem 0 0;color:#8ff3e8;font-size:.86rem}
-    .privacy-line{display:block;margin-top:.75rem;color:rgba(246,243,232,.5);font-size:.76rem;line-height:1.45}
-    @media(max-width:940px){.lobby-table{grid-template-columns:1fr}.card-tray{grid-template-columns:1fr}}
+    :root{--ink:#05080c;--paper:#f1ede4;--mist:#b8c7cf;--cyan:#8ff3e8;--blue:#2e8ed8;--line:rgba(255,255,255,.14)}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;background:var(--ink)}
+    body{margin:0;background:radial-gradient(circle at 55% -10%,rgba(40,111,154,.26),transparent 35%),linear-gradient(180deg,#07101a 0%,#030609 62%,#05080c 100%);color:var(--paper);font-family:Inter,Arial,sans-serif;line-height:1.55;overflow-x:hidden}
+    a{color:inherit}
+    .skip-link{position:absolute;left:-9999px}.skip-link:focus{left:1rem;top:1rem;z-index:1000;background:#fff;color:#000;padding:.8rem}
+    .nav{position:fixed;inset:0 0 auto;z-index:30;display:flex;justify-content:space-between;align-items:center;padding:1rem clamp(1rem,4vw,4rem);background:linear-gradient(180deg,rgba(3,6,9,.94),rgba(3,6,9,.35),transparent);backdrop-filter:blur(6px)}
+    .nav .brand{font-family:Georgia,serif;font-size:clamp(1rem,2vw,1.3rem);text-decoration:none;letter-spacing:.03em}.nav .links{display:flex;gap:1.2rem}.nav .links a{text-decoration:none;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(241,237,228,.74)}
+    .hero{min-height:100svh;display:grid;place-items:end start;position:relative;padding:clamp(7rem,15vw,12rem) clamp(1.2rem,6vw,6rem) clamp(3.5rem,8vw,7rem);isolation:isolate}
+    .hero:before{content:"";position:absolute;inset:0;z-index:-2;background:linear-gradient(90deg,rgba(1,4,7,.97) 0%,rgba(2,8,13,.76) 42%,rgba(2,8,13,.18) 72%),radial-gradient(circle at 76% 44%,rgba(92,179,225,.3),transparent 20%),linear-gradient(155deg,#132735 0%,#07111a 48%,#020507 100%)}
+    .hero:after{content:"";position:absolute;right:8vw;top:17vh;width:min(42vw,620px);height:min(58vh,700px);z-index:-1;border:1px solid rgba(255,255,255,.14);box-shadow:0 0 0 18px rgba(3,7,10,.35),0 40px 100px rgba(0,0,0,.6),inset 0 0 100px rgba(65,156,207,.16);background:linear-gradient(140deg,rgba(255,255,255,.06),rgba(255,255,255,0) 35%),radial-gradient(circle at 50% 43%,rgba(86,217,255,.18),transparent 26%),#08131b}
+    .hero-copy{max-width:760px}.eyebrow{margin:0 0 1rem;color:var(--cyan);font-size:.72rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase}.hero h1{margin:0;font-family:Georgia,serif;font-size:clamp(3.8rem,11vw,9.5rem);font-weight:400;line-height:.86;letter-spacing:-.055em}.hero h1 span{display:block;color:rgba(241,237,228,.5);font-size:.42em;letter-spacing:.02em;margin-top:.35em}.hero .lead{max-width:660px;margin:1.7rem 0 0;color:rgba(241,237,228,.8);font-size:clamp(1.05rem,2vw,1.35rem)}
+    .actions{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:.8rem 1.15rem;border:1px solid var(--line);text-decoration:none;font-size:.77rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;transition:.25s ease}.btn.primary{background:var(--paper);color:#071018;border-color:var(--paper)}.btn:hover,.btn:focus-visible{transform:translateY(-2px);border-color:var(--cyan)}
+    .manifesto{padding:clamp(4rem,10vw,8rem) clamp(1.2rem,6vw,6rem);display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(2rem,8vw,8rem);align-items:start;border-top:1px solid var(--line)}
+    .manifesto h2{margin:0;font:400 clamp(2.4rem,6vw,5.5rem)/.98 Georgia,serif;letter-spacing:-.04em}.manifesto p{margin:0;color:rgba(241,237,228,.72);font-size:clamp(1rem,1.8vw,1.25rem)}
+    .theaters{padding:0 clamp(1.2rem,6vw,6rem) clamp(5rem,10vw,9rem)}
+    .theater{position:relative;min-height:min(78vh,760px);display:flex;align-items:flex-end;margin:0 0 clamp(1.2rem,3vw,2.5rem);padding:clamp(1.4rem,4vw,3.5rem);overflow:hidden;border:1px solid var(--line);text-decoration:none;isolation:isolate}
+    .theater:before{content:"";position:absolute;inset:0;z-index:-2;background:linear-gradient(90deg,rgba(1,4,7,.94),rgba(1,4,7,.42) 60%,rgba(1,4,7,.12)),var(--scene);transition:transform .7s ease,filter .7s ease;background-size:cover;background-position:center}.theater:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,transparent 35%,rgba(0,0,0,.72))}.theater:hover:before{transform:scale(1.025);filter:brightness(1.1)}
+    .theater-copy{max-width:700px}.theater .number{display:block;margin-bottom:.5rem;color:var(--cyan);font-size:.72rem;font-weight:800;letter-spacing:.22em}.theater h3{margin:0;font:400 clamp(2.8rem,7vw,6.8rem)/.92 Georgia,serif;letter-spacing:-.05em}.theater p{max-width:620px;margin:1rem 0 0;color:rgba(241,237,228,.75);font-size:clamp(.96rem,1.5vw,1.14rem)}.theater .enter{display:inline-block;margin-top:1.4rem;border-bottom:1px solid rgba(143,243,232,.6);padding-bottom:.25rem;color:var(--cyan);font-size:.74rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    .gallery{--scene:radial-gradient(circle at 72% 34%,rgba(255,238,190,.2),transparent 18%),linear-gradient(120deg,#172229,#0a1117 58%,#1b2022)}
+    .objects{--scene:radial-gradient(circle at 68% 32%,rgba(177,123,69,.22),transparent 20%),linear-gradient(120deg,#161514,#090b0d 58%,#241c15)}
+    .writing{--scene:radial-gradient(circle at 73% 38%,rgba(225,224,198,.18),transparent 20%),linear-gradient(120deg,#14191c,#080b0e 58%,#1a1e20)}
+    .ocean{--scene:radial-gradient(circle at 73% 45%,rgba(48,168,227,.3),transparent 25%),linear-gradient(120deg,#07131c,#02070c 55%,#05253b)}
+    .music{--scene:radial-gradient(circle at 72% 42%,rgba(109,78,255,.22),transparent 22%),linear-gradient(120deg,#10121a,#06070b 58%,#17142b)}
+    .studio-note{padding:clamp(4rem,9vw,8rem) clamp(1.2rem,6vw,6rem);border-top:1px solid var(--line);text-align:center}.studio-note blockquote{max-width:950px;margin:0 auto;font:400 clamp(2rem,5vw,4.8rem)/1.06 Georgia,serif;letter-spacing:-.035em}.studio-note p{margin:1.5rem 0 0;color:rgba(241,237,228,.55)}
+    .contact{display:flex;justify-content:space-between;align-items:center;gap:2rem;padding:clamp(3rem,7vw,6rem) clamp(1.2rem,6vw,6rem);border-top:1px solid var(--line)}.contact h2{margin:0;font:400 clamp(2rem,5vw,4rem) Georgia,serif}.contact p{max-width:600px;color:rgba(241,237,228,.65)}
+    footer{display:flex;justify-content:space-between;gap:1rem;padding:1.2rem clamp(1.2rem,6vw,6rem);border-top:1px solid var(--line);color:rgba(241,237,228,.48);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase}
+    @media(max-width:760px){.nav .links a:not(:last-child){display:none}.hero:after{right:-22vw;top:18vh;width:78vw;height:45vh;opacity:.55}.manifesto{grid-template-columns:1fr}.theater{min-height:68vh}.contact{align-items:flex-start;flex-direction:column}footer{flex-direction:column}.hero h1{font-size:clamp(3.35rem,19vw,6rem)}}
+    @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
   </style>
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to the studio</a>
-  <div class="ink-particles" aria-hidden="true">
-    <span></span><span></span><span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span><span></span><span></span>
-  </div>
   <nav class="nav" aria-label="Primary navigation">
-    <a class="brand" href="index.html#top">Inkspirations Studios</a>
-    <div class="links">
-      <a href="index.html#top" aria-current="page">Home</a>
-      <a href="#lobby-table">Guest Table</a>
-      <a href="portfolio.html">Gallery</a>
-      <a href="#places">Explore</a>
-      <a href="#about">About</a>
-      <a href="resume.html">Resume</a>
-      <a href="#contact">Contact</a>
-    </div>
+    <a class="brand" href="#top">Inkspirations Studios</a>
+    <div class="links"><a href="#theaters">Theaters</a><a href="resume.html">Resume</a><a href="#contact">Contact</a></div>
   </nav>
 
   <main id="main-content">
-    <header class="hero studio-entry" id="top">
+    <header class="hero" id="top">
       <div class="hero-copy">
-        <p class="kicker">Robert Marleton / Creative Studio</p>
-        <h1>Inkspirations Studios</h1>
-        <p class="welcome">Enter a living creative world shaped by artwork, words, sound, atmosphere, and objects made to be lived with.</p>
-        <p>Begin in the gallery or choose a doorway below. Each place offers a different way to experience Robert's work.</p>
-        <div class="actions">
-          <a class="btn primary" href="portfolio.html">Enter the Gallery</a>
-          <a class="btn" href="#places">Choose a Doorway</a>
-        </div>
+        <p class="eyebrow">Robert Marleton / Creative Director</p>
+        <h1>Inkspirations<span>Studios</span></h1>
+        <p class="lead">One virtual studio. A series of distinct theaters. Each space is directed around the work it presents.</p>
+        <div class="actions"><a class="btn primary" href="#theaters">Enter the Studio</a><a class="btn" href="portfolio.html">View Selected Work</a></div>
       </div>
     </header>
 
-    <section class="section lobby-table-section" id="lobby-table" aria-labelledby="lobby-table-title">
-      <div class="lobby-table">
-        <div class="lobby-intro">
-          <p class="kicker">The Lobby Table</p>
-          <h2 id="lobby-table-title">Welcome. Nothing here is required.</h2>
-          <p>The studio is already open. The guest book and comment cards are simply here for anyone who feels like leaving a name, a thought, a favorite moment, or a quiet hello for Robert.</p>
-          <div class="lobby-note"><strong>Walk straight in, sign the book, leave a card, or do none of the above.</strong> Every doorway remains open either way.</div>
-        </div>
-
-        <div class="card-tray">
-          <form class="paper-card mail-card" data-card-type="Guest Book Entry">
-            <p class="kicker">On the Table</p>
-            <h3>Guest Book</h3>
-            <p>A small record of who wandered through the studio.</p>
-            <label for="guest-name">Name or nickname <span class="optional-mark">optional</span></label>
-            <input id="guest-name" name="name" autocomplete="name" placeholder="How should Robert know you?">
-            <label for="guest-message">A brief note <span class="optional-mark">optional</span></label>
-            <textarea id="guest-message" name="message" placeholder="Hello from the lobby..."></textarea>
-            <button class="btn primary" type="submit">Sign the Guest Book</button>
-            <p class="form-status" role="status" aria-live="polite"></p>
-            <small class="privacy-line">Your note is prepared privately for Robert. It is never posted publicly by this page.</small>
-          </form>
-
-          <form class="paper-card mail-card" data-card-type="Private Comment Card">
-            <p class="kicker">Leave Robert a Note</p>
-            <h3>Comment Card</h3>
-            <p>Share a reaction, suggestion, favorite piece, or anything the studio stirred up.</p>
-            <label for="comment-name">Name or nickname <span class="optional-mark">optional</span></label>
-            <input id="comment-name" name="name" autocomplete="name" placeholder="Your name, if you wish">
-            <label for="comment-room">Room or artwork <span class="optional-mark">optional</span></label>
-            <input id="comment-room" name="room" placeholder="Ocean of Ink, Writing Room, a particular piece...">
-            <label for="comment-message">Your comment</label>
-            <textarea id="comment-message" name="message" required placeholder="Write your card here..."></textarea>
-            <button class="btn primary" type="submit">Place Card in the Box</button>
-            <p class="form-status" role="status" aria-live="polite"></p>
-            <small class="privacy-line">This opens your email app with the card addressed directly to Robert. Nothing is added to a public wall.</small>
-          </form>
-        </div>
-      </div>
+    <section class="manifesto" aria-labelledby="manifesto-title">
+      <h2 id="manifesto-title">The portfolio is not the frame. The experience is.</h2>
+      <p>Inkspirations Studios is designed as a sequence of creative theaters rather than a grid of little rooms. Artwork belongs on the walls. Objects belong on shelves and pedestals. Writing receives stillness. Music receives space. Every environment changes to serve the work, while the studio remains unmistakably one world.</p>
     </section>
 
-    <section class="section places-section" id="places" aria-labelledby="places-title">
-      <div class="section-head">
-        <div>
-          <p class="kicker">Places to Visit</p>
-          <h2 id="places-title">Where would you like to go?</h2>
-          <p>Move at your own pace. Follow the artwork first, step into an immersive room, or meet the ideas and processes that shape the studio.</p>
-        </div>
-        <span class="meta">Nine Doorways</span>
-      </div>
-      <div class="place-grid">
-        <a class="place-card place-card-featured" href="portfolio.html">
-          <span class="place-number" aria-hidden="true">01</span><span class="room-kicker">Selected Work</span><strong>The Gallery</strong><span>Meet the artwork, creative direction, writing, and functional art at the heart of the studio.</span><span class="place-action">Enter the Gallery <span aria-hidden="true">→</span></span>
-        </a>
-        <a class="place-card" href="portfolio-gallery.html">
-          <span class="place-number" aria-hidden="true">02</span><span class="room-kicker">Look Closer</span><strong>Interactive Gallery</strong><span>Search, filter, and open selected pieces in a larger, focused viewing experience.</span><span class="place-action">Explore the Work <span aria-hidden="true">→</span></span>
-        </a>
-        <a class="place-card" href="rooms.html#ocean-of-ink">
-          <span class="place-number" aria-hidden="true">03</span><span class="room-kicker">Atmosphere</span><strong>Ocean of Ink</strong><span>Drift into the deep-water world of moving ink, quiet light, curiosity, and reflection.</span><span class="place-action">Enter the Ocean <span aria-hidden="true">→</span></span>
-        </a>
-        <a class="place-card" href="rooms.html#writing-room">
-          <span class="place-number" aria-hidden="true">04</span><span class="room-kicker">Words</span><strong>The Writing Room</strong><span>Pause with poems, reflections, stories, and the language side of Inkspirations Studios.</span><span class="place-action">Continue Reading <span aria-hidden="true">→</span></span>
-        </a>
-        <a class="place-card" href="music.html">
-          <span class="place-number" aria-hidden="true">05</span><span class="room-kicker">Sound</span><strong>The Music Room</strong><span>Discover the listening spaces, moods, and musical territories that move through the studio.</span><span class="place-action">Enter the Music Room <span aria-hidden="true">→</span></span>
-        </a>
-        <a class="place-card place-card-featured" href="flight-deck.html">
-          <span class="place-number" aria-hidden="true">06</span><span class="room-kicker">C4 Territory / Live Performance</span><strong>Flight Deck DJ</strong><span>Enter Robert's cinematic DJ cockpit for melodic techno, progressive motion, vinyl, lights, radar, and C4 energy.</span><span class="place-action">Enter C4 Territory <span aria-hidden="true">→</span></span>
-        </a>
-        <a class="place-card place-card-featured" href="grand-unified-studio.html">
-          <span class="place-number" aria-hidden="true">07</span><span class="room-kicker">Living Blueprint</span><strong>The Grand Unified Studio</strong><span>Explore how creativity, stewardship, technology, and institutional memory come together without losing the human imagination at the center.</span><span class="place-action">Enter the Blueprint <span aria-hidden="true">→</span></span>
-        </a>
-        <a class="place-card" href="systems-i-built.html">
-          <span class="place-number" aria-hidden="true">08</span><span class="room-kicker">Creative Practice</span><strong>How Robert Builds</strong><span>See how ideas become artwork, experiences, visual systems, and finished creative directions.</span><span class="place-action">Explore the Process <span aria-hidden="true">→</span></span>
-        </a>
-        <a class="place-card place-card-featured" href="resume.html">
-          <span class="place-number" aria-hidden="true">09</span><span class="room-kicker">Professional Profile</span><strong>Robert's Resume</strong><span>Explore Robert's experience, creative technology skills, selected projects, and professional strengths.</span><span class="place-action">View the Resume <span aria-hidden="true">→</span></span>
-        </a>
-      </div>
+    <section class="theaters" id="theaters" aria-label="Studio theaters">
+      <a class="theater gallery" href="portfolio.html">
+        <div class="theater-copy"><span class="number">THEATER 01 / VISUAL WORK</span><h3>The Gallery</h3><p>Artwork presented with scale, restraint, and gallery lighting. No visual clutter. The walls carry the story.</p><span class="enter">Enter the Gallery</span></div>
+      </a>
+
+      <a class="theater objects" href="portfolio.html#functional-art">
+        <div class="theater-copy"><span class="number">THEATER 02 / OBJECTS</span><h3>Wood & Functional Art</h3><p>Coasters, wood pieces, and tactile work arranged as crafted objects, not merchandise tiles.</p><span class="enter">View the Collection</span></div>
+      </a>
+
+      <a class="theater writing" href="rooms.html#writing-room">
+        <div class="theater-copy"><span class="number">THEATER 03 / WORDS</span><h3>The Writing Theater</h3><p>A quiet, focused environment for poetry, reflection, and story. Language takes center stage.</p><span class="enter">Enter the Writing Theater</span></div>
+      </a>
+
+      <a class="theater ocean" href="ocean-of-ink.html">
+        <div class="theater-copy"><span class="number">THEATER 04 / IMMERSION</span><h3>Ocean of Ink</h3><p>An atmospheric passage of movement, depth, and curiosity. Less navigation, more encounter.</p><span class="enter">Enter the Ocean</span></div>
+      </a>
+
+      <a class="theater music" href="music.html">
+        <div class="theater-copy"><span class="number">THEATER 05 / SOUND</span><h3>The Music Theater</h3><p>A listening environment where rhythm, mood, and visual direction operate as one performance.</p><span class="enter">Enter the Music Theater</span></div>
+      </a>
     </section>
 
-    <section class="section path-section" aria-labelledby="path-title"><div class="path-panel"><p class="kicker">First Visit?</p><h2 id="path-title">Take the curated path.</h2><p>Begin with the Gallery, drift through Ocean of Ink, pause in the Writing Room, and return here whenever you are ready for another doorway.</p><a class="btn primary" href="portfolio.html">Begin the Curated Path</a></div></section>
+    <section class="studio-note">
+      <blockquote>“Creative direction is not decoration. It is deciding what the audience sees, feels, and remembers.”</blockquote>
+      <p>Robert Marleton, Founder & Creative Director</p>
+    </section>
 
-    <section class="section" id="about" aria-labelledby="about-title"><div class="about-panel"><p class="kicker">About</p><h2 id="about-title">A creative home with room to enter.</h2><p>Inkspirations Studios is the creative world of Robert Marleton—an artist, designer, writer, maker, and creative director who brings visual storytelling, atmosphere, and thoughtful systems together.</p><p>This is not a collection of disconnected projects. Each gallery and room belongs to the same evolving studio: curious, welcoming, handcrafted, and alive.</p></div></section>
-
-    <section class="section" id="contact" aria-labelledby="contact-title"><div class="contact"><div><p class="kicker">Contact</p><h2 id="contact-title">Start a conversation with Robert.</h2><p>Ask about artwork, commissions, creative direction, design work, collaboration, or bringing an Inkspirations piece home.</p></div><a class="btn primary" href="mailto:r.marleton@gmail.com?subject=Inkspirations%20Studios%20Inquiry">Contact Robert</a></div></section>
+    <section class="contact" id="contact">
+      <div><h2>Start a conversation.</h2><p>For creative direction, design, commissions, collaborations, or artwork inquiries.</p></div>
+      <a class="btn primary" href="mailto:r.marleton@gmail.com?subject=Inkspirations%20Studios%20Inquiry">Contact Robert</a>
+    </section>
   </main>
 
   <footer><span>Inkspirations Studios</span><span>Robert Marleton</span><a href="#top">Return to Top</a></footer>
   <script src="site-nav.js?v=20260722" defer></script>
-  <script>
-    document.addEventListener('click',function(event){
-      const card=event.target.closest('.place-card');
-      if(!card)return;
-      const href=card.getAttribute('href');
-      if(!href)return;
-      event.preventDefault();
-      window.location.assign(href);
-    },true);
-
-    document.querySelectorAll('.mail-card').forEach(function(form){
-      form.addEventListener('submit',function(event){
-        event.preventDefault();
-        const data=new FormData(form);
-        const type=form.dataset.cardType||'Studio Note';
-        const name=(data.get('name')||'').toString().trim()||'Anonymous guest';
-        const room=(data.get('room')||'').toString().trim();
-        const message=(data.get('message')||'').toString().trim()||'Signed the guest book.';
-        const lines=['Name: '+name];
-        if(room)lines.push('Room or artwork: '+room);
-        lines.push('',message,'','Sent from the Inkspirations Studios lobby table.');
-        const subject=encodeURIComponent('Inkspirations Studios: '+type);
-        const body=encodeURIComponent(lines.join('\n'));
-        const status=form.querySelector('.form-status');
-        if(status)status.textContent='Your card is ready. Opening your email app now...';
-        window.location.href='mailto:r.marleton@gmail.com?subject='+subject+'&body='+body;
-      });
-    });
-  </script>
 </body>
 </html>
