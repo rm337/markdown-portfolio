@@ -13,24 +13,37 @@
     nav{position:fixed;inset:0 0 auto;z-index:20;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1rem clamp(1rem,5vw,4rem);background:linear-gradient(rgba(1,5,13,.88),rgba(1,5,13,.2));backdrop-filter:blur(10px)}
     nav a{color:inherit;text-decoration:none}.links{display:flex;gap:1rem;flex-wrap:wrap;justify-content:flex-end;font-family:Arial,sans-serif;font-size:.72rem;font-weight:900;letter-spacing:.11em;text-transform:uppercase}
     .ocean{position:relative;min-height:100vh;overflow:hidden;background:radial-gradient(circle at 50% 8%,rgba(103,227,255,.18),transparent 24%),linear-gradient(180deg,#0b3358 0%,#062341 36%,#03162d 66%,#010711 100%)}
-    .surface{position:absolute;inset:0 0 auto;height:38vh;overflow:hidden;opacity:.95}
-    .wave{position:absolute;left:-15%;width:130%;height:180px;border-radius:48%;background:rgba(103,227,255,.13);filter:blur(1px);animation:swell 12s ease-in-out infinite alternate}
-    .wave.one{top:12vh}.wave.two{top:18vh;animation-duration:17s;animation-delay:-7s;background:rgba(1,116,243,.18)}.wave.three{top:24vh;animation-duration:22s;animation-delay:-4s;background:rgba(255,255,255,.08)}
-    .ink-cloud{position:absolute;border-radius:45% 55% 60% 40%/50% 45% 55% 50%;filter:blur(28px);mix-blend-mode:screen;opacity:.52;animation:inkDrift 18s ease-in-out infinite alternate}
-    .ink-cloud.c1{width:38vw;height:28vw;left:-8vw;top:25vh;background:radial-gradient(circle at 35% 40%,#0174f3,transparent 62%),radial-gradient(circle at 65% 65%,#5d27ff,transparent 60%)}
-    .ink-cloud.c2{width:32vw;height:40vw;right:-5vw;top:31vh;background:radial-gradient(circle at 45% 35%,#67e3ff,transparent 60%),radial-gradient(circle at 65% 75%,#0174f3,transparent 58%);animation-duration:24s;animation-delay:-8s}
-    .ink-cloud.c3{width:46vw;height:22vw;left:27vw;bottom:3vh;background:radial-gradient(circle at 50% 50%,#163e89,transparent 64%),radial-gradient(circle at 28% 55%,#0174f3,transparent 56%);animation-duration:28s;animation-delay:-13s}
+    .surface{position:absolute;inset:0 0 auto;height:38vh;overflow:hidden;opacity:.95}.wave{position:absolute;left:-15%;width:130%;height:180px;border-radius:48%;background:rgba(103,227,255,.13);filter:blur(1px);animation:swell 12s ease-in-out infinite alternate}.wave.one{top:12vh}.wave.two{top:18vh;animation-duration:17s;animation-delay:-7s;background:rgba(1,116,243,.18)}.wave.three{top:24vh;animation-duration:22s;animation-delay:-4s;background:rgba(255,255,255,.08)}
+    .ink-cloud{position:absolute;border-radius:45% 55% 60% 40%/50% 45% 55% 50%;filter:blur(28px);mix-blend-mode:screen;opacity:.52;animation:inkDrift 18s ease-in-out infinite alternate}.ink-cloud.c1{width:38vw;height:28vw;left:-8vw;top:25vh;background:radial-gradient(circle at 35% 40%,#0174f3,transparent 62%),radial-gradient(circle at 65% 65%,#5d27ff,transparent 60%)}.ink-cloud.c2{width:32vw;height:40vw;right:-5vw;top:31vh;background:radial-gradient(circle at 45% 35%,#67e3ff,transparent 60%),radial-gradient(circle at 65% 75%,#0174f3,transparent 58%);animation-duration:24s;animation-delay:-8s}.ink-cloud.c3{width:46vw;height:22vw;left:27vw;bottom:3vh;background:radial-gradient(circle at 50% 50%,#163e89,transparent 64%),radial-gradient(circle at 28% 55%,#0174f3,transparent 56%);animation-duration:28s;animation-delay:-13s}
     .ink-drop{position:absolute;width:8px;height:68px;border-radius:50%;background:linear-gradient(var(--cyan),transparent);opacity:.32;animation:fall 7s linear infinite}.d1{left:18%;top:9%;animation-delay:-2s}.d2{left:48%;top:15%;animation-delay:-5s}.d3{left:77%;top:7%;animation-delay:-3s}
     .hero{position:relative;z-index:5;min-height:100vh;display:grid;place-items:center;padding:8rem 1.2rem 5rem;text-align:center}.hero-inner{max-width:940px}.kicker{font-family:Arial,sans-serif;color:var(--cyan);font-size:.72rem;font-weight:900;letter-spacing:.19em;text-transform:uppercase}.hero h1{font-size:clamp(4rem,13vw,10rem);line-height:.82;margin:.45rem 0 1.5rem;font-weight:500;text-shadow:0 20px 80px rgba(1,116,243,.6)}.lead{max-width:760px;margin:0 auto;color:var(--soft);font-size:clamp(1.1rem,2.3vw,1.45rem);line-height:1.7}.actions{display:flex;justify-content:center;gap:.8rem;flex-wrap:wrap;margin-top:2rem}.btn{display:inline-flex;padding:.85rem 1.1rem;border:1px solid var(--line);color:var(--paper);text-decoration:none;background:rgba(1,7,19,.34);backdrop-filter:blur(8px);font-family:Arial,sans-serif;font-size:.7rem;font-weight:900;letter-spacing:.11em;text-transform:uppercase}.btn.primary{background:var(--blue);border-color:var(--cyan)}
-    .current{position:relative;z-index:6;padding:clamp(4rem,8vw,7rem) clamp(1rem,5vw,4rem);background:linear-gradient(180deg,rgba(1,7,17,.08),#010711 16%)}
-    .current-inner{max-width:1450px;margin:auto}.section-head{max-width:780px;margin-bottom:2rem}.section-head h2{font-size:clamp(2.6rem,6vw,5rem);margin:.3rem 0 1rem;font-weight:500}.section-head p{color:var(--soft);line-height:1.7}
+    .threshold{position:relative;isolation:isolate;min-height:92vh;display:grid;place-items:center;overflow:hidden;padding:8rem 1rem;background:radial-gradient(circle at 50% 18%,rgba(56,185,255,.12),transparent 23%),linear-gradient(180deg,#010711,#03152b 55%,#020812)}
+    .threshold::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(105deg,transparent 0 70px,rgba(103,227,255,.025) 72px 74px);animation:currentSweep 16s linear infinite;pointer-events:none}
+    .threshold-copy{position:relative;z-index:7;max-width:690px;text-align:center;margin-bottom:3rem}.threshold-copy h2{font-size:clamp(2.7rem,7vw,5.8rem);font-weight:500;line-height:.95;margin:.5rem 0 1rem}.threshold-copy p{color:var(--soft);line-height:1.7}
+    .stone-gate{position:relative;z-index:6;width:min(900px,94vw);height:clamp(390px,58vw,620px);border:0;background:none;padding:0;cursor:pointer;color:inherit;filter:drop-shadow(0 26px 60px rgba(0,0,0,.55))}
+    .stone-gate:focus-visible{outline:2px solid var(--cyan);outline-offset:10px}
+    .passage{position:absolute;left:50%;top:8%;bottom:5%;width:34%;transform:translateX(-50%) scaleX(.04);border-radius:48% 48% 16% 16%/28% 28% 12% 12%;background:radial-gradient(circle at 50% 32%,rgba(255,255,255,.95) 0 3%,rgba(103,227,255,.9) 7%,rgba(1,116,243,.78) 20%,rgba(12,45,91,.88) 48%,rgba(1,4,12,.98) 76%);box-shadow:0 0 22px rgba(103,227,255,.25),0 0 90px rgba(1,116,243,.38),inset 0 0 70px rgba(103,227,255,.22);opacity:.55;transition:transform 1.7s cubic-bezier(.2,.75,.2,1),opacity 1.2s ease}
+    .passage::after{content:"";position:absolute;inset:8% 18% 0;border-radius:50% 50% 18% 18%;background:linear-gradient(180deg,rgba(103,227,255,.5),rgba(2,8,18,.15) 34%,rgba(0,0,0,.9));filter:blur(5px)}
+    .rock{position:absolute;top:4%;bottom:2%;width:53%;background:radial-gradient(circle at 35% 20%,rgba(122,147,157,.34),transparent 17%),radial-gradient(circle at 62% 42%,rgba(51,72,82,.68),transparent 27%),linear-gradient(145deg,#26343d 0%,#101c24 42%,#071019 74%,#02070c 100%);border:1px solid rgba(160,210,225,.12);box-shadow:inset -22px -28px 55px rgba(0,0,0,.58),inset 14px 12px 26px rgba(138,185,201,.08);transition:transform 1.7s cubic-bezier(.2,.75,.2,1)}
+    .rock::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 28% 74%,rgba(64,118,110,.24),transparent 8%),radial-gradient(circle at 72% 62%,rgba(78,135,125,.16),transparent 11%),linear-gradient(100deg,transparent 48%,rgba(103,227,255,.05) 49%,transparent 51%);mix-blend-mode:screen}
+    .rock.left{left:0;clip-path:polygon(0 11%,13% 5%,30% 8%,42% 0,57% 9%,70% 5%,87% 18%,96% 30%,92% 44%,100% 57%,91% 70%,96% 84%,78% 91%,66% 100%,45% 95%,28% 99%,12% 88%,4% 72%,8% 54%,0 38%)}
+    .rock.right{right:0;clip-path:polygon(4% 30%,13% 18%,30% 5%,43% 9%,58% 0,70% 8%,87% 5%,100% 11%,100% 38%,92% 54%,96% 72%,88% 88%,72% 99%,55% 95%,34% 100%,22% 91%,4% 84%,9% 70%,0 57%,8% 44%)}
+    .seam{position:absolute;z-index:8;left:50%;top:12%;bottom:8%;width:3px;transform:translateX(-50%);background:linear-gradient(transparent,rgba(103,227,255,.92) 18%,rgba(255,255,255,.98) 46%,rgba(1,116,243,.65) 78%,transparent);box-shadow:0 0 8px var(--cyan),0 0 32px var(--blue);opacity:.25;transition:opacity .7s ease,transform 1.5s ease}
+    .sand{position:absolute;z-index:10;left:50%;bottom:1%;width:54%;height:18%;transform:translateX(-50%);background:radial-gradient(ellipse at center,rgba(174,188,173,.28),transparent 68%);filter:blur(7px);opacity:.38;transition:opacity .8s ease}.sand::before,.sand::after{content:"";position:absolute;width:10px;height:10px;border-radius:50%;background:rgba(218,231,222,.42);box-shadow:46px -12px 0 rgba(218,231,222,.25),94px 9px 0 rgba(218,231,222,.26),142px -18px 0 rgba(218,231,222,.2),190px 5px 0 rgba(218,231,222,.25),238px -8px 0 rgba(218,231,222,.18),286px 14px 0 rgba(218,231,222,.22),334px -12px 0 rgba(218,231,222,.2);animation:sandDrift 6s ease-in-out infinite alternate}.sand::after{right:20%;left:auto;transform:scale(.6);animation-delay:-3s}
+    .gate-label{position:absolute;z-index:12;left:50%;bottom:8%;transform:translateX(-50%);padding:.8rem 1rem;border:1px solid rgba(103,227,255,.25);background:rgba(1,7,17,.48);backdrop-filter:blur(8px);font-family:Arial,sans-serif;font-size:.68rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;transition:opacity .5s ease,transform .5s ease}
+    .stone-gate:hover .seam,.stone-gate:focus-visible .seam{opacity:.85}.stone-gate:hover .gate-label,.stone-gate:focus-visible .gate-label{transform:translateX(-50%) translateY(-4px)}
+    .stone-gate.is-open .rock.left{transform:translateX(-31%) rotate(-1.8deg)}.stone-gate.is-open .rock.right{transform:translateX(31%) rotate(1.8deg)}.stone-gate.is-open .passage{transform:translateX(-50%) scaleX(1);opacity:1}.stone-gate.is-open .seam{opacity:0;transform:translateX(-50%) scaleY(1.2)}.stone-gate.is-open .sand{opacity:.75}.stone-gate.is-open .gate-label{opacity:0;pointer-events:none}
+    .reveal{position:relative;z-index:7;max-width:720px;margin:2rem auto 0;text-align:center;color:var(--soft);line-height:1.7;opacity:0;transform:translateY(18px);transition:opacity 1s ease .7s,transform 1s ease .7s}.threshold.open .reveal{opacity:1;transform:none}.reveal strong{color:var(--paper);font-weight:500}.reveal a{color:var(--cyan)}
+    .current{position:relative;z-index:6;padding:clamp(4rem,8vw,7rem) clamp(1rem,5vw,4rem);background:linear-gradient(180deg,rgba(1,7,17,.08),#010711 16%)}.current-inner{max-width:1450px;margin:auto}.section-head{max-width:780px;margin-bottom:2rem}.section-head h2{font-size:clamp(2.6rem,6vw,5rem);margin:.3rem 0 1rem;font-weight:500}.section-head p{color:var(--soft);line-height:1.7}
     .gallery{display:grid;grid-template-columns:repeat(12,1fr);gap:1rem}.piece{position:relative;grid-column:span 4;min-height:360px;overflow:hidden;border:1px solid var(--line);background:#03101f;text-decoration:none;color:var(--paper)}.piece:first-child{grid-column:span 7}.piece:nth-child(2){grid-column:span 5}.piece img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}.piece:hover img{transform:scale(1.035)}.piece span{position:absolute;inset:auto 0 0;padding:1.2rem;background:linear-gradient(transparent,rgba(1,5,13,.96));font-size:1.35rem}.piece small{display:block;color:var(--cyan);font-family:Arial,sans-serif;font-size:.66rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.35rem}
     .exit{text-align:center;padding:5rem 1rem 7rem;background:#010711}.exit p{color:var(--soft);max-width:650px;margin:0 auto 1.5rem;line-height:1.7}
     @keyframes swell{from{transform:translateX(-3%) rotate(-2deg) scaleY(.86)}to{transform:translateX(3%) rotate(2deg) scaleY(1.14)}}
     @keyframes inkDrift{from{transform:translate3d(-3vw,-2vh,0) rotate(-4deg) scale(.94)}to{transform:translate3d(5vw,6vh,0) rotate(7deg) scale(1.12)}}
     @keyframes fall{from{transform:translateY(-20vh);opacity:0}20%{opacity:.35}to{transform:translateY(100vh);opacity:0}}
-    @media(max-width:850px){.gallery{grid-template-columns:1fr}.piece,.piece:first-child,.piece:nth-child(2){grid-column:auto;min-height:300px}.ink-cloud{opacity:.42}.links{gap:.65rem;font-size:.64rem}}
-    @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+    @keyframes currentSweep{from{transform:translateX(-8%)}to{transform:translateX(8%)}}
+    @keyframes sandDrift{from{transform:translate(-12px,6px);opacity:.3}to{transform:translate(16px,-10px);opacity:.75}}
+    @media(max-width:850px){.gallery{grid-template-columns:1fr}.piece,.piece:first-child,.piece:nth-child(2){grid-column:auto;min-height:300px}.ink-cloud{opacity:.42}.links{gap:.65rem;font-size:.64rem}.threshold{padding-block:6rem}.stone-gate{height:440px}.gate-label{bottom:5%;font-size:.6rem}.rock{width:57%}.stone-gate.is-open .rock.left{transform:translateX(-27%)}.stone-gate.is-open .rock.right{transform:translateX(27%)}}
+    @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}.stone-gate.is-open .rock.left{transform:translateX(-29%)}.stone-gate.is-open .rock.right{transform:translateX(29%)}}
   </style>
 </head>
 <body>
@@ -40,10 +53,25 @@
     <div class="surface" aria-hidden="true"><div class="wave one"></div><div class="wave two"></div><div class="wave three"></div></div>
     <div class="ink-cloud c1" aria-hidden="true"></div><div class="ink-cloud c2" aria-hidden="true"></div><div class="ink-cloud c3" aria-hidden="true"></div>
     <i class="ink-drop d1" aria-hidden="true"></i><i class="ink-drop d2" aria-hidden="true"></i><i class="ink-drop d3" aria-hidden="true"></i>
-    <div class="hero"><div class="hero-inner"><p class="kicker">Immersive Studio Experience</p><h1>Ocean<br>of Ink</h1><p class="lead">A living ocean where blue water, luminous pigment, and Robert Marleton's artwork move together. The current is slow, atmospheric, and intentionally alive.</p><div class="actions"><a class="btn primary" href="#artwork">Dive Beneath the Surface</a><a class="btn" href="rooms.html">Return to Rooms</a></div></div></div>
+    <div class="hero"><div class="hero-inner"><p class="kicker">Immersive Studio Experience</p><h1>Ocean<br>of Ink</h1><p class="lead">A living ocean where blue water, luminous pigment, and Robert Marleton's artwork move together. The current is slow, atmospheric, and intentionally alive.</p><div class="actions"><a class="btn primary" href="#threshold">Dive Beneath the Surface</a><a class="btn" href="rooms.html">Return to Rooms</a></div></div></div>
   </section>
 
-  <section class="current" id="artwork"><div class="current-inner"><div class="section-head"><p class="kicker">Beneath the Surface</p><h2>Artwork carried by the current.</h2><p>The Ocean of Ink now contains real work from the portfolio, not an empty atmospheric panel. Each piece leads back to the complete gallery.</p></div><div class="gallery">
+  <section class="threshold" id="threshold" aria-labelledby="threshold-title">
+    <div>
+      <div class="threshold-copy"><p class="kicker">A Hidden Threshold</p><h2 id="threshold-title">The ocean keeps its own doors.</h2><p>What appears to be an ordinary rock formation may be something else entirely. Approach slowly. The passage responds to curiosity, not instruction.</p></div>
+      <button class="stone-gate" type="button" aria-expanded="false" aria-controls="hidden-passage" aria-label="Open the concealed rock entrance">
+        <span class="passage" aria-hidden="true"></span>
+        <span class="rock left" aria-hidden="true"></span>
+        <span class="rock right" aria-hidden="true"></span>
+        <span class="seam" aria-hidden="true"></span>
+        <span class="sand" aria-hidden="true"></span>
+        <span class="gate-label">Approach the rock formation</span>
+      </button>
+      <div class="reveal" id="hidden-passage" aria-live="polite"><strong>A passage has opened beneath the stone.</strong> This first threshold establishes the discovery language for future caverns, galleries, gardens, sanctuaries, and hidden routes throughout Ocean of Ink. <a href="#artwork">Continue with the current.</a></div>
+    </div>
+  </section>
+
+  <section class="current" id="artwork"><div class="current-inner"><div class="section-head"><p class="kicker">Beneath the Surface</p><h2>Artwork carried by the current.</h2><p>The Ocean of Ink contains real work from the portfolio. Each piece leads back to the complete gallery while future phases will place selected artwork directly within the underwater world.</p></div><div class="gallery">
     <a class="piece" href="portfolio.html#portfolio"><img src="assets/images/portfolio/soul-current.jpg" alt="Submersion artwork"><span><small>Fluid Soul Series</small>Submersion</span></a>
     <a class="piece" href="portfolio.html#portfolio"><img src="assets/images/portfolio/blue-name-current.jpg" alt="Release artwork"><span><small>Signature Collection</small>Release</span></a>
     <a class="piece" href="portfolio.html#portfolio"><img src="assets/images/portfolio/washed-out.jpg" alt="Washed Out artwork"><span><small>Signature Collection</small>Washed Out</span></a>
@@ -52,5 +80,17 @@
   </div></div></section>
 
   <section class="exit"><p class="kicker">Follow the Current</p><h2>Keep moving through the studio.</h2><p>Continue to the full portfolio, explore the remaining rooms, or return home. There are no dead ends here.</p><div class="actions"><a class="btn primary" href="portfolio.html">Full Portfolio</a><a class="btn" href="rooms.html">All Rooms</a><a class="btn" href="index.html">Home</a></div></section>
+
+  <script>
+    const threshold = document.querySelector('.threshold');
+    const gate = document.querySelector('.stone-gate');
+
+    gate.addEventListener('click', () => {
+      const isOpen = gate.classList.toggle('is-open');
+      threshold.classList.toggle('open', isOpen);
+      gate.setAttribute('aria-expanded', String(isOpen));
+      gate.setAttribute('aria-label', isOpen ? 'Close the concealed rock entrance' : 'Open the concealed rock entrance');
+    });
+  </script>
 </body>
 </html>
