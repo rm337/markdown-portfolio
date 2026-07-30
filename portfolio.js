@@ -53,6 +53,7 @@ const fallbackCatalog = [
   ["blue-name-current", "Release", "Signature Collection", "Lettering / Digital"],
   ["washed-out", "Washed Out", "Signature Collection", "Lettering / Digital"],
   ["sunflower-mandala", "Sunflower Mandala", "Nature & Organic", "Digital Pattern"],
+  ["lest-we-forget", "Lest We Forget", "Experimental Works", "Digital Collage / Typographic Study"],
   ["rainline-study", "Rainline Study", "Texture Studies", "Texture / Ink Study"],
   ["blue-field", "Blue Field", "Texture Studies", "Digital Texture"],
   ["love-texture", "Love Study (Title Pending)", "Words & Expressions", "Lettering / Texture"],
