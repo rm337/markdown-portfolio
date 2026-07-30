@@ -59,6 +59,20 @@
       "desc": "A bright organic pattern study centered on a sunflower form. The piece adds warmth and structure to the collection."
     },
     {
+      "type": "Digital Collage",
+      "medium": "Digital Collage / Typographic Study",
+      "title": "Lest We Forget",
+      "category": "Experimental Works",
+      "collection": "Experimental Works",
+      "src": "assets/images/portfolio/lest-we-forget.jpg",
+      "thumb": "assets/images/portfolio/thumbs/lest-we-forget-thumb.jpg",
+      "printUrl": "",
+      "printAvailable": false,
+      "originalAvailable": false,
+      "inquiryType": "prints",
+      "desc": "A high-contrast digital collage centered on the phrase Lest We Forget, with red, blue, light, and rough texture layered together."
+    },
+    {
       "type": "Ink Study",
       "medium": "Texture / Ink Study",
       "title": "Rainline Study",
