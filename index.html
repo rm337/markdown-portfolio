@@ -67,10 +67,7 @@
       overflow: hidden;
       isolation: isolate;
       padding: clamp(8rem,16vw,13rem) clamp(1.2rem,6vw,6rem) clamp(4rem,8vw,7rem);
-      background:
-        radial-gradient(circle at 78% 24%,rgba(31,118,166,.48),transparent 42%),
-        radial-gradient(circle at 18% 78%,rgba(17,79,128,.52),transparent 48%),
-        #0a2c4e;
+      background: #0b3156;
     }
 
     #tide-canvas {
@@ -85,83 +82,7 @@
       mix-blend-mode: screen;
     }
 
-    .hero-atmosphere {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      overflow: hidden;
-      pointer-events: none;
-    }
-
-    .ink-bloom {
-      position: absolute;
-      border-radius: 48% 52% 58% 42% / 42% 46% 54% 58%;
-      filter: blur(54px);
-      opacity: .52;
-      mix-blend-mode: screen;
-      will-change: transform;
-      animation: inkFloat 10s ease-in-out infinite alternate;
-    }
-
-    .ink-bloom.one {
-      width: min(62vw,760px);
-      height: min(52vw,640px);
-      top: -18%;
-      right: -12%;
-      background: radial-gradient(circle at 38% 42%,rgba(65,198,224,.78),rgba(17,112,162,.48) 46%,transparent 72%);
-    }
-
-    .ink-bloom.two {
-      width: min(46vw,560px);
-      height: min(42vw,520px);
-      bottom: -20%;
-      left: 12%;
-      background: radial-gradient(circle at 52% 48%,rgba(44,139,184,.72),rgba(10,71,117,.32) 52%,transparent 74%);
-      animation-duration: 13s;
-      animation-delay: -8s;
-    }
-
-    .ink-bloom.three {
-      width: min(30vw,390px);
-      height: min(36vw,470px);
-      top: 25%;
-      left: 48%;
-      background: radial-gradient(circle,rgba(105,221,226,.64),rgba(11,96,145,.3) 48%,transparent 72%);
-      animation-duration: 15s;
-      animation-delay: -14s;
-    }
-
-    .water-light {
-      display: none;
-    }
-
-    .tap-ripple {
-      position: absolute;
-      z-index: 2;
-      width: 34px;
-      height: 34px;
-      margin: -17px 0 0 -17px;
-      border: 2px solid rgba(151,231,239,.72);
-      border-radius: 50%;
-      box-shadow: 0 0 34px rgba(83,207,225,.48), inset 0 0 24px rgba(83,207,225,.28);
-      pointer-events: none;
-      animation: tapRipple 1.8s ease-out forwards;
-    }
-
-    .motion-mark { position: absolute; z-index: 2; pointer-events: none; mix-blend-mode: screen; }
-    .motion-mark.dot { width: 20px; height: 20px; margin: -10px; border-radius: 50%; background: rgba(168,240,242,.92); box-shadow: 0 0 18px rgba(84,217,229,.88),0 0 54px rgba(39,149,196,.72); animation: inkDot 2.4s ease-out forwards; }
-    .motion-mark.expanse { width: 90px; height: 90px; margin: -45px; border-radius: 42% 58% 66% 34% / 48% 38% 62% 52%; background: radial-gradient(circle,rgba(82,219,226,.72),rgba(16,118,170,.46) 42%,transparent 72%); filter: blur(9px); animation: inkExpanse 3.2s ease-out forwards; }
-    .motion-mark.drift { width: 180px; height: 34px; margin: -17px 0 0 -90px; border-radius: 50%; background: linear-gradient(90deg,transparent,rgba(93,220,230,.65),rgba(27,129,181,.48),transparent); filter: blur(7px); animation: inkDrift 3.4s ease-out forwards; }
-
-    .motion-status { width: 100%; color: rgba(244,240,232,.72); font-size: .78rem; }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      background: radial-gradient(circle at 12% 58%,rgba(5,24,45,.42),transparent 62%);
-    }
+    .hero::before { content: none; }
 
     .hero::after { content: none; }
 
@@ -421,12 +342,6 @@
   <main id="main-content">
     <header class="hero" id="top">
       <canvas id="tide-canvas" aria-hidden="true"></canvas>
-      <div class="hero-atmosphere" aria-hidden="true">
-        <span class="ink-bloom one"></span>
-        <span class="ink-bloom two"></span>
-        <span class="ink-bloom three"></span>
-        <span class="water-light"></span>
-      </div>
       <div class="hero-copy">
         <p class="eyebrow">Robert Marleton / Founder & Creative Director</p>
         <h1>Inkspirations<span>Studios</span></h1>
@@ -434,9 +349,6 @@
         <div class="actions">
           <a class="btn primary" href="#selected-work">Explore the Work</a>
           <a class="btn" href="portfolio.html">View Portfolio</a>
-          <button class="btn motion-toggle" type="button" data-motion-toggle aria-pressed="true">Motion: On</button>
-          <button class="btn" type="button" data-motion-speak>Speak Motion</button>
-          <span class="motion-status" data-motion-status role="status" aria-live="polite"></span>
         </div>
       </div>
     </header>
@@ -569,6 +481,5 @@
     })();
   </script>
   <script src="site-nav.js?v=20260731b" defer></script>
-  <script src="js/home-motion.js?v=20260731-commands" defer></script>
 </body>
 </html>
