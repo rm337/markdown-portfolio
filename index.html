@@ -247,9 +247,9 @@
       overflow: hidden;
       border: 1px solid var(--line);
       background:
-        linear-gradient(135deg,transparent 0 42%,rgba(114,200,221,.12) 43% 44%,transparent 45%),
-        radial-gradient(circle at 70% 34%,rgba(101,209,229,.28),transparent 23%),
-        linear-gradient(155deg,#0a3d58,#03111b 65%);
+        linear-gradient(135deg,rgba(2,10,16,.18),rgba(2,10,16,.68)),
+        linear-gradient(180deg,rgba(3,17,27,.08),rgba(2,9,15,.48)),
+        url("assets/images/portfolio/soul-current.jpg") center 52% / cover no-repeat;
     }
 
     .feature-visual::before,
@@ -263,6 +263,8 @@
       box-shadow: 0 28px rgba(142,220,236,.21),0 56px rgba(142,220,236,.12);
       transform: rotate(-8deg);
       animation: drift 10s ease-in-out infinite alternate;
+      opacity: .38;
+      mix-blend-mode: screen;
     }
 
     .feature-visual::before { top: 40%; }
