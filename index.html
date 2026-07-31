@@ -12,8 +12,8 @@
   <link rel="stylesheet" href="site-nav.css?v=20260722">
   <style>
     :root {
-      --ink: #0a2c4e;
-      --deep: #0c3a63;
+      --ink: #277fa4;
+      --deep: #3e9fba;
       --blue: #15557b;
       --glow: #72c8dd;
       --paper: #f4f0e8;
@@ -67,7 +67,7 @@
       overflow: hidden;
       isolation: isolate;
       padding: clamp(8rem,16vw,13rem) clamp(1.2rem,6vw,6rem) clamp(4rem,8vw,7rem);
-      background: #0b3156;
+      background: linear-gradient(180deg,#78cbd5 0%,#4aa7bd 18%,#2e86aa 48%,#226f98 100%);
     }
 
     #tide-canvas {
@@ -91,7 +91,21 @@
       pointer-events: auto;
     }
 
-    .hero::before { content: none; }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      z-index: 1;
+      height: 24%;
+      pointer-events: none;
+      opacity: .64;
+      background:
+        radial-gradient(ellipse at 18% 8%,rgba(255,255,244,.72),transparent 34%),
+        radial-gradient(ellipse at 58% 2%,rgba(220,250,247,.58),transparent 32%),
+        radial-gradient(ellipse at 88% 10%,rgba(255,255,255,.46),transparent 28%);
+      filter: blur(10px);
+      animation: surfaceReflection 9s ease-in-out infinite alternate;
+    }
 
     .hero::after { content: none; }
 
@@ -303,6 +317,7 @@
     @keyframes drift { from { transform: translateX(-2%) rotate(-8deg); } to { transform: translateX(5%) rotate(-6deg); } }
     @keyframes lightPass { from { transform: translateX(-24%) rotate(-4deg); opacity: .5; } to { transform: translateX(20%) rotate(3deg); opacity: 1; } }
     @keyframes visualBreathe { from { background-size: auto,auto,100%; } to { background-size: auto,auto,106%; } }
+    @keyframes surfaceReflection { from { transform: translate3d(-2%,0,0) scaleX(1); opacity: .54; } to { transform: translate3d(3%,1.2%,0) scaleX(1.08); opacity: .74; } }
 
     @media (max-width: 760px) {
       .nav-links { display: none; }
@@ -477,6 +492,6 @@
     })();
   </script>
   <script src="site-nav.js?v=20260731b" defer></script>
-  <script src="js/ink-injection.js?v=20260731" defer></script>
+  <script src="js/ink-injection.js?v=20260731-dissolve" defer></script>
 </body>
 </html>
