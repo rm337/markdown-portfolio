@@ -98,7 +98,8 @@ const flightDeckData = fs.readFileSync(path.join(root, "data/flight-deck-tracks.
 assert.doesNotMatch(flightDeckData, /dj\.html/i, "No nonexistent DJ page may remain");
 
 const portfolioSource = fs.readFileSync(path.join(root, "portfolio.js"), "utf8");
-assert.match(portfolioSource, /Ask About This Piece/);
+assert.match(portfolioSource, /Shop Prints & Products/);
+assert.match(portfolioSource, /pixels\.com\/profiles\/robert-marleton/);
 assert.match(portfolioSource, /mailto:r\.marleton@gmail\.com/);
 assert.doesNotMatch(fs.readFileSync(path.join(root, "portfolio.html"), "utf8"), /protectMailLinks/);
 
