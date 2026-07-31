@@ -148,6 +148,8 @@
       animation: tapRipple 1.8s ease-out forwards;
     }
 
+    .motion-status { width: 100%; color: rgba(244,240,232,.72); font-size: .78rem; }
+
     .hero::before {
       content: "";
       position: absolute;
@@ -422,6 +424,8 @@
           <a class="btn primary" href="#selected-work">Explore the Work</a>
           <a class="btn" href="portfolio.html">View Portfolio</a>
           <button class="btn motion-toggle" type="button" data-motion-toggle aria-pressed="true">Motion: On</button>
+          <button class="btn" type="button" data-motion-speak>Speak Motion</button>
+          <span class="motion-status" data-motion-status role="status" aria-live="polite"></span>
         </div>
       </div>
     </header>
@@ -554,6 +558,6 @@
     })();
   </script>
   <script src="site-nav.js?v=20260731b" defer></script>
-  <script src="js/home-motion.js?v=20260731-visible" defer></script>
+  <script src="js/home-motion.js?v=20260731-voice" defer></script>
 </body>
 </html>
