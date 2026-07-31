@@ -88,7 +88,7 @@
     .hero-atmosphere {
       position: absolute;
       inset: 0;
-      z-index: -2;
+      z-index: 0;
       overflow: hidden;
       pointer-events: none;
     }
@@ -135,17 +135,30 @@
       display: none;
     }
 
+    .tap-ripple {
+      position: absolute;
+      z-index: 2;
+      width: 34px;
+      height: 34px;
+      margin: -17px 0 0 -17px;
+      border: 2px solid rgba(151,231,239,.72);
+      border-radius: 50%;
+      box-shadow: 0 0 34px rgba(83,207,225,.48), inset 0 0 24px rgba(83,207,225,.28);
+      pointer-events: none;
+      animation: tapRipple 1.8s ease-out forwards;
+    }
+
     .hero::before {
       content: "";
       position: absolute;
       inset: 0;
-      z-index: -2;
+      z-index: 1;
       background: radial-gradient(circle at 12% 58%,rgba(5,24,45,.42),transparent 62%);
     }
 
     .hero::after { content: none; }
 
-    .hero-copy { max-width: 860px; position: relative; z-index: 1; }
+    .hero-copy { max-width: 860px; position: relative; z-index: 2; }
     .eyebrow {
       margin: 0 0 1rem;
       color: var(--glow);
@@ -356,6 +369,7 @@
     }
     @keyframes lightPass { from { transform: translateX(-24%) rotate(-4deg); opacity: .5; } to { transform: translateX(20%) rotate(3deg); opacity: 1; } }
     @keyframes visualBreathe { from { background-size: auto,auto,100%; } to { background-size: auto,auto,106%; } }
+    @keyframes tapRipple { from { transform: scale(.35); opacity: .9; } to { transform: scale(8); opacity: 0; } }
 
     @media (max-width: 760px) {
       .nav-links { display: none; }
@@ -371,7 +385,11 @@
       * { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
       #tide-canvas { display: none; }
       .reveal-ready [data-reveal] { opacity: 1; transform: none; }
+      html.force-motion .ink-bloom { animation: inkFloat 10s ease-in-out infinite alternate !important; }
+      html.force-motion .tap-ripple { animation: tapRipple 1.8s ease-out forwards !important; }
     }
+
+    html.motion-paused .ink-bloom { animation-play-state: paused !important; }
   </style>
 </head>
 <body>
@@ -403,6 +421,7 @@
         <div class="actions">
           <a class="btn primary" href="#selected-work">Explore the Work</a>
           <a class="btn" href="portfolio.html">View Portfolio</a>
+          <button class="btn motion-toggle" type="button" data-motion-toggle aria-pressed="true">Motion: On</button>
         </div>
       </div>
     </header>
@@ -535,6 +554,6 @@
     })();
   </script>
   <script src="site-nav.js?v=20260731b" defer></script>
-  <script src="js/home-motion.js?v=20260731" defer></script>
+  <script src="js/home-motion.js?v=20260731-visible" defer></script>
 </body>
 </html>
