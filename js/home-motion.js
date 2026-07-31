@@ -6,6 +6,7 @@
   const revealItems = [...document.querySelectorAll('[data-reveal]')];
   let forcedMotion = false;
   let paused = false;
+  let activeEffect = 'ripple';
 
   const syncMotion = () => {
     const active = !paused && (!motionPreference.matches || forcedMotion);
@@ -39,10 +40,22 @@
     ripple.addEventListener('animationend', () => ripple.remove(), { once: true });
   };
 
+  const createEffect = (effect, clientX, clientY) => {
+    if (effect === 'ripple') { createRipple(clientX, clientY); return; }
+    const bounds = hero.getBoundingClientRect();
+    const mark = document.createElement('span');
+    mark.className = `motion-mark ${effect}`;
+    mark.setAttribute('aria-hidden', 'true');
+    mark.style.left = `${clientX - bounds.left}px`;
+    mark.style.top = `${clientY - bounds.top}px`;
+    hero.querySelector('.hero-atmosphere')?.appendChild(mark);
+    mark.addEventListener('animationend', () => mark.remove(), { once: true });
+  };
+
   hero?.addEventListener('pointerdown', (event) => {
     if (event.target.closest('a, button')) return;
     if (motionPreference.matches && !forcedMotion) return;
-    createRipple(event.clientX, event.clientY);
+    createEffect(activeEffect, event.clientX, event.clientY);
   });
 
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -55,7 +68,7 @@
     recognition.interimResults = false;
     recognition.maxAlternatives = 1;
     speakButton.addEventListener('click', () => {
-      motionStatus.textContent = 'Listening for motion, ripple, or pause.';
+      motionStatus.textContent = 'Listening for ripple, dot, expanse, drift, or pause.';
       recognition.start();
     });
     recognition.addEventListener('result', (event) => {
@@ -64,19 +77,32 @@
         paused = true;
         syncMotion();
         motionStatus.textContent = 'Motion paused.';
-      } else if (/motion|move|flow|start/.test(command)) {
+      } else if (/ripple/.test(command)) {
+        activeEffect = 'ripple'; forcedMotion = true; paused = false; syncMotion();
+        const bounds = hero.getBoundingClientRect();
+        createEffect(activeEffect, bounds.left + bounds.width * .66, bounds.top + bounds.height * .42);
+        motionStatus.textContent = 'Ripple selected. Tap anywhere to make another.';
+      } else if (/dot|drop|droplet/.test(command)) {
+        activeEffect = 'dot'; forcedMotion = true; paused = false; syncMotion();
+        const bounds = hero.getBoundingClientRect();
+        createEffect(activeEffect, bounds.left + bounds.width * .68, bounds.top + bounds.height * .58);
+        motionStatus.textContent = 'Dot selected. Tap anywhere to release one.';
+      } else if (/expanse|expand|bloom/.test(command)) {
+        activeEffect = 'expanse'; forcedMotion = true; paused = false; syncMotion();
+        const bounds = hero.getBoundingClientRect();
+        createEffect(activeEffect, bounds.left + bounds.width * .7, bounds.top + bounds.height * .45);
+        motionStatus.textContent = 'Expanse selected. Tap anywhere to open the ink.';
+      } else if (/drift|flow|current/.test(command)) {
+        activeEffect = 'drift'; forcedMotion = true; paused = false; syncMotion();
+        const bounds = hero.getBoundingClientRect();
+        createEffect(activeEffect, bounds.left + bounds.width * .5, bounds.top + bounds.height * .5);
+        motionStatus.textContent = 'Drift selected. Tap anywhere to send it across.';
+      } else if (/motion|move|start/.test(command)) {
         forcedMotion = true;
         paused = false;
         syncMotion();
         motionStatus.textContent = 'Motion started.';
-      } else if (/ripple|ink|ocean|water/.test(command)) {
-        forcedMotion = true;
-        paused = false;
-        syncMotion();
-        const bounds = hero.getBoundingClientRect();
-        createRipple(bounds.left + bounds.width * .7, bounds.top + bounds.height * .42);
-        motionStatus.textContent = 'Ink ripple created.';
-      } else motionStatus.textContent = 'Say motion, ripple, or pause.';
+      } else motionStatus.textContent = 'Say ripple, dot, expanse, drift, or pause.';
     });
     recognition.addEventListener('error', () => { motionStatus.textContent = 'Voice motion could not start. Tap the water instead.'; });
   }
