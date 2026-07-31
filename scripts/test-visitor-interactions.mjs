@@ -8,6 +8,8 @@ const root = path.resolve(import.meta.dirname, "..");
 class FakeClassList {
   values = new Set();
   add(value) { this.values.add(value); }
+  remove(value) { this.values.delete(value); }
+  contains(value) { return this.values.has(value); }
   toggle(value, force) { force ? this.values.add(value) : this.values.delete(value); }
 }
 
@@ -25,6 +27,7 @@ class FakeElement {
   setAttribute(name, value) { this.attributes.set(name, String(value)); }
   getAttribute(name) { return this.attributes.get(name) ?? null; }
   querySelector() { return null; }
+  remove() {}
 }
 
 class FakeAudioContext {
@@ -68,6 +71,7 @@ const windowObject = {
   document,
   setInterval: () => 1,
   clearInterval() {},
+  addEventListener() {},
   InkspirationsAudioEngine: null
 };
 
