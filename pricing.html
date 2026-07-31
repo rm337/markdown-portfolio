@@ -180,7 +180,10 @@
       const artwork = document.getElementById('artwork');
       if (params.get('product')) {
         const requested = params.get('product').toLowerCase();
-        const match = [...product.options].find(option => option.text.toLowerCase() === requested);
+        const match = [...product.options].find(option => {
+          const label = option.text.toLowerCase();
+          return label === requested || label.includes(requested) || requested.includes(label);
+        });
         if (match) product.value = match.value;
       }
       if (params.get('artwork')) artwork.value = params.get('artwork');
