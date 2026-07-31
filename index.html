@@ -148,6 +148,11 @@
       animation: tapRipple 1.8s ease-out forwards;
     }
 
+    .motion-mark { position: absolute; z-index: 2; pointer-events: none; mix-blend-mode: screen; }
+    .motion-mark.dot { width: 20px; height: 20px; margin: -10px; border-radius: 50%; background: rgba(168,240,242,.92); box-shadow: 0 0 18px rgba(84,217,229,.88),0 0 54px rgba(39,149,196,.72); animation: inkDot 2.4s ease-out forwards; }
+    .motion-mark.expanse { width: 90px; height: 90px; margin: -45px; border-radius: 42% 58% 66% 34% / 48% 38% 62% 52%; background: radial-gradient(circle,rgba(82,219,226,.72),rgba(16,118,170,.46) 42%,transparent 72%); filter: blur(9px); animation: inkExpanse 3.2s ease-out forwards; }
+    .motion-mark.drift { width: 180px; height: 34px; margin: -17px 0 0 -90px; border-radius: 50%; background: linear-gradient(90deg,transparent,rgba(93,220,230,.65),rgba(27,129,181,.48),transparent); filter: blur(7px); animation: inkDrift 3.4s ease-out forwards; }
+
     .motion-status { width: 100%; color: rgba(244,240,232,.72); font-size: .78rem; }
 
     .hero::before {
@@ -372,6 +377,9 @@
     @keyframes lightPass { from { transform: translateX(-24%) rotate(-4deg); opacity: .5; } to { transform: translateX(20%) rotate(3deg); opacity: 1; } }
     @keyframes visualBreathe { from { background-size: auto,auto,100%; } to { background-size: auto,auto,106%; } }
     @keyframes tapRipple { from { transform: scale(.35); opacity: .9; } to { transform: scale(8); opacity: 0; } }
+    @keyframes inkDot { 0% { transform: translateY(0) scale(.45); opacity: .95; } 55% { opacity: .85; } 100% { transform: translateY(-145px) scale(1.8); opacity: 0; } }
+    @keyframes inkExpanse { from { transform: scale(.25) rotate(-10deg); opacity: .9; } to { transform: scale(8) rotate(24deg); opacity: 0; } }
+    @keyframes inkDrift { from { transform: translateX(-120px) scaleX(.55); opacity: 0; } 28% { opacity: .85; } to { transform: translateX(260px) scaleX(1.8); opacity: 0; } }
 
     @media (max-width: 760px) {
       .nav-links { display: none; }
@@ -389,6 +397,9 @@
       .reveal-ready [data-reveal] { opacity: 1; transform: none; }
       html.force-motion .ink-bloom { animation: inkFloat 10s ease-in-out infinite alternate !important; }
       html.force-motion .tap-ripple { animation: tapRipple 1.8s ease-out forwards !important; }
+      html.force-motion .motion-mark.dot { animation: inkDot 2.4s ease-out forwards !important; }
+      html.force-motion .motion-mark.expanse { animation: inkExpanse 3.2s ease-out forwards !important; }
+      html.force-motion .motion-mark.drift { animation: inkDrift 3.4s ease-out forwards !important; }
     }
 
     html.motion-paused .ink-bloom { animation-play-state: paused !important; }
@@ -558,6 +569,6 @@
     })();
   </script>
   <script src="site-nav.js?v=20260731b" defer></script>
-  <script src="js/home-motion.js?v=20260731-voice" defer></script>
+  <script src="js/home-motion.js?v=20260731-commands" defer></script>
 </body>
 </html>
