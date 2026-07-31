@@ -291,16 +291,8 @@
     .reveal-ready [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
 
     @keyframes drift { from { transform: translateX(-2%) rotate(-8deg); } to { transform: translateX(5%) rotate(-6deg); } }
-    @keyframes inkFloat {
-      from { transform: translate3d(-3%,-2%,0) rotate(-5deg) scale(.92); border-radius: 48% 52% 58% 42% / 42% 46% 54% 58%; }
-      to { transform: translate3d(8%,7%,0) rotate(8deg) scale(1.12); border-radius: 58% 42% 44% 56% / 52% 60% 40% 48%; }
-    }
     @keyframes lightPass { from { transform: translateX(-24%) rotate(-4deg); opacity: .5; } to { transform: translateX(20%) rotate(3deg); opacity: 1; } }
     @keyframes visualBreathe { from { background-size: auto,auto,100%; } to { background-size: auto,auto,106%; } }
-    @keyframes tapRipple { from { transform: scale(.35); opacity: .9; } to { transform: scale(8); opacity: 0; } }
-    @keyframes inkDot { 0% { transform: translateY(0) scale(.45); opacity: .95; } 55% { opacity: .85; } 100% { transform: translateY(-145px) scale(1.8); opacity: 0; } }
-    @keyframes inkExpanse { from { transform: scale(.25) rotate(-10deg); opacity: .9; } to { transform: scale(8) rotate(24deg); opacity: 0; } }
-    @keyframes inkDrift { from { transform: translateX(-120px) scaleX(.55); opacity: 0; } 28% { opacity: .85; } to { transform: translateX(260px) scaleX(1.8); opacity: 0; } }
 
     @media (max-width: 760px) {
       .nav-links { display: none; }
@@ -316,14 +308,7 @@
       * { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
       #tide-canvas { display: none; }
       .reveal-ready [data-reveal] { opacity: 1; transform: none; }
-      html.force-motion .ink-bloom { animation: inkFloat 10s ease-in-out infinite alternate !important; }
-      html.force-motion .tap-ripple { animation: tapRipple 1.8s ease-out forwards !important; }
-      html.force-motion .motion-mark.dot { animation: inkDot 2.4s ease-out forwards !important; }
-      html.force-motion .motion-mark.expanse { animation: inkExpanse 3.2s ease-out forwards !important; }
-      html.force-motion .motion-mark.drift { animation: inkDrift 3.4s ease-out forwards !important; }
     }
-
-    html.motion-paused .ink-bloom { animation-play-state: paused !important; }
   </style>
 </head>
 <body>
