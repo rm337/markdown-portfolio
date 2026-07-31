@@ -12,9 +12,9 @@
   <link rel="stylesheet" href="site-nav.css?v=20260722">
   <style>
     :root {
-      --ink: #03101a;
-      --deep: #061d2d;
-      --blue: #0d4262;
+      --ink: #071a30;
+      --deep: #0a2947;
+      --blue: #15557b;
       --glow: #72c8dd;
       --paper: #f4f0e8;
       --muted: rgba(244,240,232,.72);
@@ -67,7 +67,9 @@
       overflow: hidden;
       isolation: isolate;
       padding: clamp(8rem,16vw,13rem) clamp(1.2rem,6vw,6rem) clamp(4rem,8vw,7rem);
-      background: linear-gradient(135deg,#020b12 0%,#061824 58%,#02080d 100%);
+      background:
+        radial-gradient(ellipse at 72% 20%,rgba(31,100,144,.38),transparent 48%),
+        linear-gradient(180deg,#0a2542 0%,#071a30 66%,#061526 100%);
     }
 
     #tide-canvas {
@@ -76,8 +78,64 @@
       width: 100%;
       height: 100%;
       z-index: -3;
-      display: none;
+      display: block;
       pointer-events: none;
+      opacity: .82;
+      mix-blend-mode: screen;
+    }
+
+    .hero-atmosphere {
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .ink-bloom {
+      position: absolute;
+      border-radius: 48% 52% 58% 42% / 42% 46% 54% 58%;
+      filter: blur(44px);
+      opacity: .24;
+      mix-blend-mode: screen;
+      will-change: transform;
+      animation: inkFloat 18s ease-in-out infinite alternate;
+    }
+
+    .ink-bloom.one {
+      width: min(62vw,760px);
+      height: min(52vw,640px);
+      top: -18%;
+      right: -12%;
+      background: radial-gradient(circle at 38% 42%,rgba(70,200,225,.62),rgba(11,83,121,.32) 46%,transparent 72%);
+    }
+
+    .ink-bloom.two {
+      width: min(46vw,560px);
+      height: min(42vw,520px);
+      bottom: -20%;
+      left: 12%;
+      background: radial-gradient(circle at 52% 48%,rgba(27,103,152,.55),rgba(6,44,69,.2) 52%,transparent 74%);
+      animation-duration: 23s;
+      animation-delay: -8s;
+    }
+
+    .ink-bloom.three {
+      width: min(30vw,390px);
+      height: min(36vw,470px);
+      top: 25%;
+      left: 48%;
+      background: radial-gradient(circle,rgba(105,221,226,.34),rgba(11,71,105,.15) 48%,transparent 72%);
+      animation-duration: 27s;
+      animation-delay: -14s;
+    }
+
+    .water-light {
+      position: absolute;
+      inset: -22% -18%;
+      background: linear-gradient(112deg,transparent 34%,rgba(194,240,244,.075) 46%,transparent 56%);
+      transform: translateX(-22%) rotate(-4deg);
+      animation: lightPass 16s ease-in-out infinite alternate;
     }
 
     .hero::before {
@@ -85,12 +143,12 @@
       position: absolute;
       inset: 0;
       z-index: -2;
-      background: linear-gradient(90deg,rgba(2,8,13,.72),rgba(2,8,13,.16));
+      background: linear-gradient(90deg,rgba(5,19,36,.58),rgba(5,19,36,.08));
     }
 
     .hero::after { content: none; }
 
-    .hero-copy { max-width: 860px; }
+    .hero-copy { max-width: 860px; position: relative; z-index: 1; }
     .eyebrow {
       margin: 0 0 1rem;
       color: var(--glow);
@@ -145,7 +203,7 @@
       grid-template-columns: .9fr 1.1fr;
       gap: clamp(2rem,8vw,8rem);
       padding: clamp(5rem,10vw,9rem) clamp(1.2rem,6vw,6rem);
-      background: linear-gradient(180deg,#061925,#04121c);
+      background: linear-gradient(180deg,#0a2947,#08213a);
       border-top: 1px solid var(--line);
     }
 
@@ -161,7 +219,7 @@
 
     .work {
       padding: clamp(4rem,8vw,7rem) clamp(1.2rem,6vw,6rem) clamp(6rem,11vw,10rem);
-      background: #04121c;
+      background: #08213a;
     }
 
     .section-head {
@@ -187,6 +245,7 @@
       text-decoration: none;
       background: var(--scene);
       isolation: isolate;
+      transition: transform .55s cubic-bezier(.2,.75,.2,1),border-color .35s ease,box-shadow .55s ease;
     }
 
     .work-card::before {
@@ -206,7 +265,8 @@
       background: linear-gradient(180deg,rgba(0,0,0,.04),rgba(0,0,0,.82));
     }
 
-    .work-card:hover::before { transform: scale(1.025); filter: brightness(1.08); }
+    .work-card:hover,.work-card:focus-visible { transform: translateY(-6px); border-color: rgba(114,200,221,.48); box-shadow: 0 28px 70px rgba(0,0,0,.28); }
+    .work-card:hover::before,.work-card:focus-visible::before { transform: scale(1.045); filter: brightness(1.1); }
     .artwork { --scene: linear-gradient(145deg,#17425d,#07131c 58%,#23657a); }
     .creative { --scene: linear-gradient(145deg,#3a2e28,#101317 55%,#765b48); }
     .ocean { --scene: linear-gradient(145deg,#06334e,#02090f 55%,#08718b); }
@@ -224,7 +284,7 @@
       gap: clamp(2rem,7vw,7rem);
       align-items: center;
       padding: clamp(5rem,10vw,9rem) clamp(1.2rem,6vw,6rem);
-      background: linear-gradient(135deg,#08253a,#04111a);
+      background: linear-gradient(180deg,#0b3152,#081d34);
       border-top: 1px solid var(--line);
     }
 
@@ -237,6 +297,8 @@
         linear-gradient(135deg,rgba(2,10,16,.18),rgba(2,10,16,.68)),
         linear-gradient(180deg,rgba(3,17,27,.08),rgba(2,9,15,.48)),
         url("assets/images/portfolio/soul-current.jpg") center 52% / cover no-repeat;
+      box-shadow: 0 32px 90px rgba(0,0,0,.32);
+      animation: visualBreathe 12s ease-in-out infinite alternate;
     }
 
     .feature-visual::before,
@@ -264,7 +326,7 @@
       align-items: center;
       gap: 2rem;
       padding: clamp(4rem,8vw,7rem) clamp(1.2rem,6vw,6rem);
-      background: #020b12;
+      background: #06182b;
       border-top: 1px solid var(--line);
     }
 
@@ -282,7 +344,21 @@
       text-transform: uppercase;
     }
 
+    .reveal-ready [data-reveal] {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .85s ease,transform .85s cubic-bezier(.2,.75,.2,1);
+    }
+
+    .reveal-ready [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
+
     @keyframes drift { from { transform: translateX(-2%) rotate(-8deg); } to { transform: translateX(5%) rotate(-6deg); } }
+    @keyframes inkFloat {
+      from { transform: translate3d(-3%,-2%,0) rotate(-5deg) scale(.92); border-radius: 48% 52% 58% 42% / 42% 46% 54% 58%; }
+      to { transform: translate3d(8%,7%,0) rotate(8deg) scale(1.12); border-radius: 58% 42% 44% 56% / 52% 60% 40% 48%; }
+    }
+    @keyframes lightPass { from { transform: translateX(-24%) rotate(-4deg); opacity: .5; } to { transform: translateX(20%) rotate(3deg); opacity: 1; } }
+    @keyframes visualBreathe { from { background-size: auto,auto,100%; } to { background-size: auto,auto,106%; } }
 
     @media (max-width: 760px) {
       .nav-links { display: none; }
@@ -297,6 +373,7 @@
     @media (prefers-reduced-motion: reduce) {
       * { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
       #tide-canvas { display: none; }
+      .reveal-ready [data-reveal] { opacity: 1; transform: none; }
     }
   </style>
 </head>
@@ -315,6 +392,12 @@
   <main id="main-content">
     <header class="hero" id="top">
       <canvas id="tide-canvas" aria-hidden="true"></canvas>
+      <div class="hero-atmosphere" aria-hidden="true">
+        <span class="ink-bloom one"></span>
+        <span class="ink-bloom two"></span>
+        <span class="ink-bloom three"></span>
+        <span class="water-light"></span>
+      </div>
       <div class="hero-copy">
         <p class="eyebrow">Robert Marleton / Founder & Creative Director</p>
         <h1>Inkspirations<span>Studios</span></h1>
@@ -326,19 +409,19 @@
       </div>
     </header>
 
-    <section class="statement" aria-labelledby="statement-title">
+    <section class="statement" aria-labelledby="statement-title" data-reveal>
       <h2 id="statement-title">Art first. Technology behind the curtain.</h2>
       <p>Inkspirations Studios is built around the work itself: images, objects, words, atmosphere, and ideas. The experience is designed to feel calm, intentional, and alive without placing unnecessary effects between the visitor and the art.</p>
     </section>
 
-    <section class="work" id="selected-work" aria-labelledby="work-title">
+    <section class="work" id="selected-work" aria-labelledby="work-title" data-reveal>
       <div class="section-head">
         <h2 id="work-title">Selected Work</h2>
         <p>A direct path into the studio’s visual work, ongoing creative projects, and professional practice.</p>
       </div>
 
       <div class="work-grid">
-        <a class="work-card artwork" href="portfolio.html">
+        <a class="work-card artwork" href="portfolio.html" data-reveal>
           <div class="card-copy">
             <span class="kicker">ORIGINAL WORK</span>
             <h3>Artwork & Photography</h3>
@@ -347,7 +430,7 @@
           </div>
         </a>
 
-        <a class="work-card creative" href="portfolio.html#functional-art">
+        <a class="work-card creative" href="portfolio.html#functional-art" data-reveal>
           <div class="card-copy">
             <span class="kicker">DESIGN & OBJECTS</span>
             <h3>Creative Practice</h3>
@@ -356,7 +439,7 @@
           </div>
         </a>
 
-        <a class="work-card ocean" href="ocean-of-ink.html">
+        <a class="work-card ocean" href="ocean-of-ink.html" data-reveal>
           <div class="card-copy">
             <span class="kicker">FEATURED EXPERIENCE</span>
             <h3>Ocean of Ink</h3>
@@ -365,7 +448,7 @@
           </div>
         </a>
 
-        <a class="work-card resume" href="resume.html">
+        <a class="work-card resume" href="resume.html" data-reveal>
           <div class="card-copy">
             <span class="kicker">PROFESSIONAL WORK</span>
             <h3>Experience & Direction</h3>
@@ -376,7 +459,7 @@
       </div>
     </section>
 
-    <section class="feature" aria-labelledby="feature-title">
+    <section class="feature" aria-labelledby="feature-title" data-reveal>
       <div class="feature-visual" aria-hidden="true"></div>
       <div class="feature-copy">
         <p class="eyebrow">THE STUDIO APPROACH</p>
@@ -385,7 +468,7 @@
       </div>
     </section>
 
-    <section class="contact" id="contact">
+    <section class="contact" id="contact" data-reveal>
       <div>
         <h2>Start a conversation.</h2>
         <p>For creative direction, design, commissions, collaborations, artwork, or professional opportunities. Payments may be sent securely through Venmo to <strong>@Robert-Marleton</strong>.</p>
@@ -454,5 +537,6 @@
     })();
   </script>
   <script src="site-nav.js?v=20260722" defer></script>
+  <script src="js/home-motion.js?v=20260731" defer></script>
 </body>
 </html>
