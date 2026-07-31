@@ -98,7 +98,6 @@
   };
 
   const initializePageFixes = () => {
-    removePublicSalesOptions();
     cleanPublicGallery();
     fixGalleryFilters();
   };
