@@ -1,4 +1,5 @@
 const galleryDataUrl = "portfolio.json?v=20260727-clean";
+const pixelsStoreUrl = "https://pixels.com/profiles/robert-marleton";
 const imageFolders = {
   artwork: "assets/images/artwork/",
   process: "assets/images/process/"
@@ -143,7 +144,7 @@ function primaryAction(work) {
   if (String(work.status || "").toLowerCase().includes("reserved")) return { href: askHref(work), label: "Reserve This Piece", external: false };
   if (work.purchaseLabel) return { href: askHref(work), label: work.purchaseLabel, external: false };
   if (work.originalAvailable) return { href: askHref(work), label: "Bring This Piece Home", external: false };
-  return { href: askHref(work), label: "Ask About This Piece", external: false };
+  return { href: pixelsStoreUrl, label: "Shop Prints & Products", external: true };
 }
 
 function filtersForWorks() {
@@ -171,7 +172,7 @@ function renderGallery() {
     const thumb = imagePath(work, "thumb") || imagePath(work, "src") || visualCard(work);
     const full = imagePath(work, "src") || thumb;
     const title = escapeHtml(work.title);
-    return `<article class="gallery-card photographer-card" data-position="${position}"><button class="gallery-open" type="button" data-action="details" aria-label="View details for ${title}"><span class="gallery-image-wrap"><img src="${thumb}" alt="${title}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='${full}';"></span><span class="gallery-card-copy"><span class="gallery-card-kicker">${escapeHtml(work.category)}</span><span class="gallery-card-title">${title}</span><span class="gallery-card-medium">${escapeHtml(work.medium)}</span></span></button><span class="gallery-card-actions"><button class="mini-action" type="button" data-action="details">View Details</button><a class="mini-action" href="${escapeHtml(askHref(work))}" data-action="inquiry">Ask About This Piece</a></span></article>`;
+    return `<article class="gallery-card photographer-card" data-position="${position}"><button class="gallery-open" type="button" data-action="details" aria-label="View details for ${title}"><span class="gallery-image-wrap"><img src="${thumb}" alt="${title}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='${full}';"></span><span class="gallery-card-copy"><span class="gallery-card-kicker">${escapeHtml(work.category)}</span><span class="gallery-card-title">${title}</span><span class="gallery-card-medium">${escapeHtml(work.medium)}</span></span></button><span class="gallery-card-actions"><button class="mini-action" type="button" data-action="details">View Details</button><a class="mini-action" href="${pixelsStoreUrl}" target="_blank" rel="noopener noreferrer" data-action="shop">Shop Prints & Products</a></span></article>`;
   }).join("");
 }
 
