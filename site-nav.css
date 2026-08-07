@@ -13,6 +13,28 @@
 
 .skip-link:focus { transform: translateY(0); }
 
+.universal-site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 10000;
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: .7rem clamp(1rem, 4vw, 3rem);
+  border-bottom: 1px solid rgba(143, 243, 232, .25);
+  background: rgba(2, 5, 12, .96);
+  color: #fff;
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  backdrop-filter: blur(16px);
+}
+.universal-site-brand { margin-right: auto; color: #fff; font-weight: 900; text-decoration: none; letter-spacing: .04em; }
+.universal-site-links { display: flex; align-items: center; justify-content: flex-end; gap: .35rem; }
+.universal-site-links a { min-height: 44px; display: inline-flex; align-items: center; padding: .6rem .7rem; color: rgba(255,255,255,.78); font-size: .72rem; font-weight: 800; letter-spacing: .08em; text-decoration: none; text-transform: uppercase; }
+.universal-site-links a:hover, .universal-site-links a:focus-visible, .universal-site-links a[aria-current="page"] { color: #fff; background: rgba(143,243,232,.12); }
+.universal-site-toggle { display: none; min-height: 44px; padding: .65rem .85rem; border: 1px solid rgba(143,243,232,.48); background: #07111f; color: #fff; font: 800 .72rem Inter,Arial,sans-serif; }
+.universal-site-toggle:focus-visible, .universal-site-links a:focus-visible, .universal-site-brand:focus-visible { outline: 3px solid #ffe6ad; outline-offset: 2px; }
+
 .site-nav-toggle {
   display: none;
   min-height: 44px;
@@ -33,6 +55,11 @@
 }
 
 @media (max-width: 760px) {
+  .universal-site-nav { flex-wrap: wrap; }
+  .universal-site-toggle { display: inline-flex; align-items: center; }
+  .universal-site-links { display: none; flex: 1 0 100%; width: 100%; grid-template-columns: 1fr 1fr; }
+  .universal-site-nav[data-menu-open="true"] .universal-site-links { display: grid; }
+  .universal-site-links a { border: 1px solid rgba(255,255,255,.1); }
   .site-nav-shell {
     position: relative;
     align-items: center !important;
@@ -64,9 +91,15 @@
 }
 
 @media (max-width: 420px) {
+  .universal-site-links { grid-template-columns: 1fr; }
   .site-nav-links { grid-template-columns: 1fr; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .skip-link { transition: none; }
 }
+
+/* Artwork stays still; atmosphere is reserved for deliberate room transitions. */
+.ink-particles, .ink { display: none !important; }
+[data-room-atmosphere] { opacity: .16; }
+@media (prefers-reduced-motion: reduce) { [data-room-atmosphere] { display: none !important; } }

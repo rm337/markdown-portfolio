@@ -45,6 +45,8 @@ These files are preserved, but they are not part of the public navigation and sh
 
 Export Lightroom selections as web JPEGs, place them in `assets/images/artwork/`, `assets/images/coasters/`, `assets/images/wood-art/`, or `assets/images/process/`, then add the item to `portfolio.json`. The gallery HTML should not be edited for each new image.
 
+After updating `portfolio.json`, run `node scripts/build-discovery-assets.mjs` to regenerate crawlable artwork pages, gallery markup, and search/image sitemaps. See `docs/discoverability.md` for validation and Google Search Console setup.
+
 ## Information architecture notes
 
 - Keep public: Home, Portfolio, About, Contact, Fluid Soul, selected artwork, Ocean of Ink concept, creative systems summary, and direct email.

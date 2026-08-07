@@ -99,7 +99,7 @@ footer { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wr
 .gallery-entry { min-height: 68vh; background: linear-gradient(145deg, rgba(4, 12, 22, .96), rgba(6, 34, 52, .86)); }
 .gallery-entry .hero-copy { max-width: 680px; }
 .gallery-mood { display: flex; flex-wrap: wrap; gap: .55rem; margin-top: 1.4rem; }
-.gallery-mood span { display: inline-flex; align-items: center; min-height: 34px; padding: .5rem .72rem; border: 1px solid rgba(143, 243, 232, .18); background: rgba(246, 243, 232, .055); color: rgba(246, 243, 232, .72); font-size: .68rem; text-transform: uppercase; letter-spacing: .12em; font-weight: 800; }
+.gallery-mood span, .gallery-mood a { display: inline-flex; align-items: center; min-height: 34px; padding: .5rem .72rem; border: 1px solid rgba(143, 243, 232, .18); background: rgba(246, 243, 232, .055); color: #dceef4; font-size: .68rem; text-transform: uppercase; letter-spacing: .12em; font-weight: 800; text-decoration: none; }
 .viewer { box-shadow: 0 28px 80px rgba(0, 0, 0, .36); }
 .viewer-copy { padding: 1.15rem 1.25rem 1.25rem; }
 .viewer-heading { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: .35rem; }
@@ -115,7 +115,7 @@ footer { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wr
 .thumb { border-color: rgba(246, 243, 232, .11); background: rgba(246, 243, 232, .035); }
 .thumb:hover { border-color: rgba(143, 243, 232, .42); }
 @media (max-width: 940px) { .thumb-drawer .rail { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 560px) { .gallery-entry { min-height: 66vh; } .gallery-mood span { width: 100%; justify-content: center; } .viewer-copy { padding: .95rem; } .viewer-heading { align-items: flex-start; flex-direction: column; gap: .35rem; } .work-count { min-width: 0; } .controls { grid-template-columns: 1fr; gap: .6rem; padding: .7rem; } .thumb-drawer { padding: .7rem; } .thumb-drawer .rail { grid-template-columns: 1fr; } }
+@media (max-width: 560px) { .gallery-entry { min-height: 66vh; } .gallery-mood span, .gallery-mood a { width: 100%; justify-content: center; } .viewer-copy { padding: .95rem; } .viewer-heading { align-items: flex-start; flex-direction: column; gap: .35rem; } .work-count { min-width: 0; } .controls { grid-template-columns: 1fr; gap: .6rem; padding: .7rem; } .thumb-drawer { padding: .7rem; } .thumb-drawer .rail { grid-template-columns: 1fr; } }
 /* Interactive portfolio gallery */
 .gallery-section { padding-top: 4rem; }
 .gallery-head { align-items: flex-start; }

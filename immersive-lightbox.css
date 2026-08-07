@@ -143,6 +143,7 @@ body.modal-open { overflow: hidden; }
 }
 .lightbox-close, .lightbox-nav { position: fixed; z-index: 1002; min-width: 48px; min-height: 48px; }
 .lightbox-close { top: 1rem; right: 1rem; }
+.lightbox-close, .lightbox-nav { width: auto; padding: .65rem .8rem; font-size: .68rem; font-weight: 800; }
 .lightbox-nav.previous { left: 1rem; top: 50%; transform: translateY(-50%); }
 .lightbox-nav.next { right: 1rem; top: 50%; transform: translateY(-50%); }
 @media (max-width: 800px) {
@@ -237,3 +238,64 @@ body.modal-open { overflow: hidden; }
 .detail-zoom-control:hover,
 .detail-zoom-control:focus-visible,
 .detail-zoom-control[aria-pressed="true"] { background: #0174F3; border-color: #ffe6ad; }
+
+/* Containment-first viewer: artwork remains complete and copy never overlays it. */
+.modal { background: #dfe5e8; backdrop-filter: none; }
+.modal-inner.gallery-lightbox {
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 390px);
+  grid-template-rows: 1fr;
+  background: #eef1f2;
+  overflow: hidden;
+}
+.gallery-lightbox > img {
+  width: 100%;
+  height: 100dvh;
+  padding: clamp(4.5rem, 7vw, 6rem) clamp(1rem, 3vw, 2.5rem) 1.5rem;
+  object-fit: contain;
+  background: #eef1f2;
+}
+.gallery-lightbox .modal-bar {
+  position: static;
+  width: auto;
+  height: 100dvh;
+  max-height: none;
+  display: flex;
+  align-items: center;
+  padding: clamp(4.5rem, 7vw, 6rem) 1.5rem 1.5rem;
+  overflow-y: auto;
+  color: #15222b;
+  background: #fff;
+  border: 0;
+  border-left: 1px solid #c6d0d5;
+  backdrop-filter: none;
+}
+.gallery-lightbox .modal-bar h3 { color: #173d55; }
+.gallery-lightbox .modal-bar p, .gallery-lightbox .modal-details dd { color: #263b47; }
+.gallery-lightbox .modal-details { display: grid; }
+.gallery-lightbox .modal-details div { border-color: #c6d0d5; }
+.gallery-lightbox .modal-details dt { color: #075b85; }
+.modal-next { right: 410px; }
+.viewer-exit-links { position: fixed; z-index: 1004; top: .75rem; left: .75rem; display: flex; gap: .4rem; }
+.viewer-exit-links a { min-height: 40px; display: inline-flex; align-items: center; padding: .55rem .7rem; border: 1px solid #526b78; background: #fff; color: #142832; font: 800 .68rem Inter,Arial,sans-serif; letter-spacing: .06em; text-decoration: none; text-transform: uppercase; }
+.detail-zoom-controls { position: fixed; z-index: 1004; top: .75rem; left: 50%; transform: translateX(-50%); display: flex; gap: .35rem; }
+.detail-zoom-control { position: static; transform: none; min-height: 40px; padding: .5rem .65rem; border-color: #526b78; background: #fff; color: #142832; font-size: .6rem; }
+
+.lightbox[open] { background: #eef1f2; color: #15222b; }
+.lightbox::backdrop { background: rgba(37,50,58,.72); }
+.lightbox figure { grid-template-columns: minmax(0, 1fr) minmax(300px, 390px); grid-template-rows: 1fr; background: #eef1f2; }
+.lightbox figure > img { width: 100%; height: 100dvh; padding: clamp(4.5rem,7vw,6rem) clamp(1rem,3vw,2.5rem) 1.5rem; background: #eef1f2; object-fit: contain; }
+.lightbox figcaption { position: static; height: 100dvh; max-height: none; overflow-y: auto; padding: clamp(4.5rem,7vw,6rem) 1.5rem 1.5rem; color: #15222b; background: #fff; border: 0; border-left: 1px solid #c6d0d5; backdrop-filter: none; }
+.lightbox figcaption h2 { color: #173d55; }
+.lightbox figcaption p, .lightbox .metadata-list { color: #263b47; }
+.lightbox-nav.next { right: 410px; }
+
+@media (max-width: 800px) {
+  .modal-inner.gallery-lightbox, .lightbox figure { grid-template-columns: 1fr; grid-template-rows: minmax(0, 64dvh) minmax(0, 36dvh); }
+  .gallery-lightbox > img, .lightbox figure > img { width: 100%; height: 64dvh; padding: 4.5rem .75rem 1rem; }
+  .gallery-lightbox .modal-bar, .lightbox figcaption { height: 36dvh; max-height: none; padding: .9rem; border-left: 0; border-top: 1px solid #c6d0d5; }
+  .gallery-lightbox .modal-bar p, .lightbox figcaption p { display: block; }
+  .modal-next, .lightbox-nav.next { right: .5rem; }
+  .modal-prev, .modal-next, .lightbox-nav.previous, .lightbox-nav.next { top: 32%; }
+  .viewer-exit-links a { padding: .45rem .5rem; font-size: .56rem; }
+  .detail-zoom-controls { top: 3.2rem; }
+}

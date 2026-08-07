@@ -9,7 +9,13 @@ const publicDirectories = ["css", "js"];
 const rootFiles = fs.readdirSync(root, { withFileTypes: true })
   .filter((entry) => entry.isFile())
   .map((entry) => entry.name);
-const htmlFiles = rootFiles.filter((file) => file.endsWith(".html"));
+const artworkDirectory = path.join(root, "artwork");
+const htmlFiles = [
+  ...rootFiles.filter((file) => file.endsWith(".html")),
+  ...(fs.existsSync(artworkDirectory)
+    ? fs.readdirSync(artworkDirectory).filter((file) => file.endsWith(".html")).map((file) => path.join("artwork", file))
+    : [])
+];
 
 function cleanReference(reference) {
   return String(reference || "").trim().replace(/^['"]|['"]$/g, "");

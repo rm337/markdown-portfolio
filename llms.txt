@@ -24,7 +24,7 @@ Behind-the-curtain pages such as Robertisms, BeatForge, Flight Deck, identity ca
 
 ## Current Artwork Gallery
 
-The gallery contains 21 curated entries and is rendered by portfolio.js. Entries 1-19 are artwork/image entries; entries 20-21 are project entries for functional art and writing.
+The public gallery contains 18 curated, image-backed entries and is rendered by portfolio.js. Every entry is currently labeled Portfolio Only because sale and licensing status has not been verified.
 
 1. Burned Motion / Razorback
    Medium: Burned Motion Study
@@ -110,48 +110,31 @@ The gallery contains 21 curated entries and is rendered by portfolio.js. Entries
    File: assets/images/portfolio/you-priceless.jpg
    Description: A direct lettering piece centered on U R Priceless, with a soft red field and handmade script.
 
-15. Inkspirations Studio Mark
-   Medium: Brand Mark
-   Category: Experimental Works
-   File: assets/images/portfolio/inkspirations-mark.jpg
-   Description: A studio mark exploration using blue lettering, splash, and atmosphere. It supports the identity system around the artwork.
-
-16. Studio Blue Identity Card
-   Medium: Identity Design
-   Category: Experimental Works
-   File: assets/images/portfolio/studio-blue-card.jpg
-   Description: A compact identity card for Inkspirations Studios. It presents the studio voice in a clean public-facing format.
-
-17. Inkspirations Logo Lockup
-   Medium: Identity Design
-   Category: Experimental Works
-   File: assets/images/portfolio/inkspirations-logo-card.jpg
-   Description: A clean logo lockup pairing calligraphic emphasis with the studio name. It is organized as supporting identity work.
-
-18. Say No to Provoke and Blame
+15. Say No to Provoke and Blame
    Medium: Typographic Poster
    Category: Words & Expressions
    File: assets/images/portfolio/say-no-poster.jpg
    Description: A stark typographic poster built from scale, contrast, and compression. The visible phrase gives the piece its structure.
 
-19. Small Town Teacher
+16. Small Town Teacher
    Medium: Identity Mark
    Category: Experimental Works
    File: assets/images/portfolio/small-town-teacher.jpg
    Description: A compact identity mark with a handmade, personal tone. It shows a softer side of the studio system.
 
-20. Inkspirations Coasters / Functional Art
-   Medium: Project
-   Category: Functional Art
+17. Blue Current Curved Wood Study
+   Medium: Painted Wood / Experimental Object
+   Category: Experimental Objects
    File: assets/images/portfolio/coasters/curved-blue-object-coaster-study.jpg
-   Linked section: merch-foundry.html#coasters
-   Description: A functional art project for coaster sets, usable surfaces, and product-ready studio objects. These studies connect the artwork to objects people can live with.
+   Linked section: coasters-tiles.html
+   Description: A tall curved painted-wood object photographed in the studio. It is not a documented coaster or tile.
 
-21. Robert's Poem / Writing Piece
-   Medium: Writing
-   Category: Writing / Poem
-   Linked section: portfolio.html#writing
-   Description: A dedicated writing feature for Robert's poem and the language side of Inkspirations Studios. The piece gives the studio world a quieter verbal entry point.
+18. Blue Wave Wood Panel
+   Medium: Painted Wood / Wall Art Study
+   Category: Experimental Objects
+   File: assets/images/portfolio/coasters/blue-wave-wood-panel-functional-art.jpg
+   Linked section: coasters-tiles.html
+   Description: A rectangular painted wood panel cataloged as a wall-art study, not a coaster or tile.
 
 ## Middle Zone and Behind The Curtain
 
@@ -173,13 +156,9 @@ Private workflow pages:
 - Commission Request / Lead Intake: lead-intake.html
 - Guest Registry: guest-registry.html
 
-## Writing / Poem
-
-Robert's Poem has a dedicated public feature at portfolio.html#writing. The current public poem text is: "Rain at the studio window. Ink moving like memory. A room opens, and the work begins." Word-based visual pieces are also available in the gallery under Words & Expressions.
-
 ## Coasters / Functional Art
 
-Inkspirations Coasters / Functional Art has a dedicated portfolio feature at portfolio.html#functional and a deeper product workshop area at merch-foundry.html#coasters. The section includes image slots for coaster photos, set mockups, and functional art details.
+No verified finished coaster or decorative-tile photographs are present. coasters-tiles.html reports the missing full-set, top, side, finish, holder, and packaging views and shows two related wood studies explicitly labeled as not coasters.
 
 ## Merch Concept Foundry
 
