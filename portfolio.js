@@ -21,6 +21,7 @@ const modalPrice = document.getElementById("modalPrice");
 const modalDimensions = document.getElementById("modalDimensions");
 const modalMedium = document.getElementById("modalMedium");
 const modalPrimaryAction = document.getElementById("modalPrimaryAction");
+const modalArtworkPage = document.getElementById("modalArtworkPage");
 
 let works = [];
 let activeFilter = "all";
@@ -32,6 +33,7 @@ let lastGalleryTrigger = null;
 let searchScrollTimer = null;
 
 const siteBase = location.hostname.endsWith("github.io") ? "/markdown-portfolio/" : "";
+const artworkPageSlugs = new Set(["between-waves","blue-current-curved-wood-study","blue-field","blue-wave-wood-panel","burned-motion-razorback","electric-love-blue-variation","electric-love","lest-we-forget","love-study-title-pending","rainline-study","release","say-no-to-provoke-and-blame","small-town-teacher","submersion","sunflower-mandala","u-r-priceless","washed-out","we-are-not-descended-from-fearful-men"]);
 
 window.InkspirationsBringHomeData = Object.assign(window.InkspirationsBringHomeData || {}, {
   "roberts-poem": {
@@ -81,6 +83,12 @@ function assetPath(path) {
   if (!path) return "";
   if (/^(https?:|data:|blob:|\/|mailto:)/.test(path)) return path;
   return siteBase + path.replace(/^\.\//, "");
+}
+
+function artworkPath(work) {
+  const slug = String(work.title || "artwork").toLowerCase().normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  return artworkPageSlugs.has(slug) ? assetPath(`artwork/${slug}.html`) : "";
 }
 
 function imagePath(work, field) {
@@ -172,7 +180,10 @@ function renderGallery() {
     const thumb = imagePath(work, "thumb") || imagePath(work, "src") || visualCard(work);
     const full = imagePath(work, "src") || thumb;
     const title = escapeHtml(work.title);
-    return `<article class="gallery-card photographer-card" data-position="${position}"><button class="gallery-open" type="button" data-action="details" aria-label="View details for ${title}"><span class="gallery-image-wrap"><img src="${thumb}" alt="${title}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='${full}';"></span><span class="gallery-card-copy"><span class="gallery-card-kicker">${escapeHtml(work.category)}</span><span class="gallery-card-title">${title}</span><span class="gallery-card-medium">${escapeHtml(work.medium)}</span></span></button><span class="gallery-card-actions"><button class="mini-action" type="button" data-action="details">View Details</button><a class="mini-action" href="${pixelsStoreUrl}" target="_blank" rel="noopener noreferrer" data-action="shop">Shop Prints & Products</a></span></article>`;
+    const medium = escapeHtml(work.medium);
+    const page = artworkPath(work);
+    const pageLink = page ? `<a class="mini-action" href="${page}" data-action="page">Artwork Page</a>` : "";
+    return `<article class="gallery-card photographer-card" data-position="${position}"><button class="gallery-open" type="button" data-action="details" aria-label="View details for ${title}"><span class="gallery-image-wrap"><img src="${thumb}" alt="${title}, ${medium}, by Robert Marleton." loading="lazy" decoding="async" onerror="this.onerror=null;this.src='${full}';"></span><span class="gallery-card-copy"><span class="gallery-card-kicker">${escapeHtml(work.category)}</span><span class="gallery-card-title">${title}</span><span class="gallery-card-medium">${medium}</span></span></button><span class="gallery-card-actions"><button class="mini-action" type="button" data-action="details">View Details</button>${pageLink}<a class="mini-action" href="${pixelsStoreUrl}" target="_blank" rel="noopener noreferrer" data-action="shop">Shop Prints & Products</a></span></article>`;
   }).join("");
 }
 
@@ -196,6 +207,9 @@ function openLightbox(position) {
   modalPrice.textContent = work.price || "Price Upon Request";
   modalDimensions.textContent = work.dimensions || "Dimensions coming soon";
   modalMedium.textContent = work.medium || "Artwork";
+  const artworkPage = artworkPath(work);
+  modalArtworkPage.hidden = !artworkPage;
+  if (artworkPage) modalArtworkPage.href = artworkPage;
   if (modalPrimaryAction) {
     const action = primaryAction(work);
     modalPrimaryAction.href = action.href;
@@ -226,7 +240,7 @@ async function loadGallery() {
   renderFilters();
   renderGallery();
   try {
-    const response = await fetch(assetPath(galleryDataUrl), { cache: "no-store" });
+    const response = await fetch(assetPath(galleryDataUrl), { cache: "default" });
     if (!response.ok) throw new Error(`Gallery list returned ${response.status}`);
     const data = await response.json();
     works = (data.works || []).map(normalizeWork);
@@ -263,7 +277,7 @@ galleryGrid.addEventListener("click", (event) => {
   const card = event.target.closest(".gallery-card");
   if (!card) return;
   const action = event.target.closest("[data-action]")?.dataset.action;
-  if (action === "inquiry") return;
+  if (action === "inquiry" || action === "shop" || action === "page") return;
   if (action === "details") openLightbox(Number(card.dataset.position));
 });
 

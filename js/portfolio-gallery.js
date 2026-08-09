@@ -24,6 +24,7 @@ const els = {
   lightboxKicker: document.querySelector('#lightbox-kicker'),
   lightboxMeta: document.querySelector('#lightbox-meta'),
   takeHome: document.querySelector('#lightbox-take-home'),
+  artworkPage: document.querySelector('#lightbox-artwork-page'),
   lightboxClose: document.querySelector('#lightbox-close'),
   previous: document.querySelector('#lightbox-previous'),
   next: document.querySelector('#lightbox-next')
@@ -31,7 +32,7 @@ const els = {
 
 async function initGallery() {
   try {
-    const response = await fetch('data/portfolio-gallery.json', { cache: 'no-store' });
+    const response = await fetch('data/portfolio-gallery.json', { cache: 'default' });
     if (!response.ok) throw new Error(`Gallery JSON failed to load: ${response.status}`);
     const data = await response.json();
     state.allItems = Array.isArray(data.items) ? data.items.filter(item => item && item.image) : [];
@@ -43,7 +44,6 @@ async function initGallery() {
   hydrateFilters();
   bindEvents();
   renderGallery();
-  preloadImages(state.allItems);
 }
 
 function bindEvents() {
@@ -105,7 +105,7 @@ function renderGallery() {
   renderCards();
   els.count.textContent = `${state.visibleItems.length} image${state.visibleItems.length === 1 ? '' : 's'} showing`;
   els.empty.hidden = state.visibleItems.length > 0;
-  preloadImages(state.visibleItems);
+  preloadImage((state.visibleItems.find(item => item.featured) || state.visibleItems[0])?.image);
 }
 
 function isInquirable(item) {
@@ -116,6 +116,20 @@ function createInquiryLink(item) {
   const subject = encodeURIComponent(`Inkspirations Studios inquiry: ${item.title}`);
   const body = encodeURIComponent(`Hello Robert,\n\nI would like to ask about “${item.title}.”\n\nPlease send me more information about availability, pricing, or commissioning related work.\n\nThank you.`);
   return `mailto:r.marleton@gmail.com?subject=${subject}&body=${body}`;
+}
+
+const artworkPageSlugs = new Set(["between-waves","blue-current-curved-wood-study","blue-field","blue-wave-wood-panel","burned-motion-razorback","electric-love-blue-variation","electric-love","lest-we-forget","love-study-title-pending","rainline-study","release","say-no-to-provoke-and-blame","small-town-teacher","submersion","sunflower-mandala","u-r-priceless","washed-out","we-are-not-descended-from-fearful-men"]);
+
+function artworkPagePath(item) {
+  const slug = String(item?.title || '').toLowerCase().normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  return artworkPageSlugs.has(slug) ? `artwork/${slug}.html` : '';
+}
+
+function thumbnailPath(item) {
+  const image = String(item?.image || '');
+  if (image.includes('/coasters/')) return image.replace('/coasters/', '/coasters/thumbs/').replace(/\.jpg$/i, '-thumb.jpg');
+  return image.replace('/portfolio/', '/portfolio/thumbs/').replace(/\.jpg$/i, '-thumb.jpg');
 }
 
 function renderFeatured() {
@@ -155,7 +169,7 @@ function renderCards() {
     card.type = 'button';
     card.className = 'gallery-card';
     card.innerHTML = `
-      <img src="${escapeAttribute(item.image)}" alt="${escapeAttribute(item.alt || item.title)}" loading="lazy" decoding="async">
+      <img src="${escapeAttribute(thumbnailPath(item))}" alt="${escapeAttribute(item.alt || item.title)}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='${escapeAttribute(item.image)}'">
       <div class="card-body">
         <h3>${escapeHtml(item.title)}</h3>
         <p>${escapeHtml(item.collection || 'Portfolio')}</p>
@@ -235,6 +249,9 @@ function updateLightbox() {
   els.lightboxImage.src = item.image;
   els.lightboxImage.alt = item.alt || item.title;
   els.lightboxTitle.textContent = item.title;
+  const artworkPage = artworkPagePath(item);
+  els.artworkPage.hidden = !artworkPage;
+  if (artworkPage) els.artworkPage.href = artworkPage;
   els.lightboxDescription.textContent = item.description || '';
   els.lightboxKicker.textContent = [item.collection, item.type].filter(Boolean).join(' · ');
   els.lightboxMeta.innerHTML = '';

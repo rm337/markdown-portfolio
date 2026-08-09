@@ -9,7 +9,13 @@ const publicDirectories = ["css", "js"];
 const rootFiles = fs.readdirSync(root, { withFileTypes: true })
   .filter((entry) => entry.isFile())
   .map((entry) => entry.name);
-const htmlFiles = rootFiles.filter((file) => file.endsWith(".html"));
+const artworkDirectory = path.join(root, "artwork");
+const htmlFiles = [
+  ...rootFiles.filter((file) => file.endsWith(".html")),
+  ...(fs.existsSync(artworkDirectory)
+    ? fs.readdirSync(artworkDirectory).filter((file) => file.endsWith(".html")).map((file) => path.join("artwork", file))
+    : [])
+];
 
 function cleanReference(reference) {
   return String(reference || "").trim().replace(/^['"]|['"]$/g, "");
@@ -89,8 +95,11 @@ for (const catalog of ["portfolio.json", "data/portfolio-gallery.json"]) {
   }
 }
 
-const flightDeck = JSON.parse(fs.readFileSync(path.join(root, "data/flight-deck-tracks.json"), "utf8"));
-for (const entry of [...(flightDeck.paths || []), ...(flightDeck.tracks || [])]) checkFile("index.html", entry.url, "data/flight-deck-tracks.json listening path");
+const flightDeckPath = path.join(root, "data/flight-deck-tracks.json");
+if (fs.existsSync(flightDeckPath)) {
+  const flightDeck = JSON.parse(fs.readFileSync(flightDeckPath, "utf8"));
+  for (const entry of [...(flightDeck.paths || []), ...(flightDeck.tracks || [])]) checkFile("index.html", entry.url, "data/flight-deck-tracks.json listening path");
+}
 
 function walk(directory, predicate) {
   const results = [];

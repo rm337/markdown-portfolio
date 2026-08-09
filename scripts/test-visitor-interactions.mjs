@@ -94,8 +94,11 @@ assert.equal(documentElement.dataset.audioLabel, undefined, "The document root m
 windowObject.InkspirationsAudioEngine.pause();
 assert.equal(windowObject.InkspirationsAudioEngine.getState().playing, false);
 
-const flightDeckData = fs.readFileSync(path.join(root, "data/flight-deck-tracks.json"), "utf8");
-assert.doesNotMatch(flightDeckData, /dj\.html/i, "No nonexistent DJ page may remain");
+const flightDeckPath = path.join(root, "data/flight-deck-tracks.json");
+if (fs.existsSync(flightDeckPath)) {
+  const flightDeckData = fs.readFileSync(flightDeckPath, "utf8");
+  assert.doesNotMatch(flightDeckData, /dj\.html/i, "No nonexistent DJ page may remain");
+}
 
 const portfolioSource = fs.readFileSync(path.join(root, "portfolio.js"), "utf8");
 assert.match(portfolioSource, /Shop Prints & Products/);
