@@ -3,22 +3,58 @@
 
   const originalScrollTo = window.scrollTo.bind(window);
   const ROBERT_PIXELS_PROFILE = "https://pixels.com/profiles/robert-marleton";
+  const ARTWORK_INQUIRY = "mailto:r.marleton@gmail.com?subject=Artwork%20inquiry";
+
+  const isMarketplaceUrl = (value) => {
+    if (!value) return false;
+    try {
+      const url = new URL(value, window.location.href);
+      return /(^|\.)pixels\.com$/i.test(url.hostname) || /(^|\.)fineartamerica\.com$/i.test(url.hostname);
+    } catch {
+      return false;
+    }
+  };
 
   const enforceRobertPixelsLinks = (root = document) => {
     root.querySelectorAll?.('a[href*="pixels.com"], a[href*="fineartamerica.com"]').forEach((link) => {
+      if (link.closest(".gallery-card")) return;
+      if (link.id === "modalPrimaryAction") return;
       link.href = ROBERT_PIXELS_PROFILE;
       link.target = "_blank";
       link.rel = "noopener noreferrer";
     });
   };
 
+  const protectArtworkExperience = (root = document) => {
+    root.querySelectorAll?.('.gallery-card a[href*="pixels.com"], .gallery-card a[href*="fineartamerica.com"]').forEach((link) => {
+      link.remove();
+    });
+
+    const modalAction = document.getElementById("modalPrimaryAction");
+    if (modalAction && isMarketplaceUrl(modalAction.getAttribute("href"))) {
+      modalAction.href = ARTWORK_INQUIRY;
+      modalAction.textContent = "Ask About This Piece";
+      modalAction.removeAttribute("target");
+      modalAction.removeAttribute("rel");
+    }
+  };
+
   const watchPixelsLinks = () => {
     enforceRobertPixelsLinks();
+    protectArtworkExperience();
+
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
+        if (mutation.type === "attributes") {
+          const target = mutation.target;
+          if (target instanceof Element && target.id === "modalPrimaryAction") protectArtworkExperience();
+          return;
+        }
+
         mutation.addedNodes.forEach((node) => {
           if (!(node instanceof Element)) return;
-          if (node.matches?.('a[href*="pixels.com"], a[href*="fineartamerica.com"]')) {
+          protectArtworkExperience(node);
+          if (node.matches?.('a[href*="pixels.com"], a[href*="fineartamerica.com"]') && !node.closest(".gallery-card") && node.id !== "modalPrimaryAction") {
             node.href = ROBERT_PIXELS_PROFILE;
             node.target = "_blank";
             node.rel = "noopener noreferrer";
@@ -27,7 +63,8 @@
         });
       });
     });
-    observer.observe(document.documentElement, { childList: true, subtree: true });
+
+    observer.observe(document.documentElement, { childList: true, subtree: true, attributes: true, attributeFilter: ["href"] });
   };
 
   window.scrollTo = (...args) => {
@@ -128,6 +165,8 @@
         card.remove();
       }
     });
+
+    protectArtworkExperience();
   };
 
   const fixGalleryFilters = () => {
@@ -249,6 +288,14 @@
 
   document.addEventListener("click", (event) => {
     const link = event.target.closest?.("a[href]");
+
+    if (link && link.closest(".gallery-card") && isMarketplaceUrl(link.getAttribute("href"))) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      link.closest(".gallery-card")?.querySelector('[data-action="details"]')?.click();
+      return;
+    }
+
     if (!link) return;
 
     let clickedUrl;
@@ -258,7 +305,7 @@
       clickedUrl = null;
     }
 
-    if (clickedUrl && /(^|\.)pixels\.com$/i.test(clickedUrl.hostname) || clickedUrl && /(^|\.)fineartamerica\.com$/i.test(clickedUrl.hostname)) {
+    if (clickedUrl && (/(^|\.)pixels\.com$/i.test(clickedUrl.hostname) || /(^|\.)fineartamerica\.com$/i.test(clickedUrl.hostname))) {
       link.href = ROBERT_PIXELS_PROFILE;
       return;
     }
@@ -284,7 +331,7 @@
 
     event.preventDefault();
     scrollToTarget(target, true);
-  });
+  }, true);
 
   const restoreHashPosition = () => {
     const target = findTarget(window.location.hash);
