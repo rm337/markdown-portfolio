@@ -34,6 +34,53 @@
     #writing .poem-text{position:relative;isolation:isolate;overflow:hidden;padding:clamp(1rem,3vw,2rem);border:1px solid rgba(143,243,232,.2);user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
     #writing .poem-text::after{content:"© ROBERT MARLETON • © ROBERT MARLETON • © ROBERT MARLETON";position:absolute;inset:-15%;z-index:2;display:grid;place-items:center;transform:rotate(-24deg);color:rgba(246,243,232,.055);font:800 clamp(.8rem,2vw,1.15rem)/4 Inter,Arial,sans-serif;letter-spacing:.18em;word-spacing:1.2em;text-align:center;pointer-events:none;white-space:normal}
     #writing .poem-text p{position:relative;z-index:1}
+
+    /* Museum-style artwork framing: keep every piece fully inside its frame. */
+    .photographer-card{isolation:isolate}
+    .photographer-card .gallery-open{display:block;height:100%;overflow:hidden}
+    .photographer-card .gallery-image-wrap{
+      display:grid!important;
+      place-items:center!important;
+      height:100%!important;
+      min-height:0!important;
+      padding:clamp(10px,1.2vw,18px)!important;
+      overflow:hidden!important;
+      background:
+        radial-gradient(circle at 50% 36%,rgba(86,217,255,.055),transparent 52%),
+        linear-gradient(145deg,rgba(246,243,232,.035),rgba(2,5,12,.98))!important;
+      box-shadow:inset 0 0 0 1px rgba(246,243,232,.045),inset 0 12px 34px rgba(0,0,0,.22);
+    }
+    .photographer-card .gallery-image-wrap img{
+      display:block!important;
+      width:100%!important;
+      height:100%!important;
+      min-width:0!important;
+      min-height:0!important;
+      max-width:100%!important;
+      max-height:100%!important;
+      object-fit:contain!important;
+      object-position:center center!important;
+      transform:none!important;
+      filter:none!important;
+      box-shadow:0 10px 28px rgba(0,0,0,.28);
+    }
+    .photographer-card:hover .gallery-image-wrap img,
+    .photographer-card:focus-visible .gallery-image-wrap img{
+      transform:scale(1.012)!important;
+      filter:saturate(1.025) contrast(1.015)!important;
+    }
+    .photographer-card::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      border:1px solid rgba(143,243,232,.16);
+      box-shadow:inset 0 0 0 1px rgba(0,0,0,.32);
+      z-index:4;
+    }
+    .photographer-card .gallery-card-copy{z-index:3}
+    .photographer-card .gallery-card-actions{z-index:5}
+
     @media(min-width:901px){.gallery-float-nav,.page-return-nav{width:430px}}
     @media(max-width:700px){
       #modal.open .modal-bar{max-height:28dvh!important}
@@ -41,6 +88,7 @@
       #modal.open #modalDesc{display:none!important}
       .gallery-float-nav,.page-return-nav{bottom:max(8px,env(safe-area-inset-bottom));width:calc(100vw - 18px)}
       .gallery-float-nav button,.page-return-nav button{font-size:.84rem;padding:8px 5px}
+      .photographer-card .gallery-image-wrap{padding:10px!important}
     }
   </style>
 </head>
