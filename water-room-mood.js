@@ -7,7 +7,7 @@
   const style = document.createElement("style");
   style.id = "water-room-mood-styles";
   style.textContent = `
-    .mood-canvas{position:absolute;inset:0;z-index:2;width:100%;height:100%;pointer-events:none;mix-blend-mode:screen;opacity:.92}
+    .mood-canvas{position:absolute;inset:0;z-index:2;width:100%;height:100%;pointer-events:none;mix-blend-mode:screen;opacity:.94}
     .water-room[data-mood-depth]{transition:filter 1.8s ease,background-color 2.2s ease}
     .water-room[data-mood-depth="1"] .caustics{opacity:.76}
     .water-room[data-mood-depth="2"] .caustics{opacity:.82}
@@ -17,7 +17,7 @@
     .water-room[data-mood-state="still"] .flow-layer{animation-duration:26s!important}
     .water-room[data-mood-state="flow"] .flow-layer{animation-duration:18s!important}
     .water-room[data-mood-state="kinetic"] .flow-layer{animation-duration:12s!important}
-    @media(max-width:780px){.mood-canvas{opacity:.78}}
+    @media(max-width:780px){.mood-canvas{opacity:.82}}
     @media(prefers-reduced-motion:reduce){.mood-canvas{display:none!important}}
   `;
   document.head.appendChild(style);
@@ -58,6 +58,12 @@
     [155, 123, 255],
     [255, 111, 181],
     [255, 211, 110]
+  ];
+  const bluePalette = [
+    [28, 135, 184],
+    [35, 170, 205],
+    [78, 199, 221],
+    [13, 101, 148]
   ];
 
   const rgba = (c, a) => `rgba(${c[0]},${c[1]},${c[2]},${a})`;
@@ -116,6 +122,53 @@
     lastFrame = performance.now();
   });
 
+  const drawBlueField = time => {
+    const t = time * .0001;
+    const motionBoost = state === "kinetic" ? 1.45 : state === "flow" ? 1.1 : .78;
+    const depthBoost = .85 + depth * .08;
+
+    ctx.save();
+    ctx.globalCompositeOperation = "screen";
+
+    for (let band = 0; band < 5; band += 1) {
+      const baseY = height * (.08 + band * .2);
+      const amplitude = height * (.025 + band * .006) * motionBoost;
+      const drift = Math.sin(t * (2.2 + band * .37) + band * 1.7) * width * .035;
+      ctx.strokeStyle = rgba(bluePalette[band % bluePalette.length], (.032 + focus * .014) * depthBoost);
+      ctx.lineWidth = height * (.055 + band * .008);
+      ctx.lineCap = "round";
+      ctx.beginPath();
+      for (let x = -80; x <= width + 80; x += 34) {
+        const y = baseY
+          + Math.sin(x * .008 + t * (5.2 + band * .55)) * amplitude
+          + Math.cos(x * .0037 - t * (3.1 + band * .25)) * amplitude * .5;
+        if (x === -80) ctx.moveTo(x + drift, y); else ctx.lineTo(x + drift, y);
+      }
+      ctx.stroke();
+    }
+
+    const glowX = width * (.5 + Math.sin(t * 2.3) * .22);
+    const glowY = height * (.48 + Math.cos(t * 1.8) * .19);
+    const glow = ctx.createRadialGradient(glowX, glowY, 0, glowX, glowY, Math.max(width, height) * .48);
+    glow.addColorStop(0, `rgba(78,199,221,${.055 + focus * .035})`);
+    glow.addColorStop(.45, `rgba(35,170,205,${.025 + depth * .006})`);
+    glow.addColorStop(1, "rgba(13,101,148,0)");
+    ctx.fillStyle = glow;
+    ctx.fillRect(0, 0, width, height);
+
+    if (pointer.active) {
+      const radius = 150 + focus * 170;
+      const pointerGlow = ctx.createRadialGradient(pointer.x, pointer.y, 0, pointer.x, pointer.y, radius);
+      pointerGlow.addColorStop(0, `rgba(167,237,243,${.025 + focus * .055})`);
+      pointerGlow.addColorStop(.5, `rgba(31,126,161,${.018 + focus * .025})`);
+      pointerGlow.addColorStop(1, "rgba(31,126,161,0)");
+      ctx.fillStyle = pointerGlow;
+      ctx.fillRect(pointer.x - radius, pointer.y - radius, radius * 2, radius * 2);
+    }
+
+    ctx.restore();
+  };
+
   const choosePaletteIndex = () => {
     const minimum = Math.min(...memory.paletteVisits);
     const candidates = memory.paletteVisits
@@ -125,17 +178,7 @@
   };
 
   const addTrail = (x, y, colorIndex, strength) => {
-    trails.push({
-      x,
-      y,
-      px: x,
-      py: y,
-      colorIndex,
-      life: 1,
-      strength,
-      wobble: Math.random() * Math.PI * 2,
-      curl: (Math.random() - .5) * .9
-    });
+    trails.push({ x, y, px: x, py: y, colorIndex, life: 1, strength, wobble: Math.random() * Math.PI * 2, curl: (Math.random() - .5) * .9 });
     const maxTrails = window.innerWidth < 760 ? 110 : 210;
     if (trails.length > maxTrails) trails.splice(0, trails.length - maxTrails);
   };
@@ -147,24 +190,13 @@
   };
 
   const spawnFormation = (x, y) => {
-    if (focus < .74 || memory.engagement < 8 || rareCooldown > 0) return;
-    if (Math.random() > .0055) return;
-
+    if (focus < .74 || memory.engagement < 8 || rareCooldown > 0 || Math.random() > .0055) return;
     const types = availableRareTypes();
     const type = types[Math.floor(Math.random() * types.length)];
     const colorIndex = type === "golden-current" ? 4 : choosePaletteIndex();
     memory.paletteVisits[colorIndex] += 1;
     memory.rareSeen.add(type);
-    formations.push({
-      type,
-      x,
-      y,
-      colorIndex,
-      life: 1,
-      radius: 10,
-      spin: Math.random() * Math.PI * 2,
-      seed: Math.random() * 1000
-    });
+    formations.push({ type, x, y, colorIndex, life: 1, radius: 10, spin: Math.random() * Math.PI * 2, seed: Math.random() * 1000 });
     rareCooldown = 13;
   };
 
@@ -181,9 +213,7 @@
       const near = Math.max(0, 1 - distance / 150);
       proximity = Math.max(proximity, near);
 
-      if (depth >= 3 && Math.floor(time / 8500 + index) % 4 === 0) {
-        drop.colorIndex = (drop.colorIndex + 1) % palette.length;
-      }
+      if (depth >= 3 && Math.floor(time / 8500 + index) % 4 === 0) drop.colorIndex = (drop.colorIndex + 1) % palette.length;
       const color = palette[drop.colorIndex];
       const glow = .16 + near * .6 + focus * .18;
       const gradient = ctx.createRadialGradient(x - drop.r * .25, y - drop.r * .35, 0, x, y, drop.r * (2.4 + near * 1.2));
@@ -204,7 +234,6 @@
     const steadiness = pointer.active ? 1 - pointer.speed : 0;
     const target = pointer.active ? Math.min(1, proximity * .7 + steadiness * .2) : 0;
     focus += (target - focus) * Math.min(1, dt * .003);
-
     if (pointer.active && proximity > .25) {
       memory.engagement += dt / 1000;
       memory.slowBias += steadiness * dt / 1000;
@@ -228,87 +257,78 @@
       ctx.lineWidth = 1 + trail.strength * 3.4 + focus * 2.1;
       ctx.beginPath();
       ctx.moveTo(trail.px, trail.py);
-      ctx.quadraticCurveTo(
-        (trail.px + trail.x) / 2 + Math.sin(time * .001 + trail.wobble) * 5,
-        (trail.py + trail.y) / 2,
-        trail.x,
-        trail.y
-      );
+      ctx.quadraticCurveTo((trail.px + trail.x) / 2 + Math.sin(time * .001 + trail.wobble) * 5, (trail.py + trail.y) / 2, trail.x, trail.y);
       ctx.stroke();
       if (trail.life <= 0) trails.splice(i, 1);
     }
   };
 
-  const drawBloom = formation => {
-    const petals = 10;
-    for (let p = 0; p < petals; p += 1) {
-      const angle = (p / petals) * Math.PI * 2;
-      ctx.strokeStyle = rgba(palette[formation.colorIndex], formation.life * .085);
+  const drawBloom = f => {
+    for (let p = 0; p < 10; p += 1) {
+      const angle = (p / 10) * Math.PI * 2;
+      ctx.strokeStyle = rgba(palette[f.colorIndex], f.life * .085);
       ctx.lineWidth = 2.1;
       ctx.beginPath();
-      ctx.ellipse(Math.cos(angle) * formation.radius * .3, Math.sin(angle) * formation.radius * .3, formation.radius * .72, formation.radius * .18, angle, 0, Math.PI * 2);
+      ctx.ellipse(Math.cos(angle) * f.radius * .3, Math.sin(angle) * f.radius * .3, f.radius * .72, f.radius * .18, angle, 0, Math.PI * 2);
       ctx.stroke();
     }
   };
 
-  const drawConstellation = formation => {
-    const points = 7;
-    ctx.strokeStyle = rgba(palette[formation.colorIndex], formation.life * .12);
-    ctx.fillStyle = rgba([235, 255, 255], formation.life * .42);
+  const drawConstellation = f => {
+    ctx.strokeStyle = rgba(palette[f.colorIndex], f.life * .12);
+    ctx.fillStyle = rgba([235,255,255], f.life * .42);
     ctx.lineWidth = 1;
     ctx.beginPath();
-    for (let i = 0; i < points; i += 1) {
-      const angle = formation.spin + i * 2.17;
-      const radius = formation.radius * (.35 + (i % 3) * .22);
+    for (let i = 0; i < 7; i += 1) {
+      const angle = f.spin + i * 2.17;
+      const radius = f.radius * (.35 + (i % 3) * .22);
       const px = Math.cos(angle) * radius;
       const py = Math.sin(angle * 1.13) * radius * .65;
       if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
     }
     ctx.stroke();
-    for (let i = 0; i < points; i += 1) {
-      const angle = formation.spin + i * 2.17;
-      const radius = formation.radius * (.35 + (i % 3) * .22);
+    for (let i = 0; i < 7; i += 1) {
+      const angle = f.spin + i * 2.17;
+      const radius = f.radius * (.35 + (i % 3) * .22);
       ctx.beginPath();
       ctx.arc(Math.cos(angle) * radius, Math.sin(angle * 1.13) * radius * .65, 1.8 + (i % 2), 0, Math.PI * 2);
       ctx.fill();
     }
   };
 
-  const drawAurora = formation => {
+  const drawAurora = f => {
     for (let band = 0; band < 4; band += 1) {
-      const colorIndex = (formation.colorIndex + band) % 4;
-      ctx.strokeStyle = rgba(palette[colorIndex], formation.life * (.055 + band * .012));
+      ctx.strokeStyle = rgba(palette[(f.colorIndex + band) % 4], f.life * (.055 + band * .012));
       ctx.lineWidth = 8 - band * 1.4;
       ctx.beginPath();
-      for (let x = -formation.radius; x <= formation.radius; x += 10) {
-        const y = Math.sin(x * .024 + formation.seed + band * .7) * (10 + band * 4) + band * 6;
-        if (x === -formation.radius) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      for (let x = -f.radius; x <= f.radius; x += 10) {
+        const y = Math.sin(x * .024 + f.seed + band * .7) * (10 + band * 4) + band * 6;
+        if (x === -f.radius) ctx.moveTo(x, y); else ctx.lineTo(x, y);
       }
       ctx.stroke();
     }
   };
 
-  const drawGoldenCurrent = formation => {
-    const gold = palette[4];
-    ctx.strokeStyle = rgba(gold, formation.life * .18);
+  const drawGoldenCurrent = f => {
+    ctx.strokeStyle = rgba(palette[4], f.life * .18);
     ctx.lineWidth = 3.5;
     ctx.beginPath();
-    for (let x = -formation.radius * 1.5; x <= formation.radius * 1.5; x += 8) {
-      const y = Math.sin(x * .03 + formation.seed) * 14;
-      if (x === -formation.radius * 1.5) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    for (let x = -f.radius * 1.5; x <= f.radius * 1.5; x += 8) {
+      const y = Math.sin(x * .03 + f.seed) * 14;
+      if (x === -f.radius * 1.5) ctx.moveTo(x, y); else ctx.lineTo(x, y);
     }
     ctx.stroke();
   };
 
-  const drawMirror = formation => {
-    ctx.strokeStyle = rgba(palette[formation.colorIndex], formation.life * .1);
+  const drawMirror = f => {
+    ctx.strokeStyle = rgba(palette[f.colorIndex], f.life * .1);
     ctx.lineWidth = 2;
     for (const direction of [-1, 1]) {
       ctx.save();
       ctx.scale(direction, 1);
       ctx.beginPath();
       ctx.moveTo(0, 0);
-      ctx.bezierCurveTo(formation.radius * .25, -formation.radius * .55, formation.radius * .7, formation.radius * .35, formation.radius, 0);
+      ctx.bezierCurveTo(f.radius * .25, -f.radius * .55, f.radius * .7, f.radius * .35, f.radius, 0);
       ctx.stroke();
       ctx.restore();
     }
@@ -316,24 +336,21 @@
 
   const drawFormations = dt => {
     for (let i = formations.length - 1; i >= 0; i -= 1) {
-      const formation = formations[i];
-      formation.life -= dt * .00012;
-      formation.radius += dt * (formation.type === "aurora" ? .035 : .024);
-      formation.spin += dt * .00016;
-
+      const f = formations[i];
+      f.life -= dt * .00012;
+      f.radius += dt * (f.type === "aurora" ? .035 : .024);
+      f.spin += dt * .00016;
       ctx.save();
-      ctx.translate(formation.x, formation.y);
-      ctx.rotate(formation.type === "mirror" ? 0 : formation.spin * .2);
+      ctx.translate(f.x, f.y);
+      ctx.rotate(f.type === "mirror" ? 0 : f.spin * .2);
       ctx.globalCompositeOperation = "lighter";
-
-      if (formation.type === "bloom") drawBloom(formation);
-      if (formation.type === "constellation") drawConstellation(formation);
-      if (formation.type === "aurora") drawAurora(formation);
-      if (formation.type === "golden-current") drawGoldenCurrent(formation);
-      if (formation.type === "mirror") drawMirror(formation);
-
+      if (f.type === "bloom") drawBloom(f);
+      if (f.type === "constellation") drawConstellation(f);
+      if (f.type === "aurora") drawAurora(f);
+      if (f.type === "golden-current") drawGoldenCurrent(f);
+      if (f.type === "mirror") drawMirror(f);
       ctx.restore();
-      if (formation.life <= 0) formations.splice(i, 1);
+      if (f.life <= 0) formations.splice(i, 1);
     }
   };
 
@@ -343,7 +360,6 @@
       depth = nextDepth;
       room.dataset.moodDepth = String(depth);
     }
-
     const slowRatio = memory.engagement ? memory.slowBias / memory.engagement : 0;
     const fastRatio = memory.engagement ? memory.fastBias / memory.engagement : 0;
     const nextState = focus < .18 ? "still" : fastRatio > .42 && pointer.speed > .35 ? "kinetic" : slowRatio > .52 ? "flow" : "still";
@@ -358,19 +374,17 @@
       requestAnimationFrame(render);
       return;
     }
-
     const dt = Math.min(40, now - lastFrame || 16);
     lastFrame = now;
     rareCooldown = Math.max(0, rareCooldown - dt / 1000);
-
     ctx.clearRect(0, 0, width, height);
+    drawBlueField(now);
     ctx.globalCompositeOperation = "lighter";
     drawTrails(now, dt);
     drawDroplets(now, dt);
     drawFormations(dt);
     ctx.globalCompositeOperation = "source-over";
     updateAtmosphere();
-
     requestAnimationFrame(render);
   };
 
