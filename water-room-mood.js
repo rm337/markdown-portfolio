@@ -34,6 +34,7 @@
   const droplets = [];
   const trails = [];
   const formations = [];
+  const inkSeeds = [];
   const memory = {
     engagement: 0,
     slowBias: 0,
@@ -65,6 +66,12 @@
     [78, 199, 221],
     [13, 101, 148]
   ];
+  const inkPalette = [
+    [36, 72, 132],
+    [68, 56, 139],
+    [28, 112, 143],
+    [89, 52, 120]
+  ];
 
   const rgba = (c, a) => `rgba(${c[0]},${c[1]},${c[2]},${a})`;
 
@@ -95,6 +102,20 @@
     }
   };
 
+  const seedInk = () => {
+    inkSeeds.length = 0;
+    const count = window.innerWidth < 760 ? 4 : 7;
+    for (let i = 0; i < count; i += 1) {
+      inkSeeds.push({
+        x: width * (.12 + ((i * .137) % .76)),
+        y: height * (.16 + ((i * .173) % .66)),
+        phase: i * 1.19,
+        scale: .72 + (i % 4) * .16,
+        colorIndex: i % inkPalette.length
+      });
+    }
+  };
+
   const setPointer = (clientX, clientY, now = performance.now()) => {
     const rect = room.getBoundingClientRect();
     if (clientY < rect.top || clientY > rect.bottom || clientX < rect.left || clientX > rect.right) {
@@ -116,7 +137,7 @@
   window.addEventListener("pointermove", event => setPointer(event.clientX, event.clientY), { passive: true });
   room.addEventListener("pointerleave", () => { pointer.active = false; });
   room.addEventListener("pointerdown", event => setPointer(event.clientX, event.clientY), { passive: true });
-  window.addEventListener("resize", () => { resize(); seedDroplets(); }, { passive: true });
+  window.addEventListener("resize", () => { resize(); seedDroplets(); seedInk(); }, { passive: true });
   document.addEventListener("visibilitychange", () => {
     hidden = document.hidden;
     lastFrame = performance.now();
@@ -164,6 +185,69 @@
       pointerGlow.addColorStop(1, "rgba(31,126,161,0)");
       ctx.fillStyle = pointerGlow;
       ctx.fillRect(pointer.x - radius, pointer.y - radius, radius * 2, radius * 2);
+    }
+
+    ctx.restore();
+  };
+
+  const drawInkField = time => {
+    const t = time * .00012;
+    const cycle = (Math.sin(time * .000055) + 1) * .5;
+    const inkMix = .18 + cycle * .32 + focus * .16;
+    const waterPull = state === "kinetic" ? 1.35 : state === "flow" ? 1.05 : .72;
+
+    ctx.save();
+    ctx.globalCompositeOperation = depth >= 3 ? "screen" : "soft-light";
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+
+    inkSeeds.forEach((seed, index) => {
+      const originX = seed.x + Math.sin(t * (2.1 + index * .09) + seed.phase) * width * .055 * waterPull;
+      const originY = seed.y + Math.cos(t * (1.35 + index * .11) + seed.phase) * height * .045;
+      const length = width * (.18 + seed.scale * .09 + focus * .05);
+      const color = inkPalette[seed.colorIndex];
+
+      for (let strand = 0; strand < 3; strand += 1) {
+        const offset = strand * 9 - 9;
+        const alpha = inkMix * (.045 - strand * .008);
+        ctx.strokeStyle = rgba(color, alpha);
+        ctx.lineWidth = 14 - strand * 3 + focus * 3;
+        ctx.beginPath();
+
+        for (let s = 0; s <= 18; s += 1) {
+          const p = s / 18;
+          const x = originX + (p - .5) * length;
+          const wave = Math.sin(p * Math.PI * (2.2 + strand * .35) + t * (5 + index * .32) + seed.phase) * height * (.025 + seed.scale * .008);
+          const cross = Math.cos(p * Math.PI * 3.2 - t * (3.1 + strand * .2)) * height * .012 * waterPull;
+          const y = originY + wave + cross + offset;
+          if (s === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+      }
+
+      const plumeRadius = 55 + seed.scale * 42 + focus * 24;
+      const plume = ctx.createRadialGradient(originX, originY, 0, originX, originY, plumeRadius);
+      plume.addColorStop(0, rgba(color, inkMix * .055));
+      plume.addColorStop(.45, rgba(color, inkMix * .025));
+      plume.addColorStop(1, rgba(color, 0));
+      ctx.fillStyle = plume;
+      ctx.fillRect(originX - plumeRadius, originY - plumeRadius, plumeRadius * 2, plumeRadius * 2);
+    });
+
+    if (depth >= 2) {
+      const braidY = height * (.48 + Math.sin(t * 1.7) * .08);
+      for (let braid = 0; braid < 2; braid += 1) {
+        ctx.strokeStyle = rgba(palette[(braid + 1) % 4], .025 + focus * .035);
+        ctx.lineWidth = 5 + braid * 3;
+        ctx.beginPath();
+        for (let x = -40; x <= width + 40; x += 24) {
+          const y = braidY
+            + Math.sin(x * .012 + t * (6.3 + braid)) * height * .035
+            + Math.cos(x * .005 - t * 3.2) * height * .018;
+          if (x === -40) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+      }
     }
 
     ctx.restore();
@@ -379,6 +463,7 @@
     rareCooldown = Math.max(0, rareCooldown - dt / 1000);
     ctx.clearRect(0, 0, width, height);
     drawBlueField(now);
+    drawInkField(now);
     ctx.globalCompositeOperation = "lighter";
     drawTrails(now, dt);
     drawDroplets(now, dt);
@@ -390,6 +475,7 @@
 
   resize();
   seedDroplets();
+  seedInk();
   room.dataset.moodDepth = "0";
   room.dataset.moodState = "still";
   requestAnimationFrame(render);
