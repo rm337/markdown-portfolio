@@ -2,6 +2,33 @@
   "use strict";
 
   const originalScrollTo = window.scrollTo.bind(window);
+  const ROBERT_PIXELS_PROFILE = "https://pixels.com/profiles/robert-marleton";
+
+  const enforceRobertPixelsLinks = (root = document) => {
+    root.querySelectorAll?.('a[href*="pixels.com"], a[href*="fineartamerica.com"]').forEach((link) => {
+      link.href = ROBERT_PIXELS_PROFILE;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+    });
+  };
+
+  const watchPixelsLinks = () => {
+    enforceRobertPixelsLinks();
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => {
+          if (!(node instanceof Element)) return;
+          if (node.matches?.('a[href*="pixels.com"], a[href*="fineartamerica.com"]')) {
+            node.href = ROBERT_PIXELS_PROFILE;
+            node.target = "_blank";
+            node.rel = "noopener noreferrer";
+          }
+          enforceRobertPixelsLinks(node);
+        });
+      });
+    });
+    observer.observe(document.documentElement, { childList: true, subtree: true });
+  };
 
   window.scrollTo = (...args) => {
     const options = args.length === 1 && typeof args[0] === "object" ? args[0] : null;
@@ -136,6 +163,7 @@
   };
 
   const initializePageFixes = () => {
+    watchPixelsLinks();
     installStudioBubbles();
     cleanPublicGallery();
     fixGalleryFilters();
@@ -220,10 +248,23 @@
   };
 
   document.addEventListener("click", (event) => {
-    if (event.defaultPrevented || event.button > 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const link = event.target.closest?.("a[href]");
+    if (!link) return;
 
-    const link = event.target.closest("a[href]");
-    if (!link || link.target === "_blank" || link.hasAttribute("download")) return;
+    let clickedUrl;
+    try {
+      clickedUrl = new URL(link.getAttribute("href"), window.location.href);
+    } catch {
+      clickedUrl = null;
+    }
+
+    if (clickedUrl && /(^|\.)pixels\.com$/i.test(clickedUrl.hostname) || clickedUrl && /(^|\.)fineartamerica\.com$/i.test(clickedUrl.hostname)) {
+      link.href = ROBERT_PIXELS_PROFILE;
+      return;
+    }
+
+    if (event.defaultPrevented || event.button > 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    if (link.target === "_blank" || link.hasAttribute("download")) return;
 
     let url;
     try {
