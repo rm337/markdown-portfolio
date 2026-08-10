@@ -11,6 +11,44 @@
     originalScrollTo(...args);
   };
 
+  const installStudioBubbles = () => {
+    if (document.querySelector(".studio-bubble-field")) return;
+
+    const style = document.createElement("style");
+    style.id = "studio-bubble-styles";
+    style.textContent = `
+      .studio-bubble-field{position:fixed;inset:0;z-index:9990;pointer-events:none;overflow:hidden;mix-blend-mode:screen;opacity:.58}
+      .studio-bubble{position:absolute;bottom:-12vh;border-radius:50%;border:1px solid rgba(220,250,255,.48);background:radial-gradient(circle at 34% 28%,rgba(255,255,255,.48),rgba(164,232,245,.12) 38%,rgba(77,174,207,.03) 70%,transparent 72%);box-shadow:inset -2px -3px 8px rgba(40,138,175,.15),0 0 10px rgba(174,239,249,.08);animation:studioBubbleRise var(--bubble-speed) linear infinite;animation-delay:var(--bubble-delay);transform:translate3d(0,0,0)}
+      @keyframes studioBubbleRise{0%{transform:translate3d(0,10vh,0) scale(.76);opacity:0}12%{opacity:.42}52%{transform:translate3d(var(--bubble-drift),-52vh,0) scale(1)}88%{opacity:.34}100%{transform:translate3d(calc(var(--bubble-drift) * -.55),-118vh,0) scale(1.16);opacity:0}}
+      @media(prefers-reduced-motion:reduce){.studio-bubble-field{display:none!important}}
+    `;
+    document.head.appendChild(style);
+
+    const field = document.createElement("div");
+    field.className = "studio-bubble-field";
+    field.setAttribute("aria-hidden", "true");
+
+    const bubbleCount = window.innerWidth < 760 ? 9 : 15;
+    for (let i = 0; i < bubbleCount; i += 1) {
+      const bubble = document.createElement("i");
+      bubble.className = "studio-bubble";
+      const size = 5 + ((i * 13) % 21);
+      const left = 3 + ((i * 17) % 94);
+      const speed = 18 + ((i * 7) % 22);
+      const delay = -((i * 4.3) % 31);
+      const drift = `${-28 + ((i * 11) % 57)}px`;
+      bubble.style.width = `${size}px`;
+      bubble.style.height = `${size}px`;
+      bubble.style.left = `${left}%`;
+      bubble.style.setProperty("--bubble-speed", `${speed}s`);
+      bubble.style.setProperty("--bubble-delay", `${delay}s`);
+      bubble.style.setProperty("--bubble-drift", drift);
+      field.appendChild(bubble);
+    }
+
+    document.body.appendChild(field);
+  };
+
   const removePublicSalesOptions = () => {
     const salesSelectors = [
       'a[href*="pricing.html"]',
@@ -98,6 +136,7 @@
   };
 
   const initializePageFixes = () => {
+    installStudioBubbles();
     cleanPublicGallery();
     fixGalleryFilters();
   };
