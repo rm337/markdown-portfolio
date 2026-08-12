@@ -225,44 +225,6 @@
       "originalAvailable": false,
       "inquiryType": "prints",
       "desc": "A compact identity mark with a handmade, personal tone."
-    },
-    {
-      "id": "upload-workflow-test-one-6dd69811",
-      "type": "Photography",
-      "medium": "Photography",
-      "title": "Upload Workflow Test One",
-      "category": "Photography",
-      "year": null,
-      "collection": "Photography",
-      "src": "assets/images/portfolio/approved-photography/upload-workflow-test-one-6dd69811.jpg",
-      "thumb": "assets/images/portfolio/approved-photography/upload-workflow-test-one-6dd69811.jpg",
-      "printAvailable": false,
-      "originalAvailable": false,
-      "inquiryType": "photography",
-      "status": "Published",
-      "source": "approved-photography",
-      "alt": "Upload Workflow Test One, photography by Robert Marleton.",
-      "featured": false,
-      "desc": "Upload Workflow Test One, photography by Robert Marleton."
-    },
-    {
-      "id": "upload-workflow-test-two-f15d2829",
-      "type": "Photography",
-      "medium": "Photography",
-      "title": "Upload Workflow Test Two",
-      "category": "Photography",
-      "year": null,
-      "collection": "Photography",
-      "src": "assets/images/portfolio/approved-photography/upload-workflow-test-two-f15d2829.jpg",
-      "thumb": "assets/images/portfolio/approved-photography/upload-workflow-test-two-f15d2829.jpg",
-      "printAvailable": false,
-      "originalAvailable": false,
-      "inquiryType": "photography",
-      "status": "Published",
-      "source": "approved-photography",
-      "alt": "Upload Workflow Test Two, photography by Robert Marleton.",
-      "featured": false,
-      "desc": "Upload Workflow Test Two, photography by Robert Marleton."
     }
   ]
 }
