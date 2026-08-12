@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "items": [
+    {
+      "id": "upload-workflow-test-one-6dd69811",
+      "title": "Upload Workflow Test One",
+      "image": "assets/images/portfolio/approved-photography/upload-workflow-test-one-6dd69811.jpg",
+      "alt": "Upload Workflow Test One, photography by Robert Marleton.",
+      "category": "Photography",
+      "medium": "Photography",
+      "year": null,
+      "orientation": null,
+      "aspectRatio": null,
+      "description": "Upload Workflow Test One, photography by Robert Marleton.",
+      "approvalStatus": "published",
+      "publicationStatus": "published",
+      "featured": false,
+      "pixelsUrl": null
+    },
+    {
+      "id": "upload-workflow-test-two-f15d2829",
+      "title": "Upload Workflow Test Two",
+      "image": "assets/images/portfolio/approved-photography/upload-workflow-test-two-f15d2829.jpg",
+      "alt": "Upload Workflow Test Two, photography by Robert Marleton.",
+      "category": "Photography",
+      "medium": "Photography",
+      "year": null,
+      "orientation": null,
+      "aspectRatio": null,
+      "description": "Upload Workflow Test Two, photography by Robert Marleton.",
+      "approvalStatus": "published",
+      "publicationStatus": "published",
+      "featured": false,
+      "pixelsUrl": null
+    }
+  ],
+  "generatedUtc": "2026-08-12T02:19:58.602Z"
+}
