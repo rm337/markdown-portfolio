@@ -225,6 +225,25 @@
       "originalAvailable": false,
       "inquiryType": "prints",
       "desc": "A compact identity mark with a handmade, personal tone."
+    },
+    {
+      "id": "autism-speaks-bb030da8",
+      "type": "Other",
+      "medium": "Artwork",
+      "title": "Autism Speaks",
+      "category": "Artwork",
+      "collection": "Artwork",
+      "year": null,
+      "src": "assets/images/portfolio/approved-artwork/autism-speaks-bb030da8.jpg",
+      "thumb": "assets/images/portfolio/approved-artwork/autism-speaks-bb030da8.jpg",
+      "alt": "Autism Speaks, artwork by Robert Marleton.",
+      "featured": false,
+      "printAvailable": false,
+      "originalAvailable": false,
+      "inquiryType": "artwork",
+      "status": "Published",
+      "source": "dashboard-approved-artwork",
+      "desc": "Autism Speaks, artwork by Robert Marleton."
     }
   ]
 }
