@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
+    <loc>https://rm337.github.io/markdown-portfolio/artwork/burned-motion-razorback.html</loc>
+    <image:image><image:loc>https://rm337.github.io/markdown-portfolio/assets/images/portfolio/red-motion-panel.jpg</image:loc><image:title>Burned Motion / Razorback</image:title><image:caption>A red motion study with a charging razorback form and a rough, energetic surface. The piece leads the portfolio as a signature work.</image:caption></image:image>
+  </url>
+  <url>
     <loc>https://rm337.github.io/markdown-portfolio/artwork/submersion.html</loc>
     <image:image><image:loc>https://rm337.github.io/markdown-portfolio/assets/images/portfolio/soul-current.jpg</image:loc><image:title>Submersion</image:title><image:caption>A blue ink field with the word Submersion set into soft wash, suspended marks, and quiet depth.</image:caption></image:image>
+  </url>
+  <url>
+    <loc>https://rm337.github.io/markdown-portfolio/artwork/sunflower-mandala.html</loc>
+    <image:image><image:loc>https://rm337.github.io/markdown-portfolio/assets/images/portfolio/sunflower-mandala.jpg</image:loc><image:title>Sunflower Mandala</image:title><image:caption>A bright organic pattern study centered on a sunflower form. The piece adds warmth and structure to the collection.</image:caption></image:image>
   </url>
   <url>
     <loc>https://rm337.github.io/markdown-portfolio/artwork/release.html</loc>
@@ -13,12 +21,12 @@
     <image:image><image:loc>https://rm337.github.io/markdown-portfolio/assets/images/portfolio/washed-out.jpg</image:loc><image:title>Washed Out</image:title><image:caption>A blue and violet lettering piece with the phrase Washed Out set into a soft atmospheric field.</image:caption></image:image>
   </url>
   <url>
-    <loc>https://rm337.github.io/markdown-portfolio/artwork/sunflower-mandala.html</loc>
-    <image:image><image:loc>https://rm337.github.io/markdown-portfolio/assets/images/portfolio/sunflower-mandala.jpg</image:loc><image:title>Sunflower Mandala</image:title><image:caption>A bright organic pattern study centered on a sunflower form. The piece adds warmth and structure to the collection.</image:caption></image:image>
-  </url>
-  <url>
     <loc>https://rm337.github.io/markdown-portfolio/artwork/lest-we-forget.html</loc>
     <image:image><image:loc>https://rm337.github.io/markdown-portfolio/assets/images/portfolio/lest-we-forget.jpg</image:loc><image:title>Lest We Forget</image:title><image:caption>A high-contrast digital collage centered on the phrase Lest We Forget, with red, blue, light, and rough texture layered together.</image:caption></image:image>
+  </url>
+  <url>
+    <loc>https://rm337.github.io/markdown-portfolio/artwork/we-are-not-descended-from-fearful-men.html</loc>
+    <image:image><image:loc>https://rm337.github.io/markdown-portfolio/assets/images/portfolio/wood-warning.jpg</image:loc><image:title>We Are Not Descended From Fearful Men</image:title><image:caption>A wood-burned lettering piece using the natural round, cracks, bark edge, and burned marks as part of the composition.</image:caption></image:image>
   </url>
   <url>
     <loc>https://rm337.github.io/markdown-portfolio/artwork/rainline-study.html</loc>
@@ -26,11 +34,11 @@
   </url>
   <url>
     <loc>https://rm337.github.io/markdown-portfolio/artwork/blue-field.html</loc>
-    <image:image><image:loc>https://rm337.github.io/markdown-portfolio/assets/images/portfolio/blue-field.jpg</image:loc><image:title>Blue Field</image:title><image:caption>A quiet blue texture field focused on grain, tone, and surface movement.</image:caption></image:image>
+    <image:image><image:loc>https://rm337.github.io/markdown-portfolio/assets/images/portfolio/blue-field.jpg</image:loc><image:title>Blue Field</image:title><image:caption>A quiet blue texture field focused on grain, tone, and surface movement. It functions as a supporting study rather than a main signature piece.</image:caption></image:image>
   </url>
   <url>
     <loc>https://rm337.github.io/markdown-portfolio/artwork/love-study-title-pending.html</loc>
-    <image:image><image:loc>https://rm337.github.io/markdown-portfolio/assets/images/portfolio/love-texture.jpg</image:loc><image:title>Love Study (Title Pending)</image:title><image:caption>A word-based texture piece centered on Love, with a worn layered surface.</image:caption></image:image>
+    <image:image><image:loc>https://rm337.github.io/markdown-portfolio/assets/images/portfolio/love-texture.jpg</image:loc><image:title>Love Study (Title Pending)</image:title><image:caption>A word-based texture piece centered on Love, with a worn layered surface. The final full title is still pending.</image:caption></image:image>
   </url>
   <url>
     <loc>https://rm337.github.io/markdown-portfolio/artwork/between-waves.html</loc>
@@ -50,18 +58,18 @@
   </url>
   <url>
     <loc>https://rm337.github.io/markdown-portfolio/artwork/say-no-to-provoke-and-blame.html</loc>
-    <image:image><image:loc>https://rm337.github.io/markdown-portfolio/assets/images/portfolio/say-no-poster.jpg</image:loc><image:title>Say No to Provoke and Blame</image:title><image:caption>A stark typographic poster built from scale, contrast, and compression.</image:caption></image:image>
-  </url>
-  <url>
-    <loc>https://rm337.github.io/markdown-portfolio/artwork/inkspirations-studio-mark.html</loc>
-    <image:image><image:loc>https://rm337.github.io/markdown-portfolio/assets/images/portfolio/inkspirations-mark.jpg</image:loc><image:title>Inkspirations Studio Mark</image:title><image:caption>A studio mark exploration using blue lettering, splash, and atmosphere.</image:caption></image:image>
-  </url>
-  <url>
-    <loc>https://rm337.github.io/markdown-portfolio/artwork/inkspirations-logo-lockup.html</loc>
-    <image:image><image:loc>https://rm337.github.io/markdown-portfolio/assets/images/portfolio/inkspirations-logo-card.jpg</image:loc><image:title>Inkspirations Logo Lockup</image:title><image:caption>A clean logo lockup pairing calligraphic emphasis with the studio name.</image:caption></image:image>
+    <image:image><image:loc>https://rm337.github.io/markdown-portfolio/assets/images/portfolio/say-no-poster.jpg</image:loc><image:title>Say No to Provoke and Blame</image:title><image:caption>A stark typographic poster built from scale, contrast, and compression. The visible phrase gives the piece its structure.</image:caption></image:image>
   </url>
   <url>
     <loc>https://rm337.github.io/markdown-portfolio/artwork/small-town-teacher.html</loc>
-    <image:image><image:loc>https://rm337.github.io/markdown-portfolio/assets/images/portfolio/small-town-teacher.jpg</image:loc><image:title>Small Town Teacher</image:title><image:caption>A compact identity mark with a handmade, personal tone.</image:caption></image:image>
+    <image:image><image:loc>https://rm337.github.io/markdown-portfolio/assets/images/portfolio/small-town-teacher.jpg</image:loc><image:title>Small Town Teacher</image:title><image:caption>A compact identity mark with a handmade, personal tone. It shows a softer side of the studio system.</image:caption></image:image>
+  </url>
+  <url>
+    <loc>https://rm337.github.io/markdown-portfolio/artwork/blue-current-curved-wood-study.html</loc>
+    <image:image><image:loc>https://rm337.github.io/markdown-portfolio/assets/images/portfolio/coasters/curved-blue-object-coaster-study.jpg</image:loc><image:title>Blue Current Curved Wood Study</image:title><image:caption>A tall curved painted-wood object photographed in the studio. It is an experimental object study, not a documented coaster or tile.</image:caption></image:image>
+  </url>
+  <url>
+    <loc>https://rm337.github.io/markdown-portfolio/artwork/blue-wave-wood-panel.html</loc>
+    <image:image><image:loc>https://rm337.github.io/markdown-portfolio/assets/images/portfolio/coasters/blue-wave-wood-panel-functional-art.jpg</image:loc><image:title>Blue Wave Wood Panel</image:title><image:caption>A rectangular painted wood panel with layered blue, gray, white, and warm curved marks. It is cataloged as a wall-art study, not a coaster or tile.</image:caption></image:image>
   </url>
 </urlset>
