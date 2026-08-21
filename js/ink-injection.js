@@ -6,13 +6,21 @@
   if (!ctx) return;
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const plumes = [];
+  const particles = [];
+  const tendrils = [];
   let width = 1;
   let height = 1;
   let dpr = 1;
-  let lastRelease = 0;
   let frameId = 0;
   let running = false;
+  let lastRelease = 0;
+
+  const INK = {
+    core: '2,18,48',
+    deep: '3,32,72',
+    blue: '5,55,104',
+    haze: '18,78,126'
+  };
 
   function resize() {
     const box = canvas.getBoundingClientRect();
@@ -24,69 +32,179 @@
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
 
-  function release(x, y, strength = 1) {
-    for (let i = 0; i < 7; i += 1) {
-      plumes.push({
-        x: x + (i - 3) * 10 + (Math.random() - 0.5) * 14,
-        y: y - i * 7,
-        vx: (Math.random() - 0.5) * 0.22,
-        vy: 0.16 + Math.random() * 0.18,
-        w: (48 + Math.random() * 42) * strength,
-        h: (62 + Math.random() * 52) * strength,
-        age: -i * 11,
-        life: 520 + Math.random() * 190,
-        phase: Math.random() * Math.PI * 2,
-        turn: (Math.random() - 0.5) * 0.0032,
-        tone: i % 3 === 0 ? '20,34,104' : '3,30,88',
-        alpha: 0.25 + Math.random() * 0.11
+  function addParticle(x, y, options = {}) {
+    const size = options.size ?? 26 + Math.random() * 34;
+    particles.push({
+      x,
+      y,
+      vx: options.vx ?? (Math.random() - 0.5) * 0.18,
+      vy: options.vy ?? 0.22 + Math.random() * 0.34,
+      size,
+      stretch: options.stretch ?? 0.9 + Math.random() * 1.5,
+      alpha: options.alpha ?? 0.035 + Math.random() * 0.055,
+      age: options.age ?? 0,
+      life: options.life ?? 520 + Math.random() * 360,
+      phase: Math.random() * Math.PI * 2,
+      drift: 0.006 + Math.random() * 0.012,
+      tone: options.tone ?? [INK.deep, INK.blue, INK.core][Math.floor(Math.random() * 3)]
+    });
+  }
+
+  function addTendril(x, y, scale = 1) {
+    const points = [];
+    const count = 12 + Math.floor(Math.random() * 7);
+    for (let i = 0; i < count; i += 1) {
+      points.push({
+        x: x + (Math.random() - 0.5) * 5 * scale,
+        y: y + i * (7 + Math.random() * 4) * scale,
+        vx: (Math.random() - 0.5) * 0.08,
+        vy: (0.22 + Math.random() * 0.18) * scale
       });
+    }
+    tendrils.push({
+      points,
+      age: 0,
+      life: 620 + Math.random() * 260,
+      alpha: 0.12 + Math.random() * 0.08,
+      width: (5 + Math.random() * 8) * scale,
+      phase: Math.random() * Math.PI * 2,
+      curl: (Math.random() - 0.5) * 0.026,
+      tone: Math.random() > 0.45 ? INK.core : INK.deep
+    });
+  }
+
+  function release(x, y, strength = 1) {
+    // Dense source cloud, deliberately irregular so it never reads as a single blob.
+    for (let i = 0; i < 48; i += 1) {
+      const angle = Math.random() * Math.PI * 2;
+      const radius = Math.pow(Math.random(), 0.55) * 70 * strength;
+      addParticle(
+        x + Math.cos(angle) * radius,
+        y + Math.sin(angle) * radius * 0.48,
+        {
+          size: (18 + Math.random() * 54) * strength,
+          stretch: 0.7 + Math.random() * 1.9,
+          vy: 0.12 + Math.random() * 0.30,
+          alpha: 0.025 + Math.random() * 0.05,
+          tone: Math.random() < 0.52 ? INK.core : INK.deep
+        }
+      );
+    }
+
+    // Long descending filaments, inspired by real ink dispersing through water.
+    const tendrilCount = 5 + Math.floor(Math.random() * 4);
+    for (let i = 0; i < tendrilCount; i += 1) {
+      addTendril(
+        x + (i - (tendrilCount - 1) / 2) * 18 * strength + (Math.random() - 0.5) * 16,
+        y + 18 + Math.random() * 30,
+        strength * (0.78 + Math.random() * 0.5)
+      );
     }
   }
 
-  function blobPath(p, time) {
-    const points = [];
-    const count = 24;
-    for (let i = 0; i < count; i += 1) {
-      const angle = (i / count) * Math.PI * 2;
-      const wobble = 1
-        + Math.sin(angle * 3 + p.phase + time * 0.00032) * 0.17
-        + Math.sin(angle * 5 - p.phase * 0.7) * 0.09;
-      points.push({
-        x: Math.cos(angle) * p.w * wobble,
-        y: Math.sin(angle) * p.h * wobble
-      });
+  function drawParticle(p, time) {
+    const life = Math.max(0, 1 - p.age / p.life);
+    const fadeIn = Math.min(1, p.age / 28);
+    const alpha = p.alpha * life * fadeIn;
+    if (alpha <= 0) return;
+
+    const sway = Math.sin(p.phase + time * p.drift * 0.04 + p.age * 0.018);
+    const rx = p.size * (0.68 + sway * 0.10);
+    const ry = p.size * p.stretch * (0.86 - sway * 0.06);
+
+    ctx.save();
+    ctx.translate(p.x, p.y);
+    ctx.rotate(sway * 0.12);
+
+    const gradient = ctx.createRadialGradient(0, -ry * 0.12, 0, 0, 0, Math.max(rx, ry));
+    gradient.addColorStop(0, `rgba(${p.tone},${alpha * 0.95})`);
+    gradient.addColorStop(0.38, `rgba(${p.tone},${alpha * 0.62})`);
+    gradient.addColorStop(1, `rgba(${p.tone},0)`);
+
+    ctx.fillStyle = gradient;
+    ctx.beginPath();
+    ctx.ellipse(0, 0, rx, ry, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function drawTendril(t, time) {
+    const life = Math.max(0, 1 - t.age / t.life);
+    const fadeIn = Math.min(1, t.age / 36);
+    const alpha = t.alpha * life * fadeIn;
+    if (alpha <= 0 || t.points.length < 3) return;
+
+    ctx.save();
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.shadowBlur = 16;
+    ctx.shadowColor = `rgba(${t.tone},${alpha * 0.8})`;
+
+    // Soft outside body.
+    ctx.beginPath();
+    ctx.moveTo(t.points[0].x, t.points[0].y);
+    for (let i = 1; i < t.points.length - 1; i += 1) {
+      const p = t.points[i];
+      const n = t.points[i + 1];
+      ctx.quadraticCurveTo(p.x, p.y, (p.x + n.x) / 2, (p.y + n.y) / 2);
+    }
+    const last = t.points[t.points.length - 1];
+    ctx.lineTo(last.x, last.y);
+    ctx.strokeStyle = `rgba(${t.tone},${alpha * 0.26})`;
+    ctx.lineWidth = t.width * 2.8;
+    ctx.stroke();
+
+    // Denser ink spine.
+    ctx.strokeStyle = `rgba(${t.tone},${alpha * 0.72})`;
+    ctx.lineWidth = t.width;
+    ctx.stroke();
+
+    // Fine inner filament.
+    ctx.shadowBlur = 4;
+    ctx.strokeStyle = `rgba(${INK.haze},${alpha * 0.24})`;
+    ctx.lineWidth = Math.max(1, t.width * 0.18);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function updateTendril(t, time) {
+    t.age += 1;
+    for (let i = 0; i < t.points.length; i += 1) {
+      const p = t.points[i];
+      const depth = i / Math.max(1, t.points.length - 1);
+      const wave = Math.sin(time * 0.00055 + t.phase + i * 0.63) * (0.035 + depth * 0.09);
+      p.vx += wave * 0.015 + t.curl * depth * 0.014;
+      p.vx *= 0.986;
+      p.x += p.vx;
+      p.y += p.vy * (0.78 + depth * 0.48);
     }
 
-    ctx.beginPath();
-    const last = points[count - 1];
-    ctx.moveTo((points[0].x + last.x) / 2, (points[0].y + last.y) / 2);
-    for (let i = 0; i < count; i += 1) {
-      const next = points[(i + 1) % count];
-      ctx.quadraticCurveTo(
-        points[i].x,
-        points[i].y,
-        (points[i].x + next.x) / 2,
-        (points[i].y + next.y) / 2
-      );
+    // Seed translucent turbulence along the filament, especially lower down.
+    if (t.age % 11 === 0 && t.age < t.life * 0.72) {
+      const index = 3 + Math.floor(Math.random() * Math.max(1, t.points.length - 4));
+      const p = t.points[Math.min(index, t.points.length - 1)];
+      addParticle(p.x, p.y, {
+        size: 12 + Math.random() * 26,
+        stretch: 1.2 + Math.random() * 1.8,
+        vx: (Math.random() - 0.5) * 0.10,
+        vy: 0.12 + Math.random() * 0.18,
+        alpha: 0.018 + Math.random() * 0.03,
+        life: 300 + Math.random() * 180,
+        tone: t.tone
+      });
     }
-    ctx.closePath();
   }
 
   function drawStaticInk() {
     ctx.clearRect(0, 0, width, height);
-    const gradient = ctx.createRadialGradient(
-      width * 0.68,
-      height * 0.08,
-      4,
-      width * 0.68,
-      height * 0.08,
-      Math.max(width, height) * 0.34
-    );
-    gradient.addColorStop(0, 'rgba(10,36,104,.28)');
-    gradient.addColorStop(0.5, 'rgba(4,32,88,.15)');
-    gradient.addColorStop(1, 'rgba(4,32,88,0)');
+    const x = width * 0.68;
+    const y = height * 0.02;
+    const gradient = ctx.createRadialGradient(x, y, 4, x, y + 70, Math.max(190, width * 0.22));
+    gradient.addColorStop(0, 'rgba(2,18,48,.24)');
+    gradient.addColorStop(0.45, 'rgba(3,32,72,.13)');
+    gradient.addColorStop(1, 'rgba(3,32,72,0)');
     ctx.fillStyle = gradient;
-    ctx.fillRect(0, 0, width, height);
+    ctx.fillRect(0, 0, width, Math.min(height, 360));
   }
 
   function render(time) {
@@ -95,59 +213,38 @@
     ctx.clearRect(0, 0, width, height);
     ctx.globalCompositeOperation = 'multiply';
 
-    for (let i = plumes.length - 1; i >= 0; i -= 1) {
-      const p = plumes[i];
+    for (let i = particles.length - 1; i >= 0; i -= 1) {
+      const p = particles[i];
       p.age += 1;
-      if (p.age < 0) continue;
-
-      p.x += p.vx + Math.sin(p.age * 0.014 + p.phase) * 0.055;
+      const curl = Math.sin(p.phase + p.age * 0.017) * 0.018;
+      p.vx = (p.vx + curl) * 0.991;
+      p.x += p.vx;
       p.y += p.vy;
-      p.w += 0.07;
-      p.h += 0.09;
-      p.phase += p.turn;
+      p.size += 0.022;
+      p.stretch += 0.0007;
+      drawParticle(p, time);
 
-      const fadeIn = Math.min(1, p.age / 24);
-      const fadeOut = Math.max(0, 1 - p.age / p.life);
-      const alpha = p.alpha * fadeIn * fadeOut;
-
-      ctx.save();
-      ctx.translate(p.x, p.y);
-      ctx.rotate(Math.sin(p.age * 0.006 + p.phase) * 0.12);
-      ctx.shadowBlur = 34;
-      ctx.shadowColor = `rgba(${p.tone},${alpha * 0.9})`;
-      blobPath(p, time);
-      ctx.fillStyle = `rgba(${p.tone},${alpha})`;
-      ctx.fill();
-      ctx.clip();
-
-      for (let wisp = -1; wisp <= 1; wisp += 1) {
-        ctx.beginPath();
-        ctx.moveTo(wisp * p.w * 0.22, -p.h * 0.66);
-        ctx.bezierCurveTo(
-          -p.w * 0.48,
-          -p.h * 0.14,
-          p.w * 0.48,
-          p.h * 0.18,
-          wisp * p.w * 0.28,
-          p.h * 0.72
-        );
-        ctx.strokeStyle = `rgba(1,20,70,${alpha * 0.72})`;
-        ctx.lineWidth = 6 + (wisp + 1) * 2;
-        ctx.stroke();
-      }
-
-      ctx.restore();
-
-      if (p.age > p.life || p.y - p.h > height) {
-        plumes.splice(i, 1);
+      if (p.age > p.life || p.y - p.size > height) {
+        particles.splice(i, 1);
       }
     }
 
-    ctx.shadowBlur = 0;
-    ctx.globalCompositeOperation = 'source-over';
+    for (let i = tendrils.length - 1; i >= 0; i -= 1) {
+      const t = tendrils[i];
+      updateTendril(t, time);
+      drawTendril(t, time);
+      const last = t.points[t.points.length - 1];
+      if (t.age > t.life || last.y > height + 80) {
+        tendrils.splice(i, 1);
+      }
+    }
 
-    if (time - lastRelease > 4200) {
-      release(width * (0.54 + Math.random() * 0.22), height * 0.03, 1.04);
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.shadowBlur = 0;
+
+    // A new pulse enters from the surface before the previous one fully disappears.
+    if (time - lastRelease > 5600) {
+      release(width * (0.61 + Math.random() * 0.16), -8, 0.78 + Math.random() * 0.22);
       lastRelease = time;
     }
 
@@ -165,9 +262,11 @@
     }
 
     running = true;
-    plumes.length = 0;
-    release(width * 0.66, height * 0.035, 1.18);
-    release(width * 0.76, height * 0.08, 0.82);
+    particles.length = 0;
+    tendrils.length = 0;
+
+    // Begin above the visible surface so the ink appears to enter the water rather than hang from the page.
+    release(width * 0.68, -18, 1.0);
     lastRelease = performance.now();
     frameId = requestAnimationFrame(render);
   }
@@ -175,11 +274,9 @@
   canvas.addEventListener('pointerdown', event => {
     if (reducedMotion.matches) return;
     const box = canvas.getBoundingClientRect();
-    release(
-      event.clientX - box.left,
-      Math.max(14, event.clientY - box.top),
-      1.08
-    );
+    const x = event.clientX - box.left;
+    const y = Math.max(-8, event.clientY - box.top - 18);
+    release(x, y, 0.72);
   });
 
   window.addEventListener('resize', start, { passive: true });
