@@ -254,6 +254,99 @@
     .work-card p { margin: 1rem 0 0; color: rgba(244,240,232,.76); }
     .enter { display: inline-block; margin-top: 1.4rem; padding-bottom: .25rem; border-bottom: 1px solid rgba(114,200,221,.65); color: var(--glow); font-size: .74rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
 
+    .current-builds {
+      padding: clamp(5rem,9vw,8rem) clamp(1.2rem,6vw,6rem);
+      background: linear-gradient(180deg,#071d34,#06172a);
+      border-top: 1px solid var(--line);
+    }
+
+    .build-card {
+      display: grid;
+      grid-template-columns: minmax(280px,.8fr) minmax(0,1.2fr);
+      min-height: 410px;
+      overflow: hidden;
+      border: 1px solid rgba(114,200,221,.26);
+      background: rgba(2,13,24,.58);
+      box-shadow: 0 28px 80px rgba(0,0,0,.26);
+    }
+
+    .build-mark {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-height: 330px;
+      padding: clamp(2rem,5vw,4rem);
+      overflow: hidden;
+      text-align: center;
+      background:
+        radial-gradient(circle at 30% 20%,rgba(114,200,221,.22),transparent 28%),
+        linear-gradient(145deg,#062342,#03111e 62%,#0a3852);
+    }
+
+    .build-mark::before,
+    .build-mark::after {
+      content: "";
+      position: absolute;
+      width: 72%;
+      height: 1px;
+      background: linear-gradient(90deg,transparent,rgba(114,200,221,.72),transparent);
+      transform: rotate(-9deg);
+      opacity: .4;
+    }
+
+    .build-mark::before { top: 34%; left: 4%; }
+    .build-mark::after { bottom: 28%; right: 2%; transform: rotate(7deg); }
+
+    .fabricator-wordmark {
+      position: relative;
+      z-index: 1;
+      font: 400 clamp(2.8rem,6vw,6rem)/.78 Georgia,serif;
+      letter-spacing: -.065em;
+    }
+
+    .fabricator-wordmark span { display: block; }
+    .fabricator-tagline {
+      position: relative;
+      z-index: 1;
+      margin-top: 1.2rem;
+      color: #d8b56f;
+      font: italic 400 clamp(.95rem,1.7vw,1.25rem) Georgia,serif;
+    }
+
+    .build-copy {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(2rem,5vw,4.5rem);
+    }
+
+    .build-status {
+      align-self: flex-start;
+      margin-bottom: 1.2rem;
+      padding: .38rem .55rem;
+      border: 1px solid rgba(114,200,221,.34);
+      color: var(--glow);
+      font-size: .66rem;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .build-copy h3 {
+      margin: 0;
+      font: 400 clamp(2.8rem,5vw,5.2rem)/.92 Georgia,serif;
+      letter-spacing: -.045em;
+    }
+
+    .build-copy p {
+      max-width: 670px;
+      margin: 1.2rem 0 0;
+      color: var(--muted);
+      font-size: clamp(1rem,1.7vw,1.18rem);
+    }
+
+    .build-actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 1.8rem; }
+
     .feature {
       display: grid;
       grid-template-columns: 1.1fr .9fr;
@@ -338,6 +431,8 @@
       .statement,.feature { grid-template-columns: 1fr; }
       .work-grid { grid-template-columns: 1fr; }
       .work-card { min-height: 360px; }
+      .build-card { grid-template-columns: 1fr; }
+      .build-mark { min-height: 300px; }
       .section-head,.contact { align-items: flex-start; flex-direction: column; }
       footer { flex-direction: column; }
       h1 { font-size: clamp(3.5rem,19vw,6.4rem); }
@@ -426,6 +521,30 @@
           </div>
         </a>
       </div>
+    </section>
+
+    <section class="current-builds" id="current-builds" aria-labelledby="current-builds-title" data-reveal>
+      <div class="section-head">
+        <h2 id="current-builds-title">Current Builds</h2>
+        <p>Things I’m actively building, testing, and learning from right now.</p>
+      </div>
+
+      <article class="build-card" data-reveal>
+        <div class="build-mark" aria-label="Idea Fabricator">
+          <div>
+            <div class="fabricator-wordmark"><span>IDEA</span><span>FABRICATOR</span></div>
+            <div class="fabricator-tagline">Put a thought in. See where it goes.</div>
+          </div>
+        </div>
+        <div class="build-copy">
+          <span class="build-status">Live Experiment</span>
+          <h3>Idea Fabricator</h3>
+          <p>A live experiment in language, creative thinking, human judgment, and AI-assisted exploration. The human provides the thought. The machine turns it around, collides it with other possibilities, and follows where it goes.</p>
+          <div class="build-actions">
+            <a class="btn primary" href="https://robert-marleton.lovable.app" target="_blank" rel="noopener noreferrer">Try the Fabricator</a>
+          </div>
+        </div>
+      </article>
     </section>
 
     <section class="feature" aria-labelledby="feature-title" data-reveal>
