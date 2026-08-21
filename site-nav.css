@@ -70,3 +70,15 @@
 @media (prefers-reduced-motion: reduce) {
   .skip-link { transition: none; }
 }
+
+/* Idea Fabricator current-build logo */
+.current-builds .build-mark {
+  background: #071d34 url("assets/images/idea-fabricator-logo.png") center / contain no-repeat;
+  padding: 1rem;
+}
+
+.current-builds .build-mark > div,
+.current-builds .build-mark::before,
+.current-builds .build-mark::after {
+  display: none;
+}
