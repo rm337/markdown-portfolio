@@ -82,3 +82,9 @@
 .current-builds .build-mark::after {
   display: none;
 }
+
+/* Homepage cleanup: remove scratch-like decorative line overlays. */
+.feature-visual::before,
+.feature-visual::after {
+  display: none !important;
+}
