@@ -4,53 +4,157 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Ocean of Ink | Inkspirations Studios</title>
-  <meta name="description" content="An immersive animated ocean of drifting ink inside Inkspirations Studios.">
+  <meta name="description" content="A living underwater creative environment where water, ink, artwork, photography, writing, and creative systems move together.">
   <style>
     *,*::before,*::after{box-sizing:border-box}
-    :root{--night:#020713;--deep:#04152a;--blue:#0174f3;--cyan:#67e3ff;--paper:#f7f4ec;--soft:rgba(247,244,236,.76);--line:rgba(103,227,255,.2)}
-    html{scroll-behavior:smooth}
+    :root{
+      --night:#010711;--deep:#04111f;--mid:#062845;--blue:#0174f3;--cyan:#77e8ff;
+      --paper:#f7f4ec;--soft:rgba(247,244,236,.78);--line:rgba(119,232,255,.22);
+      --mx:50%;--my:20%;--drift-x:0px;--drift-y:0px;
+    }
+    html{scroll-behavior:smooth;background:var(--night)}
     body{margin:0;color:var(--paper);font-family:Georgia,"Times New Roman",serif;background:var(--night);overflow-x:hidden}
-    nav{position:fixed;inset:0 0 auto;z-index:20;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1rem clamp(1rem,5vw,4rem);background:linear-gradient(rgba(1,5,13,.88),rgba(1,5,13,.2));backdrop-filter:blur(10px)}
-    nav a{color:inherit;text-decoration:none}.links{display:flex;gap:1rem;flex-wrap:wrap;justify-content:flex-end;font-family:Arial,sans-serif;font-size:.72rem;font-weight:900;letter-spacing:.11em;text-transform:uppercase}
-    .ocean{position:relative;min-height:100vh;overflow:hidden;background:radial-gradient(circle at 50% 8%,rgba(103,227,255,.18),transparent 24%),linear-gradient(180deg,#0b3358 0%,#062341 36%,#03162d 66%,#010711 100%)}
-    .surface{position:absolute;inset:0 0 auto;height:38vh;overflow:hidden;opacity:.95}
-    .wave{position:absolute;left:-15%;width:130%;height:180px;border-radius:48%;background:rgba(103,227,255,.13);filter:blur(1px);animation:swell 12s ease-in-out infinite alternate}
-    .wave.one{top:12vh}.wave.two{top:18vh;animation-duration:17s;animation-delay:-7s;background:rgba(1,116,243,.18)}.wave.three{top:24vh;animation-duration:22s;animation-delay:-4s;background:rgba(255,255,255,.08)}
-    .ink-cloud{position:absolute;border-radius:45% 55% 60% 40%/50% 45% 55% 50%;filter:blur(28px);mix-blend-mode:screen;opacity:.52;animation:inkDrift 18s ease-in-out infinite alternate}
-    .ink-cloud.c1{width:38vw;height:28vw;left:-8vw;top:25vh;background:radial-gradient(circle at 35% 40%,#0174f3,transparent 62%),radial-gradient(circle at 65% 65%,#5d27ff,transparent 60%)}
-    .ink-cloud.c2{width:32vw;height:40vw;right:-5vw;top:31vh;background:radial-gradient(circle at 45% 35%,#67e3ff,transparent 60%),radial-gradient(circle at 65% 75%,#0174f3,transparent 58%);animation-duration:24s;animation-delay:-8s}
-    .ink-cloud.c3{width:46vw;height:22vw;left:27vw;bottom:3vh;background:radial-gradient(circle at 50% 50%,#163e89,transparent 64%),radial-gradient(circle at 28% 55%,#0174f3,transparent 56%);animation-duration:28s;animation-delay:-13s}
-    .ink-drop{position:absolute;width:8px;height:68px;border-radius:50%;background:linear-gradient(var(--cyan),transparent);opacity:.32;animation:fall 7s linear infinite}.d1{left:18%;top:9%;animation-delay:-2s}.d2{left:48%;top:15%;animation-delay:-5s}.d3{left:77%;top:7%;animation-delay:-3s}
-    .hero{position:relative;z-index:5;min-height:100vh;display:grid;place-items:center;padding:8rem 1.2rem 5rem;text-align:center}.hero-inner{max-width:940px}.kicker{font-family:Arial,sans-serif;color:var(--cyan);font-size:.72rem;font-weight:900;letter-spacing:.19em;text-transform:uppercase}.hero h1{font-size:clamp(4rem,13vw,10rem);line-height:.82;margin:.45rem 0 1.5rem;font-weight:500;text-shadow:0 20px 80px rgba(1,116,243,.6)}.lead{max-width:760px;margin:0 auto;color:var(--soft);font-size:clamp(1.1rem,2.3vw,1.45rem);line-height:1.7}.actions{display:flex;justify-content:center;gap:.8rem;flex-wrap:wrap;margin-top:2rem}.btn{display:inline-flex;padding:.85rem 1.1rem;border:1px solid var(--line);color:var(--paper);text-decoration:none;background:rgba(1,7,19,.34);backdrop-filter:blur(8px);font-family:Arial,sans-serif;font-size:.7rem;font-weight:900;letter-spacing:.11em;text-transform:uppercase}.btn.primary{background:var(--blue);border-color:var(--cyan)}
-    .current{position:relative;z-index:6;padding:clamp(4rem,8vw,7rem) clamp(1rem,5vw,4rem);background:linear-gradient(180deg,rgba(1,7,17,.08),#010711 16%)}
-    .current-inner{max-width:1450px;margin:auto}.section-head{max-width:780px;margin-bottom:2rem}.section-head h2{font-size:clamp(2.6rem,6vw,5rem);margin:.3rem 0 1rem;font-weight:500}.section-head p{color:var(--soft);line-height:1.7}
-    .gallery{display:grid;grid-template-columns:repeat(12,1fr);gap:1rem}.piece{position:relative;grid-column:span 4;min-height:360px;overflow:hidden;border:1px solid var(--line);background:#03101f;text-decoration:none;color:var(--paper)}.piece:first-child{grid-column:span 7}.piece:nth-child(2){grid-column:span 5}.piece img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}.piece:hover img{transform:scale(1.035)}.piece span{position:absolute;inset:auto 0 0;padding:1.2rem;background:linear-gradient(transparent,rgba(1,5,13,.96));font-size:1.35rem}.piece small{display:block;color:var(--cyan);font-family:Arial,sans-serif;font-size:.66rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.35rem}
-    .exit{text-align:center;padding:5rem 1rem 7rem;background:#010711}.exit p{color:var(--soft);max-width:650px;margin:0 auto 1.5rem;line-height:1.7}
-    @keyframes swell{from{transform:translateX(-3%) rotate(-2deg) scaleY(.86)}to{transform:translateX(3%) rotate(2deg) scaleY(1.14)}}
-    @keyframes inkDrift{from{transform:translate3d(-3vw,-2vh,0) rotate(-4deg) scale(.94)}to{transform:translate3d(5vw,6vh,0) rotate(7deg) scale(1.12)}}
-    @keyframes fall{from{transform:translateY(-20vh);opacity:0}20%{opacity:.35}to{transform:translateY(100vh);opacity:0}}
-    @media(max-width:850px){.gallery{grid-template-columns:1fr}.piece,.piece:first-child,.piece:nth-child(2){grid-column:auto;min-height:300px}.ink-cloud{opacity:.42}.links{gap:.65rem;font-size:.64rem}}
-    @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+    a{color:inherit}
+    nav{position:fixed;inset:0 0 auto;z-index:40;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1rem clamp(1rem,5vw,4rem);background:linear-gradient(rgba(1,7,17,.88),rgba(1,7,17,.12));backdrop-filter:blur(12px);border-bottom:1px solid rgba(119,232,255,.07)}
+    nav a{text-decoration:none}.links{display:flex;gap:1rem;flex-wrap:wrap;justify-content:flex-end;font-family:Arial,sans-serif;font-size:.7rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+
+    /* The water itself */
+    .ocean{position:relative;min-height:100svh;overflow:hidden;isolation:isolate;background:linear-gradient(180deg,#0b4168 0%,#073255 27%,#041f3b 58%,#020b18 100%)}
+    .water-plane{position:absolute;inset:-14% -10%;z-index:-9;filter:url(#waterDistort);background:
+      radial-gradient(circle at var(--mx) var(--my),rgba(230,255,255,.32),transparent 18%),
+      radial-gradient(circle at 20% 20%,rgba(119,232,255,.18),transparent 22%),
+      radial-gradient(circle at 76% 30%,rgba(1,116,243,.22),transparent 28%),
+      linear-gradient(155deg,rgba(255,255,255,.05),rgba(1,116,243,.16) 45%,rgba(0,20,45,.16));
+      animation:waterDrift 18s ease-in-out infinite alternate;will-change:transform}
+    .surface-glass{position:absolute;left:-8%;right:-8%;top:-4vh;height:34vh;z-index:-8;opacity:.95;filter:url(#surfaceDistort);background:
+      repeating-radial-gradient(ellipse at 50% 0,rgba(255,255,255,.23) 0 1px,rgba(119,232,255,.08) 2px 8px,transparent 9px 23px),
+      linear-gradient(180deg,rgba(190,244,255,.25),rgba(44,151,207,.08) 56%,transparent);
+      transform-origin:50% 0;animation:surfaceBreathe 11s ease-in-out infinite alternate}
+    .caustics{position:absolute;inset:0;z-index:-7;opacity:.62;mix-blend-mode:screen;background:
+      repeating-radial-gradient(ellipse at 48% 4%,rgba(255,255,255,.14) 0 1px,transparent 3px 20px),
+      repeating-radial-gradient(ellipse at 67% 13%,rgba(119,232,255,.08) 0 2px,transparent 4px 28px);
+      background-size:190px 110px,260px 160px;animation:causticMove 17s linear infinite}
+    .light-rays{position:absolute;inset:-5% -20% 0;z-index:-6;opacity:.38;mix-blend-mode:screen;transform:translate3d(var(--drift-x),var(--drift-y),0);transition:transform .35s ease-out;background:repeating-conic-gradient(from 170deg at var(--mx) -8%,transparent 0deg 5deg,rgba(146,229,255,.11) 6deg 9deg,transparent 10deg 19deg);filter:blur(3px);animation:raysPulse 12s ease-in-out infinite alternate}
+    .flow{position:absolute;left:-18%;width:136%;height:18vh;border-radius:48%;z-index:-5;filter:blur(2px);mix-blend-mode:screen;background:rgba(128,227,255,.08);animation:flow 16s ease-in-out infinite alternate}
+    .flow.f1{top:22vh}.flow.f2{top:44vh;background:rgba(1,116,243,.10);animation-duration:23s;animation-delay:-9s}.flow.f3{top:67vh;background:rgba(255,255,255,.045);animation-duration:30s;animation-delay:-13s}
+
+    /* Ink moves inside the water instead of sitting on top of it */
+    .ink-cloud{position:absolute;z-index:-3;border-radius:46% 54% 62% 38%/44% 48% 52% 56%;filter:url(#inkDistort) blur(22px);mix-blend-mode:screen;opacity:.60;will-change:transform;animation:inkDrift 22s ease-in-out infinite alternate}
+    .ink-cloud::after{content:"";position:absolute;inset:10% 14%;border-radius:inherit;background:inherit;filter:blur(18px);opacity:.58;transform:rotate(24deg)}
+    .ink-cloud.c1{width:43vw;height:33vw;left:-12vw;top:28vh;background:radial-gradient(circle at 35% 40%,rgba(1,116,243,.95),transparent 55%),radial-gradient(circle at 67% 62%,rgba(95,42,255,.66),transparent 61%)}
+    .ink-cloud.c2{width:37vw;height:45vw;right:-8vw;top:26vh;background:radial-gradient(circle at 42% 35%,rgba(119,232,255,.78),transparent 52%),radial-gradient(circle at 68% 72%,rgba(1,116,243,.92),transparent 58%);animation-duration:29s;animation-delay:-8s}
+    .ink-cloud.c3{width:55vw;height:26vw;left:24vw;bottom:-2vh;background:radial-gradient(circle at 48% 48%,rgba(22,62,137,.92),transparent 60%),radial-gradient(circle at 24% 58%,rgba(1,116,243,.74),transparent 56%);animation-duration:34s;animation-delay:-15s}
+    .ink-thread{position:absolute;z-index:-2;width:7px;height:22vh;border-radius:50%;background:linear-gradient(rgba(119,232,255,.42),rgba(1,116,243,.08),transparent);filter:blur(.8px);opacity:.28;animation:threadFall 10s linear infinite}
+    .t1{left:18%;top:-18vh;animation-delay:-2s}.t2{left:49%;top:-20vh;animation-delay:-7s}.t3{left:78%;top:-16vh;animation-delay:-4s}
+
+    /* Sparse bubbles for life, not aquarium decoration */
+    .bubble{position:absolute;z-index:-1;border:1px solid rgba(224,252,255,.42);border-radius:50%;opacity:.0;box-shadow:inset 0 0 8px rgba(255,255,255,.12);animation:bubbleRise var(--speed) linear infinite}
+    .b1{left:12%;bottom:-4vh;width:7px;height:7px;--speed:12s;animation-delay:-4s}.b2{left:39%;bottom:-8vh;width:11px;height:11px;--speed:16s;animation-delay:-9s}.b3{left:71%;bottom:-3vh;width:6px;height:6px;--speed:13s;animation-delay:-7s}.b4{left:87%;bottom:-10vh;width:14px;height:14px;--speed:20s;animation-delay:-12s}
+
+    .hero{position:relative;z-index:5;min-height:100svh;display:grid;align-items:center;padding:8rem clamp(1.2rem,7vw,7rem) 6rem}.hero-inner{max-width:760px}.kicker{font-family:Arial,sans-serif;color:var(--cyan);font-size:.7rem;font-weight:900;letter-spacing:.2em;text-transform:uppercase}.hero h1{font-size:clamp(3.7rem,8vw,7rem);line-height:.9;margin:.5rem 0 1.2rem;font-weight:500;text-shadow:0 20px 80px rgba(1,116,243,.44)}
+    .lead{max-width:680px;margin:0;color:var(--soft);font-size:clamp(1.05rem,2vw,1.35rem);line-height:1.75}.alive-note{margin-top:1.1rem;color:rgba(247,244,236,.58);font-family:Arial,sans-serif;font-size:.74rem;letter-spacing:.08em}.alive-note strong{color:var(--cyan);font-weight:700}
+    .actions{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:2rem}.btn{display:inline-flex;padding:.9rem 1.15rem;border:1px solid var(--line);color:var(--paper);text-decoration:none;background:rgba(1,7,19,.30);backdrop-filter:blur(9px);font-family:Arial,sans-serif;font-size:.7rem;font-weight:900;letter-spacing:.11em;text-transform:uppercase;transition:.25s ease}.btn:hover{transform:translateY(-2px);border-color:rgba(119,232,255,.58);box-shadow:0 12px 35px rgba(1,116,243,.14)}.btn.primary{background:rgba(1,116,243,.78);border-color:rgba(119,232,255,.62)}
+    .current-marker{position:absolute;right:clamp(1rem,5vw,4rem);bottom:2.2rem;color:rgba(247,244,236,.52);font:700 .65rem/1.4 Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;text-align:right}.current-marker::before{content:"";display:block;width:90px;height:1px;margin:0 0 .7rem auto;background:linear-gradient(90deg,transparent,var(--cyan));animation:currentLine 4s ease-in-out infinite alternate}
+
+    /* Gallery lives inside the ocean world */
+    .current{position:relative;z-index:6;padding:clamp(4rem,8vw,7rem) clamp(1rem,5vw,4rem);background:linear-gradient(180deg,rgba(1,7,17,.08),rgba(1,7,17,.96) 13%,#010711 100%)}
+    .current::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.18;background:linear-gradient(115deg,transparent 0 35%,rgba(1,116,243,.16) 49%,transparent 62%);animation:galleryCurrent 16s ease-in-out infinite alternate}
+    .current-inner{position:relative;max-width:1450px;margin:auto}.section-head{max-width:780px;margin-bottom:2rem}.section-head h2{font-size:clamp(2.5rem,5vw,4.6rem);margin:.3rem 0 1rem;font-weight:500}.section-head p{color:var(--soft);line-height:1.7}
+    .gallery-map{display:flex;flex-wrap:wrap;gap:.55rem;margin:0 0 2rem}.gallery-map a{padding:.55rem .75rem;border:1px solid var(--line);text-decoration:none;color:var(--soft);font:800 .64rem Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase;background:rgba(3,16,31,.48)}.gallery-map a:hover{color:var(--paper);border-color:rgba(119,232,255,.48)}
+    .gallery{display:grid;grid-template-columns:repeat(12,1fr);gap:1rem}.piece{position:relative;grid-column:span 4;min-height:360px;overflow:hidden;border:1px solid var(--line);background:#03101f;text-decoration:none;color:var(--paper);box-shadow:0 20px 55px rgba(0,0,0,.18)}.piece:first-child{grid-column:span 7}.piece:nth-child(2){grid-column:span 5}.piece img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s ease,filter .7s ease}.piece::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 120%,rgba(1,116,243,.22),transparent 48%);opacity:0;transition:.45s ease}.piece:hover img{transform:scale(1.045);filter:saturate(1.06) contrast(1.03)}.piece:hover::after{opacity:1}.piece span{position:absolute;z-index:2;inset:auto 0 0;padding:1.2rem;background:linear-gradient(transparent,rgba(1,5,13,.96));font-size:1.35rem}.piece small{display:block;color:var(--cyan);font-family:Arial,sans-serif;font-size:.66rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.35rem}
+    .exit{text-align:center;padding:5rem 1rem 7rem;background:#010711}.exit h2{font-size:clamp(2rem,4vw,3.6rem);font-weight:500;margin:.4rem 0 1rem}.exit p{color:var(--soft);max-width:650px;margin:0 auto 1.5rem;line-height:1.7}
+
+    @keyframes waterDrift{from{transform:translate3d(-2%,0,0) scale(1.03) rotate(-.7deg)}to{transform:translate3d(3%,2%,0) scale(1.08) rotate(.8deg)}}
+    @keyframes surfaceBreathe{from{transform:translateX(-2%) scaleY(.94)}to{transform:translateX(2%) scaleY(1.08)}}
+    @keyframes causticMove{from{background-position:0 0,0 0}to{background-position:190px 100px,-240px 150px}}
+    @keyframes raysPulse{from{opacity:.24;filter:blur(3px)}to{opacity:.46;filter:blur(4px)}}
+    @keyframes flow{from{transform:translateX(-4%) rotate(-1.4deg) scaleY(.82)}to{transform:translateX(4%) rotate(1.4deg) scaleY(1.2)}}
+    @keyframes inkDrift{from{transform:translate3d(-3vw,-2vh,0) rotate(-5deg) scale(.92)}to{transform:translate3d(6vw,6vh,0) rotate(8deg) scale(1.13)}}
+    @keyframes threadFall{from{transform:translateY(-15vh) rotate(-2deg);opacity:0}18%{opacity:.3}70%{opacity:.18}to{transform:translateY(120vh) rotate(8deg);opacity:0}}
+    @keyframes bubbleRise{from{transform:translateY(0) scale(.8);opacity:0}14%{opacity:.45}to{transform:translateY(-115vh) scale(1.28);opacity:0}}
+    @keyframes currentLine{from{transform:scaleX(.5);opacity:.35}to{transform:scaleX(1);opacity:.9}}
+    @keyframes galleryCurrent{from{transform:translateX(-10%)}to{transform:translateX(10%)}}
+
+    @media(max-width:850px){.gallery{grid-template-columns:1fr}.piece,.piece:first-child,.piece:nth-child(2){grid-column:auto;min-height:300px}.ink-cloud{opacity:.48}.links{gap:.65rem;font-size:.62rem}.hero{padding-top:7rem}.current-marker{display:none}.light-rays{opacity:.28}.gallery-map{gap:.4rem}}
+    @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}.water-plane,.surface-glass,.ink-cloud{filter:none!important}}
   </style>
 </head>
 <body>
-  <nav aria-label="Ocean of Ink navigation"><a href="index.html"><strong>Inkspirations Studios</strong></a><div class="links"><a href="index.html">Home</a><a href="portfolio.html">Portfolio</a><a href="rooms.html">Rooms</a><a href="index.html#contact">Contact</a></div></nav>
+  <svg width="0" height="0" aria-hidden="true" focusable="false">
+    <filter id="waterDistort">
+      <feTurbulence type="fractalNoise" baseFrequency="0.007 0.013" numOctaves="2" seed="8">
+        <animate attributeName="baseFrequency" dur="14s" values="0.007 0.013;0.011 0.018;0.007 0.013" repeatCount="indefinite"/>
+      </feTurbulence>
+      <feDisplacementMap in="SourceGraphic" scale="34"/>
+    </filter>
+    <filter id="surfaceDistort">
+      <feTurbulence type="turbulence" baseFrequency="0.004 0.028" numOctaves="2" seed="12">
+        <animate attributeName="baseFrequency" dur="10s" values="0.004 0.028;0.007 0.021;0.004 0.028" repeatCount="indefinite"/>
+      </feTurbulence>
+      <feDisplacementMap in="SourceGraphic" scale="46"/>
+    </filter>
+    <filter id="inkDistort">
+      <feTurbulence type="fractalNoise" baseFrequency="0.009 0.018" numOctaves="3" seed="4">
+        <animate attributeName="baseFrequency" dur="18s" values="0.009 0.018;0.014 0.024;0.009 0.018" repeatCount="indefinite"/>
+      </feTurbulence>
+      <feDisplacementMap in="SourceGraphic" scale="44"/>
+    </filter>
+  </svg>
 
-  <section class="ocean" aria-label="Animated ocean of drifting ink">
-    <div class="surface" aria-hidden="true"><div class="wave one"></div><div class="wave two"></div><div class="wave three"></div></div>
+  <nav aria-label="Ocean of Ink navigation"><a href="index.html"><strong>Inkspirations Studios</strong></a><div class="links"><a href="#gallery">Gallery</a><a href="rooms.html">Rooms</a><a href="systems-i-built.html">Systems</a><a href="index.html#contact">Contact</a></div></nav>
+
+  <section class="ocean" aria-label="Living underwater Ocean of Ink">
+    <div class="water-plane" aria-hidden="true"></div>
+    <div class="surface-glass" aria-hidden="true"></div>
+    <div class="caustics" aria-hidden="true"></div>
+    <div class="light-rays" aria-hidden="true"></div>
+    <div class="flow f1" aria-hidden="true"></div><div class="flow f2" aria-hidden="true"></div><div class="flow f3" aria-hidden="true"></div>
     <div class="ink-cloud c1" aria-hidden="true"></div><div class="ink-cloud c2" aria-hidden="true"></div><div class="ink-cloud c3" aria-hidden="true"></div>
-    <i class="ink-drop d1" aria-hidden="true"></i><i class="ink-drop d2" aria-hidden="true"></i><i class="ink-drop d3" aria-hidden="true"></i>
-    <div class="hero"><div class="hero-inner"><p class="kicker">Immersive Studio Experience</p><h1>Ocean<br>of Ink</h1><p class="lead">A living ocean where blue water, luminous pigment, and Robert Marleton's artwork move together. The current is slow, atmospheric, and intentionally alive.</p><div class="actions"><a class="btn primary" href="#artwork">Dive Beneath the Surface</a><a class="btn" href="rooms.html">Return to Rooms</a></div></div></div>
+    <i class="ink-thread t1" aria-hidden="true"></i><i class="ink-thread t2" aria-hidden="true"></i><i class="ink-thread t3" aria-hidden="true"></i>
+    <i class="bubble b1" aria-hidden="true"></i><i class="bubble b2" aria-hidden="true"></i><i class="bubble b3" aria-hidden="true"></i><i class="bubble b4" aria-hidden="true"></i>
+
+    <div class="hero"><div class="hero-inner">
+      <p class="kicker">A Living Creative Environment</p>
+      <h1>Ocean<br>of Ink</h1>
+      <p class="lead">Water is not the backdrop here. It is the architecture. Light bends, currents shift, ink disperses, and the work lives inside the movement.</p>
+      <p class="alive-note"><strong>Move your pointer.</strong> The water notices.</p>
+      <div class="actions"><a class="btn primary" href="#gallery">Dive Beneath the Surface</a><a class="btn" href="rooms.html">Explore the Rooms</a></div>
+    </div></div>
+    <div class="current-marker">The map itself becomes the artwork.<br>Follow the current ↓</div>
   </section>
 
-  <section class="current" id="artwork"><div class="current-inner"><div class="section-head"><p class="kicker">Beneath the Surface</p><h2>Artwork carried by the current.</h2><p>The Ocean of Ink now contains real work from the portfolio, not an empty atmospheric panel. Each piece leads back to the complete gallery.</p></div><div class="gallery">
-    <a class="piece" href="portfolio.html#portfolio"><img src="assets/images/portfolio/soul-current.jpg" alt="Submersion artwork"><span><small>Fluid Soul Series</small>Submersion</span></a>
-    <a class="piece" href="portfolio.html#portfolio"><img src="assets/images/portfolio/blue-name-current.jpg" alt="Release artwork"><span><small>Signature Collection</small>Release</span></a>
-    <a class="piece" href="portfolio.html#portfolio"><img src="assets/images/portfolio/washed-out.jpg" alt="Washed Out artwork"><span><small>Signature Collection</small>Washed Out</span></a>
-    <a class="piece" href="portfolio.html#portfolio"><img src="assets/images/portfolio/rainline-study.jpg" alt="Rainline Study artwork"><span><small>Texture Studies</small>Rainline Study</span></a>
-    <a class="piece" href="portfolio.html#portfolio"><img src="assets/images/portfolio/blue-field.jpg" alt="Blue Field artwork"><span><small>Texture Studies</small>Blue Field</span></a>
-  </div></div></section>
+  <section class="current" id="gallery"><div class="current-inner"><div class="section-head"><p class="kicker">The Gallery</p><h2>Work carried by the current.</h2><p>Art, photography, functional pieces, and digital experiments belong to the same visual world. The categories are different currents inside one gallery, not separate islands.</p></div>
+    <div class="gallery-map" aria-label="Gallery categories"><a href="portfolio.html#portfolio">Art</a><a href="portfolio.html#portfolio">Photography</a><a href="portfolio.html#portfolio">Wood / Functional</a><a href="portfolio.html#portfolio">Digital / Experimental</a></div>
+    <div class="gallery">
+      <a class="piece" href="portfolio.html#portfolio"><img src="assets/images/portfolio/soul-current.jpg" alt="Submersion artwork"><span><small>Fluid Soul Series</small>Submersion</span></a>
+      <a class="piece" href="portfolio.html#portfolio"><img src="assets/images/portfolio/blue-name-current.jpg" alt="Release artwork"><span><small>Signature Collection</small>Release</span></a>
+      <a class="piece" href="portfolio.html#portfolio"><img src="assets/images/portfolio/washed-out.jpg" alt="Washed Out artwork"><span><small>Signature Collection</small>Washed Out</span></a>
+      <a class="piece" href="portfolio.html#portfolio"><img src="assets/images/portfolio/rainline-study.jpg" alt="Rainline Study artwork"><span><small>Texture Studies</small>Rainline Study</span></a>
+      <a class="piece" href="portfolio.html#portfolio"><img src="assets/images/portfolio/blue-field.jpg" alt="Blue Field artwork"><span><small>Texture Studies</small>Blue Field</span></a>
+    </div>
+  </div></section>
 
-  <section class="exit"><p class="kicker">Follow the Current</p><h2>Keep moving through the studio.</h2><p>Continue to the full portfolio, explore the remaining rooms, or return home. There are no dead ends here.</p><div class="actions"><a class="btn primary" href="portfolio.html">Full Portfolio</a><a class="btn" href="rooms.html">All Rooms</a><a class="btn" href="index.html">Home</a></div></section>
+  <section class="exit"><p class="kicker">Follow the Current</p><h2>There are no dead ends here.</h2><p>Continue into the full gallery, move through the rooms, or follow the systems behind the work.</p><div class="actions"><a class="btn primary" href="portfolio.html">Full Gallery</a><a class="btn" href="rooms.html">All Rooms</a><a class="btn" href="systems-i-built.html">Creative Systems</a></div></section>
+
+  <script>
+    (()=>{
+      const root=document.documentElement;
+      let raf=0;
+      const react=e=>{
+        if(raf) cancelAnimationFrame(raf);
+        raf=requestAnimationFrame(()=>{
+          const x=(e.clientX/window.innerWidth)*100;
+          const y=(e.clientY/window.innerHeight)*100;
+          const dx=(e.clientX-window.innerWidth/2)*.018;
+          const dy=(e.clientY-window.innerHeight/2)*.012;
+          root.style.setProperty('--mx',x.toFixed(2)+'%');
+          root.style.setProperty('--my',Math.min(42,Math.max(4,y*.48)).toFixed(2)+'%');
+          root.style.setProperty('--drift-x',dx.toFixed(1)+'px');
+          root.style.setProperty('--drift-y',dy.toFixed(1)+'px');
+        });
+      };
+      if(!matchMedia('(prefers-reduced-motion: reduce)').matches){window.addEventListener('pointermove',react,{passive:true});}
+    })();
+  </script>
 </body>
 </html>
