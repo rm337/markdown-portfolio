@@ -21,6 +21,31 @@
     if (typeof window.plausible === "function") window.plausible(name, { props: details });
   }
 
+  function fixHomepagePhotographyRoute() {
+    const path = location.pathname.replace(/\/index\.html$/i, "/");
+    const isHome = path === "/" || path.endsWith("/markdown-portfolio/");
+    if (!isHome) return;
+
+    document.querySelectorAll(".work-card").forEach((card) => {
+      const title = card.querySelector("h3");
+      if (!title || !/artwork\s*&\s*photography/i.test(title.textContent || "")) return;
+
+      card.href = "photography.html";
+      card.style.setProperty("--scene", "linear-gradient(180deg,rgba(1,14,26,.12),rgba(1,14,26,.86)),url('assets/images/portfolio/coasters/blue-wave-wood-panel-functional-art.jpg') center / cover no-repeat");
+      title.textContent = "Photography";
+
+      const kicker = card.querySelector(".kicker");
+      const description = card.querySelector("p");
+      const enter = card.querySelector(".enter");
+      if (kicker) kicker.textContent = "PHOTOGRAPHY";
+      if (description) description.textContent = "Studio photographs, object studies, surfaces, details, and visual moments presented in their own gallery.";
+      if (enter) enter.textContent = "View Photography";
+    });
+  }
+
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", fixHomepagePhotographyRoute, { once: true });
+  else fixHomepagePhotographyRoute();
+
   document.addEventListener("click", (event) => {
     const link = event.target.closest("a[href]");
     if (!link) return;
