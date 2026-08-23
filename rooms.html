@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Studio Rooms | Inkspirations Studios</title>
-  <meta name="description" content="Explore the interactive rooms, creative machines, labs, photography, writing, functional art, and studio systems of Inkspirations Studios.">
+  <meta name="description" content="Explore the living studio rooms, interactive creative machines, labs, photography, writing, functional art, and creative systems of Inkspirations Studios.">
   <link rel="stylesheet" href="css/rooms.css?v=20260823-expandedrooms">
   <link rel="stylesheet" href="css/atmosphere.css?v=20260714-focusedrooms">
   <link rel="stylesheet" href="css/surface-light.css?v=20260714-focusedrooms">
@@ -13,13 +13,99 @@
   <style>
     .focused-room{display:none;max-width:900px;margin:0 auto;padding:48px 20px 80px;position:relative;z-index:2}
     .focused-room.is-open{display:block}
-    .focused-room-panel{padding:clamp(28px,5vw,60px);border:1px solid rgba(255,255,255,.16);border-radius:28px;background:rgba(4,18,32,.72);backdrop-filter:blur(14px);box-shadow:0 24px 80px rgba(0,0,0,.34)}
+    .focused-room-panel{padding:clamp(28px,5vw,60px);border:1px solid rgba(255,255,255,.16);border-radius:28px;background:rgba(4,18,32,.72);backdrop-filter:blur(14px);box-shadow:0 24px 80px rgba(0,0,0,.34);overflow:hidden;position:relative}
     .focused-room h1{font-size:clamp(2.6rem,8vw,5.8rem);line-height:1;margin:.3rem 0 1rem}
     .focused-room p{font-size:1.1rem;max-width:720px}
     .focused-room-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
     .focused-room-actions a{display:inline-flex;padding:12px 18px;border-radius:999px;border:1px solid rgba(255,255,255,.22);text-decoration:none;background:rgba(255,255,255,.08)}
     .focused-room-actions a:first-child{background:#0174F3;border-color:#0174F3;color:white}
     body.room-focused main>.room-hub-hero,body.room-focused .room-hub-grid{display:none}
+
+    /* Every room gets its own temperament, not just a different label. */
+    .room-hub-hero{max-width:1180px}
+    .room-hub-hero strong{color:#fff}
+    .room-hub-grid{align-items:stretch}
+    .room-card{position:relative;isolation:isolate;border:1px solid rgba(255,255,255,.1);transform-style:preserve-3d}
+    .room-card::before,.room-card::after{content:"";position:absolute;pointer-events:none;z-index:-1}
+    .room-card::before{inset:0;opacity:.55;transition:opacity .35s ease,transform .55s ease}
+    .room-card::after{right:18px;top:14px;font:900 2rem/1 Arial,sans-serif;opacity:.25;letter-spacing:-.08em}
+    .room-card:hover::before,.room-card:focus::before{opacity:.92;transform:scale(1.06)}
+    .room-card h2,.room-card p,.room-card small,.room-card-footer{position:relative;z-index:2}
+    .room-voice{display:block;margin:.15rem 0 1rem;padding:.62rem .72rem;border-left:2px solid var(--room-accent,#56d9ff);background:rgba(0,0,0,.16);font-size:.84rem;line-height:1.35;color:rgba(255,255,255,.84);font-style:italic;position:relative;z-index:2}
+    .room-card:hover .room-voice,.room-card:focus .room-voice{color:#fff;background:rgba(0,0,0,.24)}
+
+    /* Idea Fabricator: restless, connective, electric. */
+    .persona-fabricator{border-radius:34px 20px 38px 18px!important}
+    .persona-fabricator::before{background:radial-gradient(circle at 22% 20%,rgba(1,116,243,.56),transparent 20%),radial-gradient(circle at 78% 68%,rgba(143,232,255,.28),transparent 18%),linear-gradient(115deg,transparent 0 42%,rgba(255,255,255,.08) 43% 45%,transparent 46% 100%);animation:fabricatorThink 7s ease-in-out infinite alternate}
+    .persona-fabricator::after{content:"↗︎↘︎";color:#8fe8ff}
+
+    /* T-shirt lab: practical workbench with a wink. */
+    .persona-shirt{border-radius:18px!important}
+    .persona-shirt::before{background:repeating-linear-gradient(135deg,rgba(131,243,186,.09) 0 2px,transparent 2px 18px),radial-gradient(circle at 80% 18%,rgba(131,243,186,.24),transparent 28%)}
+    .persona-shirt::after{content:"T";color:#83f3ba;border:1px dashed currentColor;padding:.12em .2em;font-size:1.3rem}
+
+    /* Robert's Puns: language refuses to sit still. */
+    .persona-puns{border-radius:22px 36px 18px 34px!important}
+    .persona-puns::before{background:radial-gradient(circle at 18% 18%,rgba(245,239,229,.2),transparent 25%),linear-gradient(8deg,transparent 0 48%,rgba(245,239,229,.08) 49% 51%,transparent 52%)}
+    .persona-puns::after{content:"?!";color:#f5efe5;transform:rotate(7deg)}
+    .persona-puns:hover h2{animation:wordWiggle .42s ease-in-out}
+
+    /* Ocean of Ink: slow current and depth. */
+    .persona-ocean{border-radius:44px 44px 24px 24px!important}
+    .persona-ocean::before{inset:-18%;background:radial-gradient(ellipse at 50% 25%,rgba(86,217,255,.26),transparent 32%),repeating-radial-gradient(ellipse at 50% 110%,rgba(86,217,255,.09) 0 2px,transparent 3px 28px);animation:oceanBreathe 9s ease-in-out infinite alternate}
+    .persona-ocean::after{content:"≈";color:#56d9ff;font-size:2.8rem}
+
+    /* Water Room: reflective and quieter than the ocean. */
+    .persona-water{border-radius:52px 22px 52px 22px!important}
+    .persona-water::before{background:linear-gradient(112deg,transparent 0 34%,rgba(255,255,255,.16) 42%,transparent 51%),radial-gradient(circle at 72% 72%,rgba(167,237,243,.22),transparent 28%);animation:waterGlint 6.5s linear infinite}
+    .persona-water::after{content:"◌";color:#a7edf3}
+
+    /* Grand Unified Studio: blueprint brain. */
+    .persona-unified{border-radius:16px!important}
+    .persona-unified::before{background:linear-gradient(rgba(105,207,255,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(105,207,255,.08) 1px,transparent 1px);background-size:24px 24px;mask-image:linear-gradient(to bottom,#000,transparent)}
+    .persona-unified::after{content:"⌘";color:#69cfff}
+
+    /* Systems: orderly pulse, visible logic. */
+    .persona-systems{border-radius:24px!important}
+    .persona-systems::before{background:linear-gradient(90deg,transparent 0 14%,rgba(86,217,255,.09) 15% 16%,transparent 17% 49%,rgba(86,217,255,.08) 50% 51%,transparent 52%),radial-gradient(circle at 75% 25%,rgba(86,217,255,.22),transparent 22%);animation:systemPulse 4.8s ease-in-out infinite}
+    .persona-systems::after{content:"◎";color:#56d9ff}
+
+    /* Foundry: warm, physical, sparks on the floor. */
+    .persona-foundry{border-radius:12px 36px 12px 36px!important}
+    .persona-foundry::before{background:radial-gradient(circle at 20% 75%,rgba(255,180,92,.38),transparent 10%),radial-gradient(circle at 74% 24%,rgba(255,180,92,.18),transparent 24%),linear-gradient(145deg,rgba(255,180,92,.06),transparent 55%);animation:foundryGlow 3.8s ease-in-out infinite alternate}
+    .persona-foundry::after{content:"✦";color:#ffb45c}
+
+    /* Coasters / tiles: material, grain, handmade geometry. */
+    .persona-coasters{border-radius:14px!important}
+    .persona-coasters::before{background:repeating-linear-gradient(92deg,rgba(216,170,84,.08) 0 1px,transparent 2px 13px),linear-gradient(180deg,rgba(216,170,84,.1),transparent 48%)}
+    .persona-coasters::after{content:"◇";color:#d8aa54}
+
+    /* Photography: composed, framed, aperture-like. */
+    .persona-photo{border-radius:6px!important;padding:1.4rem!important}
+    .persona-photo::before{inset:10px;border:1px solid rgba(114,200,221,.24);background:radial-gradient(circle at 82% 18%,rgba(114,200,221,.18),transparent 20%)}
+    .persona-photo::after{content:"◉";color:#72c8dd}
+
+    /* Writing: warm desk lamp, blinking thought. */
+    .persona-writing{border-radius:8px 28px 8px 28px!important}
+    .persona-writing::before{background:radial-gradient(circle at 18% 16%,rgba(255,230,173,.24),transparent 34%),linear-gradient(180deg,transparent,rgba(255,230,173,.04))}
+    .persona-writing::after{content:"▌";color:#ffe6ad;animation:cursorBlink 1.05s steps(1,end) infinite}
+
+    /* Gallery: deliberately quieter. Evidence, not the whole identity. */
+    .persona-gallery{border-radius:4px!important;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.014))!important}
+    .persona-gallery::before{inset:12px;border:1px solid rgba(255,255,255,.12);background:radial-gradient(circle at 50% 50%,rgba(1,116,243,.14),transparent 44%)}
+    .persona-gallery::after{content:"□";color:#0174f3}
+
+    .focused-room-panel .room-voice{max-width:680px;margin-top:1.1rem;font-size:1rem}
+
+    @keyframes fabricatorThink{from{transform:translate3d(-2%,-1%,0) rotate(-1deg)}to{transform:translate3d(2%,2%,0) rotate(1deg)}}
+    @keyframes wordWiggle{0%,100%{transform:rotate(0)}35%{transform:rotate(-1deg) translateX(-2px)}70%{transform:rotate(1deg) translateX(2px)}}
+    @keyframes oceanBreathe{from{transform:translateY(-2%) scale(1)}to{transform:translateY(4%) scale(1.08)}}
+    @keyframes waterGlint{0%{transform:translateX(-35%)}100%{transform:translateX(35%)}}
+    @keyframes systemPulse{0%,100%{opacity:.42}50%{opacity:.9}}
+    @keyframes foundryGlow{from{filter:saturate(.9);opacity:.5}to{filter:saturate(1.35);opacity:.92}}
+    @keyframes cursorBlink{0%,48%{opacity:.22}49%,100%{opacity:.8}}
+
+    @media(prefers-reduced-motion:reduce){.persona-fabricator::before,.persona-ocean::before,.persona-water::before,.persona-systems::before,.persona-foundry::before,.persona-writing::after{animation:none!important}}
   </style>
 </head>
 <body class="room-system-page">
@@ -29,7 +115,8 @@
     <a class="room-brand" href="index.html">Inkspirations Studios</a>
     <div class="room-hub-links">
       <a href="index.html">Home</a>
-      <a href="portfolio.html">Portfolio</a>
+      <a href="systems-i-built.html">Direction</a>
+      <a href="portfolio.html">Work</a>
       <a href="photography.html">Photography</a>
       <a href="index.html#contact">Contact</a>
     </div>
@@ -37,15 +124,16 @@
   <main id="main-content">
     <header class="room-hub-hero">
       <p class="room-kicker">Rooms / Labs / Interactive Work</p>
-      <h1 id="roomHubTitle">Choose a door and step inside.</h1>
-      <p id="roomHubDescription">The studio is bigger than a gallery: Idea Fabricator, T-Shirt Design Lab, Robert's Puns, Ocean of Ink, Water Room, creative systems, functional art, photography, writing, and the other places where the work actually moves.</p>
+      <h1 id="roomHubTitle">Every door has a job. Every room has a personality.</h1>
+      <p id="roomHubDescription">This is not a row of matching portfolio cards. It is a working creative world. The Fabricator thinks differently from the Writing Room. The Foundry has a different temperature from the Water Room. Photography watches. Robert's Puns interrupts. Systems organizes. <strong>Choose a door and notice the change in character.</strong></p>
     </header>
-    <section class="room-hub-grid" data-room-cards></section>
+    <section class="room-hub-grid" data-room-cards aria-label="Living studio rooms"></section>
     <section class="focused-room" id="focusedRoom" aria-live="polite">
-      <div class="focused-room-panel">
+      <div class="focused-room-panel" id="focusedRoomPanel">
         <p class="room-kicker" id="focusedRoomKicker">Studio Room</p>
         <h1 id="focusedRoomTitle"></h1>
         <p id="focusedRoomDescription"></p>
+        <p class="room-voice" id="focusedRoomVoice"></p>
         <div class="focused-room-actions">
           <a id="focusedRoomPrimary" href="rooms.html">Enter</a>
           <a href="rooms.html">View All Rooms</a>
@@ -57,6 +145,38 @@
   <script src="site-nav.js?v=20260722"></script>
   <script>
     (() => {
+      const personalities = {
+        "Idea Fabricator": { cls:"persona-fabricator", voice:"Give me the stray thought. I’ll see what it bumps into." },
+        "T-Shirt Design Lab": { cls:"persona-shirt", voice:"Bring the phrase. We’ll find out whether it deserves sleeves." },
+        "Robert's Puns": { cls:"persona-puns", voice:"Words entered unsupervised. This was the predictable result." },
+        "Ocean of Ink": { cls:"persona-ocean", voice:"Nothing sits perfectly still here. Follow the current." },
+        "The Water Room": { cls:"persona-water", voice:"Quieter. Reflective. The light does part of the talking." },
+        "The Grand Unified Studio": { cls:"persona-unified", voice:"Everything connects somewhere. This room keeps the blueprint." },
+        "How Robert Builds": { cls:"persona-systems", voice:"Open the casing. The decisions are part of the exhibit." },
+        "Studio Artifact Foundry": { cls:"persona-foundry", voice:"Ideas come in abstract. Some leave with weight." },
+        "Coasters & Decorative Tiles": { cls:"persona-coasters", voice:"Useful objects are still allowed to have a point of view." },
+        "Photography": { cls:"persona-photo", voice:"Hold still for half a second. Something worth noticing is already there." },
+        "Writing Room": { cls:"persona-writing", voice:"Come in quietly. A sentence may be halfway through becoming something else." },
+        "Artwork Gallery": { cls:"persona-gallery", voice:"The work lives here, but it is one room in a much larger house." }
+      };
+
+      function decorateRoomPersonalities(){
+        document.querySelectorAll('.room-card').forEach(card => {
+          const title = card.querySelector('h2')?.textContent?.trim();
+          const personality = personalities[title];
+          if (!personality || card.dataset.personalityReady === 'true') return;
+          card.classList.add(personality.cls);
+          card.dataset.personalityReady = 'true';
+          const description = card.querySelector('p');
+          if (description) {
+            const voice = document.createElement('span');
+            voice.className = 'room-voice';
+            voice.textContent = personality.voice;
+            description.insertAdjacentElement('afterend', voice);
+          }
+        });
+      }
+
       function openFocusedRoom() {
         const hash = window.location.hash.replace('#', '');
         const room = hash ? window.InkRooms?.byId?.(hash) : null;
@@ -71,6 +191,15 @@
         document.getElementById('focusedRoomKicker').textContent = room.category || 'Studio Room';
         document.getElementById('focusedRoomTitle').textContent = room.title;
         document.getElementById('focusedRoomDescription').textContent = room.description;
+        const personality = personalities[room.title];
+        const panel = document.getElementById('focusedRoomPanel');
+        Object.values(personalities).forEach(item => panel?.classList.remove(item.cls));
+        if (personality && panel) panel.classList.add(personality.cls);
+        const voice = document.getElementById('focusedRoomVoice');
+        if (voice) {
+          voice.textContent = personality?.voice || 'This room has its own job inside the studio.';
+          voice.style.display = 'block';
+        }
         const primary = document.getElementById('focusedRoomPrimary');
         primary.textContent = `Enter ${room.title}`;
         primary.href = room.url;
@@ -83,8 +212,15 @@
         }
         window.scrollTo({top:0,behavior:'auto'});
       }
-      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', openFocusedRoom);
-      else openFocusedRoom();
+
+      function boot(){
+        decorateRoomPersonalities();
+        openFocusedRoom();
+        requestAnimationFrame(decorateRoomPersonalities);
+        setTimeout(decorateRoomPersonalities,120);
+      }
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+      else boot();
       window.addEventListener('hashchange', openFocusedRoom);
     })();
   </script>
