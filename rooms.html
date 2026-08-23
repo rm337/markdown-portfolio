@@ -4,7 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Studio Rooms | Inkspirations Studios</title>
-  <link rel="stylesheet" href="css/rooms.css?v=20260714-focusedrooms">
+  <meta name="description" content="Explore the interactive rooms, creative machines, labs, photography, writing, functional art, and studio systems of Inkspirations Studios.">
+  <link rel="stylesheet" href="css/rooms.css?v=20260823-expandedrooms">
   <link rel="stylesheet" href="css/atmosphere.css?v=20260714-focusedrooms">
   <link rel="stylesheet" href="css/surface-light.css?v=20260714-focusedrooms">
   <link rel="stylesheet" href="css/interaction-hotfix.css?v=20260714-focusedrooms">
@@ -29,14 +30,15 @@
     <div class="room-hub-links">
       <a href="index.html">Home</a>
       <a href="portfolio.html">Portfolio</a>
+      <a href="photography.html">Photography</a>
       <a href="index.html#contact">Contact</a>
     </div>
   </nav>
   <main id="main-content">
     <header class="room-hub-hero">
-      <p class="room-kicker">Studio Rooms</p>
-      <h1 id="roomHubTitle">Choose a room and step inside.</h1>
-      <p id="roomHubDescription">Ocean light, floating ink, writing, listening, and the deeper creative rooms of Inkspirations Studios.</p>
+      <p class="room-kicker">Rooms / Labs / Interactive Work</p>
+      <h1 id="roomHubTitle">Choose a door and step inside.</h1>
+      <p id="roomHubDescription">The studio is bigger than a gallery: Idea Fabricator, T-Shirt Design Lab, Robert's Puns, Ocean of Ink, Water Room, creative systems, functional art, photography, writing, and the other places where the work actually moves.</p>
     </header>
     <section class="room-hub-grid" data-room-cards></section>
     <section class="focused-room" id="focusedRoom" aria-live="polite">
@@ -51,7 +53,7 @@
       </div>
     </section>
   </main>
-  <script src="js/rooms.js?v=20260714-focusedrooms"></script>
+  <script src="js/rooms.js?v=20260823-expandedrooms"></script>
   <script src="site-nav.js?v=20260722"></script>
   <script>
     (() => {
@@ -70,12 +72,14 @@
         document.getElementById('focusedRoomTitle').textContent = room.title;
         document.getElementById('focusedRoomDescription').textContent = room.description;
         const primary = document.getElementById('focusedRoomPrimary');
-        if (room.id === 'coasters-tiles') {
-          primary.textContent = 'View Coasters & Decorative Tiles';
-          primary.href = 'coasters-tiles.html';
+        primary.textContent = `Enter ${room.title}`;
+        primary.href = room.url;
+        if (/^https?:\/\//.test(room.url)) {
+          primary.target = '_blank';
+          primary.rel = 'noopener';
         } else {
-          primary.textContent = 'Stay in This Room';
-          primary.href = '#'+room.id;
+          primary.removeAttribute('target');
+          primary.removeAttribute('rel');
         }
         window.scrollTo({top:0,behavior:'auto'});
       }
