@@ -3,24 +3,104 @@
 
   const rooms = [
     {
+      id: "idea-fabricator",
+      title: "Idea Fabricator",
+      subtitle: "The thought engine behind the studio.",
+      description: "Feed it a word, phrase, observation, problem, or accidental expression and follow the connections somewhere less obvious.",
+      url: "https://robert-marleton.lovable.app/workshop",
+      accent: "#0174f3",
+      category: "Creative Machine",
+      status: "Live Interactive"
+    },
+    {
+      id: "t-shirt-design-lab",
+      title: "T-Shirt Design Lab",
+      subtitle: "Where wearable ideas get developed.",
+      description: "Take shirt sparks, Robert's Puns, strange phrases, and Fabricator discoveries into a dedicated concept-development room.",
+      url: "t-shirt-design-lab.html",
+      accent: "#83f3ba",
+      category: "Apparel Lab",
+      status: "Interactive"
+    },
+    {
+      id: "roberts-puns",
+      title: "Robert's Puns",
+      subtitle: "The phrase archive with a pulse.",
+      description: "Original wordplay, invented language, story threads, humor, and phrases that can feed artwork, shirts, objects, and the Idea Fabricator.",
+      url: "robertisms.html",
+      accent: "#f5efe5",
+      category: "Wordplay",
+      status: "Interactive"
+    },
+    {
       id: "ocean-of-ink",
       title: "Ocean of Ink",
       subtitle: "The atmospheric center of the studio.",
-      description: "A living blue environment of drifting pigment, layered light, and selected visual work. Move slowly, look closely, and follow the current back into the portfolio.",
+      description: "A living blue environment of drifting pigment, layered light, and selected visual work. Move slowly, look closely, and follow the current.",
       url: "ocean-of-ink.html",
       accent: "#56d9ff",
       category: "Atmosphere",
       status: "Open"
     },
     {
+      id: "water-room",
+      title: "The Water Room",
+      subtitle: "Water, reflection, current, and moving light.",
+      description: "An immersive room built from flowing light, refracted color, drifting forms, and a quieter sense of motion around the visitor.",
+      url: "water-room.html",
+      accent: "#a7edf3",
+      category: "Immersive Room",
+      status: "Interactive"
+    },
+    {
       id: "grand-unified-studio",
       title: "The Grand Unified Studio",
       subtitle: "The living blueprint beneath every room.",
-      description: "Explore the creative architecture that connects the studio departments and preserves the work for the future.",
+      description: "Explore the creative architecture that connects studio departments, experiments, and repeatable systems.",
       url: "grand-unified-studio.html",
       accent: "#69cfff",
       category: "Creative Systems",
       status: "Interactive"
+    },
+    {
+      id: "systems-i-built",
+      title: "How Robert Builds",
+      subtitle: "Creative process made visible.",
+      description: "An interactive systems room showing how ideas move from chaos to decisions, rooms, artifacts, and repeatable creative form.",
+      url: "systems-i-built.html",
+      accent: "#56d9ff",
+      category: "Process",
+      status: "Interactive"
+    },
+    {
+      id: "merch-foundry",
+      title: "Studio Artifact Foundry",
+      subtitle: "Where studio ideas become physical possibilities.",
+      description: "Coasters, prints, shirt concepts, Robert's Puns, Ocean of Ink artifacts, and other ideas connected back to their creative source.",
+      url: "merch-foundry.html",
+      accent: "#ffb45c",
+      category: "Artifact Lab",
+      status: "Interactive"
+    },
+    {
+      id: "coasters-tiles",
+      title: "Coasters & Decorative Tiles",
+      subtitle: "Functional art with its own room.",
+      description: "Usable art studies in wood, blue-current movement, texture, and handmade surfaces, with full-screen image viewing.",
+      url: "coasters-tiles.html",
+      accent: "#d8aa54",
+      category: "Functional Art",
+      status: "Open"
+    },
+    {
+      id: "photography",
+      title: "Photography",
+      subtitle: "The photographic wall.",
+      description: "Photographic studies, studio details, objects, surfaces, and visual moments presented separately from the artwork gallery.",
+      url: "photography.html",
+      accent: "#72c8dd",
+      category: "Photography",
+      status: "Open"
     },
     {
       id: "writing-room",
@@ -35,7 +115,7 @@
     {
       id: "portfolio",
       title: "Artwork Gallery",
-      subtitle: "The main collection.",
+      subtitle: "The main visual collection.",
       description: "Browse selected artwork, open images full screen, and move through the portfolio without dead ends.",
       url: "portfolio.html#portfolio",
       accent: "#0174f3",
@@ -45,6 +125,9 @@
   ];
 
   const foundryPuns = [
+    { title: "Water you waiting for?", label: "Water Wordplay", description: "A question that got wet on the way out and immediately became machine food." },
+    { title: "Tide up for a second", label: "Water Wordplay", description: "A small phonetic turn that keeps the meaning recognizable while letting the water take over." },
+    { title: "Shore as hell ready", label: "Water Wordplay", description: "A coastal mutation with enough attitude to survive outside the aquarium." },
     { title: "My Code Turned Into $pagetti", label: "Tech Wordplay", description: "A debugging joke built from the familiar moment when clean logic becomes tangled code." },
     { title: "All My PUPS Are on a Leash", label: "Controlled Chaos", description: "A playful line about keeping processes, programs, or unpredictable little systems under control." },
     { title: "Browser Wars", label: "Digital Culture", description: "A technology satire about compatibility battles, competing platforms, endless tabs, and daily web diplomacy." },
@@ -60,7 +143,8 @@
   }
 
   function roomCard(room) {
-    return `<a class="room-card" href="${escapeHtml(room.url)}" style="--room-accent:${escapeHtml(room.accent)}">
+    const external = /^https?:\/\//.test(room.url);
+    return `<a class="room-card" href="${escapeHtml(room.url)}"${external ? ' target="_blank" rel="noopener"' : ""} style="--room-accent:${escapeHtml(room.accent)}">
       <small>${escapeHtml(room.category)}</small>
       <h2>${escapeHtml(room.title)}</h2>
       <p>${escapeHtml(room.description)}</p>
@@ -87,7 +171,7 @@
     const section = document.createElement("section");
     section.className = "pun-gallery";
     section.id = "punsAndDescriptions";
-    section.innerHTML = `<div class="pun-gallery-head"><p class="kicker">Robert's Puns</p><h2>The phrases that escaped before anyone could stop them.</h2><p>Original technical wordplay, surreal one-liners, and studio oddities.</p></div><div class="pun-gallery-grid">${foundryPuns.map((pun) => `<article class="pun-entry"><small>${escapeHtml(pun.label)}</small><h3>${escapeHtml(pun.title)}</h3><p>${escapeHtml(pun.description)}</p></article>`).join("")}</div>`;
+    section.innerHTML = `<div class="pun-gallery-head"><p class="kicker">Robert's Puns</p><h2>The phrases that escaped before anyone could stop them.</h2><p>Original technical wordplay, surreal one-liners, waterlogged language, and studio oddities.</p></div><div class="pun-gallery-grid">${foundryPuns.map((pun) => `<article class="pun-entry"><small>${escapeHtml(pun.label)}</small><h3>${escapeHtml(pun.title)}</h3><p>${escapeHtml(pun.description)}</p></article>`).join("")}</div>`;
     foundryGrid.parentNode.insertBefore(section, foundryGrid);
   }
 
