@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Ocean of Ink | Inkspirations Studios</title>
-  <meta name="description" content="A living underwater creative environment where water, ink, artwork, photography, writing, and creative systems move together.">
+  <meta name="description" content="A living underwater creative environment where creative direction, systems, artwork, photography, writing, and interaction move together.">
   <style>
     *,*::before,*::after{box-sizing:border-box}
     :root{
@@ -31,10 +31,10 @@
     .ocean::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(120deg,transparent 0 37%,rgba(214,247,255,.15) 50%,transparent 63%)}
 
     .hero{position:relative;z-index:5;min-height:100svh;display:grid;align-items:center;padding:8rem clamp(1.2rem,7vw,7rem) 6rem}
-    .hero-inner{max-width:760px}
+    .hero-inner{max-width:820px}
     .kicker{font-family:Arial,sans-serif;color:rgba(239,252,255,.96);font-size:.7rem;font-weight:900;letter-spacing:.2em;text-transform:uppercase}
     .hero h1{font-size:clamp(3.7rem,8vw,7rem);line-height:.9;margin:.5rem 0 1.2rem;font-weight:500;text-shadow:0 14px 36px rgba(0,59,110,.26)}
-    .lead{max-width:680px;margin:0;color:var(--soft);font-size:clamp(1.05rem,2vw,1.35rem);line-height:1.75}
+    .lead{max-width:760px;margin:0;color:var(--soft);font-size:clamp(1.05rem,2vw,1.35rem);line-height:1.75}
     .actions{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:2rem}
     .btn{display:inline-flex;padding:.9rem 1.15rem;border:1px solid rgba(224,247,255,.58);color:var(--paper);text-decoration:none;background:rgba(255,255,255,.12);backdrop-filter:blur(9px);font-family:Arial,sans-serif;font-size:.7rem;font-weight:900;letter-spacing:.11em;text-transform:uppercase;transition:.25s ease}
     .btn:hover{transform:translateY(-2px);border-color:rgba(239,252,255,.82);background:rgba(255,255,255,.18)}
@@ -42,9 +42,23 @@
     .current-marker{position:absolute;right:clamp(1rem,5vw,4rem);bottom:2.2rem;color:rgba(239,252,255,.82);font:700 .65rem/1.4 Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;text-align:right}
     .current-marker::before{content:"";display:block;width:90px;height:1px;margin:0 0 .7rem auto;background:linear-gradient(90deg,transparent,rgba(239,252,255,.78))}
 
-    .current{position:relative;z-index:6;padding:clamp(4rem,8vw,7rem) clamp(1rem,5vw,4rem);background:linear-gradient(180deg,#0c6ba7 0%,#0b5e98 48%,#0a4f84 100%)}
+    .direction{position:relative;z-index:7;padding:clamp(5rem,9vw,8rem) clamp(1rem,5vw,4rem);background:linear-gradient(180deg,#0d6ca8 0%,#0b5e98 55%,#0a568e 100%)}
+    .direction-inner{max-width:1450px;margin:auto}
+    .direction-intro{max-width:900px;margin-bottom:2.5rem}
+    .direction-intro h2{font-size:clamp(2.6rem,5vw,4.8rem);line-height:1.02;margin:.35rem 0 1rem;font-weight:500}
+    .direction-intro p{max-width:820px;color:var(--soft);font-size:clamp(1rem,1.6vw,1.2rem);line-height:1.75}
+    .direction-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+    .direction-card{min-height:270px;padding:1.5rem;border:1px solid var(--line);background:linear-gradient(160deg,rgba(255,255,255,.12),rgba(255,255,255,.05));box-shadow:0 18px 44px rgba(0,43,80,.18)}
+    .direction-card strong{display:block;margin-bottom:.8rem;font:900 .68rem/1.2 Arial,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:rgba(225,248,255,.92)}
+    .direction-card h3{font-size:1.7rem;font-weight:500;margin:.15rem 0 .8rem}
+    .direction-card p{margin:0;color:var(--soft);line-height:1.65}
+    .direction-close{display:grid;grid-template-columns:1.4fr .6fr;gap:2rem;align-items:end;margin-top:2rem;padding-top:2rem;border-top:1px solid var(--line)}
+    .direction-close p{margin:0;color:var(--soft);font-size:clamp(1.05rem,2vw,1.35rem);line-height:1.7}
+    .direction-close .actions{justify-content:flex-end;margin:0}
+
+    .current{position:relative;z-index:6;padding:clamp(4rem,8vw,7rem) clamp(1rem,5vw,4rem);background:linear-gradient(180deg,#0a568e 0%,#0b5e98 48%,#0a4f84 100%)}
     .current-inner{position:relative;max-width:1450px;margin:auto}
-    .section-head{max-width:780px;margin-bottom:2rem}
+    .section-head{max-width:820px;margin-bottom:2rem}
     .section-head h2{font-size:clamp(2.5rem,5vw,4.6rem);margin:.3rem 0 1rem;font-weight:500}
     .section-head p{color:var(--soft);line-height:1.7}
     .gallery-map{display:flex;flex-wrap:wrap;gap:.55rem;margin:0 0 2rem}
@@ -59,27 +73,44 @@
     .piece small{display:block;color:rgba(230,248,255,.82);font-family:Arial,sans-serif;font-size:.66rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.35rem}
     .exit{text-align:center;padding:5rem 1rem 7rem;background:linear-gradient(180deg,#0a4f84 0%,#084471 100%)}
     .exit h2{font-size:clamp(2rem,4vw,3.6rem);font-weight:500;margin:.4rem 0 1rem}
-    .exit p{color:var(--soft);max-width:650px;margin:0 auto 1.5rem;line-height:1.7}
+    .exit p{color:var(--soft);max-width:700px;margin:0 auto 1.5rem;line-height:1.7}
 
+    @media(max-width:1000px){.direction-grid{grid-template-columns:repeat(2,1fr)}.direction-close{grid-template-columns:1fr}.direction-close .actions{justify-content:flex-start}}
     @media(max-width:850px){.gallery{grid-template-columns:1fr}.piece,.piece:first-child,.piece:nth-child(2){grid-column:auto;min-height:300px}.links{gap:.65rem;font-size:.62rem}.hero{padding-top:7rem}.current-marker{display:none}}
+    @media(max-width:620px){.direction-grid{grid-template-columns:1fr}.direction-card{min-height:0}}
     @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
   </style>
 </head>
 <body>
-  <nav aria-label="Ocean of Ink navigation"><a href="index.html"><strong>Inkspirations Studios</strong></a><div class="links"><a href="#gallery">Gallery</a><a href="rooms.html">Rooms</a><a href="systems-i-built.html">Systems</a><a href="index.html#contact">Contact</a></div></nav>
+  <nav aria-label="Ocean of Ink navigation"><a href="index.html"><strong>Inkspirations Studios</strong></a><div class="links"><a href="#direction">Direction</a><a href="systems-i-built.html">Systems</a><a href="rooms.html">Rooms</a><a href="#work">Work</a></div></nav>
 
   <section class="ocean" aria-label="Ocean of Ink">
     <div class="hero"><div class="hero-inner">
       <p class="kicker">A Living Creative Environment</p>
       <h1>Ocean<br>of Ink</h1>
-      <p class="lead">Water is not the backdrop here. It is the architecture. Light bends, currents shift, ink disperses, and the work lives inside the movement.</p>
-      <div class="actions"><a class="btn primary" href="#gallery">Dive Beneath the Surface</a><a class="btn" href="rooms.html">Explore the Rooms</a></div>
+      <p class="lead">This is not a wall of finished pieces. It is a look at how ideas are shaped, connected, edited, redirected, and turned into experiences with a point of view.</p>
+      <div class="actions"><a class="btn primary" href="#direction">See How I Direct</a><a class="btn" href="systems-i-built.html">Explore Creative Systems</a></div>
     </div></div>
     <div class="current-marker">The map itself becomes the artwork.<br>Follow the current ↓</div>
   </section>
 
-  <section class="current" id="gallery"><div class="current-inner"><div class="section-head"><p class="kicker">The Gallery</p><h2>Work carried by the current.</h2><p>Art, photography, functional pieces, and digital experiments belong to the same visual world. The categories are different currents inside one gallery, not separate islands.</p></div>
-    <div class="gallery-map" aria-label="Gallery categories"><a href="portfolio.html#portfolio">Art</a><a href="portfolio.html#portfolio">Photography</a><a href="portfolio.html#portfolio">Wood / Functional</a><a href="portfolio.html#portfolio">Digital / Experimental</a></div>
+  <section class="direction" id="direction"><div class="direction-inner">
+    <div class="direction-intro">
+      <p class="kicker">Creative Direction</p>
+      <h2>The work begins before the finished piece.</h2>
+      <p>I direct the relationships between ideas, visuals, words, technology, interaction, atmosphere, and personality. The question is not only “What can I make?” It is “What should this become, what belongs, what needs to leave, and what should someone experience when it is finished?”</p>
+    </div>
+    <div class="direction-grid">
+      <article class="direction-card"><strong>01 / Shape</strong><h3>Find the idea.</h3><p>Define what the project is really trying to say, what deserves emphasis, and what someone should notice first.</p></article>
+      <article class="direction-card"><strong>02 / Edit</strong><h3>Know what leaves.</h3><p>Add, remove, simplify, reframe, and pivot when something works technically but fails to communicate the right thing.</p></article>
+      <article class="direction-card"><strong>03 / Connect</strong><h3>Make the pieces belong.</h3><p>Bring visual language, writing, systems, interaction, photography, artwork, and technology into one coherent experience.</p></article>
+      <article class="direction-card"><strong>04 / Reveal</strong><h3>Let personality through.</h3><p>Curiosity, humor, word association, experimentation, and unexpected connections are not decoration. They help determine the direction.</p></article>
+    </div>
+    <div class="direction-close"><p>That is the level I want people to encounter first: the thinking, decisions, pivots, and systems behind the work. The portfolio is evidence of that direction, not the entire definition of it.</p><div class="actions"><a class="btn primary" href="systems-i-built.html">See the Systems</a><a class="btn" href="rooms.html">Enter the Rooms</a></div></div>
+  </div></section>
+
+  <section class="current" id="work"><div class="current-inner"><div class="section-head"><p class="kicker">Selected Work</p><h2>The evidence comes after the direction.</h2><p>Artwork, photography, functional pieces, and digital experiments are part of the story, but they are not the front door. They show what the larger creative decisions produce.</p></div>
+    <div class="gallery-map" aria-label="Work categories"><a href="portfolio.html#portfolio">Art</a><a href="portfolio.html#portfolio">Photography</a><a href="portfolio.html#portfolio">Wood / Functional</a><a href="portfolio.html#portfolio">Digital / Experimental</a></div>
     <div class="gallery">
       <a class="piece" href="portfolio.html#portfolio"><img src="assets/images/portfolio/soul-current.jpg" alt="Submersion artwork"><span><small>Fluid Soul Series</small>Submersion</span></a>
       <a class="piece" href="portfolio.html#portfolio"><img src="assets/images/portfolio/blue-name-current.jpg" alt="Release artwork"><span><small>Signature Collection</small>Release</span></a>
@@ -89,6 +120,6 @@
     </div>
   </div></section>
 
-  <section class="exit"><p class="kicker">Follow the Current</p><h2>There are no dead ends here.</h2><p>Continue into the full gallery, move through the rooms, or follow the systems behind the work.</p><div class="actions"><a class="btn primary" href="portfolio.html">Full Gallery</a><a class="btn" href="rooms.html">All Rooms</a><a class="btn" href="systems-i-built.html">Creative Systems</a></div></section>
+  <section class="exit"><p class="kicker">Keep Exploring</p><h2>The portfolio is one room, not the whole house.</h2><p>Move through the creative systems and rooms first, or continue into the fuller body of work when you want the visual evidence.</p><div class="actions"><a class="btn primary" href="systems-i-built.html">Creative Systems</a><a class="btn" href="rooms.html">All Rooms</a><a class="btn" href="portfolio.html">Full Portfolio</a></div></section>
 </body>
 </html>
