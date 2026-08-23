@@ -6,6 +6,8 @@
   const search = document.getElementById("caseSearch");
   const collection = document.getElementById("caseCollection");
   const empty = document.getElementById("caseEmpty");
+  const FABRICATOR = "https://robert-marleton.lovable.app/fabricator";
+  const TSHIRT_LAB = "t-shirt-design-lab.html";
   let records = [];
   let query = "";
   let activeCollection = "all";
@@ -30,7 +32,7 @@
     return `<img src="${escapeHtml(src)}" alt="${escapeHtml(item.title)}" onerror="this.outerHTML='<div class=&quot;case-fallback&quot;>${escapeHtml(item.shareQuote || item.title)}</div>'">`;
   }
 
-  function productTypesForRobertism(item) {
+  function productTypesForPun(item) {
     const text = (item.relatedProducts || []).join(" ").toLowerCase();
     const products = [];
     if (text.includes("shirt") || text.includes("tee")) products.push("tshirt");
@@ -42,24 +44,40 @@
     return Array.from(new Set(products));
   }
 
-  function robertismBringHomePayload(item) {
+  function punBringHomePayload(item) {
     return {
       id: item.id,
       title: item.title,
       image: item.featuredImage ? `assets/images/robertisms/${item.featuredImage}` : "",
       description: item.shareQuote || item.title,
-      about: item.story || "A Robertism from Inkspirations Studios.",
+      about: item.story || "One of Robert's Puns from Inkspirations Studios.",
       story: item.humorCategory ? `Humor category: ${item.humorCategory}.` : "",
-      medium: item.collection || "Robertisms",
-      products: productTypesForRobertism(item),
+      medium: item.collection || "Robert's Puns",
+      products: productTypesForPun(item),
       recommendations: {
         artwork: item.artworkConnections || [],
         room: item.relatedRooms || [],
         playlist: item.musicMood || [],
         robertism: item.relatedRobertisms || []
       },
-      source: "Robertisms Case Files"
+      source: "Robert's Puns Case Files"
     };
+  }
+
+  function buildFabricatorUrl(item) {
+    const url = new URL(FABRICATOR);
+    url.searchParams.set("seed", item.shareQuote || item.title || "");
+    url.searchParams.set("source", "roberts-puns");
+    if (item.story) url.searchParams.set("context", item.story);
+    return url.toString();
+  }
+
+  function buildTshirtLabUrl(item) {
+    const url = new URL(TSHIRT_LAB, window.location.href);
+    url.searchParams.set("seed", item.shareQuote || item.title || "");
+    url.searchParams.set("source", "roberts-puns");
+    if (item.story) url.searchParams.set("why", item.story);
+    return url.pathname + url.search;
   }
 
   function haystack(item) {
@@ -107,7 +125,11 @@
           <div class="case-group"><strong>Rooms</strong><div class="case-chips">${list(item.relatedRooms)}</div></div>
           <div class="case-group"><strong>Artwork Connections</strong><div class="case-chips">${list(item.artworkConnections)}</div></div>
           <div class="case-group"><strong>Tags</strong><div class="case-chips">${list(item.tags)}</div></div>
-          <div class="actions"><button class="btn primary" type="button" data-robertism-home="${escapeHtml(item.id)}">Explore Product Path</button></div>
+          <div class="actions">
+            <button class="btn primary" type="button" data-pun-home="${escapeHtml(item.id)}">Explore Product Path</button>
+            <a class="btn" href="${escapeHtml(buildTshirtLabUrl(item))}">Develop as T-Shirt</a>
+            <a class="btn" href="${escapeHtml(buildFabricatorUrl(item))}">Fabricate This Pun</a>
+          </div>
         </div>
       </article>
     `).join("");
@@ -116,7 +138,7 @@
   async function init() {
     try {
       const response = await fetch("data/robertisms.json", { cache: "no-store" });
-      if (!response.ok) throw new Error(`Could not load Robertisms data: ${response.status}`);
+      if (!response.ok) throw new Error(`Could not load Robert's Puns data: ${response.status}`);
       const data = await response.json();
       records = Array.isArray(data.records) ? data.records : [];
       renderCollections();
@@ -124,8 +146,8 @@
     } catch (error) {
       count.textContent = "Case Files";
       empty.hidden = false;
-      empty.textContent = "Robertisms data could not load yet.";
-      console.error("[Robertisms]", error);
+      empty.textContent = "Robert's Puns data could not load yet.";
+      console.error("[Robert's Puns]", error);
     }
   }
 
@@ -140,10 +162,10 @@
   });
 
   grid.addEventListener("click", event => {
-    const button = event.target.closest("[data-robertism-home]");
+    const button = event.target.closest("[data-pun-home]");
     if (!button || !window.InkspirationsBringHome) return;
-    const item = records.find(record => record.id === button.dataset.robertismHome);
-    if (item) window.InkspirationsBringHome.open(robertismBringHomePayload(item));
+    const item = records.find(record => record.id === button.dataset.punHome);
+    if (item) window.InkspirationsBringHome.open(punBringHomePayload(item));
   });
 
   init();
