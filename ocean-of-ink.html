@@ -4,110 +4,79 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Ocean of Ink | Inkspirations Studios</title>
-  <meta name="description" content="A calm, immersive creative environment for Robert Marleton's creative direction, systems, artwork, photography, writing, and interaction.">
+  <meta name="description" content="Ocean of Ink is Robert Marleton's immersive creative-direction environment, connecting artwork, systems, writing, photography, interaction, and atmosphere.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Ocean of Ink | Creative Direction in Motion">
+  <meta property="og:description" content="An immersive creative-direction environment by Robert Marleton.">
+  <meta property="og:image" content="assets/images/portfolio/soul-current.jpg">
+  <meta name="twitter:card" content="summary_large_image">
   <style>
     *,*::before,*::after{box-sizing:border-box}
-    :root{
-      --night:#031326;
-      --deep:#052b4d;
-      --mid:#075f91;
-      --blue:#0174F3;
-      --cyan:#8fe8ff;
-      --aqua:#6ff6ee;
-      --paper:#f7f1e7;
-      --soft:rgba(247,241,231,.88);
-      --line:rgba(205,240,255,.28);
-    }
+    :root{--night:#020914;--deep:#04182c;--blue:#0174f3;--cyan:#75e8ff;--paper:#f7f1e7;--soft:rgba(247,241,231,.82);--line:rgba(182,235,249,.23)}
     html{background:var(--night);scroll-behavior:auto}
-    body{margin:0;color:var(--paper);font-family:Georgia,"Times New Roman",serif;background:#031326;overflow-x:hidden}
+    body{margin:0;color:var(--paper);font-family:Georgia,"Times New Roman",serif;background:var(--night);overflow-x:hidden}
     a{color:inherit}
+    nav{position:sticky;top:0;z-index:80;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1rem clamp(1rem,5vw,4rem);background:rgba(2,9,20,.96);border-bottom:1px solid var(--line)}
+    nav a{text-decoration:none}.links{display:flex;gap:1rem;flex-wrap:wrap;justify-content:flex-end;font:900 .68rem/1 Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase}
+    .room-return{position:fixed;left:16px;bottom:16px;z-index:95;display:flex;gap:8px}
+    .room-return a{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:.7rem .9rem;border:1px solid var(--line);border-radius:999px;background:rgba(2,12,24,.94);text-decoration:none;font:900 .62rem/1 Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase}
+    .room-return a:first-child{background:var(--blue);border-color:#69b9ff}
 
-    nav{position:sticky;top:0;z-index:80;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1rem clamp(1rem,5vw,4rem);background:rgba(2,18,36,.96);border-bottom:1px solid rgba(180,236,255,.18);box-shadow:0 10px 28px rgba(0,0,0,.22)}
-    nav a{text-decoration:none}
-    .links{display:flex;gap:1rem;flex-wrap:wrap;justify-content:flex-end;font-family:Arial,sans-serif;font-size:.7rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
-    .room-return{position:fixed;left:18px;bottom:18px;z-index:90;display:flex;gap:8px;align-items:center}
-    .room-return a{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:.7rem .9rem;border:1px solid rgba(190,240,255,.32);border-radius:999px;background:rgba(2,22,40,.92);text-decoration:none;font:800 .66rem/1 Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase;box-shadow:0 12px 30px rgba(0,0,0,.2)}
-    .room-return a:first-child{background:#0174F3;border-color:#8fe8ff}
+    .ocean{position:relative;min-height:calc(100svh - 58px);overflow:hidden;isolation:isolate;background:
+      radial-gradient(circle at 78% 18%,rgba(1,116,243,.20),transparent 25%),
+      radial-gradient(circle at 22% 82%,rgba(18,155,204,.11),transparent 30%),
+      linear-gradient(135deg,#020914 0%,#04182c 55%,#062844 100%)}
+    .ocean::before{content:"";position:absolute;inset:0;z-index:-8;background:url('assets/images/portfolio/soul-current.jpg') center/cover no-repeat;opacity:.18;filter:saturate(1.08) contrast(1.04);mix-blend-mode:screen}
+    .ocean::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,rgba(2,9,20,.95) 0%,rgba(2,9,20,.72) 43%,rgba(2,9,20,.18) 74%,rgba(2,9,20,.48) 100%)}
 
-    .ocean{position:relative;min-height:calc(100svh - 60px);overflow:hidden;isolation:isolate;background:
-      radial-gradient(ellipse at 50% -8%,rgba(183,247,255,.34),transparent 29%),
-      radial-gradient(circle at 82% 25%,rgba(35,207,224,.12),transparent 23%),
-      radial-gradient(circle at 14% 35%,rgba(1,116,243,.19),transparent 27%),
-      linear-gradient(180deg,#087ca8 0%,#075a87 30%,#043a61 62%,#03182d 100%)}
-    .ocean::before{content:"";position:absolute;inset:0;z-index:-8;background:url('assets/images/portfolio/soul-current.jpg') center 42%/cover no-repeat;opacity:.12;filter:saturate(1.15) contrast(1.03);mix-blend-mode:screen}
-    .ocean::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(255,255,255,.025),transparent 24%,rgba(0,0,0,.24) 82%,rgba(0,0,0,.48))}
+    .light{position:absolute;inset:0;z-index:-6;pointer-events:none;background:
+      radial-gradient(ellipse at 30% 0%,rgba(143,232,255,.17),transparent 32%),
+      radial-gradient(ellipse at 76% 10%,rgba(1,116,243,.15),transparent 31%)}
 
-    .surface-light{position:absolute;inset:0;z-index:-6;pointer-events:none;background:
-      linear-gradient(103deg,transparent 18%,rgba(204,250,255,.13) 29%,transparent 40%),
-      linear-gradient(77deg,transparent 48%,rgba(146,231,246,.09) 58%,transparent 69%);opacity:.7}
+    .ink-plume{position:absolute;z-index:-3;pointer-events:none;filter:blur(9px);opacity:.82}
+    .ink-plume.one{left:-8%;top:10%;width:44vw;height:64vh;background:radial-gradient(ellipse at 45% 40%,rgba(1,24,77,.95) 0 32%,rgba(5,63,125,.52) 52%,transparent 72%);border-radius:62% 38% 55% 45% / 46% 56% 44% 54%}
+    .ink-plume.two{right:-5%;top:4%;width:39vw;height:56vh;background:radial-gradient(ellipse at 48% 46%,rgba(0,12,44,.92) 0 33%,rgba(0,86,132,.42) 54%,transparent 72%);border-radius:45% 55% 38% 62% / 58% 40% 60% 42%}
+    .ink-plume.three{right:17%;bottom:-14%;width:45vw;height:40vh;background:radial-gradient(ellipse at center,rgba(1,15,50,.82) 0 36%,rgba(7,73,113,.36) 58%,transparent 76%);border-radius:50%}
 
-    .ink-cloud{position:absolute;z-index:-3;pointer-events:none;filter:blur(12px);opacity:.92;mix-blend-mode:multiply}
-    .ink-cloud.one{width:54vw;height:60vw;min-width:560px;min-height:560px;left:-15vw;top:10vh;border-radius:42% 58% 51% 49% / 47% 42% 58% 53%;background:
-      radial-gradient(circle at 64% 33%,rgba(5,39,92,.35),rgba(0,8,28,.94) 43%,rgba(0,17,46,.76) 61%,transparent 73%)}
-    .ink-cloud.two{width:48vw;height:54vw;min-width:500px;min-height:500px;right:-12vw;top:4vh;border-radius:56% 44% 38% 62% / 43% 59% 41% 57%;background:
-      radial-gradient(circle at 34% 46%,rgba(0,54,87,.3),rgba(0,14,39,.9) 46%,rgba(0,30,66,.62) 64%,transparent 74%)}
-    .ink-cloud.three{width:66vw;height:34vw;min-width:680px;min-height:330px;left:18vw;bottom:-13vw;border-radius:48% 52% 56% 44% / 56% 48% 52% 44%;background:
-      radial-gradient(ellipse at center,rgba(0,15,42,.92),rgba(0,37,70,.56) 57%,transparent 74%)}
-    .ink-wisp{position:absolute;z-index:-2;pointer-events:none;opacity:.72;filter:blur(7px)}
-    .ink-wisp.a{left:28%;top:12%;width:18vw;height:62vh;min-width:180px;background:linear-gradient(180deg,rgba(92,222,239,.12),rgba(0,27,74,.52) 52%,transparent 100%);clip-path:polygon(34% 0,66% 0,74% 19%,58% 36%,70% 55%,47% 74%,58% 100%,26% 100%,36% 73%,23% 51%,42% 31%)}
-    .ink-wisp.b{right:22%;top:9%;width:13vw;height:52vh;min-width:130px;background:linear-gradient(180deg,rgba(130,237,247,.09),rgba(0,20,58,.48) 48%,transparent 100%);clip-path:polygon(43% 0,69% 5%,62% 23%,78% 42%,58% 61%,66% 78%,39% 100%,24% 82%,37% 61%,20% 38%,36% 19%)}
+    .bubbles{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden}
+    .bubble{position:absolute;bottom:-10vh;left:var(--x);width:var(--s);height:var(--s);border-radius:50%;border:1px solid rgba(224,251,255,.46);background:radial-gradient(circle at 32% 28%,rgba(255,255,255,.50),rgba(132,221,244,.10) 34%,rgba(0,0,0,.02) 68%,transparent 72%);box-shadow:inset -2px -3px 7px rgba(24,121,164,.16),0 0 12px rgba(127,232,255,.08);opacity:.46;animation:bubbleRise var(--d) linear infinite;animation-delay:var(--delay)}
+    @keyframes bubbleRise{0%{transform:translateY(0);opacity:0}12%{opacity:.45}88%{opacity:.38}100%{transform:translateY(-118vh);opacity:0}}
 
-    .hero{position:relative;z-index:6;min-height:calc(100svh - 60px);display:grid;align-items:center;padding:7rem clamp(1.2rem,7vw,7rem) 7rem}
-    .hero-inner{max-width:790px;position:relative}
-    .kicker{font-family:Arial,sans-serif;color:rgba(239,252,255,.96);font-size:.7rem;font-weight:900;letter-spacing:.2em;text-transform:uppercase}
-    .hero h1{font-size:clamp(4rem,9vw,8.2rem);line-height:.83;margin:.5rem 0 1.2rem;font-weight:500;letter-spacing:-.045em;text-shadow:0 15px 44px rgba(0,26,62,.38),0 0 34px rgba(118,226,255,.12)}
-    .hero h1 span{display:inline-block;color:#dffaff}
-    .lead{max-width:720px;margin:0;color:var(--soft);font-size:clamp(1.08rem,2vw,1.38rem);line-height:1.72;text-shadow:0 4px 18px rgba(0,24,50,.28)}
-    .working-line{display:flex;align-items:center;gap:.7rem;margin:1.35rem 0 0;color:rgba(221,249,255,.72);font:800 .66rem/1.4 Arial,sans-serif;letter-spacing:.13em;text-transform:uppercase}
-    .working-line::before{content:"";width:54px;height:1px;background:linear-gradient(90deg,var(--aqua),transparent)}
-    .actions{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:2rem}
-    .btn{display:inline-flex;padding:.9rem 1.15rem;border:1px solid rgba(224,247,255,.48);color:var(--paper);text-decoration:none;background:rgba(3,45,74,.48);font-family:Arial,sans-serif;font-size:.7rem;font-weight:900;letter-spacing:.11em;text-transform:uppercase}
-    .btn:hover{border-color:rgba(239,252,255,.82);background:rgba(255,255,255,.10)}
-    .btn.primary{background:#0174F3;border-color:rgba(231,249,255,.64)}
-    .current-marker{position:absolute;right:clamp(1rem,5vw,4rem);bottom:2.2rem;color:rgba(239,252,255,.76);font:700 .65rem/1.4 Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;text-align:right}
-    .current-marker::before{content:"";display:block;width:90px;height:1px;margin:0 0 .7rem auto;background:linear-gradient(90deg,transparent,rgba(239,252,255,.72))}
+    .hero{position:relative;z-index:5;min-height:calc(100svh - 58px);display:grid;align-items:center;padding:7rem clamp(1.2rem,7vw,7rem) 7rem}
+    .hero-inner{max-width:770px}
+    .kicker{margin:0 0 .8rem;color:var(--cyan);font:900 .68rem/1 Arial,sans-serif;letter-spacing:.19em;text-transform:uppercase}
+    .hero h1{margin:.2rem 0 1.2rem;font-size:clamp(4rem,9vw,8rem);line-height:.84;font-weight:500;letter-spacing:-.05em;text-shadow:0 16px 48px rgba(0,0,0,.32)}
+    .hero h1 span{color:#ddf9ff}
+    .lead{max-width:700px;margin:0;color:var(--soft);font-size:clamp(1.08rem,1.8vw,1.35rem);line-height:1.72}
+    .working-line{margin:1.35rem 0 0;color:rgba(216,247,255,.72);font:900 .64rem/1.4 Arial,sans-serif;letter-spacing:.13em;text-transform:uppercase}
+    .actions{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:2rem}
+    .btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:.82rem 1rem;border:1px solid var(--line);background:rgba(255,255,255,.035);text-decoration:none;font:900 .67rem/1 Arial,sans-serif;letter-spacing:.11em;text-transform:uppercase}
+    .btn.primary{background:var(--blue);border-color:#69b9ff}
 
-    .direction{position:relative;z-index:7;padding:clamp(5rem,9vw,8rem) clamp(1rem,5vw,4rem);background:
-      radial-gradient(circle at 12% 18%,rgba(19,170,208,.10),transparent 26%),
-      linear-gradient(180deg,#052f51 0%,#042743 55%,#031d34 100%);border-top:1px solid rgba(151,230,247,.12)}
-    .direction::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.07;background:url('assets/images/portfolio/blue-field.jpg') center/cover no-repeat;mix-blend-mode:screen}
-    .direction-inner{position:relative;max-width:1450px;margin:auto}
-    .direction-intro{max-width:900px;margin-bottom:2.5rem}
-    .direction-intro h2{font-size:clamp(2.6rem,5vw,4.8rem);line-height:1.02;margin:.35rem 0 1rem;font-weight:500}
-    .direction-intro p{max-width:820px;color:var(--soft);font-size:clamp(1rem,1.6vw,1.2rem);line-height:1.75}
+    .direction,.current,.exit{position:relative;z-index:6}
+    .direction{padding:clamp(5rem,9vw,8rem) clamp(1rem,5vw,4rem);background:linear-gradient(180deg,#031427 0%,#041b31 100%);border-top:1px solid var(--line)}
+    .direction-inner,.current-inner{max-width:1450px;margin:auto}
+    .direction-intro,.section-head{max-width:860px;margin-bottom:2.5rem}
+    .direction h2,.current h2{font-size:clamp(2.5rem,5vw,4.6rem);line-height:1.02;margin:.35rem 0 1rem;font-weight:500}
+    .direction-intro p,.section-head p,.direction-card p{color:var(--soft);line-height:1.72}
     .direction-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
-    .direction-card{min-height:270px;padding:1.5rem;border:1px solid rgba(174,236,250,.22);background:linear-gradient(160deg,rgba(21,96,131,.24),rgba(2,20,39,.42));box-shadow:0 18px 44px rgba(0,0,0,.18)}
-    .direction-card strong{display:block;margin-bottom:.8rem;font:900 .68rem/1.2 Arial,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:rgba(225,248,255,.92)}
-    .direction-card h3{font-size:1.7rem;font-weight:500;margin:.15rem 0 .8rem}
-    .direction-card p{margin:0;color:var(--soft);line-height:1.65}
-    .direction-close{display:grid;grid-template-columns:1.4fr .6fr;gap:2rem;align-items:end;margin-top:2rem;padding-top:2rem;border-top:1px solid var(--line)}
-    .direction-close p{margin:0;color:var(--soft);font-size:clamp(1.05rem,2vw,1.35rem);line-height:1.7}
-    .direction-close .actions{justify-content:flex-end;margin:0}
-
-    .current{position:relative;z-index:6;padding:clamp(4rem,8vw,7rem) clamp(1rem,5vw,4rem);background:linear-gradient(180deg,#031d34 0%,#052b49 48%,#03182b 100%)}
-    .current-inner{position:relative;max-width:1450px;margin:auto}
-    .section-head{max-width:820px;margin-bottom:2rem}
-    .section-head h2{font-size:clamp(2.5rem,5vw,4.6rem);margin:.3rem 0 1rem;font-weight:500}
-    .section-head p{color:var(--soft);line-height:1.7}
-    .gallery-map{display:flex;flex-wrap:wrap;gap:.55rem;margin:0 0 2rem}
-    .gallery-map a{padding:.55rem .75rem;border:1px solid var(--line);text-decoration:none;color:var(--soft);font:800 .64rem Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase;background:rgba(255,255,255,.06)}
-    .gallery-map a:hover{color:var(--paper);border-color:rgba(230,249,255,.62);background:rgba(255,255,255,.10)}
+    .direction-card{min-height:250px;padding:1.5rem;border:1px solid var(--line);background:rgba(255,255,255,.025)}
+    .direction-card strong{display:block;margin-bottom:.8rem;color:var(--cyan);font:900 .65rem/1 Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase}
+    .direction-card h3{margin:.1rem 0 .7rem;font-size:1.7rem;font-weight:500}
+    .direction-close{margin-top:2rem;padding-top:2rem;border-top:1px solid var(--line);color:var(--soft);font-size:1.1rem;line-height:1.7}
+    .current{padding:clamp(4rem,8vw,7rem) clamp(1rem,5vw,4rem);background:#020f1e}
     .gallery{display:grid;grid-template-columns:repeat(12,1fr);gap:1rem}
-    .piece{position:relative;grid-column:span 4;min-height:360px;overflow:hidden;border:1px solid var(--line);background:#052b4b;text-decoration:none;color:var(--paper);box-shadow:0 20px 55px rgba(0,0,0,.24)}
+    .piece{position:relative;grid-column:span 4;min-height:340px;overflow:hidden;border:1px solid var(--line);background:#041a2d;text-decoration:none;color:var(--paper)}
     .piece:first-child{grid-column:span 7}.piece:nth-child(2){grid-column:span 5}
     .piece img{width:100%;height:100%;object-fit:cover;display:block}
-    .piece span{position:absolute;z-index:2;inset:auto 0 0;padding:1.2rem;background:linear-gradient(transparent,rgba(2,21,40,.94));font-size:1.35rem}
-    .piece small{display:block;color:rgba(230,248,255,.82);font-family:Arial,sans-serif;font-size:.66rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.35rem}
-    .exit{text-align:center;padding:5rem 1rem 7rem;background:linear-gradient(180deg,#03182b 0%,#020d19 100%)}
-    .exit h2{font-size:clamp(2rem,4vw,3.6rem);font-weight:500;margin:.4rem 0 1rem}
-    .exit p{color:var(--soft);max-width:700px;margin:0 auto 1.5rem;line-height:1.7}
+    .piece span{position:absolute;inset:auto 0 0;padding:1.1rem;background:linear-gradient(transparent,rgba(2,9,20,.96));font-size:1.3rem}
+    .piece small{display:block;margin-bottom:.3rem;color:rgba(218,246,252,.75);font:900 .62rem/1 Arial,sans-serif;letter-spacing:.11em;text-transform:uppercase}
+    .exit{text-align:center;padding:5rem 1rem 7rem;background:#020914}.exit h2{font-size:clamp(2rem,4vw,3.4rem);font-weight:500;margin:.3rem 0 1rem}.exit p{max-width:700px;margin:0 auto;color:var(--soft);line-height:1.7}
 
-    *,*::before,*::after{animation:none!important;transition:none!important}
-
-    @media(max-width:1000px){.direction-grid{grid-template-columns:repeat(2,1fr)}.direction-close{grid-template-columns:1fr}.direction-close .actions{justify-content:flex-start}}
-    @media(max-width:850px){.gallery{grid-template-columns:1fr}.piece,.piece:first-child,.piece:nth-child(2){grid-column:auto;min-height:300px}.links{gap:.65rem;font-size:.62rem}.hero{padding-top:6rem}.current-marker{display:none}.room-return{left:10px;bottom:10px}.room-return a{font-size:.58rem;padding:.62rem .72rem}}
-    @media(max-width:620px){.direction-grid{grid-template-columns:1fr}.direction-card{min-height:0}nav{align-items:flex-start}.links{max-width:62%;justify-content:flex-end}}
-    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+    @media(max-width:1000px){.direction-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:850px){.gallery{grid-template-columns:1fr}.piece,.piece:first-child,.piece:nth-child(2){grid-column:auto;min-height:300px}.links{gap:.6rem;font-size:.59rem}.room-return{left:9px;bottom:9px}.room-return a{font-size:.56rem;padding:.6rem .7rem}}
+    @media(max-width:620px){.direction-grid{grid-template-columns:1fr}.direction-card{min-height:0}nav{align-items:flex-start}.links{max-width:64%}}
+    @media(prefers-reduced-motion:reduce){.bubble{animation:none;bottom:auto;top:var(--y,40%);opacity:.25}}
   </style>
 </head>
 <body>
@@ -115,45 +84,49 @@
   <div class="room-return" aria-label="Room exit"><a href="rooms.html">← Back to Rooms</a><a href="index.html">Home</a></div>
 
   <section class="ocean" aria-label="Ocean of Ink">
-    <div class="surface-light" aria-hidden="true"></div>
-    <div class="ink-cloud one" aria-hidden="true"></div>
-    <div class="ink-cloud two" aria-hidden="true"></div>
-    <div class="ink-cloud three" aria-hidden="true"></div>
-    <div class="ink-wisp a" aria-hidden="true"></div>
-    <div class="ink-wisp b" aria-hidden="true"></div>
-
+    <div class="light" aria-hidden="true"></div>
+    <div class="ink-plume one" aria-hidden="true"></div><div class="ink-plume two" aria-hidden="true"></div><div class="ink-plume three" aria-hidden="true"></div>
+    <div class="bubbles" aria-hidden="true">
+      <i class="bubble" style="--x:8%;--s:10px;--d:38s;--delay:-4s;--y:18%"></i>
+      <i class="bubble" style="--x:17%;--s:22px;--d:44s;--delay:-22s;--y:70%"></i>
+      <i class="bubble" style="--x:29%;--s:7px;--d:31s;--delay:-12s;--y:42%"></i>
+      <i class="bubble" style="--x:41%;--s:15px;--d:40s;--delay:-8s;--y:24%"></i>
+      <i class="bubble" style="--x:54%;--s:9px;--d:35s;--delay:-18s;--y:61%"></i>
+      <i class="bubble" style="--x:66%;--s:18px;--d:46s;--delay:-30s;--y:34%"></i>
+      <i class="bubble" style="--x:78%;--s:8px;--d:33s;--delay:-6s;--y:76%"></i>
+      <i class="bubble" style="--x:88%;--s:24px;--d:48s;--delay:-26s;--y:28%"></i>
+      <i class="bubble" style="--x:95%;--s:11px;--d:37s;--delay:-15s;--y:56%"></i>
+    </div>
     <div class="hero"><div class="hero-inner">
-      <p class="kicker">A Calm Creative Environment</p>
+      <p class="kicker">Creative Direction in Motion</p>
       <h1>Ocean<br><span>of Ink</span></h1>
-      <p class="lead">A submerged creative room built from depth, light, pigment, work, and thought. Nothing needs to rush. The ink is visible. The atmosphere stays still. The ideas can do the moving.</p>
-      <p class="working-line">Occupied by ideas</p>
+      <p class="lead">A living creative environment where artwork, words, systems, interaction, and ideas occupy the same space. The ink is part of the room, not a decoration pasted on top of it.</p>
+      <p class="working-line">Ideas live here. Ink gets everywhere.</p>
       <div class="actions"><a class="btn primary" href="#direction">See How I Direct</a><a class="btn" href="rooms.html">Explore the Rooms</a></div>
     </div></div>
-    <div class="current-marker">The map itself becomes the artwork.<br>Move at your own pace ↓</div>
   </section>
 
   <section class="direction" id="direction"><div class="direction-inner">
-    <div class="direction-intro"><p class="kicker">Creative Direction</p><h2>The work begins before the finished piece.</h2><p>I direct the relationships between ideas, visuals, words, technology, interaction, atmosphere, and personality. The question is not only “What can I make?” It is “What should this become, what belongs, what needs to leave, and what should someone experience when it is finished?”</p></div>
+    <div class="direction-intro"><p class="kicker">Creative Direction</p><h2>The work begins before the finished piece.</h2><p>I direct the relationships between ideas, visuals, words, technology, interaction, atmosphere, and personality. The question is not only what can be made, but what the experience should become.</p></div>
     <div class="direction-grid">
-      <article class="direction-card"><strong>01 / Shape</strong><h3>Find the idea.</h3><p>Define what the project is really trying to say, what deserves emphasis, and what someone should notice first.</p></article>
-      <article class="direction-card"><strong>02 / Edit</strong><h3>Know what leaves.</h3><p>Add, remove, simplify, reframe, and pivot when something works technically but fails to communicate the right thing.</p></article>
-      <article class="direction-card"><strong>03 / Connect</strong><h3>Make the pieces belong.</h3><p>Bring visual language, writing, systems, interaction, photography, artwork, and technology into one coherent experience.</p></article>
-      <article class="direction-card"><strong>04 / Reveal</strong><h3>Let personality through.</h3><p>Curiosity, humor, word association, experimentation, and unexpected connections help determine the direction.</p></article>
+      <article class="direction-card"><strong>01 / Shape</strong><h3>Find the idea.</h3><p>Define what deserves emphasis and what someone should notice first.</p></article>
+      <article class="direction-card"><strong>02 / Edit</strong><h3>Know what leaves.</h3><p>Add, remove, simplify, reframe, and pivot when the direction needs to change.</p></article>
+      <article class="direction-card"><strong>03 / Connect</strong><h3>Make the pieces belong.</h3><p>Bring visual language, writing, systems, interaction, photography, artwork, and technology together.</p></article>
+      <article class="direction-card"><strong>04 / Reveal</strong><h3>Let personality through.</h3><p>Curiosity, humor, experimentation, and unexpected connections help determine the direction.</p></article>
     </div>
-    <div class="direction-close"><p>The portfolio is evidence of the direction, not the entire definition of it. The thinking, decisions, pivots, and systems belong in the room too.</p><div class="actions"><a class="btn primary" href="systems-i-built.html">See the Systems</a><a class="btn" href="rooms.html">Enter the Rooms</a></div></div>
+    <div class="direction-close">The portfolio is evidence of the direction, not the whole definition of it.</div>
   </div></section>
 
-  <section class="current" id="work"><div class="current-inner"><div class="section-head"><p class="kicker">Selected Work</p><h2>The evidence comes after the direction.</h2><p>Artwork, photography, functional pieces, and digital experiments are part of the story. They show what the larger creative decisions produce.</p></div>
-    <div class="gallery-map" aria-label="Work categories"><a href="portfolio.html#portfolio">Art</a><a href="photography.html">Photography</a><a href="portfolio.html#portfolio">Wood / Functional</a><a href="portfolio.html#portfolio">Digital / Experimental</a></div>
+  <section class="current" id="work"><div class="current-inner"><div class="section-head"><p class="kicker">Selected Work</p><h2>The evidence comes after the direction.</h2><p>The work shows what the larger creative decisions produce.</p></div>
     <div class="gallery">
       <a class="piece" href="portfolio.html#portfolio"><img src="assets/images/portfolio/soul-current.jpg" alt="Submersion artwork"><span><small>Fluid Soul Series</small>Submersion</span></a>
       <a class="piece" href="portfolio.html#portfolio"><img src="assets/images/portfolio/blue-name-current.jpg" alt="Release artwork"><span><small>Signature Collection</small>Release</span></a>
       <a class="piece" href="portfolio.html#portfolio"><img src="assets/images/portfolio/washed-out.jpg" alt="Washed Out artwork"><span><small>Signature Collection</small>Washed Out</span></a>
-      <a class="piece" href="portfolio.html#portfolio"><img src="assets/images/portfolio/rainline-study.jpg" alt="Rainline Study artwork"><span><small>Texture Studies</small>Rainline Study</span></a>
+      <a class="piece" href="photography.html"><img src="assets/images/portfolio/rainline-study.jpg" alt="Rainline Study"><span><small>Texture / Photography</small>Rainline Study</span></a>
       <a class="piece" href="portfolio.html#portfolio"><img src="assets/images/portfolio/blue-field.jpg" alt="Blue Field artwork"><span><small>Texture Studies</small>Blue Field</span></a>
     </div>
   </div></section>
 
-  <section class="exit"><p class="kicker">Keep Exploring</p><h2>The portfolio is one room, not the whole house.</h2><p>Go back to the room hub, move into the creative systems, or continue into the fuller body of work.</p><div class="actions"><a class="btn primary" href="rooms.html">All Rooms</a><a class="btn" href="systems-i-built.html">Creative Systems</a><a class="btn" href="portfolio.html">Full Portfolio</a></div></section>
+  <section class="exit"><p class="kicker">Keep Exploring</p><h2>The portfolio is one room, not the whole house.</h2><p>Go back to the room hub, move into the creative systems, or continue into the fuller body of work.</p><div class="actions" style="justify-content:center"><a class="btn primary" href="rooms.html">All Rooms</a><a class="btn" href="systems-i-built.html">Creative Systems</a><a class="btn" href="portfolio.html">Full Portfolio</a></div></section>
 </body>
 </html>
