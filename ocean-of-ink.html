@@ -12,7 +12,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <style>
     *,*::before,*::after{box-sizing:border-box}
-    :root{--night:#020914;--deep:#04182c;--blue:#0174f3;--cyan:#75e8ff;--paper:#f7f1e7;--soft:rgba(247,241,231,.82);--line:rgba(182,235,249,.23)}
+    :root{--night:#020914;--deep:#031f3e;--blue:#0174f3;--cyan:#7cf3ff;--teal:#10d6d2;--paper:#f7f1e7;--soft:rgba(247,241,231,.88);--line:rgba(182,235,249,.28)}
     html{background:var(--night);scroll-behavior:auto}
     body{margin:0;color:var(--paper);font-family:Georgia,"Times New Roman",serif;background:var(--night);overflow-x:hidden}
     a{color:inherit}
@@ -23,31 +23,40 @@
     .room-return a:first-child{background:var(--blue);border-color:#69b9ff}
 
     .ocean{position:relative;min-height:calc(100svh - 58px);overflow:hidden;isolation:isolate;background:
-      radial-gradient(circle at 78% 18%,rgba(1,116,243,.20),transparent 25%),
-      radial-gradient(circle at 22% 82%,rgba(18,155,204,.11),transparent 30%),
-      linear-gradient(135deg,#020914 0%,#04182c 55%,#062844 100%)}
-    .ocean::before{content:"";position:absolute;inset:0;z-index:-8;background:transparent}
-    .ocean::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,rgba(2,9,20,.95) 0%,rgba(2,9,20,.72) 43%,rgba(2,9,20,.18) 74%,rgba(2,9,20,.48) 100%)}
+      linear-gradient(145deg,rgba(0,20,64,.18),rgba(0,138,185,.16) 48%,rgba(1,116,243,.15) 76%,rgba(2,9,20,.08)),
+      linear-gradient(135deg,#020914 0%,#053566 46%,#075a78 72%,#03324f 100%)}
+    .ocean::before{content:"";position:absolute;inset:0;z-index:-8;pointer-events:none;background:
+      linear-gradient(108deg,transparent 0 17%,rgba(122,239,255,.13) 25%,transparent 38%),
+      linear-gradient(78deg,transparent 0 57%,rgba(1,116,243,.15) 66%,transparent 79%)}
+    .ocean::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,rgba(2,9,20,.86) 0%,rgba(2,9,20,.56) 41%,rgba(2,9,20,.10) 72%,rgba(2,9,20,.28) 100%)}
 
     .light{position:absolute;inset:0;z-index:-6;pointer-events:none;background:
-      radial-gradient(ellipse at 30% 0%,rgba(143,232,255,.17),transparent 32%),
-      radial-gradient(ellipse at 76% 10%,rgba(1,116,243,.15),transparent 31%)}
+      linear-gradient(168deg,rgba(206,251,255,.34) 0%,rgba(124,243,255,.14) 12%,transparent 34%),
+      linear-gradient(192deg,rgba(102,213,255,.20) 0%,transparent 31%)}
 
-    .ink-plume{position:absolute;z-index:-3;pointer-events:none;filter:blur(9px);opacity:.82}
-    .ink-plume.one{left:-8%;top:10%;width:44vw;height:64vh;background:radial-gradient(ellipse at 45% 40%,rgba(1,24,77,.95) 0 32%,rgba(5,63,125,.52) 52%,transparent 72%);border-radius:62% 38% 55% 45% / 46% 56% 44% 54%}
-    .ink-plume.two{right:-5%;top:4%;width:39vw;height:56vh;background:radial-gradient(ellipse at 48% 46%,rgba(0,12,44,.92) 0 33%,rgba(0,86,132,.42) 54%,transparent 72%);border-radius:45% 55% 38% 62% / 58% 40% 60% 42%}
-    .ink-plume.three{right:17%;bottom:-14%;width:45vw;height:40vh;background:radial-gradient(ellipse at center,rgba(1,15,50,.82) 0 36%,rgba(7,73,113,.36) 58%,transparent 76%);border-radius:50%}
+    .ink-plume{position:absolute;z-index:-3;pointer-events:none;filter:blur(5px);opacity:.96;mix-blend-mode:screen}
+    .ink-plume.one{left:-10%;top:4%;width:49vw;height:71vh;background:
+      radial-gradient(ellipse at 43% 34%,rgba(0,35,116,.98) 0 26%,rgba(1,116,243,.78) 44%,rgba(16,214,210,.40) 58%,transparent 74%);border-radius:62% 38% 55% 45% / 46% 56% 44% 54%}
+    .ink-plume.two{right:-8%;top:2%;width:45vw;height:63vh;background:
+      radial-gradient(ellipse at 48% 42%,rgba(0,24,86,.98) 0 25%,rgba(0,132,184,.72) 45%,rgba(124,243,255,.33) 59%,transparent 74%);border-radius:45% 55% 38% 62% / 58% 40% 60% 42%}
+    .ink-plume.three{right:12%;bottom:-15%;width:54vw;height:48vh;background:
+      radial-gradient(ellipse at center,rgba(1,54,142,.90) 0 28%,rgba(0,157,181,.56) 48%,rgba(16,214,210,.28) 63%,transparent 78%);border-radius:54% 46% 60% 40% / 44% 58% 42% 56%}
+    .ink-plume.four{left:30%;top:20%;width:32vw;height:52vh;background:
+      radial-gradient(ellipse at center,rgba(1,116,243,.48) 0 25%,rgba(0,175,198,.24) 46%,transparent 72%);border-radius:38% 62% 48% 52% / 58% 42% 60% 40%;filter:blur(12px);opacity:.72}
+
+    .bubble{position:absolute;z-index:1;border-radius:50%;pointer-events:none;background:rgba(191,247,255,.72);box-shadow:0 0 10px rgba(124,243,255,.62),0 0 20px rgba(1,116,243,.22);opacity:.70;animation:bubbleRise linear infinite}
+    @keyframes bubbleRise{from{transform:translate3d(0,18vh,0) scale(.75);opacity:0}12%{opacity:.72}75%{opacity:.55}to{transform:translate3d(var(--drift),-120vh,0) scale(1.08);opacity:0}}
 
     .hero{position:relative;z-index:5;min-height:calc(100svh - 58px);display:grid;align-items:center;padding:7rem clamp(1.2rem,7vw,7rem) 7rem}
     .hero-inner{max-width:770px}
-    .kicker{margin:0 0 .8rem;color:var(--cyan);font:900 .68rem/1 Arial,sans-serif;letter-spacing:.19em;text-transform:uppercase}
-    .hero h1{margin:.2rem 0 1.2rem;font-size:clamp(4rem,9vw,8rem);line-height:.84;font-weight:500;letter-spacing:-.05em;text-shadow:0 16px 48px rgba(0,0,0,.32)}
-    .hero h1 span{color:#ddf9ff}
+    .kicker{margin:0 0 .8rem;color:var(--cyan);font:900 .68rem/1 Arial,sans-serif;letter-spacing:.19em;text-transform:uppercase;text-shadow:0 0 14px rgba(124,243,255,.22)}
+    .hero h1{margin:.2rem 0 1.2rem;font-size:clamp(4rem,9vw,8rem);line-height:.84;font-weight:500;letter-spacing:-.05em;text-shadow:0 16px 48px rgba(0,0,0,.32),0 0 34px rgba(1,116,243,.16)}
+    .hero h1 span{color:#e8fcff}
     .lead{max-width:700px;margin:0;color:var(--soft);font-size:clamp(1.08rem,1.8vw,1.35rem);line-height:1.72}
-    .working-line{margin:1.35rem 0 0;color:rgba(216,247,255,.72);font:900 .64rem/1.4 Arial,sans-serif;letter-spacing:.13em;text-transform:uppercase}
+    .working-line{margin:1.35rem 0 0;color:rgba(225,250,255,.82);font:900 .64rem/1.4 Arial,sans-serif;letter-spacing:.13em;text-transform:uppercase}
     .actions{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:2rem}
-    .btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:.82rem 1rem;border:1px solid var(--line);background:rgba(255,255,255,.035);text-decoration:none;font:900 .67rem/1 Arial,sans-serif;letter-spacing:.11em;text-transform:uppercase}
-    .btn.primary{background:var(--blue);border-color:#69b9ff}
+    .btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:.82rem 1rem;border:1px solid var(--line);background:rgba(255,255,255,.045);text-decoration:none;font:900 .67rem/1 Arial,sans-serif;letter-spacing:.11em;text-transform:uppercase}
+    .btn.primary{background:var(--blue);border-color:#7fd9ff;box-shadow:0 0 22px rgba(1,116,243,.24)}
 
     .direction,.current,.exit{position:relative;z-index:6}
     .direction{padding:clamp(5rem,9vw,8rem) clamp(1rem,5vw,4rem);background:linear-gradient(180deg,#031427 0%,#041b31 100%);border-top:1px solid var(--line)}
@@ -78,9 +87,9 @@
   <nav aria-label="Ocean of Ink navigation"><a href="index.html"><strong>Inkspirations Studios</strong></a><div class="links"><a href="rooms.html">Rooms</a><a href="#direction">Direction</a><a href="systems-i-built.html">Systems</a><a href="#work">Work</a></div></nav>
   <div class="room-return" aria-label="Room exit"><a href="rooms.html">← Back to Rooms</a><a href="index.html">Home</a></div>
 
-  <section class="ocean" aria-label="Ocean of Ink">
+  <section class="ocean" aria-label="Ocean of Ink" id="ocean-stage">
     <div class="light" aria-hidden="true"></div>
-    <div class="ink-plume one" aria-hidden="true"></div><div class="ink-plume two" aria-hidden="true"></div><div class="ink-plume three" aria-hidden="true"></div>
+    <div class="ink-plume one" aria-hidden="true"></div><div class="ink-plume two" aria-hidden="true"></div><div class="ink-plume three" aria-hidden="true"></div><div class="ink-plume four" aria-hidden="true"></div>
     <div class="hero"><div class="hero-inner">
       <p class="kicker">Creative Direction in Motion</p>
       <h1>Ocean<br><span>of Ink</span></h1>
@@ -112,5 +121,22 @@
   </div></section>
 
   <section class="exit"><p class="kicker">Keep Exploring</p><h2>The portfolio is one room, not the whole house.</h2><p>Go back to the room hub, move into the creative systems, or continue into the fuller body of work.</p><div class="actions" style="justify-content:center"><a class="btn primary" href="rooms.html">All Rooms</a><a class="btn" href="systems-i-built.html">Creative Systems</a><a class="btn" href="portfolio.html">Full Portfolio</a></div></section>
+
+  <script>
+    const oceanStage=document.getElementById('ocean-stage');
+    for(let i=0;i<34;i++){
+      const bubble=document.createElement('span');
+      bubble.className='bubble';
+      const size=3+Math.random()*8;
+      bubble.style.width=size+'px';
+      bubble.style.height=size+'px';
+      bubble.style.left=(2+Math.random()*96)+'%';
+      bubble.style.bottom=(-8-Math.random()*20)+'vh';
+      bubble.style.animationDuration=(9+Math.random()*13)+'s';
+      bubble.style.animationDelay=(-Math.random()*18)+'s';
+      bubble.style.setProperty('--drift',(Math.random()*70-35)+'px');
+      oceanStage.appendChild(bubble);
+    }
+  </script>
 </body>
 </html>
