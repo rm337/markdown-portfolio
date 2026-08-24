@@ -38,10 +38,6 @@
     .ink-plume.two{right:-5%;top:4%;width:39vw;height:56vh;background:radial-gradient(ellipse at 48% 46%,rgba(0,12,44,.92) 0 33%,rgba(0,86,132,.42) 54%,transparent 72%);border-radius:45% 55% 38% 62% / 58% 40% 60% 42%}
     .ink-plume.three{right:17%;bottom:-14%;width:45vw;height:40vh;background:radial-gradient(ellipse at center,rgba(1,15,50,.82) 0 36%,rgba(7,73,113,.36) 58%,transparent 76%);border-radius:50%}
 
-    .bubbles{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden}
-    .bubble{position:absolute;bottom:-10vh;left:var(--x);width:var(--s);height:var(--s);border-radius:50%;border:1px solid rgba(224,251,255,.46);background:radial-gradient(circle at 32% 28%,rgba(255,255,255,.50),rgba(132,221,244,.10) 34%,rgba(0,0,0,.02) 68%,transparent 72%);box-shadow:inset -2px -3px 7px rgba(24,121,164,.16),0 0 12px rgba(127,232,255,.08);opacity:.46;animation:bubbleRise var(--d) linear infinite;animation-delay:var(--delay)}
-    @keyframes bubbleRise{0%{transform:translateY(0);opacity:0}12%{opacity:.45}88%{opacity:.38}100%{transform:translateY(-118vh);opacity:0}}
-
     .hero{position:relative;z-index:5;min-height:calc(100svh - 58px);display:grid;align-items:center;padding:7rem clamp(1.2rem,7vw,7rem) 7rem}
     .hero-inner{max-width:770px}
     .kicker{margin:0 0 .8rem;color:var(--cyan);font:900 .68rem/1 Arial,sans-serif;letter-spacing:.19em;text-transform:uppercase}
@@ -76,7 +72,6 @@
     @media(max-width:1000px){.direction-grid{grid-template-columns:repeat(2,1fr)}}
     @media(max-width:850px){.gallery{grid-template-columns:1fr}.piece,.piece:first-child,.piece:nth-child(2){grid-column:auto;min-height:300px}.links{gap:.6rem;font-size:.59rem}.room-return{left:9px;bottom:9px}.room-return a{font-size:.56rem;padding:.6rem .7rem}}
     @media(max-width:620px){.direction-grid{grid-template-columns:1fr}.direction-card{min-height:0}nav{align-items:flex-start}.links{max-width:64%}}
-    @media(prefers-reduced-motion:reduce){.bubble{animation:none;bottom:auto;top:var(--y,40%);opacity:.25}}
   </style>
 </head>
 <body>
@@ -86,17 +81,6 @@
   <section class="ocean" aria-label="Ocean of Ink">
     <div class="light" aria-hidden="true"></div>
     <div class="ink-plume one" aria-hidden="true"></div><div class="ink-plume two" aria-hidden="true"></div><div class="ink-plume three" aria-hidden="true"></div>
-    <div class="bubbles" aria-hidden="true">
-      <i class="bubble" style="--x:8%;--s:10px;--d:38s;--delay:-4s;--y:18%"></i>
-      <i class="bubble" style="--x:17%;--s:22px;--d:44s;--delay:-22s;--y:70%"></i>
-      <i class="bubble" style="--x:29%;--s:7px;--d:31s;--delay:-12s;--y:42%"></i>
-      <i class="bubble" style="--x:41%;--s:15px;--d:40s;--delay:-8s;--y:24%"></i>
-      <i class="bubble" style="--x:54%;--s:9px;--d:35s;--delay:-18s;--y:61%"></i>
-      <i class="bubble" style="--x:66%;--s:18px;--d:46s;--delay:-30s;--y:34%"></i>
-      <i class="bubble" style="--x:78%;--s:8px;--d:33s;--delay:-6s;--y:76%"></i>
-      <i class="bubble" style="--x:88%;--s:24px;--d:48s;--delay:-26s;--y:28%"></i>
-      <i class="bubble" style="--x:95%;--s:11px;--d:37s;--delay:-15s;--y:56%"></i>
-    </div>
     <div class="hero"><div class="hero-inner">
       <p class="kicker">Creative Direction in Motion</p>
       <h1>Ocean<br><span>of Ink</span></h1>
