@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Command Center | Creative Operations System</title>
+<meta name="description" content="A public case study of Robert Marleton's Command Center: a creative operations system for organizing ideas, workflows, assets, prompts, and studio decision-making without exposing private working data.">
+<meta name="robots" content="index,follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Command Center | Creative Operations System">
+<meta property="og:description" content="A public case study of a creative operations system built to connect ideas, workflows, assets, and studio decision-making.">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --ink:#020712;
+  --deep:#06182b;
+  --panel:#0a2138;
+  --panel2:#0d2945;
+  --blue:#0174f3;
+  --cyan:#63d9ff;
+  --paper:#f7f2e8;
+  --soft:rgba(247,242,232,.78);
+  --muted:rgba(247,242,232,.56);
+  --line:rgba(126,201,239,.18);
+}
+html{background:var(--ink);scroll-behavior:smooth}
+body{margin:0;min-height:100vh;background:linear-gradient(160deg,#020712 0%,#06182b 48%,#03101e 100%);color:var(--paper);font-family:Arial,Helvetica,sans-serif;line-height:1.6}
+a{color:inherit}
+.wrap{width:min(1180px,calc(100% - 2rem));margin:auto}
+nav{position:sticky;top:0;z-index:20;background:rgba(2,7,18,.94);border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem 0}
+.brand{font-weight:900;letter-spacing:.13em;text-transform:uppercase;text-decoration:none;font-size:.74rem}.nav-links{display:flex;gap:.8rem;flex-wrap:wrap}.nav-links a{text-decoration:none;color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;font-weight:800}.nav-links a:hover{color:var(--paper)}
+.hero{padding:7rem 0 4.5rem}.eyebrow{margin:0 0 .8rem;color:var(--cyan);font-size:.7rem;text-transform:uppercase;letter-spacing:.22em;font-weight:900}.hero h1{margin:0;max-width:920px;font-family:Georgia,"Times New Roman",serif;font-size:clamp(3.4rem,8vw,7.4rem);font-weight:500;line-height:.9;letter-spacing:-.035em}.hero h1 span{color:#dff8ff}.lead{max-width:820px;margin:1.6rem 0 0;color:var(--soft);font-size:clamp(1.06rem,2vw,1.35rem);line-height:1.75}.note{margin-top:1.4rem;display:inline-flex;padding:.55rem .7rem;border:1px solid var(--line);background:rgba(1,116,243,.08);color:var(--muted);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;font-weight:800}
+.system-shell{margin:1rem 0 5rem;border:1px solid rgba(99,217,255,.22);background:linear-gradient(180deg,rgba(10,33,56,.96),rgba(5,20,35,.96));box-shadow:0 34px 90px rgba(0,0,0,.34);padding:1rem}.system-top{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.6rem .4rem 1rem;border-bottom:1px solid var(--line)}.system-top strong{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase}.status{display:inline-flex;align-items:center;gap:.45rem;color:var(--muted);font-size:.68rem;text-transform:uppercase;letter-spacing:.1em}.dot{width:8px;height:8px;border-radius:50%;background:var(--blue);box-shadow:0 0 16px rgba(1,116,243,.55)}
+.dashboard{display:grid;grid-template-columns:1.1fr .9fr;gap:1rem;padding-top:1rem}.module-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem}.module,.overview-card,.flow-card{border:1px solid var(--line);background:rgba(255,255,255,.025);padding:1rem}.module small,.overview-card small,.flow-card small{display:block;color:var(--cyan);font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;font-weight:900;margin-bottom:.55rem}.module h3,.overview-card h3,.flow-card h3{margin:0 0 .45rem;font-family:Georgia,"Times New Roman",serif;font-size:1.35rem;font-weight:500}.module p,.overview-card p,.flow-card p{margin:0;color:var(--muted);font-size:.92rem}.overview{display:grid;gap:.8rem}.metric-row{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem}.metric{padding:.8rem;border:1px solid var(--line);background:#071b2f}.metric span{display:block;color:var(--muted);font-size:.58rem;text-transform:uppercase;letter-spacing:.12em}.metric strong{display:block;margin-top:.25rem;font-size:.9rem}
+section{padding:4rem 0;border-top:1px solid rgba(126,201,239,.11)}.section-head{max-width:760px;margin-bottom:2rem}.section-head h2{margin:.2rem 0 1rem;font-family:Georgia,"Times New Roman",serif;font-size:clamp(2.3rem,5vw,4.5rem);font-weight:500;line-height:1}.section-head p{margin:0;color:var(--soft);font-size:1.05rem}
+.two-col{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.case-card{border:1px solid var(--line);background:rgba(8,28,48,.72);padding:1.25rem}.case-card h3{margin:.1rem 0 .55rem;font-family:Georgia,"Times New Roman",serif;font-size:1.5rem;font-weight:500}.case-card p{margin:0;color:var(--soft)}
+.flow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.75rem}.flow-card{min-height:150px}.flow-card strong{font-size:1rem}.flow-card p{margin-top:.4rem}
+.safe-box{border-left:3px solid var(--blue);background:rgba(1,116,243,.08);padding:1.2rem 1.3rem;max-width:880px}.safe-box strong{display:block;margin-bottom:.4rem}.safe-box p{margin:0;color:var(--soft)}
+.cta{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.5rem}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:.8rem 1rem;border:1px solid var(--line);text-decoration:none;font-size:.7rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase}.btn.primary{background:var(--blue);border-color:#4ca3ff}.btn:hover{border-color:var(--cyan)}
+footer{padding:2rem 0 5rem;border-top:1px solid var(--line);color:var(--muted);font-size:.75rem}
+@media(max-width:860px){.dashboard,.two-col{grid-template-columns:1fr}.flow{grid-template-columns:1fr}.module-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:580px){.module-grid,.metric-row{grid-template-columns:1fr}.nav-inner{align-items:flex-start}.nav-links{justify-content:flex-end}.hero{padding-top:5rem}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<nav><div class="wrap nav-inner"><a class="brand" href="index.html">Inkspirations Studios</a><div class="nav-links"><a href="#system">System</a><a href="#thinking">Thinking</a><a href="#architecture">Architecture</a><a href="systems-i-built.html">More Systems</a></div></div></nav>
+<main>
+<header class="wrap hero">
+  <p class="eyebrow">Creative Operations / Systems Design</p>
+  <h1>Command <span>Center</span></h1>
+  <p class="lead">A creative operations system designed to keep ideas, working knowledge, assets, decisions, and repeatable studio processes connected without forcing the creative work itself into a rigid dashboard.</p>
+  <div class="note">Public case study · private working data intentionally excluded</div>
+</header>
+
+<div class="wrap system-shell" id="system" aria-label="Sanitized Command Center interface preview">
+  <div class="system-top"><strong>Command Center / Public View</strong><span class="status"><span class="dot"></span>System online</span></div>
+  <div class="dashboard">
+    <div class="module-grid">
+      <article class="module"><small>Module 01</small><h3>Idea Systems</h3><p>Captures, groups, revisits, and routes creative ideas without flattening them into one format.</p></article>
+      <article class="module"><small>Module 02</small><h3>Studio Workflow</h3><p>Turns recurring creative and operational tasks into reusable processes and decision paths.</p></article>
+      <article class="module"><small>Module 03</small><h3>Asset Intelligence</h3><p>Connects visual assets, references, project material, and searchable working context.</p></article>
+      <article class="module"><small>Module 04</small><h3>Knowledge Library</h3><p>Keeps reusable instructions, standards, frameworks, and studio logic easy to retrieve.</p></article>
+    </div>
+    <div class="overview">
+      <article class="overview-card"><small>System purpose</small><h3>Reduce creative friction.</h3><p>The Command Center separates the work of remembering, locating, organizing, and routing from the work of actually creating.</p></article>
+      <div class="metric-row">
+        <div class="metric"><span>Mode</span><strong>Modular</strong></div>
+        <div class="metric"><span>Access</span><strong>Private core</strong></div>
+        <div class="metric"><span>Design</span><strong>Human-first</strong></div>
+      </div>
+      <article class="overview-card"><small>Design principle</small><h3>Structure behind the curtain.</h3><p>The system should support the creative experience without making the machinery become the experience.</p></article>
+    </div>
+  </div>
+</div>
+
+<section id="thinking"><div class="wrap">
+  <div class="section-head"><p class="eyebrow">Why it exists</p><h2>Creative work creates its own operational gravity.</h2><p>As projects multiply, the problem stops being a shortage of ideas. The problem becomes finding the right idea, asset, decision, instruction, or next action at the right moment.</p></div>
+  <div class="two-col">
+    <article class="case-card"><h3>The problem</h3><p>Creative projects were living across files, pages, experiments, notes, tools, and one-off workflows. Valuable context existed, but retrieving it required too much mental overhead.</p></article>
+    <article class="case-card"><h3>The response</h3><p>Build a central operating layer that could organize those moving parts while preserving the personality, flexibility, and associative thinking that produced them.</p></article>
+  </div>
+</div></section>
+
+<section id="architecture"><div class="wrap">
+  <div class="section-head"><p class="eyebrow">Architecture</p><h2>From raw thought to reusable system.</h2><p>The public diagram below shows the logic of the Command Center without exposing private prompts, records, or working data.</p></div>
+  <div class="flow">
+    <article class="flow-card"><small>01</small><strong>Capture</strong><p>Ideas, notes, needs, assets, and recurring problems enter the system.</p></article>
+    <article class="flow-card"><small>02</small><strong>Classify</strong><p>Material is grouped by purpose, project, action, or creative relationship.</p></article>
+    <article class="flow-card"><small>03</small><strong>Connect</strong><p>Related systems, assets, instructions, and projects become easier to navigate together.</p></article>
+    <article class="flow-card"><small>04</small><strong>Reuse</strong><p>Successful processes become repeatable rather than being reinvented every time.</p></article>
+    <article class="flow-card"><small>05</small><strong>Expand</strong><p>New tools can join the system without forcing everything into one giant application.</p></article>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="section-head"><p class="eyebrow">What this demonstrates</p><h2>More than organization.</h2><p>The Command Center is evidence of creative direction applied to systems: deciding what belongs together, what should stay separate, what needs a reusable structure, and what should remain invisible to the end user.</p></div>
+  <div class="safe-box"><strong>Privacy by design</strong><p>The production Command Center remains private. This page intentionally uses abstracted examples and architecture instead of exposing internal prompts, personal working material, credentials, file paths, or operational records.</p></div>
+  <div class="cta"><a class="btn primary" href="systems-i-built.html">See More Systems</a><a class="btn" href="portfolio.html">View Portfolio</a></div>
+</div></section>
+</main>
+<footer><div class="wrap">© 2026 Robert Marleton · Inkspirations Studios · Public Command Center case study</div></footer>
+</body>
+</html>
