@@ -1,5 +1,5 @@
 const galleryDataUrl = "portfolio.json?v=20260727-clean";
-const pixelsStoreUrl = "https://pixels.com/profiles/robert-marleton";
+const pixelsStoreUrl = "shop.html";
 const imageFolders = {
   artwork: "assets/images/artwork/",
   process: "assets/images/process/"
@@ -152,7 +152,7 @@ function primaryAction(work) {
   if (String(work.status || "").toLowerCase().includes("reserved")) return { href: askHref(work), label: "Reserve This Piece", external: false };
   if (work.purchaseLabel) return { href: askHref(work), label: work.purchaseLabel, external: false };
   if (work.originalAvailable) return { href: askHref(work), label: "Bring This Piece Home", external: false };
-  return { href: pixelsStoreUrl, label: "Shop Prints & Products", external: true };
+  return { href: assetPath(pixelsStoreUrl), label: "Shop Prints & Products", external: false };
 }
 
 function filtersForWorks() {
@@ -183,7 +183,7 @@ function renderGallery() {
     const medium = escapeHtml(work.medium);
     const page = artworkPath(work);
     const pageLink = page ? `<a class="mini-action" href="${page}" data-action="page">Artwork Page</a>` : "";
-    return `<article class="gallery-card photographer-card" data-position="${position}"><button class="gallery-open" type="button" data-action="details" aria-label="View details for ${title}"><span class="gallery-image-wrap"><img src="${thumb}" alt="${title}, ${medium}, by Robert Marleton." loading="lazy" decoding="async" onerror="this.onerror=null;this.src='${full}';"></span><span class="gallery-card-copy"><span class="gallery-card-kicker">${escapeHtml(work.category)}</span><span class="gallery-card-title">${title}</span><span class="gallery-card-medium">${medium}</span></span></button><span class="gallery-card-actions"><button class="mini-action" type="button" data-action="details">View Details</button>${pageLink}<a class="mini-action" href="${pixelsStoreUrl}" target="_blank" rel="noopener noreferrer" data-action="shop">Shop Prints & Products</a></span></article>`;
+    return `<article class="gallery-card photographer-card" data-position="${position}"><button class="gallery-open" type="button" data-action="details" aria-label="View details for ${title}"><span class="gallery-image-wrap"><img src="${thumb}" alt="${title}, ${medium}, by Robert Marleton." loading="lazy" decoding="async" onerror="this.onerror=null;this.src='${full}';"></span><span class="gallery-card-copy"><span class="gallery-card-kicker">${escapeHtml(work.category)}</span><span class="gallery-card-title">${title}</span><span class="gallery-card-medium">${medium}</span></span></button><span class="gallery-card-actions"><button class="mini-action" type="button" data-action="details">View Details</button>${pageLink}<a class="mini-action" href="${assetPath(pixelsStoreUrl)}" data-action="shop">Shop Prints & Products</a></span></article>`;
   }).join("");
 }
 
