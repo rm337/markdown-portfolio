@@ -48,58 +48,66 @@
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}.room-particle,.room-bubble{display:none}}
 .room-anchor-row{position:relative;height:0;overflow:visible}.room-anchor{position:absolute;top:-90px}
 
-/* Curated systems room: brighter ocean depth, less near-black. */
+/* Curated systems room: deeper ocean contrast for public presentation. */
 body[data-room-id="systems-i-built"]{
-  background:#0d4265!important;
+  background:#041322!important;
 }
 body[data-room-id="systems-i-built"]::before{
   background:
-    radial-gradient(circle at 18% 14%,rgba(137,229,244,.30),transparent 28%),
-    radial-gradient(circle at 82% 18%,rgba(53,149,221,.34),transparent 30%),
-    radial-gradient(circle at 50% 78%,rgba(245,239,229,.12),transparent 34%),
-    linear-gradient(160deg,#17698f 0%,#104f79 48%,#0b3e63 100%)!important;
+    radial-gradient(circle at 18% 14%,rgba(86,217,255,.10),transparent 34%),
+    radial-gradient(circle at 82% 18%,rgba(1,116,243,.14),transparent 36%),
+    radial-gradient(circle at 50% 78%,rgba(245,239,229,.035),transparent 40%),
+    linear-gradient(160deg,#020811 0%,#061a2b 50%,#03111f 100%)!important;
 }
 body[data-room-id="systems-i-built"]::after{
-  opacity:.42!important;
+  opacity:.14!important;
+}
+body[data-room-id="systems-i-built"] .system-beam{
+  opacity:.20!important;
+  filter:blur(18px)!important;
+}
+body[data-room-id="systems-i-built"] .system-particle{
+  background:rgba(86,217,255,.30)!important;
+  box-shadow:0 0 10px rgba(1,116,243,.28)!important;
 }
 body[data-room-id="systems-i-built"] .top-nav{
-  background:rgba(7,52,80,.86)!important;
-  border-bottom-color:rgba(200,242,250,.24)!important;
+  background:rgba(2,12,22,.94)!important;
+  border-bottom-color:rgba(118,190,226,.14)!important;
 }
 body[data-room-id="systems-i-built"] .core-node{
-  background:radial-gradient(circle,rgba(115,218,239,.34),rgba(31,126,190,.20) 52%,rgba(7,65,99,.34))!important;
+  background:radial-gradient(circle,rgba(1,116,243,.20),rgba(5,47,81,.26) 52%,rgba(2,12,22,.72))!important;
 }
 body[data-room-id="systems-i-built"] .map-node{
-  background:rgba(13,74,108,.86)!important;
-  border-color:rgba(137,229,244,.34)!important;
+  background:rgba(3,25,43,.92)!important;
+  border-color:rgba(86,217,255,.22)!important;
 }
 body[data-room-id="systems-i-built"] .system-card{
-  background:linear-gradient(180deg,rgba(54,133,174,.34),rgba(17,81,119,.42))!important;
-  border-color:rgba(207,242,248,.20)!important;
-  box-shadow:0 18px 42px rgba(4,39,61,.18)!important;
+  background:linear-gradient(180deg,rgba(8,34,56,.88),rgba(4,22,39,.92))!important;
+  border-color:rgba(120,194,226,.14)!important;
+  box-shadow:0 18px 42px rgba(0,0,0,.28)!important;
 }
 body[data-room-id="systems-i-built"] .system-card.is-active{
-  background:radial-gradient(circle at 18% 18%,rgba(104,216,239,.30),transparent 36%),linear-gradient(180deg,rgba(31,132,195,.40),rgba(15,77,113,.46))!important;
-  border-color:rgba(122,225,244,.72)!important;
+  background:radial-gradient(circle at 18% 18%,rgba(1,116,243,.16),transparent 38%),linear-gradient(180deg,rgba(8,48,78,.92),rgba(4,24,42,.94))!important;
+  border-color:rgba(86,217,255,.52)!important;
 }
 body[data-room-id="systems-i-built"] .detail-panel{
-  background:rgba(12,68,101,.88)!important;
-  border-color:rgba(157,231,244,.30)!important;
-  box-shadow:0 24px 70px rgba(4,39,61,.24)!important;
+  background:rgba(3,25,44,.94)!important;
+  border-color:rgba(100,188,224,.18)!important;
+  box-shadow:0 24px 70px rgba(0,0,0,.34)!important;
 }
 body[data-room-id="systems-i-built"] .metric,
 body[data-room-id="systems-i-built"] .detail-card,
 body[data-room-id="systems-i-built"] .flow-step,
 body[data-room-id="systems-i-built"] .connection-card{
-  background:rgba(21,87,123,.56)!important;
-  border-color:rgba(221,247,250,.18)!important;
+  background:rgba(6,32,52,.84)!important;
+  border-color:rgba(140,207,232,.12)!important;
 }
 body[data-room-id="systems-i-built"] .status-pill,
 body[data-room-id="systems-i-built"] .btn,
 body[data-room-id="systems-i-built"] .filter-btn{
-  background:rgba(255,255,255,.08)!important;
+  background:rgba(255,255,255,.035)!important;
 }
 body[data-room-id="systems-i-built"] .btn.primary,
 body[data-room-id="systems-i-built"] .filter-btn.is-active{
-  background:#147bb2!important;
+  background:#075da8!important;
 }
