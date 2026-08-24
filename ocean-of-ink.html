@@ -4,131 +4,160 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Ocean of Ink | Inkspirations Studios</title>
-  <meta name="description" content="Ocean of Ink is Robert Marleton's immersive creative-direction environment, connecting artwork, systems, writing, photography, interaction, and atmosphere.">
+  <meta name="description" content="Enter Ocean of Ink, an immersive blue creative world by Inkspirations Studios.">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Ocean of Ink | Creative Direction in Motion">
-  <meta property="og:description" content="An immersive creative-direction environment by Robert Marleton.">
+  <meta property="og:title" content="Ocean of Ink | Inkspirations Studios">
+  <meta property="og:description" content="An immersive blue creative world of ink, light, motion, and atmosphere.">
   <meta property="og:image" content="assets/images/portfolio/soul-current.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <style>
     *,*::before,*::after{box-sizing:border-box}
-    :root{--night:#020914;--deep:#073b73;--blue:#0174f3;--cyan:#8eeeff;--teal:#18c9d1;--paper:#f7f1e7;--soft:rgba(247,241,231,.86);--line:rgba(182,235,249,.26)}
-    html{background:var(--night);scroll-behavior:auto}
-    body{margin:0;color:var(--paper);font-family:Georgia,"Times New Roman",serif;background:var(--night);overflow-x:hidden}
+    :root{
+      --navy:#031329;
+      --blue:#07579a;
+      --bright:#178dc2;
+      --teal:#0a8f9e;
+      --aqua:#7eeaf4;
+      --white:#f6fbff;
+      --soft:rgba(235,248,255,.76);
+      --line:rgba(196,240,255,.24);
+    }
+    html,body{margin:0;min-height:100%;background:var(--navy);color:var(--white)}
+    body{font-family:Inter,Arial,sans-serif;overflow-x:hidden}
     a{color:inherit}
-    nav{position:sticky;top:0;z-index:80;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1rem clamp(1rem,5vw,4rem);background:rgba(2,9,20,.96);border-bottom:1px solid var(--line)}
-    nav a{text-decoration:none}.links{display:flex;gap:1rem;flex-wrap:wrap;justify-content:flex-end;font:900 .68rem/1 Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase}
-    .room-return{position:fixed;left:16px;bottom:16px;z-index:95;display:flex;gap:8px}
-    .room-return a{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:.7rem .9rem;border:1px solid var(--line);border-radius:999px;background:rgba(2,12,24,.94);text-decoration:none;font:900 .62rem/1 Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase}
-    .room-return a:first-child{background:var(--blue);border-color:#69b9ff}
 
-    .ocean{position:relative;min-height:calc(100svh - 58px);overflow:hidden;isolation:isolate;background:
-      linear-gradient(180deg,rgba(86,180,235,.16) 0%,transparent 24%),
-      linear-gradient(136deg,#061a3c 0%,#074b8a 45%,#0b6f91 72%,#064f76 100%)}
-    .ocean::before{content:"";position:absolute;inset:0;z-index:-8;pointer-events:none;background:
-      linear-gradient(112deg,transparent 0 19%,rgba(159,236,255,.12) 28%,transparent 42%),
-      linear-gradient(76deg,transparent 0 61%,rgba(30,158,255,.10) 68%,transparent 80%)}
-    .ocean::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,rgba(3,18,45,.76) 0%,rgba(3,18,45,.40) 43%,rgba(3,18,45,.06) 76%,rgba(3,18,45,.18) 100%)}
+    .site-nav{
+      position:fixed;top:0;left:0;right:0;z-index:100;
+      display:flex;align-items:center;justify-content:space-between;gap:1rem;
+      padding:1rem clamp(1rem,4vw,3.5rem);
+      background:linear-gradient(180deg,rgba(2,12,30,.88),rgba(2,12,30,.52),transparent);
+      backdrop-filter:blur(10px)
+    }
+    .brand{font-weight:900;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;text-decoration:none}
+    .nav-links{display:flex;gap:1.1rem;flex-wrap:wrap;justify-content:flex-end}
+    .nav-links a{text-decoration:none;font-size:.59rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:rgba(246,251,255,.78)}
+    .nav-links a:hover{color:#fff}
 
-    .light{position:absolute;inset:0;z-index:-6;pointer-events:none;background:
-      linear-gradient(170deg,rgba(224,252,255,.32) 0%,rgba(143,228,255,.11) 14%,transparent 34%),
-      linear-gradient(191deg,rgba(91,200,255,.15) 0%,transparent 30%)}
+    .ocean-world{
+      position:relative;min-height:100svh;overflow:hidden;isolation:isolate;
+      background:
+        linear-gradient(180deg,rgba(137,226,255,.11),transparent 24%),
+        linear-gradient(132deg,#03162d 0%,#073d77 36%,#08658d 68%,#087f88 100%);
+    }
+    .ocean-world::before{
+      content:"";position:absolute;inset:-8%;z-index:-10;pointer-events:none;
+      background:
+        radial-gradient(ellipse at 18% 14%,rgba(86,205,255,.20),transparent 26%),
+        radial-gradient(ellipse at 82% 72%,rgba(30,202,194,.18),transparent 31%),
+        linear-gradient(115deg,rgba(0,41,103,.12),transparent 48%,rgba(0,166,181,.09));
+      animation:colorShift 18s ease-in-out infinite alternate;
+    }
+    .surface-light{position:absolute;inset:0;z-index:-8;pointer-events:none;background:
+      linear-gradient(168deg,rgba(229,253,255,.34) 0%,rgba(155,231,255,.12) 13%,transparent 33%),
+      linear-gradient(194deg,rgba(86,196,255,.17) 0%,transparent 29%)}
+    .ray{position:absolute;top:-12vh;z-index:-7;width:12vw;height:76vh;pointer-events:none;filter:blur(18px);background:linear-gradient(180deg,rgba(206,247,255,.44),rgba(102,213,255,.12),transparent 76%);transform-origin:top center;opacity:.18}
+    .ray.one{left:15%;transform:rotate(9deg)}
+    .ray.two{left:47%;width:9vw;transform:rotate(-6deg);opacity:.12}
+    .ray.three{right:10%;width:14vw;transform:rotate(12deg);opacity:.10}
 
-    .ink-plume{position:absolute;z-index:-3;pointer-events:none;filter:blur(7px);opacity:.94}
-    .ink-plume.one{left:-9%;top:8%;width:46vw;height:66vh;background:radial-gradient(ellipse at 42% 40%,rgba(1,18,70,.97) 0 30%,rgba(15,66,145,.64) 48%,rgba(0,151,180,.34) 61%,transparent 75%);border-radius:62% 38% 55% 45% / 46% 56% 44% 54%}
-    .ink-plume.two{right:-6%;top:7%;width:42vw;height:59vh;background:radial-gradient(ellipse at 48% 44%,rgba(0,25,79,.94) 0 31%,rgba(5,91,156,.54) 50%,rgba(14,196,202,.28) 63%,transparent 76%);border-radius:45% 55% 38% 62% / 58% 40% 60% 42%}
-    .ink-plume.three{right:14%;bottom:-13%;width:48vw;height:43vh;background:radial-gradient(ellipse at center,rgba(1,30,92,.86) 0 34%,rgba(0,111,160,.46) 54%,rgba(21,191,194,.22) 65%,transparent 78%);border-radius:56% 44% 61% 39% / 47% 57% 43% 53%}
-    .ink-plume.four{left:34%;top:22%;width:27vw;height:48vh;background:radial-gradient(ellipse at center,rgba(7,67,156,.38) 0 30%,rgba(0,158,180,.18) 52%,transparent 73%);border-radius:42% 58% 49% 51% / 60% 40% 57% 43%;filter:blur(14px);opacity:.62}
+    .ink{position:absolute;z-index:-4;pointer-events:none;filter:blur(11px);opacity:.82;transform-origin:center}
+    .ink.one{left:-11%;top:8%;width:48vw;height:66vh;background:radial-gradient(ellipse at 45% 42%,rgba(2,15,70,.95) 0 24%,rgba(11,64,151,.73) 43%,rgba(0,141,181,.38) 59%,transparent 75%);border-radius:63% 37% 52% 48% / 44% 59% 41% 56%;animation:inkA 20s ease-in-out infinite alternate}
+    .ink.two{right:-7%;top:10%;width:43vw;height:58vh;background:radial-gradient(ellipse at 50% 43%,rgba(0,22,82,.90) 0 23%,rgba(5,87,155,.61) 45%,rgba(0,170,178,.29) 61%,transparent 76%);border-radius:44% 56% 61% 39% / 58% 42% 54% 46%;animation:inkB 23s ease-in-out infinite alternate}
+    .ink.three{right:8%;bottom:-15%;width:54vw;height:49vh;background:radial-gradient(ellipse at center,rgba(5,30,98,.82) 0 27%,rgba(0,110,164,.49) 50%,rgba(17,188,188,.22) 65%,transparent 79%);border-radius:57% 43% 63% 37% / 49% 55% 45% 51%;animation:inkA 25s ease-in-out infinite alternate-reverse}
+    .ink.four{left:31%;top:24%;width:29vw;height:44vh;background:radial-gradient(ellipse at center,rgba(9,76,166,.40) 0 28%,rgba(0,160,180,.18) 53%,transparent 74%);border-radius:40% 60% 47% 53% / 60% 40% 57% 43%;filter:blur(16px);opacity:.58;animation:inkB 21s ease-in-out infinite alternate-reverse}
 
-    .bubble{position:absolute;z-index:1;border-radius:50%;pointer-events:none;background:transparent;border:1px solid rgba(224,251,255,.52);box-shadow:inset 0 0 3px rgba(255,255,255,.18),0 0 6px rgba(142,238,255,.18);opacity:.66;animation:bubbleRise linear infinite}
-    @keyframes bubbleRise{from{transform:translate3d(0,18vh,0) scale(.8);opacity:0}14%{opacity:.64}78%{opacity:.46}to{transform:translate3d(var(--drift),-120vh,0) scale(1.06);opacity:0}}
+    .bubble-layer{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden}
+    .bubble{position:absolute;bottom:-12vh;border-radius:50%;background:transparent;border:1px solid rgba(229,251,255,.48);box-shadow:inset 0 0 3px rgba(255,255,255,.15),0 0 6px rgba(125,231,255,.10);animation:bubbleRise linear infinite}
 
-    .hero{position:relative;z-index:5;min-height:calc(100svh - 58px);display:grid;align-items:center;padding:7rem clamp(1.2rem,7vw,7rem) 7rem}
-    .hero-inner{max-width:770px}
-    .kicker{margin:0 0 .8rem;color:var(--cyan);font:900 .68rem/1 Arial,sans-serif;letter-spacing:.19em;text-transform:uppercase}
-    .hero h1{margin:.2rem 0 1.5rem;font-size:clamp(4rem,9vw,8rem);line-height:.84;font-weight:500;letter-spacing:-.05em;text-shadow:0 16px 48px rgba(0,0,0,.28)}
-    .hero h1 span{color:#e9fbff}
-    .actions{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1.7rem}
-    .btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:.82rem 1rem;border:1px solid var(--line);background:rgba(255,255,255,.035);text-decoration:none;font:900 .67rem/1 Arial,sans-serif;letter-spacing:.11em;text-transform:uppercase}
-    .btn.primary{background:var(--blue);border-color:#7fd9ff}
+    .hero-ocean{position:relative;z-index:5;min-height:100svh;display:grid;place-items:center;padding:8rem 1.2rem 5rem;text-align:center}
+    .hero-content{width:min(900px,92vw)}
+    .eyebrow{margin:0 0 1rem;color:#91eff7;font-size:.66rem;font-weight:900;letter-spacing:.24em;text-transform:uppercase}
+    h1{margin:0;font-family:Georgia,"Times New Roman",serif;font-weight:500;font-size:clamp(4.5rem,10vw,9.2rem);line-height:.86;letter-spacing:-.055em;text-shadow:0 18px 60px rgba(0,0,0,.25)}
+    h1 span{display:block;color:#eafcff}
+    .tagline{margin:1.45rem auto 0;max-width:690px;color:var(--soft);font-family:Georgia,"Times New Roman",serif;font-size:clamp(1.02rem,2vw,1.30rem);line-height:1.65}
+    .hero-actions{display:flex;justify-content:center;gap:.8rem;flex-wrap:wrap;margin-top:2rem}
+    .button{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:.88rem 1.15rem;border:1px solid var(--line);background:rgba(2,20,46,.24);backdrop-filter:blur(8px);text-decoration:none;font-size:.62rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;transition:transform .2s,border-color .2s,background .2s}
+    .button.primary{background:linear-gradient(135deg,#36d8df,#64cfff);border-color:rgba(229,254,255,.72);color:#041426;box-shadow:0 10px 30px rgba(36,193,220,.16)}
+    .button:hover{transform:translateY(-1px);border-color:rgba(225,252,255,.66)}
 
-    .direction,.current,.exit{position:relative;z-index:6}
-    .direction{padding:clamp(5rem,9vw,8rem) clamp(1rem,5vw,4rem);background:linear-gradient(180deg,#031427 0%,#041b31 100%);border-top:1px solid var(--line)}
-    .direction-inner,.current-inner{max-width:1450px;margin:auto}
-    .direction-intro,.section-head{max-width:860px;margin-bottom:2.5rem}
-    .direction h2,.current h2{font-size:clamp(2.5rem,5vw,4.6rem);line-height:1.02;margin:.35rem 0 1rem;font-weight:500}
-    .direction-intro p,.section-head p,.direction-card p{color:var(--soft);line-height:1.72}
-    .direction-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
-    .direction-card{min-height:250px;padding:1.5rem;border:1px solid var(--line);background:rgba(255,255,255,.025)}
-    .direction-card strong{display:block;margin-bottom:.8rem;color:var(--cyan);font:900 .65rem/1 Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase}
-    .direction-card h3{margin:.1rem 0 .7rem;font-size:1.7rem;font-weight:500}
-    .direction-close{margin-top:2rem;padding-top:2rem;border-top:1px solid var(--line);color:var(--soft);font-size:1.1rem;line-height:1.7}
-    .current{padding:clamp(4rem,8vw,7rem) clamp(1rem,5vw,4rem);background:#020f1e}
-    .gallery{display:grid;grid-template-columns:repeat(12,1fr);gap:1rem}
-    .piece{position:relative;grid-column:span 4;min-height:340px;overflow:hidden;border:1px solid var(--line);background:#041a2d;text-decoration:none;color:var(--paper)}
-    .piece:first-child{grid-column:span 7}.piece:nth-child(2){grid-column:span 5}
-    .piece img{width:100%;height:100%;object-fit:cover;display:block}
-    .piece span{position:absolute;inset:auto 0 0;padding:1.1rem;background:linear-gradient(transparent,rgba(2,9,20,.96));font-size:1.3rem}
-    .piece small{display:block;margin-bottom:.3rem;color:rgba(218,246,252,.75);font:900 .62rem/1 Arial,sans-serif;letter-spacing:.11em;text-transform:uppercase}
-    .exit{text-align:center;padding:5rem 1rem 7rem;background:#020914}.exit h2{font-size:clamp(2rem,4vw,3.4rem);font-weight:500;margin:.3rem 0 1rem}.exit p{max-width:700px;margin:0 auto;color:var(--soft);line-height:1.7}
+    .activated .ink{opacity:.92}
+    .activated .surface-light{filter:brightness(1.08)}
+    .activated .ocean-world::before{filter:saturate(1.08)}
 
-    @media(max-width:1000px){.direction-grid{grid-template-columns:repeat(2,1fr)}}
-    @media(max-width:850px){.gallery{grid-template-columns:1fr}.piece,.piece:first-child,.piece:nth-child(2){grid-column:auto;min-height:300px}.links{gap:.6rem;font-size:.59rem}.room-return{left:9px;bottom:9px}.room-return a{font-size:.56rem;padding:.6rem .7rem}}
-    @media(max-width:620px){.direction-grid{grid-template-columns:1fr}.direction-card{min-height:0}nav{align-items:flex-start}.links{max-width:64%}}
+    @keyframes colorShift{0%{filter:hue-rotate(-3deg) saturate(1.02)}100%{filter:hue-rotate(7deg) saturate(1.08)}}
+    @keyframes inkA{0%{transform:translate3d(-1%,0,0) scale(.94) rotate(-2deg)}100%{transform:translate3d(2%,2%,0) scale(1.05) rotate(4deg)}}
+    @keyframes inkB{0%{transform:translate3d(1%,-1%,0) scale(.96) rotate(2deg)}100%{transform:translate3d(-2%,2%,0) scale(1.04) rotate(-4deg)}}
+    @keyframes bubbleRise{0%{transform:translate3d(0,0,0) scale(.84);opacity:0}12%{opacity:.62}78%{opacity:.39}100%{transform:translate3d(var(--drift),-118vh,0) scale(1.05);opacity:0}}
+
+    @media(max-width:720px){
+      .site-nav{align-items:flex-start}.nav-links{gap:.7rem}.nav-links a{font-size:.53rem}
+      .hero-ocean{padding-top:7.6rem}.tagline{font-size:1rem}.ink.one,.ink.two{width:70vw}.ink.three{width:76vw}
+    }
+    @media(prefers-reduced-motion:reduce){
+      .ocean-world::before,.ink,.bubble{animation:none!important}
+    }
   </style>
 </head>
 <body>
-  <nav aria-label="Ocean of Ink navigation"><a href="index.html"><strong>Inkspirations Studios</strong></a><div class="links"><a href="rooms.html">Rooms</a><a href="#direction">Direction</a><a href="systems-i-built.html">Systems</a><a href="#work">Work</a></div></nav>
-  <div class="room-return" aria-label="Room exit"><a href="rooms.html">← Back to Rooms</a><a href="index.html">Home</a></div>
-
-  <section class="ocean" aria-label="Ocean of Ink" id="ocean-stage">
-    <div class="light" aria-hidden="true"></div>
-    <div class="ink-plume one" aria-hidden="true"></div><div class="ink-plume two" aria-hidden="true"></div><div class="ink-plume three" aria-hidden="true"></div><div class="ink-plume four" aria-hidden="true"></div>
-    <div class="hero"><div class="hero-inner">
-      <p class="kicker">Creative Direction in Motion</p>
-      <h1>Ocean<br><span>of Ink</span></h1>
-      <div class="actions"><a class="btn primary" href="#direction">See How I Direct</a><a class="btn" href="rooms.html">Explore the Rooms</a></div>
-    </div></div>
-  </section>
-
-  <section class="direction" id="direction"><div class="direction-inner">
-    <div class="direction-intro"><p class="kicker">Creative Direction</p><h2>The work begins before the finished piece.</h2><p>I direct the relationships between ideas, visuals, words, technology, interaction, atmosphere, and personality. The question is not only what can be made, but what the experience should become.</p></div>
-    <div class="direction-grid">
-      <article class="direction-card"><strong>01 / Shape</strong><h3>Find the idea.</h3><p>Define what deserves emphasis and what someone should notice first.</p></article>
-      <article class="direction-card"><strong>02 / Edit</strong><h3>Know what leaves.</h3><p>Add, remove, simplify, reframe, and pivot when the direction needs to change.</p></article>
-      <article class="direction-card"><strong>03 / Connect</strong><h3>Make the pieces belong.</h3><p>Bring visual language, writing, systems, interaction, photography, artwork, and technology together.</p></article>
-      <article class="direction-card"><strong>04 / Reveal</strong><h3>Let personality through.</h3><p>Curiosity, humor, experimentation, and unexpected connections help determine the direction.</p></article>
+  <nav class="site-nav" aria-label="Ocean of Ink navigation">
+    <a class="brand" href="index.html">Inkspirations Studios</a>
+    <div class="nav-links">
+      <a href="rooms.html">Rooms</a>
+      <a href="portfolio.html">Work</a>
+      <a href="photography.html">Photography</a>
+      <a href="index.html">Home</a>
     </div>
-    <div class="direction-close">The portfolio is evidence of the direction, not the whole definition of it.</div>
-  </div></section>
+  </nav>
 
-  <section class="current" id="work"><div class="current-inner"><div class="section-head"><p class="kicker">Selected Work</p><h2>The evidence comes after the direction.</h2><p>The work shows what the larger creative decisions produce.</p></div>
-    <div class="gallery">
-      <a class="piece" href="portfolio.html#portfolio"><img src="assets/images/portfolio/soul-current.jpg" alt="Fluid Soul artwork"><span><small>Fluid Soul Series</small></span></a>
-      <a class="piece" href="portfolio.html#portfolio"><img src="assets/images/portfolio/blue-name-current.jpg" alt="Release artwork"><span><small>Signature Collection</small>Release</span></a>
-      <a class="piece" href="portfolio.html#portfolio"><img src="assets/images/portfolio/washed-out.jpg" alt="Washed Out artwork"><span><small>Signature Collection</small>Washed Out</span></a>
-      <a class="piece" href="photography.html"><img src="assets/images/portfolio/rainline-study.jpg" alt="Rainline Study"><span><small>Texture / Photography</small>Rainline Study</span></a>
-      <a class="piece" href="portfolio.html#portfolio"><img src="assets/images/portfolio/blue-field.jpg" alt="Blue Field artwork"><span><small>Texture Studies</small>Blue Field</span></a>
-    </div>
-  </div></section>
+  <main class="ocean-world" id="oceanWorld">
+    <div class="surface-light" aria-hidden="true"></div>
+    <div class="ray one" aria-hidden="true"></div>
+    <div class="ray two" aria-hidden="true"></div>
+    <div class="ray three" aria-hidden="true"></div>
 
-  <section class="exit"><p class="kicker">Keep Exploring</p><h2>The portfolio is one room, not the whole house.</h2><p>Go back to the room hub, move into the creative systems, or continue into the fuller body of work.</p><div class="actions" style="justify-content:center"><a class="btn primary" href="rooms.html">All Rooms</a><a class="btn" href="systems-i-built.html">Creative Systems</a><a class="btn" href="portfolio.html">Full Portfolio</a></div></section>
+    <div class="ink one" aria-hidden="true"></div>
+    <div class="ink two" aria-hidden="true"></div>
+    <div class="ink three" aria-hidden="true"></div>
+    <div class="ink four" aria-hidden="true"></div>
+
+    <div class="bubble-layer" id="bubbleLayer" aria-hidden="true"></div>
+
+    <section class="hero-ocean" aria-label="Ocean of Ink immersive opening">
+      <div class="hero-content">
+        <p class="eyebrow">Enter the current</p>
+        <h1>Ocean <span>of Ink</span></h1>
+        <p class="tagline">A living ocean of ink, memory, motion, and blue.</p>
+        <div class="hero-actions">
+          <button class="button primary" id="driftButton" type="button">Begin the Drift</button>
+          <a class="button" href="rooms.html">Explore the Rooms</a>
+        </div>
+      </div>
+    </section>
+  </main>
 
   <script>
-    const oceanStage=document.getElementById('ocean-stage');
-    for(let i=0;i<28;i++){
+    const world=document.getElementById('oceanWorld');
+    const bubbles=document.getElementById('bubbleLayer');
+    const driftButton=document.getElementById('driftButton');
+
+    for(let i=0;i<30;i++){
       const bubble=document.createElement('span');
       bubble.className='bubble';
-      const size=4+Math.random()*7;
+      const size=3+Math.random()*7;
       bubble.style.width=size+'px';
       bubble.style.height=size+'px';
-      bubble.style.left=(3+Math.random()*94)+'%';
-      bubble.style.bottom=(-8-Math.random()*20)+'vh';
-      bubble.style.animationDuration=(10+Math.random()*14)+'s';
-      bubble.style.animationDelay=(-Math.random()*18)+'s';
-      bubble.style.setProperty('--drift',(Math.random()*60-30)+'px');
-      oceanStage.appendChild(bubble);
+      bubble.style.left=(2+Math.random()*96)+'%';
+      bubble.style.animationDuration=(13+Math.random()*18)+'s';
+      bubble.style.animationDelay=(-Math.random()*26)+'s';
+      bubble.style.setProperty('--drift',(Math.random()*80-40)+'px');
+      bubble.style.opacity=(.28+Math.random()*.28).toFixed(2);
+      bubbles.appendChild(bubble);
     }
+
+    driftButton.addEventListener('click',()=>{
+      world.classList.toggle('activated');
+      driftButton.textContent=world.classList.contains('activated')?'The Current Is Awake':'Begin the Drift';
+    });
   </script>
 </body>
 </html>
