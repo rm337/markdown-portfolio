@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "updated": "2026-08-28",
+  "entries": [
+    {
+      "word": "Crologic",
+      "type": "noun",
+      "definition": "Logic that is technically crooked but somehow still gets where it was going.",
+      "category": "word-combo",
+      "date": "2026-08-28",
+      "status": "active"
+    },
+    {
+      "word": "Re-cursive",
+      "type": "verb",
+      "definition": "To rewrite the same line you just wrote, only in cursive.",
+      "category": "word-combo",
+      "status": "active"
+    },
+    {
+      "word": "WordPlay in EveryWay helps 2 keep the Dr. away!",
+      "type": "graffiti",
+      "definition": "",
+      "category": "ink-pun",
+      "status": "active"
+    }
+  ]
+}
