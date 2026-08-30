@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-08-28",
+  "updated": "2026-08-30",
   "entries": [
     {
       "word": "Crologic",
@@ -22,6 +22,14 @@
       "type": "graffiti",
       "definition": "",
       "category": "ink-pun",
+      "status": "active"
+    },
+    {
+      "word": "Trendle",
+      "type": "verb",
+      "definition": "To follow a tiny cultural signal before it grows loud enough to be called a trend.",
+      "category": "word-combo",
+      "date": "2026-08-30",
       "status": "active"
     }
   ]
