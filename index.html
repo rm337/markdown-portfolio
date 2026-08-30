@@ -4,26 +4,40 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Ocean of Ink | Inkspirations Studios</title>
-  <meta name="description" content="Enter Ocean of Ink, Robert Marleton's immersive creative portfolio environment of artwork, photography, writing, rooms, and creative systems.">
-  <link rel="canonical" href="https://oceanofink.com/ocean-of-ink.html">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Ocean of Ink">
-  <meta property="og:title" content="Ocean of Ink | Inkspirations Studios">
-  <meta property="og:description" content="An immersive creative portfolio environment where water, ink, artwork, photography, writing, and creative systems move together.">
-  <meta property="og:url" content="https://oceanofink.com/ocean-of-ink.html">
-  <meta http-equiv="refresh" content="0;url=./ocean-of-ink.html">
-  <script>window.location.replace('./ocean-of-ink.html' + window.location.hash);</script>
+  <meta name="description" content="Enter Ocean of Ink, an immersive creative environment of artwork, photography, rooms, writing, and creative systems.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    html,body{margin:0;min-height:100%;background:#04111f;color:#f7f4ec;font-family:Georgia,'Times New Roman',serif}
-    body{min-height:100vh;display:grid;place-items:center;text-align:center;padding:2rem;box-sizing:border-box}
-    a{color:#77e8ff}
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;background:#031326;color:#f6fbff}
+    body{font-family:'Cormorant Garamond',serif;overflow:hidden}
+    .front{position:relative;min-height:100svh;display:grid;place-items:center;padding:2rem;background:radial-gradient(circle at 74% 8%,rgba(190,246,255,.28),transparent 22%),radial-gradient(circle at 22% 68%,rgba(0,80,170,.35),transparent 34%),linear-gradient(180deg,#071d3c 0%,#064d7b 43%,#031326 100%)}
+    .front:before,.front:after{content:"";position:absolute;border-radius:50%;filter:blur(18px);opacity:.5;pointer-events:none}
+    .front:before{width:55vw;height:55vw;left:-22vw;top:18vh;background:radial-gradient(circle,rgba(0,34,95,.8),transparent 66%)}
+    .front:after{width:42vw;height:42vw;right:-18vw;bottom:-12vw;background:radial-gradient(circle,rgba(0,114,180,.48),transparent 68%)}
+    .content{position:relative;z-index:1;text-align:center;max-width:980px}
+    .eyebrow{font-family:'Cinzel',serif;font-size:clamp(.72rem,1vw,.9rem);letter-spacing:.24em;text-transform:uppercase;color:#a7f4ff;margin:0 0 1.4rem}
+    h1{font-size:clamp(5rem,12vw,10rem);line-height:.82;font-weight:400;margin:0}
+    .copy{max-width:720px;margin:2rem auto 0;font-size:clamp(1.25rem,2.2vw,1.8rem);line-height:1.45;color:rgba(246,251,255,.84)}
+    .enter{display:inline-flex;align-items:center;justify-content:center;margin-top:2.5rem;min-height:58px;padding:1rem 1.7rem;border:1px solid rgba(210,243,255,.42);background:rgba(167,244,255,.94);color:#04223b;font-family:'Cinzel',serif;font-size:clamp(.88rem,1.4vw,1.05rem);font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;transition:transform .2s ease,box-shadow .2s ease}
+    .enter:hover,.enter:focus-visible{transform:translateY(-2px);box-shadow:0 12px 34px rgba(0,0,0,.28)}
+    .quick{display:flex;justify-content:center;gap:1.6rem;flex-wrap:wrap;margin-top:1.6rem}
+    .quick a{font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:#f6fbff;text-decoration:none;border-bottom:1px solid rgba(167,244,255,.4);padding-bottom:.2rem}
   </style>
 </head>
 <body>
-  <main>
-    <h1>Ocean of Ink</h1>
-    <p>Entering the current…</p>
-    <p><a href="./ocean-of-ink.html">Enter Ocean of Ink</a></p>
+  <main class="front">
+    <div class="content">
+      <p class="eyebrow">Inkspirations Studios</p>
+      <h1>Ocean<br>of Ink</h1>
+      <p class="copy">The front door to the work, rooms, experiments, language, photography, and systems inside the Ocean.</p>
+      <a class="enter" href="ocean-of-ink.html">Enter Ocean of Ink</a>
+      <div class="quick" aria-label="Quick links">
+        <a href="portfolio.html">Work</a>
+        <a href="rooms.html">Rooms</a>
+      </div>
+    </div>
   </main>
 </body>
 </html>
