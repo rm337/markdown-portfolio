@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-08-30",
+  "updated": "2026-08-31",
   "entries": [
     {
       "word": "Crologic",
@@ -30,6 +30,14 @@
       "definition": "To follow a tiny cultural signal before it grows loud enough to be called a trend.",
       "category": "word-combo",
       "date": "2026-08-30",
+      "status": "active"
+    },
+    {
+      "word": "Punipelago",
+      "type": "noun",
+      "definition": "A chain of related puns that keeps branching from one word into a whole island system of wordplay.",
+      "category": "word-combo",
+      "date": "2026-08-31",
       "status": "active"
     }
   ]
