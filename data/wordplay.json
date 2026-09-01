@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-08-31",
+  "updated": "2026-09-01",
   "entries": [
     {
       "word": "Crologic",
@@ -38,6 +38,14 @@
       "definition": "A chain of related puns that keeps branching from one word into a whole island system of wordplay.",
       "category": "word-combo",
       "date": "2026-08-31",
+      "status": "active"
+    },
+    {
+      "word": "Inklinguist",
+      "type": "noun",
+      "definition": "A person who catches the faintest hint of a word and follows it until language starts drawing its own conclusions.",
+      "category": "ink-pun",
+      "date": "2026-09-01",
       "status": "active"
     }
   ]
