@@ -47,7 +47,7 @@
     if(surface==="BACK") return d.explanation || "SECOND READ";
     if(surface==="SIDE") return d.phrase.split(/\s+/).slice(0,2).join(" ") || d.phrase;
     if(surface==="TOP") return d.phrase.split(/\s+/)[0] || d.phrase;
-    if(surface==="WRAP") return `${d.phrase}  •  ${d.explanation||d.phrase}`;
+    if(surface==="WRAP") return `${d.phrase} • ${d.explanation||d.phrase}`;
     return d.phrase;
   }
 
@@ -69,15 +69,17 @@
       .gco-stage{display:none;margin-top:18px}.gco-stage.open{display:block}.gco-stage-head{margin-bottom:10px}.gco-stage-head strong{font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:#83f3ba}
       .gco-products{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
       .gco-side{text-align:center}.gco-side>span{display:block;margin-bottom:7px;color:#9eb2c9;font-size:.72rem;font-weight:800;letter-spacing:.12em}
-      .gco-object{position:relative;min-height:250px;display:grid;place-items:center;overflow:hidden;border-radius:18px;background:radial-gradient(circle at 50% 35%,#26364a,#09111d 68%);border:1px solid rgba(255,255,255,.12)}
-      .gco-product{position:relative;background:#f4ebdd;filter:drop-shadow(0 12px 16px rgba(0,0,0,.35))}
+      .gco-object{min-height:250px;display:grid;place-items:center;overflow:hidden;border-radius:18px;background:radial-gradient(circle at 50% 35%,#26364a,#09111d 68%);border:1px solid rgba(255,255,255,.12)}
+      .gco-product{position:relative;display:grid;place-items:center;background:#f4ebdd;filter:drop-shadow(0 12px 16px rgba(0,0,0,.35));overflow:hidden}
       .gco-product.shirt{width:76%;height:190px;clip-path:polygon(24% 0,38% 8%,62% 8%,76% 0,100% 18%,85% 39%,77% 32%,77% 100%,23% 100%,23% 32%,15% 39%,0 18%)}
       .gco-product.hoodie{width:76%;height:205px;clip-path:polygon(30% 10%,40% 0,60% 0,70% 10%,88% 18%,100% 48%,86% 58%,78% 38%,78% 100%,22% 100%,22% 38%,14% 58%,0 48%,12% 18%)}
-      .gco-product.hat{width:72%;height:105px;border-radius:55% 55% 18% 18% / 75% 75% 25% 25%;margin-top:25px}.gco-product.hat:after{content:"";position:absolute;right:-24%;bottom:-8px;width:46%;height:22px;background:#f4ebdd;border-radius:0 100% 40% 0;transform:skewX(-18deg)}
-      .gco-product.mug{width:58%;height:160px;border-radius:8px 8px 28px 28px}.gco-product.mug:after{content:"";position:absolute;right:-46px;top:34px;width:62px;height:78px;border:18px solid #f4ebdd;border-left:0;border-radius:0 55px 55px 0}
-      .gco-product.tote{width:64%;height:180px;border-radius:5px}.gco-product.tote:before{content:"";position:absolute;left:25%;top:-50px;width:50%;height:62px;border:14px solid #f4ebdd;border-bottom:0;border-radius:48px 48px 0 0}
+      .gco-product.hat{width:72%;height:105px;border-radius:55% 55% 18% 18% / 75% 75% 25% 25%;margin-top:25px;overflow:visible}.gco-product.hat:after{content:"";position:absolute;right:-24%;bottom:-8px;width:46%;height:22px;background:#f4ebdd;border-radius:0 100% 40% 0;transform:skewX(-18deg);z-index:-1}
+      .gco-product.mug{width:58%;height:160px;border-radius:8px 8px 28px 28px;overflow:visible}.gco-product.mug:after{content:"";position:absolute;right:-46px;top:34px;width:62px;height:78px;border:18px solid #f4ebdd;border-left:0;border-radius:0 55px 55px 0;z-index:-1}
+      .gco-product.tote{width:64%;height:180px;border-radius:5px;overflow:visible}.gco-product.tote:before{content:"";position:absolute;left:25%;top:-50px;width:50%;height:62px;border:14px solid #f4ebdd;border-bottom:0;border-radius:48px 48px 0 0;z-index:-1}
       .gco-product.poster{width:60%;height:210px;border-radius:3px}
-      .gco-art{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:46%;z-index:2;text-align:center;color:#07111f;font:900 clamp(12px,1.8vw,22px)/.95 Inter,Arial,sans-serif;overflow-wrap:anywhere}
+      .gco-art{position:relative;z-index:2;width:58%;text-align:center;color:#07111f;font:900 clamp(12px,1.8vw,22px)/.95 Inter,Arial,sans-serif;overflow-wrap:anywhere}
+      .gco-product.hat .gco-art{width:66%;font-size:clamp(9px,1.2vw,14px)}
+      .gco-product.mug .gco-art{width:72%;font-size:clamp(10px,1.4vw,17px)}
       .gco-art.vinyl{text-shadow:0 1px 0 rgba(255,255,255,.4)}
       .gco-art.screen-print{letter-spacing:.01em}
       .gco-art.embroidery{font-size:clamp(10px,1.45vw,17px);letter-spacing:.05em;text-shadow:.5px .5px 0 #0174F3}
@@ -86,7 +88,7 @@
       .gco-art.sublimation{background:linear-gradient(90deg,#0174F3,#07111f);-webkit-background-clip:text;background-clip:text;color:transparent}
       @media(max-width:650px){.gco-object{min-height:230px}}
     </style>
-    <div class="gco-head"><h3>${esc(options.heading||"MAKE THIS DESIGN INTO CODE")}</h3><p>Choose how it is built, then how it is physically applied. The result appears on the actual product surfaces.</p></div>
+    <div class="gco-head"><h3>${esc(options.heading||"MAKE THIS DESIGN INTO CODE")}</h3><p>Choose how it is built, then how it is physically applied. The rendered design appears inside the actual product surface.</p></div>
     <div class="gco-sub">Code method</div><div class="gco-grid"></div>
     <div class="gco-sub">Application</div><div class="gco-methods"></div>
     <div class="gco-stage" aria-live="polite"><div class="gco-stage-head"><strong class="gco-render-label">Rendered product</strong></div><div class="gco-products"></div></div>`;
@@ -101,10 +103,10 @@
     let application="Vinyl";
 
     function render(){
-      const d=data(context),pc=productClass(d.product),surfaces=surfacesFor(d.product);
-      generate(selected,context,application);
-      products.innerHTML=surfaces.map(surface=>`<div class="gco-side"><span>${surface}</span><div class="gco-object"><div class="gco-product ${pc}"></div><div class="gco-art ${application.toLowerCase().replace(/\s+/g,'-')}">${esc(surfaceText(surface,d))}</div></div></div>`).join('');
-      label.textContent=`${d.product} · ${application}`;
+      const rendered=generate(selected,context,application);
+      const pc=productClass(rendered.product),surfaces=surfacesFor(rendered.product);
+      products.innerHTML=surfaces.map(surface=>`<div class="gco-side"><span>${surface}</span><div class="gco-object"><div class="gco-product ${pc} ${surface.toLowerCase()}"><div class="gco-art ${application.toLowerCase().replace(/\s+/g,'-')}">${esc(surfaceText(surface,rendered))}</div></div></div></div>`).join('');
+      label.textContent=`${rendered.product} · ${application}`;
       stage.classList.add('open');
     }
 
