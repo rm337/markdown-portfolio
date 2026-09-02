@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>T-Shirt Spitter | Inkspirations Studios</title>
+<meta name="description" content="A standalone public T-Shirt Spitter for turning phrases and Double-Taker reads into wearable design directions.">
+<meta name="robots" content="index,follow">
+<style>
+:root{--bg:#030812;--panel:#081526;--line:rgba(255,255,255,.13);--text:#f7fbff;--muted:#a9b7c7;--blue:#0174f3;--aqua:#5ed6c4;--cream:#f4ebdd;--mint:#83f3ba}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at 78% 8%,rgba(1,116,243,.22),transparent 28%),linear-gradient(160deg,#02060d,#071427 55%,#030812);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}.shell{width:min(calc(100% - 32px),1180px);margin:auto;padding:48px 0 70px}.eyebrow,.label{font-size:.72rem;font-weight:900;letter-spacing:.15em;text-transform:uppercase;color:var(--aqua)}h1{font-size:clamp(3rem,8vw,6.7rem);line-height:.9;letter-spacing:-.055em;margin:.25rem 0 1rem}.intro{max-width:820px;font-size:1.15rem;color:#dce7f1}.machine{margin-top:32px;border:1px solid var(--line);border-radius:24px;background:rgba(8,21,38,.94);box-shadow:0 30px 90px rgba(0,0,0,.4);overflow:hidden}.grid{display:grid;grid-template-columns:1fr 1fr}.bay{padding:24px;border-right:1px solid var(--line)}.bay:last-child{border-right:0}textarea,select{width:100%;border:1px solid var(--line);background:#030a13;color:var(--text);border-radius:14px;padding:14px;font:inherit}textarea{min-height:145px;resize:vertical}.row,.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}button,.link{border:1px solid rgba(94,214,196,.42);border-radius:999px;background:rgba(1,116,243,.18);color:#fff;padding:11px 16px;font-weight:850;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}.primary{background:linear-gradient(90deg,var(--blue),#38cbe8);border:0}.output{padding:26px;border-top:1px solid var(--line)}.phrase{font-size:clamp(2rem,5vw,4.2rem);line-height:.95;color:var(--cream);letter-spacing:-.04em;margin:10px 0 22px}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.card{padding:15px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.035)}.card b{display:block;color:var(--mint);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px}.note{color:var(--muted);font-size:.9rem}.status{color:var(--mint);font-weight:800}.footer{margin-top:24px;color:var(--muted);display:flex;gap:12px;flex-wrap:wrap}.footer a{color:var(--aqua)}@media(max-width:800px){.grid,.cards{grid-template-columns:1fr}.bay{border-right:0;border-bottom:1px solid var(--line)}}
+</style>
+</head>
+<body>
+<main class="shell">
+<p class="eyebrow">Inkspirations Studios · Creative Lab · Public Machine</p>
+<h1>The T-Shirt Spitter.</h1>
+<p class="intro">Feed it a phrase, a Double-Taker read, or a stray line. It turns the idea into a wearable direction while Robert keeps the final creative call.</p>
+<section class="machine">
+<div class="grid">
+<div class="bay"><span class="label">Input Hopper</span><textarea id="seed" placeholder="Drop in a phrase..."></textarea><div class="row"><button class="primary" id="spit">Spit a Concept</button><button id="remix">Run It Again</button></div><p class="note" id="incoming">Ready for a phrase.</p></div>
+<div class="bay"><span class="label">Product Route</span><select id="product"><option>T-Shirt</option><option>Hoodie / Sweatshirt</option><option>Hat / Cap</option><option>Tote Bag</option><option>Mug</option><option>Poster / Print</option></select><p class="note">Product choice changes the placement direction, not the idea. Pricing remains connected to Pricing & Orders.</p><div class="actions"><a class="link" href="pricing.html">Pricing & Orders</a><a class="link" href="rooms.html">Creative Lab</a></div></div>
+</div>
+<div class="output"><span class="label">Output Tray</span><div class="phrase" id="phrase">FEED THE HOPPER.</div><div class="cards"><div class="card"><b>Front</b><span id="front">—</span></div><div class="card"><b>Back / Secondary</b><span id="back">—</span></div><div class="card"><b>Visual Direction</b><span id="visual">—</span></div><div class="card"><b>Type / Color</b><span id="type">—</span></div></div><p class="status" id="status"></p><div id="spitterCode"></div></div>
+</section>
+<p class="footer">Standalone public route · <a href="double-taker.html">Back to Double-Taker</a> · <a href="pricing.html">Pricing & Orders</a></p>
+</main>
+<script src="js/gadget-code-options.js"></script>
+<script>
+const seed=document.querySelector('#seed'),phrase=document.querySelector('#phrase'),front=document.querySelector('#front'),back=document.querySelector('#back'),visual=document.querySelector('#visual'),type=document.querySelector('#type'),product=document.querySelector('#product'),status=document.querySelector('#status'),incoming=document.querySelector('#incoming');
+let turn=0;
+const treatments=[
+ {visual:'Oversized phrase with one word behaving literally as an object or interruption.',type:'Heavy sans serif, high contrast, Inkspirations blue #0174F3 with cream.'},
+ {visual:'Split the phrase into two readings so the second meaning lands half a beat later.',type:'Condensed display type plus a quieter secondary line; deep ocean contrast.'},
+ {visual:'Use minimal typography and one absurd visual cue that makes the wordplay visible.',type:'Clean uppercase typography, generous spacing, blue / cream / near-black.'},
+ {visual:'Turn the phrase into a badge, warning label, instruction panel, or fake technical readout.',type:'Utility type, compact labels, bright blue accent with white text.'}
+];
+function run(){const raw=seed.value.trim();if(!raw){status.textContent='Give the machine something to wear.';return}const t=treatments[turn%treatments.length];turn++;const p=product.value;phrase.textContent=raw.toUpperCase();front.textContent=raw;back.textContent=p==='Hat / Cap'?'Keep the secondary read tiny or move it to the side/back embroidery.':'Optional second read, callback, or short Inkspirations signature line.';visual.textContent=t.visual+' Route it for '+p.toLowerCase()+'.';type.textContent=t.type;status.textContent='Concept routed. Robert gives the direction.'}
+document.querySelector('#spit').onclick=run;document.querySelector('#remix').onclick=run;product.onchange=()=>{if(seed.value.trim())run()};
+const params=new URLSearchParams(location.search);const q=(params.get('seed')||'').trim();if(q){seed.value=q;incoming.textContent='Incoming seed received from '+(params.get('source')==='double-taker'?'Double-Taker':'another creative room')+'.';setTimeout(run,50)}else{try{const hand=JSON.parse(localStorage.getItem('doubleTakerHandoff')||'null');if(hand?.read){seed.value=hand.read;incoming.textContent='Double-Taker handoff received.';setTimeout(run,50)}}catch(e){}}
+window.InkspirationsGadgetCode?.mount('#spitterCode',()=>({title:'T-Shirt Spitter concept',phrase:phrase.textContent,explanation:visual.textContent,visual:type.textContent,product:product.value,price:'See Pricing & Orders',source:'T-Shirt Spitter',directionMode:'Robert gives the direction'}));
+</script>
+</body>
+</html>
