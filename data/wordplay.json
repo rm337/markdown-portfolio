@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-09-01",
+  "updated": "2026-09-02",
   "entries": [
     {
       "word": "Crologic",
@@ -46,6 +46,14 @@
       "definition": "A person who catches the faintest hint of a word and follows it until language starts drawing its own conclusions.",
       "category": "ink-pun",
       "date": "2026-09-01",
+      "status": "active"
+    },
+    {
+      "word": "Draftodactyl",
+      "type": "noun",
+      "definition": "An ancient version of an idea that keeps lumbering back into the newest draft.",
+      "category": "word-combo",
+      "date": "2026-09-02",
       "status": "active"
     }
   ]
