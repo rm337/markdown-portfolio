@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Double-Taker | Inkspirations Studios Creative Lab</title>
+<meta name="description" content="The Double-Taker is an interactive multiple-meaning engine from Inkspirations Studios Creative Lab.">
+<style>
+:root{--bg:#030812;--panel:#081526;--line:rgba(255,255,255,.12);--text:#f7fbff;--muted:#a9b7c7;--blue:#0174f3;--aqua:#5ed6c4;--cream:#f4ebdd}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at 75% 8%,rgba(1,116,243,.2),transparent 28%),linear-gradient(160deg,#02060d,#071427 55%,#030812);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}.shell{width:min(calc(100% - 36px),1100px);margin:auto;padding:70px 0}.eyebrow,.label{font-size:.72rem;font-weight:850;letter-spacing:.16em;text-transform:uppercase;color:var(--aqua)}h1{font-size:clamp(3.2rem,9vw,7rem);line-height:.9;letter-spacing:-.06em;margin:.2rem 0 1.2rem}.intro{max-width:760px;font-size:1.2rem;color:#dce7f1}.machine{margin-top:45px;border:1px solid var(--line);border-radius:26px;overflow:hidden;background:rgba(8,21,38,.88);box-shadow:0 30px 90px rgba(0,0,0,.35)}.head{padding:25px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:20px;align-items:end}.head h2{margin:0;font-size:1.6rem}.grid{display:grid;grid-template-columns:1fr 1fr}.bay{padding:26px}.bay:first-child{border-right:1px solid var(--line)}textarea{width:100%;min-height:145px;margin-top:12px;border:1px solid var(--line);border-radius:16px;background:#030a13;color:var(--text);padding:16px;font:inherit;resize:vertical}button{border:1px solid rgba(94,214,196,.4);border-radius:999px;background:rgba(1,116,243,.18);color:white;padding:12px 18px;font-weight:800;cursor:pointer;margin-top:12px}button:hover{background:rgba(1,116,243,.35)}.reading{font-size:clamp(2rem,5vw,3.8rem);line-height:1;margin:15px 0;color:var(--cream);letter-spacing:-.04em}.route{color:var(--aqua);font-weight:800}.explain{color:#c1ceda}.examples{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.examples button{margin:0;background:rgba(255,255,255,.04);font-size:.82rem}.footer{margin-top:28px;color:var(--muted);font-size:.9rem}.footer a{color:var(--aqua)}@media(max-width:720px){.grid{grid-template-columns:1fr}.bay:first-child{border-right:0;border-bottom:1px solid var(--line)}.shell{padding-top:45px}}
+</style></head>
+<body><main class="shell">
+<p class="eyebrow">Inkspirations Studios · Creative Lab · Language Experiment</p>
+<h1>The Double-Taker.</h1>
+<p class="intro">A multiple-meaning engine that takes familiar words and phrases apart, then puts them back together differently. It hunts for the second reading hiding inside the first.</p>
+<section class="machine">
+<div class="head"><div><span class="label">Multiple-Meaning Engine</span><h2>First read → second read</h2></div><span class="eyebrow">Working Machine</span></div>
+<div class="grid">
+<div class="bay"><span class="label">01 / Give it something familiar</span><textarea id="input" placeholder="Try: underwear, sole survivor, nowhere, understand..."></textarea><button id="take">Take Another Look</button><p class="explain">The machine checks respacing, compound boundaries, sound-alikes and deliberately literal interpretations.</p><div class="examples"><button data-word="underwear">UNDERWEAR</button><button data-word="sole survivor">SOLE SURVIVOR</button><button data-word="nowhere">NOWHERE</button><button data-word="understand">UNDERSTAND</button></div></div>
+<div class="bay"><span class="label">02 / The second read</span><p class="route" id="route">Waiting for a word worth looking at twice.</p><div class="reading" id="reading">DOUBLE TAKE.</div><p class="explain" id="explain">One reading walks in. Another one is hiding behind it.</p></div>
+</div></section>
+<p class="footer">Founding specimen: <strong>UNDERWEAR → UNDER + WEAR → UNDER WHERE?</strong> · <a href="linkedin.html">Back to Creative Lab</a></p>
+</main>
+<script>
+const input=document.querySelector('#input'),reading=document.querySelector('#reading'),explain=document.querySelector('#explain'),route=document.querySelector('#route');
+const known={
+'underwear':['UNDER WHERE?','Respacing + sound-alike','The garment becomes a location question.'],
+'sole survivor':['SOLE / SOUL SURVIVOR','Homophone swap','The soul that hung around to find the lost sock.'],
+'nowhere':['NOW / HERE','Boundary shift','Move the space and absence suddenly becomes presence.'],
+'understand':['UNDER / STAND','Literal split','Understanding becomes a stand located underneath something.']};
+function take(){const raw=input.value.trim();if(!raw){reading.textContent='FEED ME A WORD.';route.textContent='The machine cannot double-take at silence.';explain.textContent='Try one of the specimens on the left.';return}const key=raw.toLowerCase();if(known[key]){reading.textContent=known[key][0];route.textContent=known[key][1];explain.textContent=known[key][2];return}const compact=raw.replace(/\s+/g,'');let candidates=[];for(let i=2;i<compact.length-1;i++){const a=compact.slice(0,i),b=compact.slice(i);if(a.length>1&&b.length>1)candidates.push(a.toUpperCase()+' / '+b.toUpperCase())}const pick=candidates.length?candidates[Math.floor(candidates.length/2)]:raw.toUpperCase();reading.textContent=pick;route.textContent='Boundary experiment';explain.textContent='A speculative second reading. Move the boundary, say it aloud, and see whether another meaning appears.'}
+document.querySelector('#take').onclick=take;input.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();take()}});document.querySelectorAll('[data-word]').forEach(b=>b.onclick=()=>{input.value=b.dataset.word;take()});
+</script></body></html>
