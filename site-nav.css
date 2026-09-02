@@ -88,3 +88,16 @@
 .feature-visual::after {
   display: none !important;
 }
+
+/* Public-site consolidation: legacy Lovable project links/panels are retired.
+   Ocean of Ink is the sole public-facing studio destination. */
+a[href*="robert-marleton.lovable.app"] {
+  display: none !important;
+}
+
+.room-card[href*="robert-marleton.lovable.app"],
+.project-card[href*="robert-marleton.lovable.app"],
+.work-card[href*="robert-marleton.lovable.app"],
+.panel[href*="robert-marleton.lovable.app"] {
+  display: none !important;
+}
