@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-09-02",
+  "updated": "2026-09-03",
   "entries": [
     {
       "word": "Crologic",
@@ -54,6 +54,14 @@
       "definition": "An ancient version of an idea that keeps lumbering back into the newest draft.",
       "category": "word-combo",
       "date": "2026-09-02",
+      "status": "active"
+    },
+    {
+      "word": "Metaphorbit",
+      "type": "noun",
+      "definition": "The path an idea takes when one metaphor pulls it into the gravity of another.",
+      "category": "language-collision",
+      "date": "2026-09-03",
       "status": "active"
     }
   ]
