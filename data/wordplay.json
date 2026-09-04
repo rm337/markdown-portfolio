@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-09-03",
+  "updated": "2026-09-04",
   "entries": [
     {
       "word": "Crologic",
@@ -62,6 +62,14 @@
       "definition": "The path an idea takes when one metaphor pulls it into the gravity of another.",
       "category": "language-collision",
       "date": "2026-09-03",
+      "status": "active"
+    },
+    {
+      "word": "Typothesis",
+      "type": "noun",
+      "definition": "A visual idea tested by changing the typography until the words prove what they mean.",
+      "category": "typography-collision",
+      "date": "2026-09-04",
       "status": "active"
     }
   ]
