@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-09-04",
+  "updated": "2026-09-05",
   "entries": [
     {
       "word": "Crologic",
@@ -70,6 +70,14 @@
       "definition": "A visual idea tested by changing the typography until the words prove what they mean.",
       "category": "typography-collision",
       "date": "2026-09-04",
+      "status": "active"
+    },
+    {
+      "word": "Semantick",
+      "type": "noun",
+      "definition": "A tiny change in meaning that latches onto a sentence and refuses to let go.",
+      "category": "language-collision",
+      "date": "2026-09-05",
       "status": "active"
     }
   ]
