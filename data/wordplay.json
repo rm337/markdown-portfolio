@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-09-05",
+  "updated": "2026-09-06",
   "entries": [
     {
       "word": "Crologic",
@@ -78,6 +78,14 @@
       "definition": "A tiny change in meaning that latches onto a sentence and refuses to let go.",
       "category": "language-collision",
       "date": "2026-09-05",
+      "status": "active"
+    },
+    {
+      "word": "Quirkulation",
+      "type": "noun",
+      "definition": "The movement of an odd little idea from one mind to another until it becomes shared creative currency.",
+      "category": "word-combo",
+      "date": "2026-09-06",
       "status": "active"
     }
   ]
