@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LinkedIn Newsletter Studio | Fluid Systems</title>
+<meta name="description" content="A Fluid Systems workspace for drafting, previewing and preparing LinkedIn newsletter editions while keeping the source content under your control.">
+<style>
+:root{--bg:#030812;--panel:#07111f;--panel2:#0a1728;--line:rgba(255,255,255,.11);--text:#f7fbff;--muted:#a9b7c7;--blue:#0174f3;--blue2:#5bb6ff;--ok:#76d7a5;--warn:#f4c96b;--max:1180px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(180deg,#02060d 0%,#061120 48%,#030812 100%);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}button,input,textarea{font:inherit}.shell{width:min(calc(100% - 32px),var(--max));margin:0 auto}header{padding:42px 0 30px;border-bottom:1px solid var(--line)}.eyebrow{margin:0 0 10px;color:var(--blue2);font-size:.76rem;font-weight:800;letter-spacing:.17em;text-transform:uppercase}.topline{display:flex;align-items:flex-start;justify-content:space-between;gap:20px}h1{margin:0;font-size:clamp(2.25rem,5vw,4.6rem);line-height:.95;letter-spacing:-.05em}.intro{max-width:780px;margin:18px 0 0;color:#d9e5f1}.back{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:0 15px;border:1px solid var(--line);border-radius:999px;color:var(--text);text-decoration:none;background:rgba(255,255,255,.03)}main{padding:30px 0 70px}.statusbar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px}.pill{padding:7px 11px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:.84rem;font-weight:750;background:rgba(255,255,255,.025)}.pill.live{color:var(--ok);border-color:rgba(118,215,165,.3)}.workspace{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(360px,.95fr);gap:20px}.panel{border:1px solid var(--line);border-radius:22px;background:linear-gradient(145deg,rgba(10,23,40,.96),rgba(5,13,24,.96));box-shadow:0 18px 55px rgba(0,0,0,.22);overflow:hidden}.panelhead{padding:20px 22px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:18px;align-items:center}.panelhead h2{margin:0;font-size:1.1rem}.panelhead span{color:var(--muted);font-size:.82rem}.body{padding:22px}.field{margin-bottom:18px}.field label{display:block;margin-bottom:7px;color:#dce7f2;font-size:.83rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase}.field input,.field textarea{width:100%;border:1px solid rgba(255,255,255,.13);border-radius:14px;background:#040b14;color:var(--text);padding:13px 14px;outline:none}.field input:focus,.field textarea:focus{border-color:rgba(91,182,255,.7);box-shadow:0 0 0 3px rgba(1,116,243,.12)}textarea{resize:vertical;min-height:124px}.field small{display:block;margin-top:7px;color:var(--muted)}.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}.btn{min-height:44px;padding:0 16px;border-radius:999px;border:1px solid rgba(91,182,255,.38);background:rgba(1,116,243,.14);color:var(--text);font-weight:800;cursor:pointer}.btn:hover,.btn:focus-visible{background:rgba(1,116,243,.25);border-color:rgba(91,182,255,.75);outline:none}.btn.secondary{background:rgba(255,255,255,.03);border-color:var(--line)}.btn.danger{background:rgba(244,201,107,.08);border-color:rgba(244,201,107,.24);color:#ffe6a8}.hint{margin:14px 0 0;color:var(--muted);font-size:.88rem}.preview{min-height:560px}.preview .body{padding:28px}.preview-kicker{margin:0 0 12px;color:var(--blue2);font-size:.72rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}.preview h3{margin:0 0 12px;font-size:clamp(2rem,4vw,3.3rem);line-height:1;letter-spacing:-.045em}.preview .dek{margin:0 0 24px;color:#c7d6e4;font-size:1.06rem}.article{white-space:pre-wrap;color:#eef5fb}.article:empty:before{content:"Your newsletter body will appear here.";color:#6f8195}.meta{margin-top:28px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:.86rem}.footer-note{margin-top:20px;padding:18px 20px;border:1px dashed rgba(91,182,255,.28);border-radius:16px;color:#b9c8d7;background:rgba(1,116,243,.05)}.footer-note strong{color:var(--text)}@media(max-width:900px){.workspace{grid-template-columns:1fr}.topline{display:block}.back{margin-top:18px}.preview{min-height:420px}}
+</style>
+</head>
+<body>
+<header><div class="shell"><div class="topline"><div><p class="eyebrow">Fluid Systems · LinkedIn Sandbox</p><h1>Newsletter Studio</h1><p class="intro">Draft it here. Shape it here. Keep the source here. LinkedIn becomes a distribution destination, not the place where the thinking lives.</p></div><a class="back" href="linkedin.html">← LinkedIn Edition</a></div></div></header>
+<main class="shell">
+<div class="statusbar"><span class="pill live">Local draft workspace active</span><span class="pill" id="saveState">No committed draft yet</span><span class="pill">Signature blue · #0174F3</span></div>
+<div class="workspace">
+<section class="panel" aria-label="Newsletter editor"><div class="panelhead"><h2>Edition Builder</h2><span>Enter commits a pending edit</span></div><div class="body">
+<div class="field"><label for="series">Newsletter / Series</label><input id="series" type="text" placeholder="e.g. Fluid Thinking"><small>Optional series name.</small></div>
+<div class="field"><label for="title">Edition Title</label><input id="title" type="text" placeholder="Give this edition a strong title"></div>
+<div class="field"><label for="dek">Opening / Deck</label><textarea id="dek" placeholder="One or two lines that tell readers why this matters."></textarea></div>
+<div class="field"><label for="body">Newsletter Body</label><textarea id="body" style="min-height:300px" placeholder="Write the edition here. Use short paragraphs and useful breathing room."></textarea></div>
+<div class="field"><label for="cta">Closing / CTA</label><textarea id="cta" placeholder="Question, invitation, link direction, or closing thought."></textarea></div>
+<div class="actions"><button class="btn" id="commit">Commit Draft</button><button class="btn secondary" id="copy">Copy LinkedIn Version</button><button class="btn secondary" id="download">Download .txt</button><button class="btn danger" id="reset">Reset Pending</button></div>
+<p class="hint">Typing changes the preview only. The saved source stays untouched until you explicitly commit. Press <strong>Enter</strong> while focused on a single-line field, or use <strong>Commit Draft</strong>. Escape restores the last committed version.</p>
+</div></section>
+<aside class="panel preview" aria-label="Newsletter preview"><div class="panelhead"><h2>LinkedIn Preview</h2><span id="wordCount">0 words</span></div><div class="body"><p class="preview-kicker" id="pSeries">LinkedIn Newsletter</p><h3 id="pTitle">Untitled Edition</h3><p class="dek" id="pDek">Your opening line will appear here.</p><div class="article" id="pBody"></div><div class="article" id="pCta" style="margin-top:22px"></div><div class="meta">Prepared in Fluid Systems · LinkedIn Sandbox</div></div></aside>
+</div>
+<div class="footer-note"><strong>Distribution boundary:</strong> this workspace prepares the newsletter and keeps a committed local source copy. It does not publish directly to LinkedIn. Use “Copy LinkedIn Version” when the edition is ready, then paste it into LinkedIn’s newsletter editor.</div>
+</main>
+<script>
+const ids=['series','title','dek','body','cta'];
+const els=Object.fromEntries(ids.map(id=>[id,document.getElementById(id)]));
+const preview={series:document.getElementById('pSeries'),title:document.getElementById('pTitle'),dek:document.getElementById('pDek'),body:document.getElementById('pBody'),cta:document.getElementById('pCta')};
+const stateEl=document.getElementById('saveState');
+const wc=document.getElementById('wordCount');
+const key='fluidSystemsLinkedInNewsletterDraftV1';
+let committed={series:'',title:'',dek:'',body:'',cta:''};
+try{const saved=JSON.parse(localStorage.getItem(key)||'null');if(saved&&typeof saved==='object'){committed={...committed,...saved};ids.forEach(id=>els[id].value=committed[id]||'');stateEl.textContent='Committed draft loaded';}}catch(e){}
+function current(){return Object.fromEntries(ids.map(id=>[id,els[id].value]));}
+function render(){const v=current();preview.series.textContent=v.series.trim()||'LinkedIn Newsletter';preview.title.textContent=v.title.trim()||'Untitled Edition';preview.dek.textContent=v.dek.trim()||'Your opening line will appear here.';preview.body.textContent=v.body;preview.cta.textContent=v.cta;const words=[v.title,v.dek,v.body,v.cta].join(' ').trim().match(/\S+/g)||[];wc.textContent=`${words.length} words`;const dirty=ids.some(id=>(v[id]||'')!==(committed[id]||''));stateEl.textContent=dirty?'Pending changes':'Committed';}
+ids.forEach(id=>els[id].addEventListener('input',render));
+function commit(){committed=current();localStorage.setItem(key,JSON.stringify(committed));render();stateEl.textContent='Committed just now';}
+document.getElementById('commit').addEventListener('click',commit);
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){ids.forEach(id=>els[id].value=committed[id]||'');render();}if(e.key==='Enter'&&e.target.tagName==='INPUT'){e.preventDefault();commit();}});
+function linkedInText(v){const parts=[];if(v.series.trim())parts.push(v.series.trim());if(v.title.trim())parts.push(v.title.trim());if(v.dek.trim())parts.push(v.dek.trim());if(v.body.trim())parts.push(v.body.trim());if(v.cta.trim())parts.push(v.cta.trim());return parts.join('\n\n');}
+document.getElementById('copy').addEventListener('click',async()=>{const text=linkedInText(current());try{await navigator.clipboard.writeText(text);stateEl.textContent='Copied for LinkedIn';}catch(e){stateEl.textContent='Copy unavailable';}});
+document.getElementById('download').addEventListener('click',()=>{const text=linkedInText(current());const blob=new Blob([text],{type:'text/plain;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=((els.title.value||'linkedin-newsletter').trim().replace(/[^a-z0-9]+/gi,'-').replace(/^-|-$/g,'').toLowerCase()||'linkedin-newsletter')+'.txt';document.body.appendChild(a);a.click();URL.revokeObjectURL(a.href);a.remove();});
+document.getElementById('reset').addEventListener('click',()=>{ids.forEach(id=>els[id].value=committed[id]||'');render();});
+render();
+</script>
+</body>
+</html>
