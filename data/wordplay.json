@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-09-06",
+  "updated": "2026-09-07",
   "entries": [
     {
       "word": "Crologic",
@@ -86,6 +86,14 @@
       "definition": "The movement of an odd little idea from one mind to another until it becomes shared creative currency.",
       "category": "word-combo",
       "date": "2026-09-06",
+      "status": "active"
+    },
+    {
+      "word": "Idecho",
+      "type": "noun",
+      "definition": "A thought that returns from someone else's mind carrying a meaning you never put into it.",
+      "category": "concept-collision",
+      "date": "2026-09-07",
       "status": "active"
     }
   ]
