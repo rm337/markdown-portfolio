@@ -7,7 +7,7 @@
   <style>
     :root{--blue:#0174F3;--bg:#07111f;--panel:#0d1b2b;--text:#f7fbff;--muted:#a9bad0;--line:#1d3550}
     *{box-sizing:border-box} body{margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(180deg,#050b14,#0a1524 60%,#07111f);color:var(--text)}
-    main{max-width:760px;margin:0 auto;padding:32px 18px 64px}.brand{letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--blue);font-size:.82rem}.tag{color:var(--muted);margin-top:6px}.hero{padding:28px 0 20px}h1{font-size:clamp(2rem,7vw,4rem);line-height:.98;margin:12px 0 16px}.lead{font-size:1.08rem;line-height:1.65;color:#d8e5f5}.panel{background:rgba(13,27,43,.94);border:1px solid var(--line);border-radius:20px;padding:22px;margin:22px 0}.notice{border-left:4px solid var(--blue);padding:14px 16px;background:#0a1727;border-radius:10px;color:#dceaff}.field{margin:18px 0}label{display:block;font-weight:700;margin-bottom:8px}input,textarea,select{width:100%;background:#081321;color:var(--text);border:1px solid #294666;border-radius:12px;padding:13px 14px;font:inherit}textarea{min-height:110px;resize:vertical}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.choice{display:flex;gap:10px;flex-wrap:wrap}.choice label{font-weight:500;border:1px solid #294666;border-radius:999px;padding:10px 12px;cursor:pointer}.choice input{width:auto;margin-right:6px}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}.btn{display:inline-block;border:0;border-radius:999px;padding:13px 18px;font-weight:800;text-decoration:none;cursor:pointer}.primary{background:var(--blue);color:white}.secondary{background:#14243a;color:white;border:1px solid #2a4668}.tiny{font-size:.86rem;color:var(--muted);line-height:1.5}.footer{margin-top:28px;color:var(--muted);font-size:.9rem;text-align:center}@media(max-width:560px){.row{grid-template-columns:1fr}}
+    main{max-width:760px;margin:0 auto;padding:32px 18px 64px}.brand{letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--blue);font-size:.82rem}.tag{color:var(--muted);margin-top:6px}.hero{padding:28px 0 20px}h1{font-size:clamp(2rem,7vw,4rem);line-height:.98;margin:12px 0 16px}.lead{font-size:1.08rem;line-height:1.65;color:#d8e5f5}.panel{background:rgba(13,27,43,.94);border:1px solid var(--line);border-radius:20px;padding:22px;margin:22px 0}.notice{border-left:4px solid var(--blue);padding:14px 16px;background:#0a1727;border-radius:10px;color:#dceaff}.field{margin:18px 0}label{display:block;font-weight:700;margin-bottom:8px}input,textarea{width:100%;background:#081321;color:var(--text);border:1px solid #294666;border-radius:12px;padding:13px 14px;font:inherit}textarea{min-height:110px;resize:vertical}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.choice{display:flex;gap:10px;flex-wrap:wrap}.choice label{font-weight:500;border:1px solid #294666;border-radius:999px;padding:10px 12px}.choice input{width:auto;margin-right:6px}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}.btn{display:inline-block;border:0;border-radius:999px;padding:13px 18px;font-weight:800;text-decoration:none}.primary{background:var(--blue);color:white}.secondary{background:#14243a;color:white;border:1px solid #2a4668}.disabled{opacity:.55;cursor:not-allowed}.tiny{font-size:.86rem;color:var(--muted);line-height:1.5}.footer{margin-top:28px;color:var(--muted);font-size:.9rem;text-align:center}@media(max-width:560px){.row{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
@@ -21,58 +21,19 @@
   </div>
 
   <div class="panel">
-    <div class="notice"><strong>This is temporary research.</strong> I’m collecting feedback for roughly the next week or two so I can see what people actually want before I build more.</div>
-
-    <form id="researchForm">
-      <div class="row">
-        <div class="field"><label for="name">Name <span class="tiny">(optional)</span></label><input id="name" name="name" autocomplete="name" /></div>
-        <div class="field"><label for="machine">What did you try?</label><input id="machine" name="machine" placeholder="Word machine, page, feature…" /></div>
-      </div>
-
-      <div class="field"><label>Did you understand what it was supposed to do?</label><div class="choice"><label><input type="radio" name="understood" value="Yes" />Yes</label><label><input type="radio" name="understood" value="Mostly" />Mostly</label><label><input type="radio" name="understood" value="Not really" />Not really</label></div></div>
-
-      <div class="field"><label>Would you use something like this again?</label><div class="choice"><label><input type="radio" name="again" value="Yes" />Yes</label><label><input type="radio" name="again" value="Maybe" />Maybe</label><label><input type="radio" name="again" value="No" />No</label></div></div>
-
-      <div class="field"><label for="liked">What did you like?</label><textarea id="liked" name="liked"></textarea></div>
-      <div class="field"><label for="improve">What would you change or improve?</label><textarea id="improve" name="improve"></textarea></div>
-      <div class="field"><label for="next">What should I build next?</label><textarea id="next" name="next" placeholder="This is the big one. The most-requested idea may become the next feature."></textarea></div>
-      <div class="field"><label for="other">Anything else?</label><textarea id="other" name="other"></textarea></div>
-
-      <div class="actions"><button class="btn primary" type="submit">Send feedback to Robert</button><a class="btn secondary" href="https://inkspirations-photo-studio.lovable.app">Back to the machines</a></div>
-      <p class="tiny">Submitting opens your email app with your answers already filled in. You can review them before sending.</p>
-    </form>
+    <div class="notice"><strong>This is temporary research.</strong> Feedback will be collected in one research dashboard, not by email.</div>
+    <div class="row">
+      <div class="field"><label>Name <span class="tiny">(optional)</span></label><input disabled /></div>
+      <div class="field"><label>What did you try?</label><input disabled placeholder="Word machine, page, feature…" /></div>
+    </div>
+    <div class="field"><label>What did you like?</label><textarea disabled></textarea></div>
+    <div class="field"><label>What would you change or improve?</label><textarea disabled></textarea></div>
+    <div class="field"><label>What should I build next?</label><textarea disabled placeholder="The most-requested idea may become the next feature."></textarea></div>
+    <div class="actions"><button class="btn primary disabled" type="button" disabled>Research collector being connected</button><a class="btn secondary" href="https://inkspirations-photo-studio.lovable.app">Back to the machines</a></div>
+    <p class="tiny">Email collection has been removed. This page will use a centralized form collector so responses stay together and can be ranked.</p>
   </div>
 
   <div class="footer">Inkspirations Studios · Creative Lab Research</div>
 </main>
-<script>
-const form=document.getElementById('researchForm');
-form.addEventListener('submit',function(e){
-  e.preventDefault();
-  const data=new FormData(form);
-  const value=(k)=>data.get(k)||'';
-  const body=[
-    'INKSPIRATIONS CREATIVE LAB RESEARCH',
-    '',
-    'Name: '+value('name'),
-    'Tried: '+value('machine'),
-    'Understood it: '+value('understood'),
-    'Would use again: '+value('again'),
-    '',
-    'WHAT I LIKED',value('liked'),
-    '',
-    'WHAT I WOULD CHANGE',value('improve'),
-    '',
-    'WHAT ROBERT SHOULD BUILD NEXT',value('next'),
-    '',
-    'ANYTHING ELSE',value('other'),
-    '',
-    'Page: '+location.href,
-    'Referrer: '+(document.referrer||'Direct/unknown')
-  ].join('\n');
-  const subject='Creative Lab research feedback';
-  location.href='mailto:r.marleton@gmail.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
-});
-</script>
 </body>
 </html>
