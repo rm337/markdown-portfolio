@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-09-07",
+  "updated": "2026-09-08",
   "entries": [
     {
       "word": "Crologic",
@@ -94,6 +94,14 @@
       "definition": "A thought that returns from someone else's mind carrying a meaning you never put into it.",
       "category": "concept-collision",
       "date": "2026-09-07",
+      "status": "active"
+    },
+    {
+      "word": "Phraseprint",
+      "type": "noun",
+      "definition": "The distinctive verbal trace a person leaves behind when their way of arranging words becomes unmistakably their own.",
+      "category": "language-collision",
+      "date": "2026-09-08",
       "status": "active"
     }
   ]
