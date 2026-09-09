@@ -10,7 +10,7 @@
   };
   const editionLabel = item => {
     if (!item || item.edition_type === 'Unassigned') return 'Pending classification';
-    if (item.edition_type === 'Limited Series' && item.edition_number && item.edition_size) return `${item.edition_type} • ${item.edition_number}/${item.edition_size}`;
+    if (['Limited Edition', 'Limited Series'].includes(item.edition_type) && item.edition_number && item.edition_size) return `${item.edition_type} • ${item.edition_number}/${item.edition_size}`;
     return item.edition_type;
   };
   const addViewerFields = () => {
