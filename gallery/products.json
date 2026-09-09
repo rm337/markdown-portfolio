@@ -1,34 +1,44 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "policy": {
     "personal_shipping": false,
     "digital_delivery": "secure_online_delivery",
     "physical_fulfillment": "approved_fulfillment_partner",
     "pricing_display": "starting_at"
   },
+  "pricing_rules": {
+    "Open Edition": {"pricing_mode":"starting_at","starting_at":9.99,"currency":"USD","variable_by":["format","size","fulfillment_product"]},
+    "Limited Edition": {"pricing_mode":"starting_at","starting_at":null,"currency":"USD","variable_by":["edition_size","artwork","format","authentication"]},
+    "Limited Series": {"pricing_mode":"starting_at","starting_at":null,"currency":"USD","variable_by":["series","edition_size","artwork","format","authentication"]},
+    "Custom Commission": {"pricing_mode":"starting_at","starting_at":null,"currency":"USD","variable_by":["complexity","dimensions","concept_count","revisions","deadline","usage_rights","exclusivity"]},
+    "Digital Original 1 of 1": {"pricing_mode":"starting_at","starting_at":null,"currency":"USD","variable_by":["artwork","provenance","authentication","usage_rights"]},
+    "Physical Original 1 of 1": {"pricing_mode":"starting_at","starting_at":null,"currency":"USD","variable_by":["artwork","dimensions","medium","authentication"]},
+    "Merchandise": {"pricing_mode":"starting_at","starting_at":null,"currency":"USD","variable_by":["product","size","fulfillment_partner"]}
+  },
   "edition_types": [
     "Digital Original 1 of 1",
     "Physical Original 1 of 1",
+    "Limited Edition",
     "Limited Series",
     "Open Edition",
     "Custom Commission",
     "Merchandise"
   ],
   "works": {
-    "electric-bloom": {"title":"Electric Bloom","edition_type":"Open Edition","price":9.99,"currency":"USD","availability":"available","authentication_id":null,"edition_size":null,"edition_number":null,"notes":"Historical Fluid Soul print/digital price. Not designated as a 1-of-1 original."},
-    "ocean-blue": {"title":"Ocean Blue","edition_type":"Open Edition","price":9.99,"currency":"USD","availability":"available","authentication_id":null,"edition_size":null,"edition_number":null,"notes":"Historical Fluid Soul print/digital price. Not designated as a 1-of-1 original."},
-    "entangled-current": {"title":"Entangled Current","edition_type":"Unassigned","price":null,"currency":"USD","availability":"pending_classification","authentication_id":null,"edition_size":null,"edition_number":null},
-    "black-current": {"title":"Black Current","edition_type":"Unassigned","price":null,"currency":"USD","availability":"pending_classification","authentication_id":null,"edition_size":null,"edition_number":null},
-    "current": {"title":"Current","edition_type":"Unassigned","price":null,"currency":"USD","availability":"pending_classification","authentication_id":null,"edition_size":null,"edition_number":null},
-    "blue-gold": {"title":"Blue + Gold Signal","edition_type":"Unassigned","price":null,"currency":"USD","availability":"pending_classification","authentication_id":null,"edition_size":null,"edition_number":null},
-    "wild": {"title":"Wild","edition_type":"Unassigned","price":null,"currency":"USD","availability":"pending_classification","authentication_id":null,"edition_size":null,"edition_number":null},
-    "submersion": {"title":"Submersion","edition_type":"Unassigned","price":null,"currency":"USD","availability":"pending_classification","authentication_id":null,"edition_size":null,"edition_number":null},
-    "release": {"title":"Release","edition_type":"Unassigned","price":null,"currency":"USD","availability":"pending_classification","authentication_id":null,"edition_size":null,"edition_number":null},
-    "washed-out": {"title":"Washed Out","edition_type":"Unassigned","price":null,"currency":"USD","availability":"pending_classification","authentication_id":null,"edition_size":null,"edition_number":null},
-    "sunflower-mandala": {"title":"Sunflower Mandala","edition_type":"Unassigned","price":null,"currency":"USD","availability":"pending_classification","authentication_id":null,"edition_size":null,"edition_number":null},
-    "lest-we-forget": {"title":"Lest We Forget","edition_type":"Unassigned","price":null,"currency":"USD","availability":"pending_classification","authentication_id":null,"edition_size":null,"edition_number":null},
-    "rainline-study": {"title":"Rainline Study","edition_type":"Unassigned","price":null,"currency":"USD","availability":"pending_classification","authentication_id":null,"edition_size":null,"edition_number":null},
-    "blue-field": {"title":"Blue Field","edition_type":"Unassigned","price":null,"currency":"USD","availability":"pending_classification","authentication_id":null,"edition_size":null,"edition_number":null},
-    "love-study": {"title":"Love Study","edition_type":"Unassigned","price":null,"currency":"USD","availability":"pending_classification","authentication_id":null,"edition_size":null,"edition_number":null}
+    "electric-bloom": {"title":"Electric Bloom","edition_type":"Open Edition","pricing_mode":"starting_at","price":9.99,"currency":"USD","availability":"available","authentication_id":null,"edition_size":null,"edition_number":null,"notes":"Historical Fluid Soul print/digital starting price. Not designated as a 1-of-1 original."},
+    "ocean-blue": {"title":"Ocean Blue","edition_type":"Open Edition","pricing_mode":"starting_at","price":9.99,"currency":"USD","availability":"available","authentication_id":null,"edition_size":null,"edition_number":null,"notes":"Historical Fluid Soul print/digital starting price. Not designated as a 1-of-1 original."},
+    "entangled-current": {"title":"Entangled Current","edition_type":"Unassigned","pricing_mode":"starting_at","price":null,"currency":"USD","availability":"pending_classification","authentication_id":null,"edition_size":null,"edition_number":null},
+    "black-current": {"title":"Black Current","edition_type":"Unassigned","pricing_mode":"starting_at","price":null,"currency":"USD","availability":"pending_classification","authentication_id":null,"edition_size":null,"edition_number":null},
+    "current": {"title":"Current","edition_type":"Unassigned","pricing_mode":"starting_at","price":null,"currency":"USD","availability":"pending_classification","authentication_id":null,"edition_size":null,"edition_number":null},
+    "blue-gold": {"title":"Blue + Gold Signal","edition_type":"Unassigned","pricing_mode":"starting_at","price":null,"currency":"USD","availability":"pending_classification","authentication_id":null,"edition_size":null,"edition_number":null},
+    "wild": {"title":"Wild","edition_type":"Unassigned","pricing_mode":"starting_at","price":null,"currency":"USD","availability":"pending_classification","authentication_id":null,"edition_size":null,"edition_number":null},
+    "submersion": {"title":"Submersion","edition_type":"Unassigned","pricing_mode":"starting_at","price":null,"currency":"USD","availability":"pending_classification","authentication_id":null,"edition_size":null,"edition_number":null},
+    "release": {"title":"Release","edition_type":"Unassigned","pricing_mode":"starting_at","price":null,"currency":"USD","availability":"pending_classification","authentication_id":null,"edition_size":null,"edition_number":null},
+    "washed-out": {"title":"Washed Out","edition_type":"Unassigned","pricing_mode":"starting_at","price":null,"currency":"USD","availability":"pending_classification","authentication_id":null,"edition_size":null,"edition_number":null},
+    "sunflower-mandala": {"title":"Sunflower Mandala","edition_type":"Unassigned","pricing_mode":"starting_at","price":null,"currency":"USD","availability":"pending_classification","authentication_id":null,"edition_size":null,"edition_number":null},
+    "lest-we-forget": {"title":"Lest We Forget","edition_type":"Unassigned","pricing_mode":"starting_at","price":null,"currency":"USD","availability":"pending_classification","authentication_id":null,"edition_size":null,"edition_number":null},
+    "rainline-study": {"title":"Rainline Study","edition_type":"Unassigned","pricing_mode":"starting_at","price":null,"currency":"USD","availability":"pending_classification","authentication_id":null,"edition_size":null,"edition_number":null},
+    "blue-field": {"title":"Blue Field","edition_type":"Unassigned","pricing_mode":"starting_at","price":null,"currency":"USD","availability":"pending_classification","authentication_id":null,"edition_size":null,"edition_number":null},
+    "love-study": {"title":"Love Study","edition_type":"Unassigned","pricing_mode":"starting_at","price":null,"currency":"USD","availability":"pending_classification","authentication_id":null,"edition_size":null,"edition_number":null}
   }
 }
