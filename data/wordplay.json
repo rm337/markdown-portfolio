@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-09-08",
+  "updated": "2026-09-09",
   "entries": [
     {
       "word": "Crologic",
@@ -102,6 +102,14 @@
       "definition": "The distinctive verbal trace a person leaves behind when their way of arranging words becomes unmistakably their own.",
       "category": "language-collision",
       "date": "2026-09-08",
+      "status": "active"
+    },
+    {
+      "word": "Contexture",
+      "type": "noun",
+      "definition": "The hidden weave of circumstances that makes the same words mean something different depending on where they land.",
+      "category": "semantic-blend",
+      "date": "2026-09-09",
       "status": "active"
     }
   ]
