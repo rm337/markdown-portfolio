@@ -24,9 +24,12 @@
     .enter:hover,.enter:focus-visible{transform:translateY(-2px);box-shadow:0 12px 34px rgba(0,0,0,.28)}
     .quick{display:flex;justify-content:center;gap:1.6rem;flex-wrap:wrap;margin-top:1.6rem}
     .quick a{font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:#f6fbff;text-decoration:none;border-bottom:1px solid rgba(167,244,255,.4);padding-bottom:.2rem}
+    .anchor-target{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
   </style>
 </head>
-<body>
+<body id="top">
+  <span id="about" class="anchor-target" aria-hidden="true"></span>
+  <span id="contact" class="anchor-target" aria-hidden="true"></span>
   <main class="front">
     <div class="content">
       <p class="eyebrow">Inkspirations Studios</p>
