@@ -3,7 +3,8 @@
   "policy": {
     "personal_shipping": false,
     "digital_delivery": "secure_online_delivery",
-    "physical_fulfillment": "approved_fulfillment_partner"
+    "physical_fulfillment": "approved_fulfillment_partner",
+    "pricing_display": "starting_at"
   },
   "edition_types": [
     "Digital Original 1 of 1",
@@ -14,28 +15,8 @@
     "Merchandise"
   ],
   "works": {
-    "electric-bloom": {
-      "title": "Electric Bloom",
-      "edition_type": "Open Edition",
-      "price": 9.99,
-      "currency": "USD",
-      "availability": "available",
-      "authentication_id": null,
-      "edition_size": null,
-      "edition_number": null,
-      "notes": "Historical Fluid Soul print/digital price. Not designated as a 1-of-1 original."
-    },
-    "ocean-blue": {
-      "title": "Ocean Blue",
-      "edition_type": "Open Edition",
-      "price": 9.99,
-      "currency": "USD",
-      "availability": "available",
-      "authentication_id": null,
-      "edition_size": null,
-      "edition_number": null,
-      "notes": "Historical Fluid Soul print/digital price. Not designated as a 1-of-1 original."
-    },
+    "electric-bloom": {"title":"Electric Bloom","edition_type":"Open Edition","price":9.99,"currency":"USD","availability":"available","authentication_id":null,"edition_size":null,"edition_number":null,"notes":"Historical Fluid Soul print/digital price. Not designated as a 1-of-1 original."},
+    "ocean-blue": {"title":"Ocean Blue","edition_type":"Open Edition","price":9.99,"currency":"USD","availability":"available","authentication_id":null,"edition_size":null,"edition_number":null,"notes":"Historical Fluid Soul print/digital price. Not designated as a 1-of-1 original."},
     "entangled-current": {"title":"Entangled Current","edition_type":"Unassigned","price":null,"currency":"USD","availability":"pending_classification","authentication_id":null,"edition_size":null,"edition_number":null},
     "black-current": {"title":"Black Current","edition_type":"Unassigned","price":null,"currency":"USD","availability":"pending_classification","authentication_id":null,"edition_size":null,"edition_number":null},
     "current": {"title":"Current","edition_type":"Unassigned","price":null,"currency":"USD","availability":"pending_classification","authentication_id":null,"edition_size":null,"edition_number":null},
