@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="ClearPath helps turn everyday instructions, forms, messages, and confusing text into clearer language, next steps, examples, and response drafts.">
+<title>ClearPath | Everyday Understanding</title>
+<style>
+:root{--blue:#0174F3;--ink:#142033;--soft:#58667d;--paper:#f5f8fc;--line:#dbe3ef;--pale:#eef5ff;--white:#fff;--good:#16794d;--shadow:0 18px 50px rgba(20,32,51,.08)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:linear-gradient(180deg,#f8fbff 0,#f4f7fb 100%);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}
+button,textarea{font:inherit}
+.skip{position:absolute;left:-9999px;top:0;background:var(--ink);color:#fff;padding:10px 14px;z-index:50}.skip:focus{left:12px;top:12px}
+.wrap{max-width:980px;margin:auto;padding:28px 20px 40px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:34px}.brand{display:flex;align-items:center;gap:10px;font-weight:900}.mark{width:36px;height:36px;border-radius:11px;background:var(--blue);color:#fff;display:grid;place-items:center;font-weight:900}.brand-name{letter-spacing:.02em}.version{font-size:12px;color:var(--soft);border:1px solid var(--line);background:#fff;border-radius:999px;padding:5px 9px}
+.hero{display:grid;grid-template-columns:1.25fr .75fr;gap:28px;align-items:center;margin-bottom:26px}.eyebrow{font-size:13px;font-weight:900;color:var(--blue);letter-spacing:.12em;text-transform:uppercase}.hero h1{font-size:clamp(38px,6vw,64px);line-height:1.02;margin:10px 0 14px;letter-spacing:-.03em}.lead{font-size:20px;color:var(--soft);max-width:720px;margin:0}.promise{background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);border-radius:22px;padding:20px}.promise strong{display:block;margin-bottom:8px}.promise ul{margin:8px 0 0;padding-left:20px;color:var(--soft)}
+.card{background:var(--white);border:1px solid var(--line);border-radius:24px;padding:24px;box-shadow:var(--shadow);margin-top:22px}.card h2{margin:0 0 6px;font-size:24px}.sub{color:var(--soft);margin:0 0 18px}.inputbar{display:flex;justify-content:space-between;gap:10px;align-items:end;margin-bottom:8px}label{font-weight:900}.count{font-size:13px;color:var(--soft)}textarea{width:100%;min-height:190px;border:2px solid var(--line);border-radius:16px;padding:16px;font-size:18px;resize:vertical;background:#fff;color:var(--ink)}textarea:focus,button:focus-visible{outline:3px solid rgba(1,116,243,.26);outline-offset:2px;border-color:var(--blue)}
+.quick{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.chip{min-height:auto;padding:8px 11px;border-radius:999px;background:#fff;color:var(--ink);border:1px solid var(--line);font-size:13px;font-weight:800}
+.actions,.follow{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-top:16px}button{min-height:54px;border:0;border-radius:14px;padding:12px 15px;font-weight:850;cursor:pointer;background:var(--blue);color:#fff;transition:transform .15s ease,box-shadow .15s ease,background .15s ease}button:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(1,116,243,.18)}button.secondary{background:var(--pale);color:var(--ink);border:1px solid #cfe0fa}button.ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}button.success{background:var(--good)}
+.status{min-height:26px;margin-top:12px;font-weight:750;color:var(--soft)}.result{margin-top:20px}.result-shell{border:1px solid var(--line);border-radius:18px;padding:20px;background:#fbfdff}.result-head{display:flex;justify-content:space-between;gap:16px;align-items:start}.result h2{margin:0 0 10px}.result p{font-size:18px;margin:10px 0}.result-tools{display:flex;gap:8px;flex-wrap:wrap}.result-tools button{min-height:auto;padding:8px 11px;font-size:13px}.step{font-size:25px!important;font-weight:900}.muted{color:var(--soft)}.error{border:2px solid var(--blue);background:var(--pale);padding:14px;border-radius:12px}.progress{height:8px;background:#e7ecf3;border-radius:20px;overflow:hidden}.progress span{display:block;height:100%;background:var(--blue)}
+.explain{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}.mini{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px}.mini strong{display:block;margin-bottom:6px}.mini p{margin:0;color:var(--soft)}
+.privacy{margin-top:22px;padding:16px 18px;border-radius:18px;background:#f0f7ff;border:1px solid #cfe0fa;color:#33415a}.privacy strong{color:var(--ink)}
+.footer{margin:26px 2px 0;color:var(--soft);font-size:14px}.footer strong{color:var(--ink)}
+@media(max-width:760px){.hero{grid-template-columns:1fr}.explain{grid-template-columns:1fr}.wrap{padding:20px 14px 32px}.card{padding:18px}.topbar{margin-bottom:24px}.result-head{display:block}.result-tools{margin-top:10px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#tool">Skip to ClearPath tool</a>
+<main class="wrap">
+  <div class="topbar">
+    <div class="brand"><div class="mark" aria-hidden="true">C</div><div><div class="brand-name">ClearPath</div><div class="muted" style="font-size:12px">Everyday Understanding</div></div></div>
+    <div class="version">V2 • Local-first</div>
+  </div>
+
+  <section class="hero" aria-labelledby="hero-title">
+    <div>
+      <div class="eyebrow">Clarity before complexity</div>
+      <h1 id="hero-title">Turn confusing text into something you can use.</h1>
+      <p class="lead">Paste a letter, form, instruction, email, or message. ClearPath can simplify it, break it into steps, give you an example, read it aloud, or help you draft a response.</p>
+    </div>
+    <aside class="promise" aria-label="What ClearPath does">
+      <strong>What ClearPath does</strong>
+      <ul>
+        <li>Finds the plain-language meaning</li>
+        <li>Separates information from action</li>
+        <li>Turns long instructions into next steps</li>
+        <li>Keeps your text in the browser in this version</li>
+      </ul>
+    </aside>
+  </section>
+
+  <section class="card" id="tool" aria-labelledby="tool-title">
+    <h2 id="tool-title">What do you need help understanding?</h2>
+    <p class="sub">Paste or type the text below. Nothing is sent anywhere by this standalone version.</p>
+    <div class="inputbar"><label for="input">Your text</label><span class="count" id="count">0 characters</span></div>
+    <textarea id="input" maxlength="12000" placeholder="Type or paste here…" aria-describedby="status"></textarea>
+    <div class="quick" aria-label="Sample text">
+      <button class="chip" type="button" data-sample="deadline">Try a deadline example</button>
+      <button class="chip" type="button" data-sample="appointment">Try an appointment example</button>
+      <button class="chip" type="button" data-sample="message">Try a message example</button>
+      <button class="chip" type="button" id="clearInput">Clear</button>
+    </div>
+    <div class="actions" aria-label="ClearPath actions">
+      <button type="button" data-mode="simplify">Make it simpler</button>
+      <button type="button" data-mode="steps">One step at a time</button>
+      <button type="button" data-mode="show">Show me</button>
+      <button type="button" data-mode="read">Read it to me</button>
+      <button type="button" data-mode="respond">Help me respond</button>
+    </div>
+    <div id="status" class="status" aria-live="polite"></div>
+    <div id="result" class="result" tabindex="-1" aria-live="polite"></div>
+  </section>
+
+  <section class="explain" aria-label="ClearPath principles">
+    <div class="mini"><strong>Plain language</strong><p>ClearPath removes unnecessary complexity without changing the core meaning.</p></div>
+    <div class="mini"><strong>One thing at a time</strong><p>When a block of text contains several actions, ClearPath separates them into manageable steps.</p></div>
+    <div class="mini"><strong>You stay in control</strong><p>It helps you understand and draft. It does not send messages, submit forms, or make decisions for you.</p></div>
+  </section>
+
+  <div class="privacy"><strong>Privacy in this V2:</strong> processing happens locally in your browser. ClearPath does not upload your pasted text, and “Help me respond” only creates a draft for you to review and copy.</div>
+
+  <footer class="footer"><strong>ClearPath</strong> is a Fluid Soul / Inkspirations Studios concept built around accessible everyday understanding. It does not replace medical, legal, financial, or other licensed professional advice.</footer>
+</main>
+<script>
+const $=s=>document.querySelector(s), input=$('#input'), result=$('#result'), status=$('#status'), count=$('#count');
+let state={mode:null,steps:[],step:0,body:'',original:''};
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const sentences=t=>(String(t).match(/[^.!?\n]+[.!?]?/g)||[t]).map(s=>s.trim()).filter(Boolean);
+const words={commence:'start',terminate:'end',utilize:'use',approximately:'about',subsequent:'next',prior:'before',obtain:'get',purchase:'buy',assistance:'help',additional:'more',regarding:'about',therefore:'so',however:'but',individual:'person',individuals:'people',requirement:'rule',requirements:'rules',documentation:'papers',notification:'notice',immediately:'now',facilitate:'help',sufficient:'enough',inquire:'ask',determine:'find out',mandatory:'required',reschedule:'change the appointment',verification:'proof',remittance:'payment'};
+function simpler(t){let x=String(t);for(const[a,b]of Object.entries(words))x=x.replace(new RegExp('\\b'+a+'\\b','gi'),m=>m[0]===m[0].toUpperCase()?b[0].toUpperCase()+b.slice(1):b);x=x.replace(/\b(in order to)\b/gi,'to').replace(/\b(at this point in time)\b/gi,'now').replace(/\b(due to the fact that)\b/gi,'because').replace(/\b(please be advised that)\b/gi,'').replace(/\b(with regard to)\b/gi,'about');return sentences(x).map(s=>s.length>150?s.replace(/,\s+/g,'. '):s).join(' ')}
+function makeSteps(t){let s=sentences(simpler(t));if(s.length===1)s=String(t).split(/;|\n|\bthen\b|\band then\b/i).map(x=>x.trim()).filter(Boolean);return s.map(x=>x.replace(/^[-•\d.)\s]+/,'').replace(/^(you should|please|you must)\s+/i,'').trim()).filter(Boolean)}
+function example(t){const low=t.toLowerCase();if(/deadline|due|submit|application/.test(low))return 'Example: First find what must be submitted. Next, find the due date. Then gather the required items and submit them before that date.';if(/appointment|schedule|reschedule/.test(low))return 'Example: Find the appointment date and time, note anything you need to bring, then add a reminder or call if the time needs to change.';if(/pay|payment|bill|fee|remittance/.test(low))return 'Example: Find the amount, the due date, and the accepted payment method. Handle those three pieces one at a time.';if(/email|message|reply|respond/.test(low))return 'Example: Separate the message into two questions: “What are they telling me?” and “What do they need from me?” Then answer only what is actually being asked.';return 'Example: Imagine someone handed you this in person. First ask, “What do they want me to know?” Then ask, “What do they want me to do next?” ClearPath separates those two pieces.'}
+function responseDraft(t){const q=/\?/.test(t), request=(t.match(/(?:please|need you to|must|should|request(?:ing)?)[^.!?]*/i)||[])[0];if(request)return `Thanks for letting me know. I understand the request: ${simpler(request).replace(/^please\s*/i,'')}. I’ll review the next step and follow up if I need anything clarified.`;if(q)return 'Thanks for reaching out. I received your message and I’m reviewing what you asked. I’ll respond clearly and let you know if I need any clarification.';return 'Thanks for the information. I understand the main point. I’ll review what I need to do next and follow up if anything needs clarification.'}
+function title(){return({simplify:'Make it simpler',show:'Show me',respond:'Help me respond',read:'Read it to me'})[state.mode]||'ClearPath'}
+function outputTools(){return `<div class="result-tools"><button class="ghost" type="button" id="copyOutput">Copy result</button><button class="ghost" type="button" id="startover">Start over</button></div>`}
+function controls(){return `<div class="follow"><button class="secondary" type="button" data-follow="another">Explain it another way</button><button class="secondary" type="button" data-follow="example">Give me an example</button><button class="secondary" type="button" data-follow="simpler">Make it even simpler</button><button class="secondary" type="button" data-follow="detail">More detail</button><button type="button" id="understand">I understand</button></div>`}
+function render(mode,follow){const t=input.value.trim();if(!t){result.innerHTML='<p class="error">Please type or paste something first.</p>';result.focus();return}state.original=t;state.mode=mode;status.textContent='';if(follow==='another')state.body='Another way to say it:\n'+simpler(simpler(t));else if(follow==='example')state.body=example(t);else if(follow==='simpler')state.body=sentences(simpler(t)).map(s=>s.split(/,|;/)[0]).join('. ');else if(follow==='detail')state.body=`Main idea: ${simpler(t)}\n\nWhat to look for: who is asking, what they want, any date or deadline, and what action you need to take.`;else if(mode==='simplify')state.body=simpler(t);else if(mode==='show')state.body=example(t);else if(mode==='respond')state.body=responseDraft(t);else if(mode==='read')state.body=simpler(t);else if(mode==='steps'){state.steps=makeSteps(t);state.step=0;return renderStep()}renderBody();if(mode==='read')speak(state.body)}
+function renderBody(){result.innerHTML=`<div class="result-shell"><div class="result-head"><div><h2>${title()}</h2><p class="muted">Review the result before using it.</p></div>${outputTools()}</div>${state.body.split('\n').filter(Boolean).map(p=>`<p>${esc(p)}</p>`).join('')}${controls()}</div>`;wire();result.focus()}
+function renderStep(){const n=state.steps.length||1,s=state.steps[state.step]||state.original;state.body=s;result.innerHTML=`<div class="result-shell"><div class="result-head"><div><h2>One step at a time</h2><p class="muted">Step ${state.step+1} of ${n}</p></div>${outputTools()}</div><p class="step">${esc(s)}</p><div class="progress" aria-label="Progress"><span style="width:${((state.step+1)/n)*100}%"></span></div>${state.step<n-1?'<button id="next" type="button" style="width:100%;margin-top:16px">Next step</button>':'<p class="muted">That was the last step.</p>'}${controls()}</div>`;$('#next')?.addEventListener('click',()=>{state.step++;renderStep()});wire();result.focus()}
+async function copyOutput(){try{await navigator.clipboard.writeText(state.body);status.textContent='Result copied.';const b=$('#copyOutput');if(b){b.textContent='Copied';b.classList.add('success');setTimeout(()=>{b.textContent='Copy result';b.classList.remove('success')},1200)}}catch{status.textContent='Copy was blocked by this browser. Select the result text and copy it manually.'}}
+function reset(){speechSynthesis?.cancel();input.value='';state={mode:null,steps:[],step:0,body:'',original:''};result.innerHTML='';status.textContent='';updateCount();input.focus()}
+function wire(){document.querySelectorAll('[data-follow]').forEach(b=>b.onclick=()=>render(state.mode,b.dataset.follow));$('#startover')?.addEventListener('click',reset);$('#understand')?.addEventListener('click',()=>{status.textContent='Good. You can start over or paste something else whenever you want.'});$('#copyOutput')?.addEventListener('click',copyOutput)}
+function speak(t){if(!('speechSynthesis'in window)){status.textContent='This browser cannot read text aloud.';return}speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.rate=.95;speechSynthesis.speak(u);status.textContent='Reading the result aloud.'}
+function updateCount(){count.textContent=`${input.value.length.toLocaleString()} characters`}
+const samples={deadline:'Please be advised that all documentation must be submitted no later than September 18. Failure to provide the required verification may result in termination of the application process.',appointment:'Your appointment is scheduled for October 3 at 9:30 AM. Please arrive 15 minutes prior and bring photo identification, your insurance card, and a list of current medications.',message:'Hi Robert, please send the revised concept and confirm whether you can meet Friday afternoon. If Friday is not possible, let me know your earliest availability next week.'};
+document.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>render(b.dataset.mode));
+document.querySelectorAll('[data-sample]').forEach(b=>b.onclick=()=>{input.value=samples[b.dataset.sample];updateCount();input.focus()});
+$('#clearInput').addEventListener('click',reset);input.addEventListener('input',updateCount);updateCount();
+</script>
+</body>
+</html>
