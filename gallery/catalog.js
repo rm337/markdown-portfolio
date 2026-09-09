@@ -1,5 +1,6 @@
 (() => {
-  const money = (value, currency = 'USD') => value == null ? 'Price not assigned' : new Intl.NumberFormat('en-US', { style: 'currency', currency }).format(value);
+  const baseMoney = (value, currency = 'USD') => value == null ? 'Price not assigned' : new Intl.NumberFormat('en-US', { style: 'currency', currency }).format(value);
+  const money = (value, currency = 'USD') => value == null ? 'Price not assigned' : `Starting at ${baseMoney(value, currency)}`;
   const availabilityLabel = value => ({ available: 'Available', pending_classification: 'Pending classification', sold: 'Sold', unavailable: 'Unavailable' }[value] || 'Status pending');
   const authLabel = item => {
     if (item.authentication_id) return item.authentication_id;
