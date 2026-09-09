@@ -49,5 +49,6 @@ function openUpload(){$('#upload').classList.add('on')}
 function addLocal(){const f=$('#uf').files[0],t=$('#ut').value.trim();if(!f||!t)return alert('Choose an image and enter a title.');works.push({slug:'local-'+Date.now(),title:t,kind:$('#uk').value.trim()||'Artwork',img:URL.createObjectURL(f),desc:$('#ud').value.trim()||'New gallery preview.',edition:'Not yet assigned',auth:'Available when applicable'});render();closePanel('upload')}
 render();
 </script>
+<script src="catalog.js"></script>
 </body>
 </html>
