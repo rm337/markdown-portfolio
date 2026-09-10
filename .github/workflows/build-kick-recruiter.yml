@@ -1,0 +1,28 @@
+name: Build Kick the Recruiter
+
+on:
+  push:
+    branches: [kick-recruiter-publish]
+    paths:
+      - 'kick-the-recruiter/chunks/**'
+      - '.github/workflows/build-kick-recruiter.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: kick-recruiter-publish
+      - name: Assemble game
+        run: cat kick-the-recruiter/chunks/*.part > kick-the-recruiter/index.html
+      - name: Commit assembled game
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add kick-the-recruiter/index.html
+          git diff --cached --quiet || git commit -m "Assemble Kick the Recruiter playable page"
+          git push
