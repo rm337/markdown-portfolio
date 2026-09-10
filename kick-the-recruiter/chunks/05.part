@@ -1,0 +1,133 @@
+ctx.lineWidth=2.4;ctx.beginPath();ctx.moveTo(-16,29);ctx.quadraticCurveTo(1,35,18,28);ctx.stroke();
+
+
+ // progressive bruising and cuts
+ for(const b of bruises){
+   const bg=ctx.createRadialGradient(b.x,b.y,1,b.x,b.y,b.r);
+   bg.addColorStop(0,'rgba(43,24,53,.82)');
+   bg.addColorStop(.5,'rgba(89,47,91,.62)');
+   bg.addColorStop(1,'rgba(115,73,102,0)');
+   ctx.fillStyle=bg;ctx.beginPath();ctx.ellipse(b.x,b.y,b.r,b.r*.7,-.15,0,Math.PI*2);ctx.fill();
+ }
+ if(swelling>0){
+   ctx.fillStyle=`rgba(156,91,77,${0.09*swelling})`;
+   ctx.beginPath();ctx.ellipse(28,8,13+swelling*3,17+swelling*2,.15,0,Math.PI*2);ctx.fill();
+ }
+ if(cuts.length){
+   ctx.strokeStyle='rgba(115,33,33,.85)';ctx.lineWidth=2;
+   for(const c of cuts){ctx.beginPath();ctx.moveTo(c.x-c.len/2,c.y);ctx.lineTo(c.x+c.len/2,c.y+3);ctx.stroke();}
+ }
+
+ if(blackEye){
+   const bg=ctx.createRadialGradient(-18,-3,1,-18,-3,18);bg.addColorStop(0,'rgba(34,19,42,.92)');bg.addColorStop(.45,'rgba(82,44,85,.88)');bg.addColorStop(.72,'rgba(128,75,108,.58)');bg.addColorStop(1,'rgba(128,75,108,0)');
+   ctx.fillStyle=bg;ctx.beginPath();ctx.ellipse(-18,-3,20,14,-.12,0,Math.PI*2);ctx.fill();
+ }
+ if(sooty){
+   ctx.fillStyle='rgba(32,28,26,.28)';ctx.beginPath();ctx.ellipse(15,8,18,25,.4,0,Math.PI*2);ctx.fill();
+   ctx.beginPath();ctx.ellipse(-13,-24,20,10,-.3,0,Math.PI*2);ctx.fill();
+ }
+ ctx.restore();
+
+ // neck connection / collar to visually integrate head and body
+ ctx.strokeStyle='rgba(255,255,255,.07)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(P.shL.x,P.shL.y);ctx.lineTo(P.shR.x,P.shR.y);ctx.stroke();
+
+ // debug hit zones are intentionally not drawn
+}
+
+
+function drawActionFx(){
+ for(const a of actionFx){
+   const t=Math.min(1,a.age/a.life);
+   const ease=1-Math.pow(1-t,3);
+   ctx.save();
+   if(a.type==='punch'){
+     const sx=a.x, tx=P.head.x-a.dir*12;
+     const x=sx+(tx-sx)*ease, y=a.y;
+     ctx.translate(x,y);
+     ctx.scale(a.dir,1);
+     // forearm
+     const grad=ctx.createLinearGradient(-95,0,18,0);grad.addColorStop(0,'#253545');grad.addColorStop(1,'#394f61');
+     ctx.strokeStyle=grad;ctx.lineWidth=30;ctx.lineCap='round';
+     ctx.beginPath();ctx.moveTo(-92,12);ctx.lineTo(-10,3);ctx.stroke();
+     // cuff
+     ctx.fillStyle='#e8ecee';ctx.fillRect(-18,-15,16,28);
+     // fist
+     const skin=ctx.createRadialGradient(7,-4,2,9,0,23);skin.addColorStop(0,'#e0ad8d');skin.addColorStop(1,'#a66b55');
+     ctx.fillStyle=skin;ctx.beginPath();ctx.roundRect(-2,-19,38,35,12);ctx.fill();
+     ctx.fillStyle='rgba(87,50,40,.26)';
+     for(let i=0;i<4;i++){ctx.beginPath();ctx.roundRect(3+i*8,-17,7,12,3);ctx.fill()}
+   } else if(a.type==='kick'){
+     const sx=a.x, tx=P.hip.x-a.dir*20;
+     const x=sx+(tx-sx)*ease, y=a.y;
+     ctx.translate(x,y);ctx.scale(a.dir,1);
+     ctx.strokeStyle='#263644';ctx.lineWidth=38;ctx.lineCap='round';
+     ctx.beginPath();ctx.moveTo(-110,-34);ctx.lineTo(-35,-10);ctx.stroke();
+     ctx.fillStyle='#11171c';ctx.beginPath();ctx.roundRect(-38,-22,72,34,15);ctx.fill();
+     ctx.fillStyle='#39434b';ctx.fillRect(-22,7,52,6);
+   } else if(a.type==='shove'){
+     const sx=a.x, tx=P.chest.x-a.dir*28;
+     const x=sx+(tx-sx)*ease, y=a.y;
+     ctx.translate(x,y);ctx.scale(a.dir,1);
+     for(const oy of [-24,24]){
+       ctx.strokeStyle='#2c3d4d';ctx.lineWidth=24;ctx.lineCap='round';
+       ctx.beginPath();ctx.moveTo(-90,oy);ctx.lineTo(-22,oy*.4);ctx.stroke();
+       ctx.fillStyle='#c88d70';ctx.beginPath();ctx.ellipse(0,oy*.35,18,14,0,0,Math.PI*2);ctx.fill();
+     }
+   } else if(a.type==='uppercut'){
+     const sy=a.y, ty=P.head.y+20;
+     const y=sy+(ty-sy)*ease, x=a.x+Math.sin(t*Math.PI)*34;
+     ctx.translate(x,y);
+     ctx.strokeStyle='#2b3c4c';ctx.lineWidth=29;ctx.lineCap='round';
+     ctx.beginPath();ctx.moveTo(-20,72);ctx.lineTo(0,18);ctx.stroke();
+     ctx.fillStyle='#c88e71';ctx.beginPath();ctx.roundRect(-18,-10,38,34,12);ctx.fill();
+   } else if(a.type==='coffee'){
+     const sx=a.x, sy=a.y, tx=P.chest.x, ty=P.chest.y+12;
+     const x=sx+(tx-sx)*ease, y=sy+(ty-sy)*ease-50*Math.sin(Math.PI*t);
+     // cup
+     ctx.translate(x,y);ctx.rotate(t*5);
+     ctx.fillStyle='#eeeae5';ctx.beginPath();ctx.roundRect(-18,-12,32,25,5);ctx.fill();
+     ctx.strokeStyle='#eeeae5';ctx.lineWidth=4;ctx.beginPath();ctx.arc(17,0,8,-1.2,1.2);ctx.stroke();
+     // coffee spray
+     ctx.fillStyle='rgba(91,50,30,.8)';
+     for(let i=0;i<8;i++){ctx.beginPath();ctx.arc(18+i*5, -2+i%3*4, 2.4,0,Math.PI*2);ctx.fill()}
+   } else if(a.type==='explosion'){
+     const r=20+ease*150;
+     const g=ctx.createRadialGradient(a.x,a.y,2,a.x,a.y,r);
+     g.addColorStop(0,'rgba(255,255,230,.98)');
+     g.addColorStop(.22,'rgba(255,210,86,.95)');
+     g.addColorStop(.5,'rgba(235,105,38,.72)');
+     g.addColorStop(1,'rgba(35,31,28,0)');
+     ctx.fillStyle=g;ctx.beginPath();ctx.arc(a.x,a.y,r,0,Math.PI*2);ctx.fill();
+     ctx.strokeStyle=`rgba(255,225,145,${Math.max(0,1-t)})`;ctx.lineWidth=5;ctx.beginPath();ctx.arc(a.x,a.y,r*.72,0,Math.PI*2);ctx.stroke();
+   }
+   ctx.restore();
+ }
+}
+
+function render(){
+ ctx.clearRect(0,0,W,H);
+ const dm=document.getElementById('damageMeter'); if(dm) dm.textContent=Math.round(damage)+'%';
+ drawOffice();
+ // projectile trails
+ trails.forEach(t=>{
+   ctx.save();
+   ctx.globalAlpha=Math.max(0,t.life/.22)*.42;
+   ctx.fillStyle='#d9e8f4';
+   ctx.beginPath();ctx.arc(t.x,t.y,t.size,0,Math.PI*2);ctx.fill();
+   ctx.restore();
+ });
+ impactRings.forEach(r=>{
+   ctx.save();
+   ctx.globalAlpha=Math.max(0,r.life/.42);
+   ctx.strokeStyle='rgba(255,235,190,.95)';
+   ctx.lineWidth=3;
+   ctx.beginPath();ctx.arc(r.x,r.y,r.r,0,Math.PI*2);ctx.stroke();
+   ctx.restore();
+ });
+ ensurePropPos();props.forEach(drawProp);drawPerson();drawActionFx();
+ if(physicsView){
+   ctx.save();
+   ctx.strokeStyle='rgba(120,210,255,.68)';ctx.lineWidth=1.5;
+   for(const s of sticks){ctx.beginPath();ctx.moveTo(s.a.x,s.a.y);ctx.lineTo(s.b.x,s.b.y);ctx.stroke()}
+   ctx.fillStyle='rgba(120,210,255,.8)';
+   for(const p of Object.values(P)){ctx.beginPath();ctx.arc(p.x,p.y,4,0,Math.PI*2);ctx.fill
