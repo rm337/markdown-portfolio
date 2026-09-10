@@ -908,7 +908,7 @@ function interpret(){
 document.getElementById('doBtn').onclick=interpret;
 input.addEventListener('keydown',e=>{if(e.key==='Enter')interpret()});
 
-resize();resetProps();say('Seated and ready. Tool buttons fire immediately. Dragging releases the ragdoll.');requestAnimationFrame(loop);
+resize();resetProps();say('Seated and ready. Tool buttons fire immediately. Dragging releases the ragdoll.');render();requestAnimationFrame(loop);
 })();
 </script>
 
