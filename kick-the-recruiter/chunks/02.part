@@ -1,5 +1,10 @@
 loor(score/900)+1);status.innerHTML='Selected: '+selectedTool.toUpperCase()+'<br>'+damageLabel()+' · Damage '+Math.round(damage)+'%';}
 function say(t){dialog.textContent=t}
+let audioCtx=null;
+function ac(){if(!audioCtx)audioCtx=new (window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume();return audioCtx}
+function tone(freq=120,dur=.08,type='sine',vol=.16,slide=0){try{const a=ac(),o=a.createOscillator(),g=a.createGain(),t=a.currentTime;o.type=type;o.frequency.setValueAtTime(freq,t);if(slide)o.frequency.exponentialRampToValueAtTime(Math.max(20,freq+slide),t+dur);g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(.001,t+dur);o.connect(g);g.connect(a.destination);o.start(t);o.stop(t+dur)}catch(e){}}
+function noise(dur=.09,vol=.12){try{const a=ac(),n=Math.max(1,Math.floor(a.sampleRate*dur)),b=a.createBuffer(1,n,a.sampleRate),d=b.getChannelData(0);for(let i=0;i<n;i++)d[i]=(Math.random()*2-1)*(1-i/n);const s=a.createBufferSource(),g=a.createGain();s.buffer=b;g.gain.value=vol;s.connect(g);g.connect(a.destination);s.start()}catch(e){}}
+function sfx(kind){switch(kind){case'punch':tone(95,.07,'square',.18,-45);noise(.045,.08);break;case'kick':tone(70,.11,'square',.2,-35);noise(.06,.1);break;case'shove':tone(115,.12,'sawtooth',.1,-55);break;case'uppercut':tone(125,.13,'square',.17,95);noise(.05,.07);break;case'coffee':noise(.22,.08);tone(430,.08,'sine',.05,-120);break;case'prop':tone(150,.06,'square',.13,-70);noise(.06,.09);break;case'fry':noise(.38,.13);tone(760,.28,'sawtooth',.08,-500);break;case'explosion':noise(.7,.24);tone(65,.55,'sawtooth',.2,-35);break;case'whistle':tone(1450,.16,'sine',.12,550);setTimeout(()=>tone(1900,.18,'sine',.1,-350),130);break;}}
 function addImpactRing(x,y,r=18){
  impactRings.push({x,y,r,life:.42});
 }
@@ -36,7 +41,7 @@ function visibleUppercut(){
 }
 
 function doPunch(x){
- releaseSeat();
+ sfx('punch');releaseSeat();
  hits++;
  addDamage(10,'face');
  const dir=x<P.head.x?1:-1;
@@ -48,24 +53,24 @@ function doPunch(x){
  scheduleRecovery();
 }
 function doKick(x){
- releaseSeat();
+ sfx('kick');releaseSeat();
  const dir=x<P.hip.x?1:-1;
  P.hip.addImpulse(dir*34,-20);P.chest.addImpulse(dir*18,-10);
  P.kneeL.addImpulse(-dir*18,-18);P.kneeR.addImpulse(dir*18,-14);
  addParticle(P.hip.x,P.hip.y,10);addScore(170);say('Recruiter: “That was not a connection request.”');
 }
 function doShove(x){
- releaseSeat();const dir=x<P.chest.x?1:-1;impulseAll(dir*24,-2,.015);addScore(120);say('Full-body shove.');}
+ sfx('shove');releaseSeat();const dir=x<P.chest.x?1:-1;impulseAll(dir*24,-2,.015);addScore(120);say('Full-body shove.');}
 function doUppercut(){
- releaseSeat();visibleUppercut();addDamage(14,'face');P.head.addImpulse(10,-42);P.chest.addImpulse(6,-23);P.handR.addImpulse(22,-28);hits++;if(hits>=2)blackEye=true;addParticle(P.head.x,P.head.y,12);addScore(190);say('Uppercut. Whole frame reacts.');scheduleRecovery();}
+ sfx('uppercut');releaseSeat();visibleUppercut();addDamage(14,'face');P.head.addImpulse(10,-42);P.chest.addImpulse(6,-23);P.handR.addImpulse(22,-28);hits++;if(hits>=2)blackEye=true;addParticle(P.head.x,P.head.y,12);addScore(190);say('Uppercut. Whole frame reacts.');scheduleRecovery();}
 function doCoffee(){
- releaseSeat();stained=true;spills.push({x:P.chest.x-12,y:Math.min(H-80,P.hip.y+100),r:48});addParticle(P.chest.x,P.chest.y,8);addScore(170);say('Coffee stain stays.');scheduleRecovery();}
+ sfx('coffee');releaseSeat();stained=true;spills.push({x:P.chest.x-12,y:Math.min(H-80,P.hip.y+100),r:48});addParticle(P.chest.x,P.chest.y,8);addScore(170);say('Coffee stain stays.');scheduleRecovery();}
 function fryComputer(){
  if(computerFried){say('The original computer is already fried. Backup is in use.');return}
- computerFried=true;scorchMarks.push({x:W*.49,y:H*.59,r:70});addParticle(W*.49,H*.55,28);addScore(300);say('Computer fried. Dead machine stays. Backup deployed.');
+ sfx('fry');computerFried=true;scorchMarks.push({x:W*.49,y:H*.59,r:70});addParticle(W*.49,H*.55,28);addScore(300);say('Computer fried. Dead machine stays. Backup deployed.');
 }
 function doExplosion(){
- releaseSeat();
+ sfx('explosion');releaseSeat();
  sooty=true;scorchMarks.push({x:P.hip.x,y:Math.min(H-50,P.hip.y+160),r:85});
  impulseAll((Math.random()>.5?1:-1)*95,-95,.09);addParticle(P.chest.x,P.chest.y,42);
  fryComputer();addScore(750);say('Explosion: the entire ragdoll is thrown, soot and room damage remain.');
@@ -83,7 +88,7 @@ function doSelected(x){
  }
 }
 function applyPropImpact(pr,x){
- const heavy=['plant','trash','keyboard','clipboard'].includes(pr.kind);
+ sfx('prop');const heavy=['plant','trash','keyboard','clipboard'].includes(pr.kind);
  addDamage(heavy?15:8, pr.kind==='phone'||pr.kind==='stapler'?'face':'body');
  const dir=x<P.chest.x?1:-1;
  P.chest.addImpulse(dir*(heavy?38:23),-8);P.head.addImpulse(dir*(heavy?26:16),-8);
