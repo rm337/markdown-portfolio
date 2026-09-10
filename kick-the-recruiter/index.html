@@ -256,7 +256,14 @@ function damageLabel(){
  return 'Completely wrecked';
 }
 
-function addScore(n){score+=n;scoreEl.textContent=score;levelEl.textContent=Math.max(1,Math.f80+Math.random()*240;
+function addScore(n){score+=n;scoreEl.textContent=score;levelEl.textContent=Math.max(1,Math.floor(score/900)+1);status.innerHTML='Selected: '+selectedTool.toUpperCase()+'<br>'+damageLabel()+' · Damage '+Math.round(damage)+'%';}
+function say(t){dialog.textContent=t}
+function addImpactRing(x,y,r=18){
+ impactRings.push({x,y,r,life:.42});
+}
+function addParticle(x,y,n=10){
+ for(let i=0;i<n;i++){
+  const a=Math.random()*Math.PI*2,s=80+Math.random()*240;
   particles.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,life:.4+Math.random()*.35});
  }
 }
@@ -395,12 +402,7 @@ canvas.addEventListener('pointermove',e=>{
  if(!pointer.down)return;
  const r=canvas.getBoundingClientRect();const x=e.clientX-r.left,y=e.clientY-r.top;
  const now=performance.now(),dt=Math.max(8,now-pointer.t)/1000;
- pointer.vx=(x-pointer.lastX)/dt;pointer.vy=(y-pointer.lastY)/dt;pointer.lastX=x;pointer.lastY=y;pointer.t=now;pointer.x=x;pointer.y=y;
- if(grabbed?.type==='body'){grabbed.obj.x=x;grabbed.obj.y=y;grabbed.obj.px=x-pointer.vx*.012;grabbed.obj.py=y-pointer.vy*.012}
- if(grabbed?.type==='prop'){let p=grabbed.obj;p.px=x-grabbed.offX;p.py=y-grabbed.offY}
-});
-canvas.addEventListener('pointerup',e=>{
- if(!pointer.down)return;pointer.down=false;
+ pointer.vx=(x-pointer.lastX)/dt;pointer.vy=(y-pointer.lastY)/dt;point.down)return;pointer.down=false;
  if(grabbed?.type==='body'){grabbed.obj.addImpulse(pointer.vx*.025,pointer.vy*.025)}
  if(grabbed?.type==='prop'){
   const p=grabbed.obj;p.drag=false;p.thrown=true;p.vx=pointer.vx*.75;p.vy=pointer.vy*.75;p.vr=(pointer.vx*.012)+(Math.random()-.5)*5;
