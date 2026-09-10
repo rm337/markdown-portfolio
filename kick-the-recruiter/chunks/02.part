@@ -1,0 +1,145 @@
+80+Math.random()*240;
+  particles.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,life:.4+Math.random()*.35});
+ }
+}
+function impulseAll(ix,iy,spin=0){
+ Object.values(P).forEach((p,i)=>{
+  const factor=.55+Math.random()*.35;
+  p.addImpulse(ix*factor + (p.y-P.chest.y)*spin, iy*factor + (p.x-P.chest.x)*spin);
+ });
+}
+
+function addActionFx(type,x,y,dir=1){
+ actionFx.push({type,x,y,dir,age:0,life:type==='explosion'?0.9:0.42});
+}
+function visiblePunch(x){
+ const dir=x<P.head.x?1:-1;
+ addActionFx('punch',P.head.x-dir*145,P.head.y+4,dir);
+}
+function visibleKick(x){
+ const dir=x<P.hip.x?1:-1;
+ addActionFx('kick',P.hip.x-dir*170,P.hip.y+42,dir);
+}
+function visibleShove(x){
+ const dir=x<P.chest.x?1:-1;
+ addActionFx('shove',P.chest.x-dir*150,P.chest.y+10,dir);
+}
+function visibleUppercut(){
+ addActionFx('uppercut',P.head.x-42,P.head.y+130,1);
+}
+
+function doPunch(x){
+ releaseSeat();
+ hits++;
+ addDamage(10,'face');
+ const dir=x<P.head.x?1:-1;
+ P.head.addImpulse(dir*34,-4);P.neck.addImpulse(dir*18,-2);P.chest.addImpulse(dir*12,0);
+ P.shR.addImpulse(dir*12,-6);P.handR.addImpulse(dir*22,-10);
+ if(hits>=2)blackEye=true;
+ addParticle(P.head.x,P.head.y,9);addScore(130);
+ say(hits<2?'Recruiter: “Okay. That landed.”':'Recruiter: “Yes. The black eye is staying.”');
+ scheduleRecovery();
+}
+function doKick(x){
+ releaseSeat();
+ const dir=x<P.hip.x?1:-1;
+ P.hip.addImpulse(dir*34,-20);P.chest.addImpulse(dir*18,-10);
+ P.kneeL.addImpulse(-dir*18,-18);P.kneeR.addImpulse(dir*18,-14);
+ addParticle(P.hip.x,P.hip.y,10);addScore(170);say('Recruiter: “That was not a connection request.”');
+}
+function doShove(x){
+ releaseSeat();const dir=x<P.chest.x?1:-1;impulseAll(dir*24,-2,.015);addScore(120);say('Full-body shove.');}
+function doUppercut(){
+ releaseSeat();visibleUppercut();addDamage(14,'face');P.head.addImpulse(10,-42);P.chest.addImpulse(6,-23);P.handR.addImpulse(22,-28);hits++;if(hits>=2)blackEye=true;addParticle(P.head.x,P.head.y,12);addScore(190);say('Uppercut. Whole frame reacts.');scheduleRecovery();}
+function doCoffee(){
+ releaseSeat();stained=true;spills.push({x:P.chest.x-12,y:Math.min(H-80,P.hip.y+100),r:48});addParticle(P.chest.x,P.chest.y,8);addScore(170);say('Coffee stain stays.');scheduleRecovery();}
+function fryComputer(){
+ if(computerFried){say('The original computer is already fried. Backup is in use.');return}
+ computerFried=true;scorchMarks.push({x:W*.49,y:H*.59,r:70});addParticle(W*.49,H*.55,28);addScore(300);say('Computer fried. Dead machine stays. Backup deployed.');
+}
+function doExplosion(){
+ releaseSeat();
+ sooty=true;scorchMarks.push({x:P.hip.x,y:Math.min(H-50,P.hip.y+160),r:85});
+ impulseAll((Math.random()>.5?1:-1)*95,-95,.09);addParticle(P.chest.x,P.chest.y,42);
+ fryComputer();addScore(750);say('Explosion: the entire ragdoll is thrown, soot and room damage remain.');
+}
+function doSelected(x){
+ if(frozen)return;
+ switch(selectedTool){
+  case'punch':doPunch(x);break;case'kick':doKick(x);break;case'shove':doShove(x);break;case'uppercut':doUppercut();break;
+  case'coffee':doCoffee();break;case'fry':fryComputer();break;case'explosion':doExplosion();break;
+  default:{
+   let pr=props.find(p=>p.kind===selectedTool&&!p.used);
+   if(pr){hitWithProp(pr,x)}
+   else{say(selectedTool.toUpperCase()+' already used.')}
+  }
+ }
+}
+function applyPropImpact(pr,x){
+ const heavy=['plant','trash','keyboard','clipboard'].includes(pr.kind);
+ addDamage(heavy?15:8, pr.kind==='phone'||pr.kind==='stapler'?'face':'body');
+ const dir=x<P.chest.x?1:-1;
+ P.chest.addImpulse(dir*(heavy?38:23),-8);P.head.addImpulse(dir*(heavy?26:16),-8);
+ if(pr.kind==='coffee')stained=true;
+ addParticle(P.chest.x,P.chest.y,heavy?18:12);
+ addImpactRing(P.chest.x,P.chest.y,heavy?28:20);
+ addScore(heavy?220:160);
+ say(pr.kind.toUpperCase()+' connected. Impact, spin and body reaction are visible.');
+ pr.used=true;pr.thrown=false;
+ scheduleRecovery();
+}
+function launchPropAtTarget(pr){
+ releaseSeat();
+ ensurePropPos();
+ const sx=Math.max(30, Math.min(W-pr.w-30, pr.px));
+ const sy=Math.max(30, Math.min(H-pr.h-30, pr.py));
+ pr.px=sx;pr.py=sy;pr.used=false;pr.drag=false;pr.thrown=true;
+ const tx=P.chest.x,ty=P.chest.y+20;
+ const dx=tx-(pr.px+pr.w/2),dy=ty-(pr.py+pr.h/2);
+ const dist=Math.hypot(dx,dy)||1;
+ const speed=520+Math.min(260,dist*.45);
+ pr.vx=dx/dist*speed;
+ pr.vy=dy/dist*speed-120;
+ pr.vr=(Math.random()>.5?1:-1)*(6+Math.random()*8);
+ say(pr.kind.toUpperCase()+' launched. Watch the object travel, spin and hit.');
+}
+function hitWithProp(pr,x){
+ launchPropAtTarget(pr);
+}
+
+function nearestPoint(x,y){
+ let best=null,bd=1e9;
+ for(const [name,p] of Object.entries(P)){
+  let d=Math.hypot(x-p.x,y-p.y);
+  if(d<Math.max(34,p.rad+16)&&d<bd){best={name,p};bd=d}
+ }
+ return best;
+}
+function propAt(x,y){
+ ensurePropPos();
+ for(let i=props.length-1;i>=0;i--){
+  const p=props[i];if(p.used)continue;
+  if(x>=p.px&&x<=p.px+p.w&&y>=p.py&&y<=p.py+p.h)return p;
+ }
+ return null;
+}
+
+canvas.addEventListener('pointerdown',e=>{
+ const r=canvas.getBoundingClientRect();const x=e.clientX-r.left,y=e.clientY-r.top;
+ pointer={x,y,down:true,lastX:x,lastY:y,vx:0,vy:0,t:performance.now()};
+ const pr=propAt(x,y);
+ if(pr){grabbed={type:'prop',obj:pr,offX:x-pr.px,offY:y-pr.py};pr.drag=true;canvas.setPointerCapture?.(e.pointerId);return}
+ const np=nearestPoint(x,y);
+ if(np){releaseSeat();grabbed={type:'body',obj:np.p};canvas.setPointerCapture?.(e.pointerId);return}
+ doSelected(x);
+});
+canvas.addEventListener('pointermove',e=>{
+ if(!pointer.down)return;
+ const r=canvas.getBoundingClientRect();const x=e.clientX-r.left,y=e.clientY-r.top;
+ const now=performance.now(),dt=Math.max(8,now-pointer.t)/1000;
+ pointer.vx=(x-pointer.lastX)/dt;pointer.vy=(y-pointer.lastY)/dt;pointer.lastX=x;pointer.lastY=y;pointer.t=now;pointer.x=x;pointer.y=y;
+ if(grabbed?.type==='body'){grabbed.obj.x=x;grabbed.obj.y=y;grabbed.obj.px=x-pointer.vx*.012;grabbed.obj.py=y-pointer.vy*.012}
+ if(grabbed?.type==='prop'){let p=grabbed.obj;p.px=x-grabbed.offX;p.py=y-grabbed.offY}
+});
+canvas.addEventListener('pointerup',e=>{
+ if(!pointer
