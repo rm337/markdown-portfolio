@@ -1,0 +1,84 @@
+()}
+   for(const p of props){
+     if(p.used)continue;
+     const sp=Math.hypot(p.vx,p.vy);
+     if(sp>20){
+       ctx.strokeStyle='rgba(255,210,105,.85)';ctx.beginPath();ctx.moveTo(p.px+p.w/2,p.py+p.h/2);
+       ctx.lineTo(p.px+p.w/2+p.vx*.08,p.py+p.h/2+p.vy*.08);ctx.stroke();
+     }
+   }
+   ctx.restore();
+ }
+ particles.forEach(p=>{ctx.globalAlpha=Math.max(0,p.life/.7);ctx.fillStyle='#ffd16b';ctx.beginPath();ctx.arc(p.x,p.y,4,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1});
+}
+let last=performance.now();
+function loop(t){
+ const dt=Math.min(.032,(t-last)/1000);last=t;simulate(dt);render();requestAnimationFrame(loop)
+}
+
+document.querySelectorAll('.tool').forEach(b=>b.onclick=()=>{
+ document.querySelectorAll('.tool').forEach(x=>x.classList.remove('active'));
+ b.classList.add('active');
+ selectedTool=b.dataset.tool;
+ status.innerHTML='Selected: '+selectedTool.toUpperCase()+'<br>Button fires a visible action immediately. Canvas click repeats it.';
+ const targetX=P.chest ? P.chest.x-18 : W*.48;
+ doSelected(targetX);
+});
+document.getElementById('stopBtn').onclick=()=>{frozen=true;say('Paused.');};
+document.getElementById('playBtn').onclick=()=>{frozen=false;say('Live again.');};
+document.getElementById('restoreBtn').onclick=()=>{
+ const old={blackEye,stained,sooty,computerFried,damage,bruises:[...bruises],cuts:[...cuts],swelling,tornSuit,scorchMarks:[...scorchMarks],spills:[...spills],used:props.map(p=>p.used)};
+ makePose(true);
+ blackEye=old.blackEye;stained=old.stained;sooty=old.sooty;computerFried=old.computerFried;damage=old.damage;bruises=old.bruises;cuts=old.cuts;swelling=old.swelling;tornSuit=old.tornSuit;scorchMarks=old.scorchMarks;spills=old.spills;props.forEach((p,i)=>p.used=old.used[i]);
+ say('Pose reset. Damage and used-item history preserved.');
+};
+document.getElementById('resetBtn').onclick=()=>{
+ score=0;scoreEl.textContent='0';levelEl.textContent='1';hits=0;blackEye=false;stained=false;sooty=false;computerFried=false;damage=0;bruises=[];cuts=[];swelling=0;tornSuit=0;scorchMarks=[];spills=[];particles=[];trails=[];impactRings=[];actionFx=[];frozen=false;
+ makePose(true);resetProps();say('Full reset complete.');
+};
+document.getElementById('slowBtn').onclick=e=>{slowMo=!slowMo;e.currentTarget.classList.toggle('active',slowMo);say(slowMo?'Slow motion on.':'Slow motion off.');};
+document.getElementById('gravityBtn').onclick=e=>{lowGrav=!lowGrav;e.currentTarget.classList.toggle('active',lowGrav);say(lowGrav?'Low gravity on.':'Normal gravity.');};
+document.getElementById('physicsBtn').onclick=e=>{physicsView=!physicsView;e.currentTarget.classList.toggle('active',physicsView);say(physicsView?'Physics view on: joints and velocity vectors visible.':'Physics view off.');};
+document.getElementById('whistleBtn').onclick=()=>{P.head.addImpulse((Math.random()-.5)*10,-5);say('Recruiter: “Yes?”');};
+
+function interpret(){
+ const q=input.value.trim().toLowerCase();if(!q)return;
+ if(q.includes('black eye')||q.includes('punch')||q.includes('hit')){selectedTool='punch';doPunch(P.head.x-20)}
+ else if(q.includes('kick'))doKick(P.hip.x-30);
+ else if(q.includes('uppercut'))doUppercut();
+ else if(q.includes('shove'))doShove(P.chest.x-30);
+ else if(q.includes('coffee')||q.includes('spill'))doCoffee();
+ else if(q.includes('fry')||q.includes('computer')||q.includes('monitor'))fryComputer();
+ else if(q.includes('explode')||q.includes('explosion')||q.includes('bomb')||q.includes('blow up'))doExplosion();
+ else{
+   const p=props.find(x=>q.includes(x.kind)&&!x.used);
+   if(p)hitWithProp(p,P.chest.x-30);else say('Try a physical action or office object from the arsenal.');
+ }
+ input.value='';
+}
+document.getElementById('doBtn').onclick=interpret;
+input.addEventListener('keydown',e=>{if(e.key==='Enter')interpret()});
+
+resize();resetProps();say('Seated and ready. Tool buttons fire immediately. Dragging releases the ragdoll.');requestAnimationFrame(loop);
+})();
+</script>
+
+<style>
+#fsDownloadGame{position:fixed;top:12px;right:14px;z-index:999999;background:#0174F3;color:#fff;border:0;border-radius:10px;padding:11px 15px;font:700 13px/1.1 Arial,sans-serif;box-shadow:0 6px 20px rgba(0,0,0,.28);cursor:pointer}
+#fsDownloadGame:hover{filter:brightness(1.08)}
+</style>
+<button id="fsDownloadGame" type="button">DOWNLOAD GAME</button>
+<script>
+document.getElementById('fsDownloadGame').addEventListener('click',function(){
+  const html='<!doctype html>\n'+document.documentElement.outerHTML;
+  const blob=new Blob([html],{type:'text/html'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='Kick-the-Recruiter-v1.0.html';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+});
+</script>
+
+</body>
+</html>
