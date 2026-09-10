@@ -1,0 +1,933 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>KICK THE RECRUITER · Physics Playground</title>
+<style>
+*{box-sizing:border-box}
+:root{
+  --bg:#050a10;--panel:#0b1622;--panel2:#102134;--line:#294866;--blue:#0174F3;
+  --text:#edf5ff;--muted:#9eb2c4;--danger:#8e2525
+}
+html,body{margin:0;height:100%;overflow:hidden;background:var(--bg);font-family:Arial,Helvetica,sans-serif;color:var(--text)}
+button,input{font:inherit}
+.app{height:100%;display:grid;grid-template-rows:58px 1fr}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:0 14px 0 18px;background:#07111d;border-bottom:1px solid #1f3850}
+.brand{font-weight:950;letter-spacing:.02em}
+.brand span{font-size:11px;color:#8fa7bc;font-weight:700;margin-left:8px}
+.hud{font-size:12px;color:#bcd0e1}
+.main{position:relative;min-height:0;display:grid;grid-template-columns:88px 1fr 260px;gap:10px;padding:10px}
+.leftbar,.rightbar{background:rgba(9,21,33,.97);border:1px solid #28455f;border-radius:16px;padding:10px;overflow:auto}
+.leftbar{display:flex;flex-direction:column;gap:8px}
+.leftbar button{height:46px;border-radius:11px;border:1px solid #315573;background:#10243a;color:#fff;font-weight:850;font-size:10px;cursor:pointer}
+.leftbar button.danger{background:#7c2020;border-color:#ad3b3b}
+.leftbar button.active{outline:2px solid var(--blue);background:#153b5e}
+.scene{position:relative;border:1px solid #385a74;border-radius:18px;overflow:hidden;background:#0a1521;min-width:0}
+canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none}
+.sceneHint{position:absolute;left:14px;top:12px;z-index:5;background:rgba(5,13,22,.74);border:1px solid #2d4d68;border-radius:10px;padding:7px 10px;font-size:11px;color:#c8d7e4;pointer-events:none}
+.dialog{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);z-index:6;width:min(640px,74%);padding:10px 14px;border:1px solid #315774;border-radius:13px;background:rgba(5,15,25,.93);text-align:center;font-size:12px}
+.command{position:absolute;left:50%;bottom:58px;transform:translateX(-50%);z-index:6;width:min(640px,74%);display:flex;gap:6px}
+.command input{flex:1;border:1px solid #31516c;border-radius:10px;background:#081522;color:white;padding:9px 12px;outline:none}
+.command button{border:1px solid #356186;border-radius:10px;background:#13314a;color:white;font-weight:900;padding:0 14px}
+.rightbar h2{font-size:15px;margin:0 0 4px}
+.rightbar p{font-size:10px;line-height:1.35;color:var(--muted);margin:0 0 10px}
+.section{margin:10px 0 6px;font-size:10px;color:#8eabc2;font-weight:900;letter-spacing:.09em}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.tool{min-height:46px;border:1px solid #335673;border-radius:10px;background:#10263b;color:#fff;font-size:10px;font-weight:850;cursor:pointer;padding:5px}
+.tool:hover{background:#17324c}
+.tool.active{outline:2px solid var(--blue);background:#153d60}
+.tool.wide{grid-column:1/-1}
+.tool.red{background:#702020;border-color:#a43a3a}
+.status{margin-top:10px;padding:9px;border-radius:10px;background:#081522;border:1px solid #243f57;font-size:10px;line-height:1.45;color:#c9d9e7}
+@media(max-width:900px){
+ .main{grid-template-columns:66px 1fr 180px}
+ .rightbar{padding:7px}.leftbar{padding:7px}
+ .grid{grid-template-columns:1fr}
+ .tool.wide{grid-column:auto}
+ .brand span{display:none}
+}
+@media(max-width:650px){
+ .main{grid-template-columns:52px 1fr 118px;gap:5px;padding:5px}
+ .leftbar button{height:40px;font-size:8px}
+ .rightbar h2{font-size:11px}.rightbar p{display:none}
+ .tool{min-height:38px;font-size:8px}
+ .dialog,.command{width:72%}
+ .sceneHint{font-size:9px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <div class="brand">KICK THE RECRUITER <span>Kick the AI™ · Recruiter Edition</span></div>
+    <div class="hud">RELIEF <b id="score">0</b> · LVL <b id="level">1</b> · DAMAGE <b id="damageMeter">0%</b></div>
+  </div>
+
+  <div class="main">
+    <aside class="leftbar">
+      <button class="danger" id="stopBtn">STOP</button>
+      <button id="playBtn">PLAY</button>
+      <button id="restoreBtn">POSE RESET</button>
+      <button id="resetBtn">RESET ALL</button>
+      <button id="slowBtn">SLOW MO</button>
+      <button id="gravityBtn">LOW GRAV</button>
+      <button id="physicsBtn">PHYSICS VIEW</button>
+      <button id="whistleBtn">WHISTLE</button>
+    </aside>
+
+    <section class="scene">
+      <canvas id="game"></canvas>
+      <div class="sceneHint">Actions are visible now: fists, feet, shove hands, uppercut, coffee arc, thrown props and explosion all animate on screen.</div>
+      <div class="command">
+        <input id="commandInput" placeholder="Anything else? Try: black eye, coffee, fry computer, explosion">
+        <button id="doBtn">DO IT</button>
+      </div>
+      <div class="dialog" id="dialog">Live physics. The whole body reacts, not just the head.</div>
+    </section>
+
+    <aside class="rightbar">
+      <h2>ARSENAL</h2>
+      <p>Select a tool, then click the recruiter. Or throw physical props from the room.</p>
+
+      <div class="section">BODY</div>
+      <div class="grid">
+        <button class="tool active" data-tool="punch">PUNCH</button>
+        <button class="tool" data-tool="kick">KICK</button>
+        <button class="tool" data-tool="shove">SHOVE</button>
+        <button class="tool" data-tool="uppercut">UPPERCUT</button>
+      </div>
+
+      <div class="section">OFFICE OBJECTS</div>
+      <div class="grid">
+        <button class="tool" data-tool="coffee">COFFEE</button>
+        <button class="tool" data-tool="stapler">STAPLER</button>
+        <button class="tool" data-tool="phone">PHONE</button>
+        <button class="tool" data-tool="keyboard">KEYBOARD</button>
+        <button class="tool" data-tool="folder">FOLDER</button>
+        <button class="tool" data-tool="clipboard">CLIPBOARD</button>
+        <button class="tool" data-tool="bottle">BOTTLE</button>
+        <button class="tool" data-tool="plant">PLANT</button>
+        <button class="tool" data-tool="trash">TRASH CAN</button>
+      </div>
+
+      <div class="section">ROOM EVENTS</div>
+      <div class="grid">
+        <button class="tool wide" data-tool="fry">FRY COMPUTER</button>
+        <button class="tool red wide" data-tool="explosion">EXPLOSION</button>
+      </div>
+
+      <div class="status" id="status">Selected: PUNCH<br>Damage stays until RESET ALL.</div>
+    </aside>
+  </div>
+</div>
+
+<script>
+(() => {
+'use strict';
+const canvas=document.getElementById('game');
+const ctx=canvas.getContext('2d');
+const scene=canvas.parentElement;
+const scoreEl=document.getElementById('score');
+const levelEl=document.getElementById('level');
+const dialog=document.getElementById('dialog');
+const status=document.getElementById('status');
+const input=document.getElementById('commandInput');
+
+let W=1000,H=700,dpr=1;
+let selectedTool='punch',score=0,frozen=false,slowMo=false,lowGrav=false,physicsView=false;
+let pointer={x:0,y:0,down:false,lastX:0,lastY:0,vx:0,vy:0,t:0};
+let grabbed=null;
+let hits=0, blackEye=false, stained=false, sooty=false, computerFried=false, damage=0, bruises=[], cuts=[], swelling=0, tornSuit=0;
+let scorchMarks=[], spills=[], particles=[], trails=[], impactRings=[], actionFx=[];
+
+function resize(){
+ const r=scene.getBoundingClientRect();
+ dpr=Math.min(2,window.devicePixelRatio||1);
+ W=Math.max(320,r.width);H=Math.max(300,r.height);
+ canvas.width=W*dpr;canvas.height=H*dpr;
+ canvas.style.width=W+'px';canvas.style.height=H+'px';
+ ctx.setTransform(dpr,0,0,dpr,0,0);
+ makePose(true);
+}
+window.addEventListener('resize',resize);
+
+class Point{
+ constructor(x,y,m=1,rad=12){this.x=x;this.y=y;this.px=x;this.py=y;this.m=m;this.rad=rad;this.pin=null}
+ addImpulse(ix,iy){this.px-=ix/this.m;this.py-=iy/this.m}
+}
+class Stick{
+ constructor(a,b,len,stiff=.93){this.a=a;this.b=b;this.len=len;this.stiff=stiff}
+ solve(){
+  let dx=this.b.x-this.a.x,dy=this.b.y-this.a.y,d=Math.hypot(dx,dy)||.001;
+  let diff=(d-this.len)/d*this.stiff*.5;
+  let ox=dx*diff,oy=dy*diff;
+  if(!this.a.pin){this.a.x+=ox;this.a.y+=oy}
+  if(!this.b.pin){this.b.x-=ox;this.b.y-=oy}
+ }
+}
+let P={},sticks=[];
+
+let seated=true;
+let recoveryTimer=null;
+function makePose(force=false){
+ const cx=W*.50, cy=H*.28;
+ if(!force && Object.keys(P).length)return;
+ P={
+  head:new Point(cx,cy,1.2,28),
+  neck:new Point(cx,cy+55,1.3,11),
+  chest:new Point(cx,cy+108,2.2,23),
+  hip:new Point(cx,cy+195,2.5,24),
+  shL:new Point(cx-50,cy+98,1.5,14),
+  elL:new Point(cx-72,cy+158,1.25,13),
+  handL:new Point(cx-66,cy+212,1,14),
+  shR:new Point(cx+50,cy+98,1.5,14),
+  elR:new Point(cx+72,cy+158,1.25,13),
+  handR:new Point(cx+66,cy+212,1,14),
+  kneeL:new Point(cx-42,cy+245,1.7,16),
+  footL:new Point(cx-52,cy+315,1.4,17),
+  kneeR:new Point(cx+42,cy+245,1.7,16),
+  footR:new Point(cx+52,cy+315,1.4,17)
+ };
+ const s=(a,b,k=.94)=>sticks.push(new Stick(P[a],P[b],Math.hypot(P[a].x-P[b].x,P[a].y-P[b].y),k));
+ sticks=[];
+ s('head','neck',.96);s('neck','chest',.98);s('chest','hip',.98);
+ s('chest','shL');s('shL','elL');s('elL','handL');
+ s('chest','shR');s('shR','elR');s('elR','handR');
+ s('hip','kneeL');s('kneeL','footL');s('hip','kneeR');s('kneeR','footR');
+ s('shL','shR',.9);s('kneeL','kneeR',.85);
+ seated=true;
+ // Pin torso into a seated idle pose until the first interaction.
+ P.chest.pin={x:P.chest.x,y:P.chest.y};
+ P.hip.pin={x:P.hip.x,y:P.hip.y};
+}
+function releaseSeat(){
+ if(!seated)return;
+ seated=false;
+ P.chest.pin=null;P.hip.pin=null;
+}
+function scheduleRecovery(delay=2200){
+ clearTimeout(recoveryTimer);
+ recoveryTimer=setTimeout(()=>{
+   if(frozen || grabbed)return;
+   makePose(true);
+   if(damage>55){P.head.x+=10;P.chest.x+=6;} say('Recruiter recovered to the chair. Damage stays and keeps accumulating.');
+ },delay);
+}
+
+const props=[
+ {kind:'coffee',x:.72,y:.70,w:42,h:30,used:false,vx:0,vy:0,drag:false,rot:0,vr:0,thrown:false},
+ {kind:'stapler',x:.66,y:.76,w:62,h:18,used:false,vx:0,vy:0,drag:false,rot:0,vtton class="tool" data-tool="plant">PLANT</button>
+        <button class="tool" data-tool="trash">TRASH CAN</button>
+      </div>
+
+      <div class="section">ROOM EVENTS</div>
+      <div class="grid">
+        <button class="tool wide" data-tool="fry">FRY COMPUTER</button>
+        <button class="tool red wide" data-tool="explosion">EXPLOSION</button>
+      </div>
+
+      <div class="status" id="status">Selected: PUNCH<br>Damage stays until RESET ALL.</div>
+    </aside>
+  </div>
+</div>
+
+<script>
+(() => {
+'use strict';
+const canvas=document.getElementById('game');
+const ctx=canvas.getContext('2d');
+const scene=canvas.parentElement;
+const scoreEl=document.getElementById('score');
+const levelEl=document.getElementById('level');
+const dialog=document.getElementById('dialog');
+const status=document.getElementById('status');
+const input=document.getElementById('commandInput');
+
+let W=1000,H=700,dpr=1;
+let selectedTool='punch',score=0,frozen=false,slowMo=false,lowGrav=false,physicsView=false;
+let pointer={x:0,y:0,down:false,lastX:0,lastY:0,vx:0,vy:0,t:0};
+let grabbed=null;
+let hits=0, blackEye=false, stained=false, sooty=false, computerFried=false, damage=0, bruises=[], cuts=[], swelling=0, tornSuit=0;
+let scorchMarks=[], spills=[], particles=[], trails=[], impactRings=[], actionFx=[];
+
+function resize(){
+ const r=scene.getBoundingClientRect();
+ dpr=Math.min(2,window.devicePixelRatio||1);
+ W=Math.max(320,r.width);H=Math.max(300,r.height);
+ canvas.width=W*dpr;canvas.height=H*dpr;
+ canvas.style.width=W+'px';canvas.style.height=H+'px';
+ ctx.setTransform(dpr,0,0,dpr,0,0);
+ makePose(true);
+}
+window.addEventListener('resize',resize);
+
+class Point{
+ constructor(x,y,m=1,rad=12){this.x=x;this.y=y;this.px=x;this.py=y;this.m=m;this.rad=rad;this.pin=null}
+ addImpulse(ix,iy){this.px-=ix/this.m;this.py-=iy/this.m}
+}
+class Stick{
+ constructor(a,b,len,stiff=.93){this.a=a;this.b=b;this.len=len;this.stiff=stiff}
+ solve(){
+  let dx=this.b.x-this.a.x,dy=this.b.y-this.a.y,d=Math.hypot(dx,dy)||.001;
+  let diff=(d-this.len)/d*this.stiff*.5;
+  let ox=dx*diff,oy=dy*diff;
+  if(!this.a.pin){this.a.x+=ox;this.a.y+=oy}
+  if(!this.b.pin){this.b.x-=ox;this.b.y-=oy}
+ }
+}
+let P={},sticks=[];
+
+let seated=true;
+let recoveryTimer=null;
+function makePose(force=false){
+ const cx=W*.50, cy=H*.28;
+ if(!force && Object.keys(P).length)return;
+ P={
+  head:new Point(cx,cy,1.2,28),
+  neck:new Point(cx,cy+55,1.3,11),
+  chest:new Point(cx,cy+108,2.2,23),
+  hip:new Point(cx,cy+195,2.5,24),
+  shL:new Point(cx-50,cy+98,1.5,14),
+  elL:new Point(cx-72,cy+158,1.25,13),
+  handL:new Point(cx-66,cy+212,1,14),
+  shR:new Point(cx+50,cy+98,1.5,14),
+  elR:new Point(cx+72,cy+158,1.25,13),
+  handR:new Point(cx+66,cy+212,1,14),
+  kneeL:new Point(cx-42,cy+245,1.7,16),
+  footL:new Point(cx-52,cy+315,1.4,17),
+  kneeR:new Point(cx+42,cy+245,1.7,16),
+  footR:new Point(cx+52,cy+315,1.4,17)
+ };
+ const s=(a,b,k=.94)=>sticks.push(new Stick(P[a],P[b],Math.hypot(P[a].x-P[b].x,P[a].y-P[b].y),k));
+ sticks=[];
+ s('head','neck',.96);s('neck','chest',.98);s('chest','hip',.98);
+ s('chest','shL');s('shL','elL');s('elL','handL');
+ s('chest','shR');s('shR','elR');s('elR','handR');
+ s('hip','kneeL');s('kneeL','footL');s('hip','kneeR');s('kneeR','footR');
+ s('shL','shR',.9);s('kneeL','kneeR',.85);
+ seated=true;
+ // Pin torso into a seated idle pose until the first interaction.
+ P.chest.pin={x:P.chest.x,y:P.chest.y};
+ P.hip.pin={x:P.hip.x,y:P.hip.y};
+}
+function releaseSeat(){
+ if(!seated)return;
+ seated=false;
+ P.chest.pin=null;P.hip.pin=null;
+}
+function scheduleRecovery(delay=2200){
+ clearTimeout(recoveryTimer);
+ recoveryTimer=setTimeout(()=>{
+   if(frozen || grabbed)return;
+   makePose(true);
+   if(damage>55){P.head.x+=10;P.chest.x+=6;} say('Recruiter recovered to the chair. Damage stays and keeps accumulating.');
+ },delay);
+}
+
+const props=[
+ {kind:'coffee',x:.72,y:.70,w:42,h:30,used:false,vx:0,vy:0,drag:false,rot:0,vr:0,thrown:false},
+ {kind:'stapler',x:.66,y:.76,w:62,h:18,used:false,vx:0,vy:0,drag:false,rot:0,vr:0,thrown:false},
+ {kind:'phone',x:.82,y:.73,w:54,h:28,used:false,vx:0,vy:0,drag:false,rot:0,vr:0,thrown:false},
+ {kind:'keyboard',x:.39,y:.76,w:124,h:28,used:false,vx:0,vy:0,drag:false,rot:0,vr:0,thrown:false},
+ {kind:'folder',x:.24,y:.70,w:68,h:48,used:false,vx:0,vy:0,drag:false,rot:0,vr:0,thrown:false},
+ {kind:'clipboard',x:.31,y:.76,w:58,h:74,used:false,vx:0,vy:0,drag:false,rot:0,vr:0,thrown:false},
+ {kind:'bottle',x:.74,y:.76,w:24,h:62,used:false,vx:0,vy:0,drag:false,rot:0,vr:0,thrown:false},
+ {kind:'plant',x:.87,y:.57,w:52,h:64,used:false,vx:0,vy:0,drag:false,rot:0,vr:0,thrown:false},
+ {kind:'trash',x:.10,y:.75,w:50,h:64,used:false,vx:0,vy:0,drag:false,rot:0,vr:0,thrown:false}
+];
+function resetProps(){
+ props.forEach(p=>{p.used=false;p.vx=0;p.vy=0;p.drag=false;p.rot=0;p.vr=0;p.thrown=false;p.px=W*p.x;p.py=H*p.y});
+}
+function ensurePropPos(){props.forEach(p=>{if(p.px==null){p.px=W*p.x;p.py=H*p.y}})}
+
+
+function addDamage(amount, zone='body'){
+ damage=Math.min(100,damage+amount);
+ if(zone==='face'){
+   swelling=Math.min(3,swelling + (amount>=8?1:0));
+   if(damage>18 && bruises.length<2) bruises.push({x:-18,y:-3,r:20});
+   if(damage>34 && bruises.length<4) bruises.push({x:18,y:8,r:16});
+   if(damage>52 && cuts.length<2) cuts.push({x:12,y:22,len:14});
+ }
+ if(zone==='body' && damage>35) tornSuit=Math.min(3,tornSuit+1);
+ if(damage>70) sooty=true;
+}
+function damageLabel(){
+ if(damage<15)return 'Lightly roughed up';
+ if(damage<35)return 'Bruised';
+ if(damage<55)return 'Badly beaten up';
+ if(damage<75)return 'Battered';
+ return 'Completely wrecked';
+}
+
+function addScore(n){score+=n;scoreEl.textContent=score;levelEl.textContent=Math.max(1,Math.floor(score/900)+1);status.innerHTML='Selected: '+selectedTool.toUpperCase()+'<br>'+damageLabel()+' · Damage '+Math.round(damage)+'%';}
+function say(t){dialog.textContent=t}
+function addImpactRing(x,y,r=18){
+ impactRings.push({x,y,r,life:.42});
+}
+function addParticle(x,y,n=10){
+ for(let i=0;i<n;i++){
+  const a=Math.random()*Math.PI*2,s=80+Math.random()*240;
+  particles.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,life:.4+Math.random()*.35});
+ }
+}
+function impulseAll(ix,iy,spin=0){
+ Object.values(P).forEach((p,i)=>{
+  const factor=.55+Math.random()*.35;
+  p.addImpulse(ix*factor + (p.y-P.chest.y)*spin, iy*factor + (p.x-P.chest.x)*spin);
+ });
+}
+
+function addActionFx(type,x,y,dir=1){
+ actionFx.push({type,x,y,dir,age:0,life:type==='explosion'?0.9:0.42});
+}
+function visiblePunch(x){
+ const dir=x<P.head.x?1:-1;
+ addActionFx('punch',P.head.x-dir*145,P.head.y+4,dir);
+}
+function visibleKick(x){
+ const dir=x<P.hip.x?1:-1;
+ addActionFx('kick',P.hip.x-dir*170,P.hip.y+42,dir);
+}
+function visibleShove(x){
+ const dir=x<P.chest.x?1:-1;
+ addActionFx('shove',P.chest.x-dir*150,P.chest.y+10,dir);
+}
+function visibleUppercut(){
+ addActionFx('uppercut',P.head.x-42,P.head.y+130,1);
+}
+
+function doPunch(x){
+ releaseSeat();
+ hits++;
+ addDamage(10,'face');
+ const dir=x<P.head.x?1:-1;
+ P.head.addImpulse(dir*34,-4);P.neck.addImpulse(dir*18,-2);P.chest.addImpulse(dir*12,0);
+ P.shR.addImpulse(dir*12,-6);P.handR.addImpulse(dir*22,-10);
+ if(hits>=2)blackEye=true;
+ addParticle(P.head.x,P.head.y,9);addScore(130);
+ say(hits<2?'Recruiter: “Okay. That landed.”':'Recruiter: “Yes. The black eye is staying.”');
+ scheduleRecovery();
+}
+function doKick(x){
+ releaseSeat();
+ const dir=x<P.hip.x?1:-1;
+ P.hip.addImpulse(dir*34,-20);P.chest.addImpulse(dir*18,-10);
+ P.kneeL.addImpulse(-dir*18,-18);P.kneeR.addImpulse(dir*18,-14);
+ addParticle(P.hip.x,P.hip.y,10);addScore(170);say('Recruiter: “That was not a connection request.”');
+}
+function doShove(x){
+ releaseSeat();const dir=x<P.chest.x?1:-1;impulseAll(dir*24,-2,.015);addScore(120);say('Full-body shove.');}
+function doUppercut(){
+ releaseSeat();visibleUppercut();addDamage(14,'face');P.head.addImpulse(10,-42);P.chest.addImpulse(6,-23);P.handR.addImpulse(22,-28);hits++;if(hits>=2)blackEye=true;addParticle(P.head.x,P.head.y,12);addScore(190);say('Uppercut. Whole frame reacts.');scheduleRecovery();}
+function doCoffee(){
+ releaseSeat();stained=true;spills.push({x:P.chest.x-12,y:Math.min(H-80,P.hip.y+100),r:48});addParticle(P.chest.x,P.chest.y,8);addScore(170);say('Coffee stain stays.');scheduleRecovery();}
+function fryComputer(){
+ if(computerFried){say('The original computer is already fried. Backup is in use.');return}
+ computerFried=true;scorchMarks.push({x:W*.49,y:H*.59,r:70});addParticle(W*.49,H*.55,28);addScore(300);say('Computer fried. Dead machine stays. Backup deployed.');
+}
+function doExplosion(){
+ releaseSeat();
+ sooty=true;scorchMarks.push({x:P.hip.x,y:Math.min(H-50,P.hip.y+160),r:85});
+ impulseAll((Math.random()>.5?1:-1)*95,-95,.09);addParticle(P.chest.x,P.chest.y,42);
+ fryComputer();addScore(750);say('Explosion: the entire ragdoll is thrown, soot and room damage remain.');
+}
+function doSelected(x){
+ if(frozen)return;
+ switch(selectedTool){
+  case'punch':doPunch(x);break;case'kick':doKick(x);break;case'shove':doShove(x);break;case'uppercut':doUppercut();break;
+  case'coffee':doCoffee();break;case'fry':fryComputer();break;case'explosion':doExplosion();break;
+  default:{
+   let pr=props.find(p=>p.kind===selectedTool&&!p.used);
+   if(pr){hitWithProp(pr,x)}
+   else{say(selectedTool.toUpperCase()+' already used.')}
+  }
+ }
+}
+function applyPropImpact(pr,x){
+ const heavy=['plant','trash','keyboard','clipboard'].includes(pr.kind);
+ addDamage(heavy?15:8, pr.kind==='phone'||pr.kind==='stapler'?'face':'body');
+ const dir=x<P.chest.x?1:-1;
+ P.chest.addImpulse(dir*(heavy?38:23),-8);P.head.addImpulse(dir*(heavy?26:16),-8);
+ if(pr.kind==='coffee')stained=true;
+ addParticle(P.chest.x,P.chest.y,heavy?18:12);
+ addImpactRing(P.chest.x,P.chest.y,heavy?28:20);
+ addScore(heavy?220:160);
+ say(pr.kind.toUpperCase()+' connected. Impact, spin and body reaction are visible.');
+ pr.used=true;pr.thrown=false;
+ scheduleRecovery();
+}
+function launchPropAtTarget(pr){
+ releaseSeat();
+ ensurePropPos();
+ const sx=Math.max(30, Math.min(W-pr.w-30, pr.px));
+ const sy=Math.max(30, Math.min(H-pr.h-30, pr.py));
+ pr.px=sx;pr.py=sy;pr.used=false;pr.drag=false;pr.thrown=true;
+ const tx=P.chest.x,ty=P.chest.y+20;
+ const dx=tx-(pr.px+pr.w/2),dy=ty-(pr.py+pr.h/2);
+ const dist=Math.hypot(dx,dy)||1;
+ const speed=520+Math.min(260,dist*.45);
+ pr.vx=dx/dist*speed;
+ pr.vy=dy/dist*speed-120;
+ pr.vr=(Math.random()>.5?1:-1)*(6+Math.random()*8);
+ say(pr.kind.toUpperCase()+' launched. Watch the object travel, spin and hit.');
+}
+function hitWithProp(pr,x){
+ launchPropAtTarget(pr);
+}
+
+function nearestPoint(x,y){
+ let best=null,bd=1e9;
+ for(const [name,p] of Object.entries(P)){
+  let d=Math.hypot(x-p.x,y-p.y);
+  if(d<Math.max(34,p.rad+16)&&d<bd){best={name,p};bd=d}
+ }
+ return best;
+}
+function propAt(x,y){
+ ensurePropPos();
+ for(let i=props.length-1;i>=0;i--){
+  const p=props[i];if(p.used)continue;
+  if(x>=p.px&&x<=p.px+p.w&&y>=p.py&&y<=p.py+p.h)return p;
+ }
+ return null;
+}
+
+canvas.addEventListener('pointerdown',e=>{
+ const r=canvas.getBoundingClientRect();const x=e.clientX-r.left,y=e.clientY-r.top;
+ pointer={x,y,down:true,lastX:x,lastY:y,vx:0,vy:0,t:performance.now()};
+ const pr=propAt(x,y);
+ if(pr){grabbed={type:'prop',obj:pr,offX:x-pr.px,offY:y-pr.py};pr.drag=true;canvas.setPointerCapture?.(e.pointerId);return}
+ const np=nearestPoint(x,y);
+ if(np){releaseSeat();grabbed={type:'body',obj:np.p};canvas.setPointerCapture?.(e.pointerId);return}
+ doSelected(x);
+});
+canvas.addEventListener('pointermove',e=>{
+ if(!pointer.down)return;
+ const r=canvas.getBoundingClientRect();const x=e.clientX-r.left,y=e.clientY-r.top;
+ const now=performance.now(),dt=Math.max(8,now-pointer.t)/1000;
+ pointer.vx=(x-pointer.lastX)/dt;pointer.vy=(y-pointer.lastY)/dt;pointer.lastX=x;pointer.lastY=y;pointer.t=now;pointer.x=x;pointer.y=y;
+ if(grabbed?.type==='body'){grabbed.obj.x=x;grabbed.obj.y=y;grabbed.obj.px=x-pointer.vx*.012;grabbed.obj.py=y-pointer.vy*.012}
+ if(grabbed?.type==='prop'){let p=grabbed.obj;p.px=x-grabbed.offX;p.py=y-grabbed.offY}
+});
+canvas.addEventListener('pointerup',e=>{
+ if(!pointer.down)return;pointer.down=false;
+ if(grabbed?.type==='body'){grabbed.obj.addImpulse(pointer.vx*.025,pointer.vy*.025)}
+ if(grabbed?.type==='prop'){
+  const p=grabbed.obj;p.drag=false;p.thrown=true;p.vx=pointer.vx*.75;p.vy=pointer.vy*.75;p.vr=(pointer.vx*.012)+(Math.random()-.5)*5;
+ }
+ grabbed=null;
+ scheduleRecovery(2400);
+});
+
+function simulate(dt){
+ if(frozen)return;
+ dt*=slowMo?.28:1;
+ const g=(lowGrav?180:650);
+ for(const p of Object.values(P)){
+  if(p===grabbed?.obj)continue;
+  if(p.pin){p.x=p.pin.x;p.y=p.pin.y;p.px=p.x;p.py=p.y;continue}
+  const vx=(p.x-p.px)*.985,vy=(p.y-p.py)*.985;
+  p.px=p.x;p.py=p.y;p.x+=vx;p.y+=vy+g*dt*dt;
+  if(p.x<p.rad){p.x=p.rad;p.px=p.x+vx*.35}
+  if(p.x>W-p.rad){p.x=W-p.rad;p.px=p.x+vx*.35}
+  const floor=H-34;
+  if(p.y>floor-p.rad){p.y=floor-p.rad;p.py=p.y+vy*.18}
+  if(p.y<p.rad){p.y=p.rad;p.py=p.y+vy*.2}
+ }
+ for(let k=0;k<6;k++)sticks.forEach(s=>s.solve());
+
+ ensurePropPos();
+ for(const p of props){
+  if(p.used||p.drag)continue;
+  if(p.thrown){
+    trails.push({x:p.px+p.w/2,y:p.py+p.h/2,life:.22,size:Math.max(3,Math.min(7,p.w*.08))});
+  }
+  p.vy+=g*dt;
+  p.px+=p.vx*dt;p.py+=p.vy*dt;
+  p.rot+=p.vr;
+  p.vx*=.992;p.vy*=.995;p.vr*=.994;
+  if(p.py+p.h>H-28){
+    p.py=H-28-p.h;
+    if(Math.abs(p.vy)>65){addParticle(p.px+p.w/2,p.py+p.h,4);addImpactRing(p.px+p.w/2,p.py+p.h,10)}
+    p.vy*=-.42;p.vx*=.78;p.vr*=.82;
+    if(Math.abs(p.vy)<35){p.thrown=false;p.vy=0}
+  }
+  if(p.px<0){p.px=0;p.vx*=-.48;p.vr*=-.7}
+  if(p.px+p.w>W){p.px=W-p.w;p.vx*=-.48;p.vr*=-.7}
+  const cx=p.px+p.w/2,cy=p.py+p.h/2;
+  const candidates=[P.head,P.chest,P.hip,P.shL,P.shR,P.elL,P.elR,P.kneeL,P.kneeR];
+  let closest=999,hitPoint=null;
+  for(const bp of candidates){const d=Math.hypot(cx-bp.x,cy-bp.y);if(d<closest){closest=d;hitPoint=bp}}
+  if(p.thrown && closest < Math.max(42,Math.min(72,(p.w+p.h)*.42)) && Math.hypot(p.vx,p.vy)>120){
+    const mag=Math.min(48,Math.hypot(p.vx,p.vy)*.055);
+    const len=Math.hypot(p.vx,p.vy)||1;
+    hitPoint.addImpulse((p.vx/len)*mag,(p.vy/len)*mag);
+    applyPropImpact(p,cx);
+  }
+ }
+ particles.forEach(q=>{q.vy+=600*dt;q.x+=q.vx*dt;q.y+=q.vy*dt;q.life-=dt});
+ particles=particles.filter(q=>q.life>0);
+ trails.forEach(t=>t.life-=dt);trails=trails.filter(t=>t.life>0);
+ impactRings.forEach(r=>{r.life-=dt;r.r+=90*dt});impactRings=impactRings.filter(r=>r.life>0);
+ actionFx.forEach(a=>a.age+=dt);actionFx=actionFx.filter(a=>a.age<a.life);
+}
+
+function roundedRect(x,y,w,h,r,fill,stroke){
+ ctx.beginPath();ctx.roundRect(x,y,w,h,r);ctx.fillStyle=fill;ctx.fill();
+ if(stroke){ctx.strokeStyle=stroke;ctx.stroke()}
+}
+function limb(a,b,width,c1,c2){
+ const dx=b.x-a.x,dy=b.y-a.y,L=Math.hypot(dx,dy),ang=Math.atan2(dy,dx);
+ ctx.save();ctx.translate(a.x,a.y);ctx.rotate(ang);ctx.lineCap='round';
+ const gr=ctx.createLinearGradient(0,-width/2,0,width/2);gr.addColorStop(0,c1);gr.addColorStop(1,c2);
+ ctx.strokeStyle=gr;ctx.lineWidth=width;ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(L,0);ctx.stroke();ctx.restore()
+}
+function drawOffice(){
+ const wall=ctx.createLinearGradient(0,0,0,H);wall.addColorStop(0,'#7b878f');wall.addColorStop(.58,'#68747b');wall.addColorStop(.581,'#444b50');wall.addColorStop(1,'#383f44');ctx.fillStyle=wall;ctx.fillRect(0,0,W,H);
+ const glow=ctx.createRadialGradient(W*.52,0,20,W*.52,0,W*.45);glow.addColorStop(0,'rgba(255,225,194,.36)');glow.addColorStop(1,'rgba(255,225,194,0)');ctx.fillStyle=glow;ctx.fillRect(0,0,W,H*.48);
+ roundedRect(W*.07,H*.11,W*.18,H*.20,4,'#263139');
+ const pic=ctx.createLinearGradient(W*.07,H*.11,W*.25,H*.31);pic.addColorStop(0,'#1b2a34');pic.addColorStop(1,'#526b79');roundedRect(W*.078,H*.122,W*.164,H*.175,2,pic);
+ ctx.fillStyle='rgba(32,39,45,.72)';ctx.beginPath();ctx.ellipse(W*.5,H*.93,W*.22,H*.055,0,0,Math.PI*2);ctx.fill();
+
+ // Chair behind recruiter
+ roundedRect(W*.445,H*.47,W*.11,H*.23,18,'#1f2a33');
+ roundedRect(W*.455,H*.68,W*.09,H*.055,12,'#26323b');
+ ctx.fillStyle='#202930';
+ ctx.fillRect(W*.47,H*.725,8,H*.13);
+ ctx.fillRect(W*.522,H*.725,8,H*.13);
+ // Desk
+ roundedRect(W*.1,H*.73,W*.8,H*.23,6,'#533a2b');
+ ctx.fillStyle='#735541';ctx.fillRect(W*.1,H*.73,W*.8,5);
+
+ // monitor
+ if(!computerFried){
+  roundedRect(W*.44,H*.52,W*.16,H*.13,7,'#1b2126');
+  roundedRect(W*.452,H*.535,W*.136,H*.098,3,'#081018');
+  ctx.fillStyle='#252b30';ctx.fillRect(W*.515,H*.65,10,H*.055);roundedRect(W*.49,H*.70,W*.06,6,3,'#2c3237');
+ }else{
+  ctx.save();ctx.translate(W*.17,H*.63);ctx.rotate(-.12);
+  roundedRect(-50,-34,100,68,7,'#1b2126');roundedRect(-40,-24,80,48,3,'#080b0e');ctx.fillStyle='#cc8c44';ctx.font='bold 11px Arial';ctx.textAlign='center';ctx.fillText('FRIED',0,4);ctx.restore();
+  roundedRect(W*.7,H*.57,W*.13,H*.085,5,'#232a30');roundedRect(W*.71,H*.58,W*.11,H*.062,2,'#0a1218');ctx.fillStyle='#6e91ad';ctx.font='bold 9px Arial';ctx.textAlign='center';ctx.fillText('BACKUP',W*.765,H*.615);
+ }
+ scorchMarks.forEach(s=>{const g=ctx.createRadialGradient(s.x,s.y,5,s.x,s.y,s.r);g.addColorStop(0,'rgba(25,20,17,.78)');g.addColorStop(.55,'rgba(37,29,24,.42)');g.addColorStop(1,'rgba(37,29,24,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill()});
+ spills.forEach(s=>{const g=ctx.createRadialGradient(s.x,s.y,3,s.x,s.y,s.r);g.addColorStop(0,'rgba(96,55,34,.75)');g.addColorStop(1,'rgba(96,55,34,0)');ctx.fillStyle=g;ctx.beginPath();ctx.ellipse(s.x,s.y,s.r,s.r*.55,0,0,Math.PI*2);ctx.fill()});
+}
+function drawProp(p){
+ if(p.used)return;const x=p.px,y=p.py;
+ // ground/motion shadow makes height and speed readable
+ const floorY=H-28;
+ const hgt=Math.max(0,floorY-(y+p.h));
+ const shadowScale=Math.max(.3,1-hgt/300);
+ ctx.save();
+ ctx.globalAlpha=.24;
+ ctx.fillStyle='#000';
+ ctx.beginPath();ctx.ellipse(x+p.w/2,floorY-2,Math.max(10,p.w*.45*shadowScale),Math.max(4,p.h*.12*shadowScale),0,0,Math.PI*2);ctx.fill();
+ ctx.restore();
+
+ ctx.save();
+ ctx.translate(x+p.w/2,y+p.h/2);
+ ctx.rotate(p.rot);
+ ctx.translate(-(x+p.w/2),-(y+p.h/2));
+ ctx.shadowColor='rgba(0,0,0,.45)';ctx.shadowBlur=p.thrown?12:6;ctx.shadowOffsetY=p.thrown?8:4;
+ switch(p.kind){
+  case'coffee':
+   roundedRect(x,y,p.w-6,p.h,5,'#eceae6','#d7d7d2');ctx.strokeStyle='#eae8e4';ctx.lineWidth=4;ctx.beginPath();ctx.arc(x+p.w-5,y+15,8,-Math.PI/2,Math.PI/2);ctx.stroke();ctx.fillStyle='#5c321f';ctx.beginPath();ctx.ellipse(x+(p.w-6)/2,y+4,12,3,0,0,Math.PI*2);ctx.fill();break;
+  case'stapler':roundedRect(x,y,p.w,p.h,8,'#20272d');ctx.fillStyle='#69747c';ctx.fillRect(x+4,y+p.h-5,p.w-8,5);break;
+  case'phone':roundedRect(x,y,p.w,p.h,7,'#242b31');ctx.lineWidth=7;ctx.strokeStyle='#394249';ctx.beginPath();ctx.arc(x+p.w/2,y,18,.2,Math.PI-.2);ctx.stroke();break;
+  case'keyboard':roundedRect(x,y,p.w,p.h,4,'#20262a');ctx.strokeStyle='#56616a';ctx.lineWidth=1;for(let i=8;i<p.w-8;i+=12){ctx.beginPath();ctx.moveTo(x+i,y+5);ctx.lineTo(x+i,y+p.h-5);ctx.stroke()}break;
+  case'folder':roundedRect(x,y,p.w,p.h,4,'#d39a1d');ctx.fillStyle='#e2ac30';ctx.fillRect(x+5,y-8,28,10);break;
+  case'clipboard':roundedRect(x,y,p.w,p.h,4,'#a98a65');roundedRect(x+17,y-5,24,11,3,'#66717a');ctx.fillStyle='#e8e2da';ctx.fillRect(x+9,y+16,p.w-18,p.h-24);break;
+  case'bottle':roundedRect(x,y,p.w,p.h,7,'rgba(207,238,248,.8)','#d8edf5');ctx.fillStyle='#2f6d99';ctx.fillRect(x+5,y-7,p.w-10,8);break;
+  case'plant':
+   ctx.fillStyle='#8a4d29';ctx.beginPath();ctx.moveTo(x+10,y+36);ctx.lineTo(x+42,y+36);ctx.lineTo(x+36,y+64);ctx.lineTo(x+16,y+64);ctx.closePath();ctx.fill();
+   ctx.fillStyle='#396d3f';for(const [ox,oy,rx,ry] of [[26,18,13,24],[12,22,14,10],[41,20,15,11],[25,5,10,18]]){ctx.beginPath();ctx.ellipse(x+ox,y+oy,rx,ry,0,0,Math.PI*2);ctx.fill()}break;
+  case'trash':
+   ctx.fillStyle='#626d74';ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+p.w,y);ctx.lineTo(x+p.w-9,y+p.h);ctx.lineTo(x+9,y+p.h);ctx.closePath();ctx.fill();ctx.fillStyle='#808b91';ctx.fillRect(x-2,y-5,p.w+4,6);break;
+ }
+ ctx.restore()
+}
+function drawPerson(){
+ // legs / arms first
+ limb(P.hip,P.kneeL,34,'#21303c','#354757');limb(P.kneeL,P.footL,30,'#1d2933','#2c3b47');
+ limb(P.hip,P.kneeR,34,'#21303c','#354757');limb(P.kneeR,P.footR,30,'#1d2933','#2c3b47');
+ limb(P.shL,P.elL,31,'#263747','#3a4e60');limb(P.elL,P.handL,27,'#27394a','#40566a');
+ limb(P.shR,P.elR,31,'#263747','#3a4e60');limb(P.elR,P.handR,27,'#27394a','#40566a');
+
+ // shoes
+ for(const foot of [P.footL,P.footR]){ctx.fillStyle='#11161a';ctx.beginPath();ctx.ellipse(foot.x+5,foot.y+7,26,12,-.08,0,Math.PI*2);ctx.fill()}
+ // hands
+ for(const h of [P.handL,P.handR]){
+  const g=ctx.createRadialGradient(h.x-5,h.y-6,2,h.x,h.y,18);g.addColorStop(0,'#dda989');g.addColorStop(1,'#a96f57');ctx.fillStyle=g;ctx.beginPath();ctx.ellipse(h.x,h.y,16,19,0,0,Math.PI*2);ctx.fill()
+ }
+ // torso polygon
+ ctx.save();
+ ctx.beginPath();ctx.moveTo(P.shL.x,P.shL.y);ctx.lineTo(P.shR.x,P.shR.y);ctx.lineTo(P.hip.x+48,P.hip.y);ctx.lineTo(P.hip.x-48,P.hip.y);ctx.closePath();
+ const tg=ctx.createLinearGradient(P.shL.x,P.chest.y,P.shR.x,P.chest.y);tg.addColorStop(0,'#22313f');tg.addColorStop(.52,'#34485a');tg.addColorStop(1,'#1f2c37');ctx.fillStyle=tg;ctx.fill();
+ // shirt + tie
+ ctx.fillStyle='#eef2f4';ctx.beginPath();ctx.moveTo(P.chest.x-20,P.shL.y+7);ctx.lineTo(P.chest.x+20,P.shR.y+7);ctx.lineTo(P.chest.x+12,P.hip.y-14);ctx.lineTo(P.chest.x-12,P.hip.y-14);ctx.closePath();ctx.fill();
+ ctx.fillStyle='#26384a';ctx.beginPath();ctx.moveTo(P.chest.x,P.shL.y+8);ctx.lineTo(P.chest.x+9,P.shL.y+22);ctx.lineTo(P.chest.x+5,P.hip.y-18);ctx.lineTo(P.chest.x-5,P.hip.y-18);ctx.lineTo(P.chest.x-9,P.shL.y+22);ctx.closePath();ctx.fill();
+
+ if(tornSuit>0){
+   ctx.strokeStyle='rgba(20,23,26,.9)';ctx.lineWidth=3;
+   ctx.beginPath();ctx.moveTo(P.chest.x-34,P.chest.y+18);ctx.lineTo(P.chest.x-12,P.chest.y+31);ctx.lineTo(P.chest.x-28,P.chest.y+42);ctx.stroke();
+   if(tornSuit>1){ctx.beginPath();ctx.moveTo(P.chest.x+16,P.chest.y+40);ctx.lineTo(P.chest.x+38,P.chest.y+54);ctx.stroke();}
+   if(tornSuit>2){ctx.beginPath();ctx.moveTo(P.chest.x-8,P.chest.y+67);ctx.lineTo(P.chest.x+14,P.chest.y+79);ctx.stroke();}
+ }
+ if(damage>28){
+   ctx.fillStyle='rgba(40,34,31,.16)';ctx.beginPath();ctx.ellipse(P.chest.x-28,P.chest.y+52,18,32,-.4,0,Math.PI*2);ctx.fill();
+ }
+
+ if(stained){
+  ctx.fillStyle='rgba(101,58,37,.55)';ctx.beginPath();ctx.ellipse(P.chest.x+17,P.chest.y+25,25,34,.25,0,Math.PI*2);ctx.fill()
+ }
+ ctx.restore();
+
+ // neck
+ limb(P.neck,P.chest,22,'#bd8063','#d09575');
+
+ // head, more human proportions / less bobblehead
+ const hx=P.head.x,hy=P.head.y;
+ ctx.save();ctx.translate(hx,hy);
+ const hg=ctx.createRadialGradient(-15,-22,4,0,0,52);hg.addColorStop(0,'#e4b193');hg.addColorStop(.6,'#ca8e70');hg.addColorStop(1,'#a96f58');
+ ctx.fillStyle=hg;ctx.beginPath();
+ ctx.moveTo(-37,-42);ctx.bezierCurveTo(-20,-58,22,-58,39,-38);ctx.bezierCurveTo(48,-20,45,27,24,47);ctx.bezierCurveTo(8,61,-10,60,-27,45);ctx.bezierCurveTo(-46,28,-48,-20,-37,-42);ctx.fill();
+
+ // ears
+ ctx.fillStyle='#bc8064';ctx.beginPath();ctx.ellipse(-42,0,7,14,0,0,Math.PI*2);ctx.ellipse(42,0,7,14,0,0,Math.PI*2);ctx.fill();
+
+ // hair with irregular silhouette
+ ctx.fillStyle='#2a1e1a';ctx.beginPath();ctx.moveTo(-38,-39);ctx.bezierCurveTo(-28,-62,26,-64,42,-37);ctx.lineTo(38,-20);
+ ctx.bezierCurveTo(29,-25,24,-18,17,-24);ctx.bezierCurveTo(8,-18,4,-25,-5,-21);ctx.bezierCurveTo(-16,-16,-21,-27,-38,-22);ctx.closePath();ctx.fill();
+
+ // brows
+ ctx.strokeStyle='rgba(66,42,35,.78)';ctx.lineWidth=3;ctx.lineCap='round';
+ ctx.beginPath();ctx.moveTo(-28,-10);ctx.lineTo(-9,-12);ctx.moveTo(10,-12);ctx.lineTo(28,-9);ctx.stroke();
+
+ // eyes with lids/iris
+ for(const ex of [-19,19]){
+   ctx.fillStyle='#f4ece7';ctx.beginPath();ctx.ellipse(ex,-2,11,5.5,0,0,Math.PI*2);ctx.fill();
+   ctx.fillStyle='#5a4637';ctx.beginPath();ctx.arc(ex,-2,4.1,0,Math.PI*2);ctx.fill();
+   ctx.fillStyle='#111618';ctx.beginPath();ctx.arc(ex,-2,2,0,Math.PI*2);ctx.fill();
+   ctx.fillStyle='white';ctx.beginPath();ctx.arc(ex-1,-3,0.8,0,Math.PI*2);ctx.fill();
+ }
+ // nose
+ ctx.strokeStyle='rgba(120,72,58,.45)';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(0,-2);ctx.lineTo(-2,16);ctx.quadraticCurveTo(2,20,8,16);ctx.stroke();
+ // mouth
+ ctx.strokeStyle='#76443f';ctx.lineWidth=2.4;ctx.beginPath();ctx.moveTo(-16,29);ctx.quadraticCurveTo(1,35,18,28);ctx.stroke();
+
+
+ // progressive bruising and cuts
+ for(const b of bruises){
+   const bg=ctx.createRadialGradient(b.x,b.y,1,b.x,b.y,b.r);
+   bg.addColorStop(0,'rgba(43,24,53,.82)');
+   bg.addColorStop(.5,'rgba(89,47,91,.62)');
+   bg.addColorStop(1,'rgba(115,73,102,0)');
+   ctx.fillStyle=bg;ctx.beginPath();ctx.ellipse(b.x,b.y,b.r,b.r*.7,-.15,0,Math.PI*2);ctx.fill();
+ }
+ if(swelling>0){
+   ctx.fillStyle=`rgba(156,91,77,${0.09*swelling})`;
+   ctx.beginPath();ctx.ellipse(28,8,13+swelling*3,17+swelling*2,.15,0,Math.PI*2);ctx.fill();
+ }
+ if(cuts.length){
+   ctx.strokeStyle='rgba(115,33,33,.85)';ctx.lineWidth=2;
+   for(const c of cuts){ctx.beginPath();ctx.moveTo(c.x-c.len/2,c.y);ctx.lineTo(c.x+c.len/2,c.y+3);ctx.stroke();}
+ }
+
+ if(blackEye){
+   const bg=ctx.createRadialGradient(-18,-3,1,-18,-3,18);bg.addColorStop(0,'rgba(34,19,42,.92)');bg.addColorStop(.45,'rgba(82,44,85,.88)');bg.addColorStop(.72,'rgba(128,75,108,.58)');bg.addColorStop(1,'rgba(128,75,108,0)');
+   ctx.fillStyle=bg;ctx.beginPath();ctx.ellipse(-18,-3,20,14,-.12,0,Math.PI*2);ctx.fill();
+ }
+ if(sooty){
+   ctx.fillStyle='rgba(32,28,26,.28)';ctx.beginPath();ctx.ellipse(15,8,18,25,.4,0,Math.PI*2);ctx.fill();
+   ctx.beginPath();ctx.ellipse(-13,-24,20,10,-.3,0,Math.PI*2);ctx.fill();
+ }
+ ctx.restore();
+
+ // neck connection / collar to visually integrate head and body
+ ctx.strokeStyle='rgba(255,255,255,.07)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(P.shL.x,P.shL.y);ctx.lineTo(P.shR.x,P.shR.y);ctx.stroke();
+
+ // debug hit zones are intentionally not drawn
+}
+
+
+function drawActionFx(){
+ for(const a of actionFx){
+   const t=Math.min(1,a.age/a.life);
+   const ease=1-Math.pow(1-t,3);
+   ctx.save();
+   if(a.type==='punch'){
+     const sx=a.x, tx=P.head.x-a.dir*12;
+     const x=sx+(tx-sx)*ease, y=a.y;
+     ctx.translate(x,y);
+     ctx.scale(a.dir,1);
+     // forearm
+     const grad=ctx.createLinearGradient(-95,0,18,0);grad.addColorStop(0,'#253545');grad.addColorStop(1,'#394f61');
+     ctx.strokeStyle=grad;ctx.lineWidth=30;ctx.lineCap='round';
+     ctx.beginPath();ctx.moveTo(-92,12);ctx.lineTo(-10,3);ctx.stroke();
+     // cuff
+     ctx.fillStyle='#e8ecee';ctx.fillRect(-18,-15,16,28);
+     // fist
+     const skin=ctx.createRadialGradient(7,-4,2,9,0,23);skin.addColorStop(0,'#e0ad8d');skin.addColorStop(1,'#a66b55');
+     ctx.fillStyle=skin;ctx.beginPath();ctx.roundRect(-2,-19,38,35,12);ctx.fill();
+     ctx.fillStyle='rgba(87,50,40,.26)';
+     for(let i=0;i<4;i++){ctx.beginPath();ctx.roundRect(3+i*8,-17,7,12,3);ctx.fill()}
+   } else if(a.type==='kick'){
+     const sx=a.x, tx=P.hip.x-a.dir*20;
+     const x=sx+(tx-sx)*ease, y=a.y;
+     ctx.translate(x,y);ctx.scale(a.dir,1);
+     ctx.strokeStyle='#263644';ctx.lineWidth=38;ctx.lineCap='round';
+     ctx.beginPath();ctx.moveTo(-110,-34);ctx.lineTo(-35,-10);ctx.stroke();
+     ctx.fillStyle='#11171c';ctx.beginPath();ctx.roundRect(-38,-22,72,34,15);ctx.fill();
+     ctx.fillStyle='#39434b';ctx.fillRect(-22,7,52,6);
+   } else if(a.type==='shove'){
+     const sx=a.x, tx=P.chest.x-a.dir*28;
+     const x=sx+(tx-sx)*ease, y=a.y;
+     ctx.translate(x,y);ctx.scale(a.dir,1);
+     for(const oy of [-24,24]){
+       ctx.strokeStyle='#2c3d4d';ctx.lineWidth=24;ctx.lineCap='round';
+       ctx.beginPath();ctx.moveTo(-90,oy);ctx.lineTo(-22,oy*.4);ctx.stroke();
+       ctx.fillStyle='#c88d70';ctx.beginPath();ctx.ellipse(0,oy*.35,18,14,0,0,Math.PI*2);ctx.fill();
+     }
+   } else if(a.type==='uppercut'){
+     const sy=a.y, ty=P.head.y+20;
+     const y=sy+(ty-sy)*ease, x=a.x+Math.sin(t*Math.PI)*34;
+     ctx.translate(x,y);
+     ctx.strokeStyle='#2b3c4c';ctx.lineWidth=29;ctx.lineCap='round';
+     ctx.beginPath();ctx.moveTo(-20,72);ctx.lineTo(0,18);ctx.stroke();
+     ctx.fillStyle='#c88e71';ctx.beginPath();ctx.roundRect(-18,-10,38,34,12);ctx.fill();
+   } else if(a.type==='coffee'){
+     const sx=a.x, sy=a.y, tx=P.chest.x, ty=P.chest.y+12;
+     const x=sx+(tx-sx)*ease, y=sy+(ty-sy)*ease-50*Math.sin(Math.PI*t);
+     // cup
+     ctx.translate(x,y);ctx.rotate(t*5);
+     ctx.fillStyle='#eeeae5';ctx.beginPath();ctx.roundRect(-18,-12,32,25,5);ctx.fill();
+     ctx.strokeStyle='#eeeae5';ctx.lineWidth=4;ctx.beginPath();ctx.arc(17,0,8,-1.2,1.2);ctx.stroke();
+     // coffee spray
+     ctx.fillStyle='rgba(91,50,30,.8)';
+     for(let i=0;i<8;i++){ctx.beginPath();ctx.arc(18+i*5, -2+i%3*4, 2.4,0,Math.PI*2);ctx.fill()}
+   } else if(a.type==='explosion'){
+     const r=20+ease*150;
+     const g=ctx.createRadialGradient(a.x,a.y,2,a.x,a.y,r);
+     g.addColorStop(0,'rgba(255,255,230,.98)');
+     g.addColorStop(.22,'rgba(255,210,86,.95)');
+     g.addColorStop(.5,'rgba(235,105,38,.72)');
+     g.addColorStop(1,'rgba(35,31,28,0)');
+     ctx.fillStyle=g;ctx.beginPath();ctx.arc(a.x,a.y,r,0,Math.PI*2);ctx.fill();
+     ctx.strokeStyle=`rgba(255,225,145,${Math.max(0,1-t)})`;ctx.lineWidth=5;ctx.beginPath();ctx.arc(a.x,a.y,r*.72,0,Math.PI*2);ctx.stroke();
+   }
+   ctx.restore();
+ }
+}
+
+function render(){
+ ctx.clearRect(0,0,W,H);
+ const dm=document.getElementById('damageMeter'); if(dm) dm.textContent=Math.round(damage)+'%';
+ drawOffice();
+ // projectile trails
+ trails.forEach(t=>{
+   ctx.save();
+   ctx.globalAlpha=Math.max(0,t.life/.22)*.42;
+   ctx.fillStyle='#d9e8f4';
+   ctx.beginPath();ctx.arc(t.x,t.y,t.size,0,Math.PI*2);ctx.fill();
+   ctx.restore();
+ });
+ impactRings.forEach(r=>{
+   ctx.save();
+   ctx.globalAlpha=Math.max(0,r.life/.42);
+   ctx.strokeStyle='rgba(255,235,190,.95)';
+   ctx.lineWidth=3;
+   ctx.beginPath();ctx.arc(r.x,r.y,r.r,0,Math.PI*2);ctx.stroke();
+   ctx.restore();
+ });
+ ensurePropPos();props.forEach(drawProp);drawPerson();drawActionFx();
+ if(physicsView){
+   ctx.save();
+   ctx.strokeStyle='rgba(120,210,255,.68)';ctx.lineWidth=1.5;
+   for(const s of sticks){ctx.beginPath();ctx.moveTo(s.a.x,s.a.y);ctx.lineTo(s.b.x,s.b.y);ctx.stroke()}
+   ctx.fillStyle='rgba(120,210,255,.8)';
+   for(const p of Object.values(P)){ctx.beginPath();ctx.arc(p.x,p.y,4,0,Math.PI*2);ctx.fill()}
+   for(const p of props){
+     if(p.used)continue;
+     const sp=Math.hypot(p.vx,p.vy);
+     if(sp>20){
+       ctx.strokeStyle='rgba(255,210,105,.85)';ctx.beginPath();ctx.moveTo(p.px+p.w/2,p.py+p.h/2);
+       ctx.lineTo(p.px+p.w/2+p.vx*.08,p.py+p.h/2+p.vy*.08);ctx.stroke();
+     }
+   }
+   ctx.restore();
+ }
+ particles.forEach(p=>{ctx.globalAlpha=Math.max(0,p.life/.7);ctx.fillStyle='#ffd16b';ctx.beginPath();ctx.arc(p.x,p.y,4,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1});
+}
+let last=performance.now();
+function loop(t){
+ const dt=Math.min(.032,(t-last)/1000);last=t;simulate(dt);render();requestAnimationFrame(loop)
+}
+
+document.querySelectorAll('.tool').forEach(b=>b.onclick=()=>{
+ document.querySelectorAll('.tool').forEach(x=>x.classList.remove('active'));
+ b.classList.add('active');
+ selectedTool=b.dataset.tool;
+ status.innerHTML='Selected: '+selectedTool.toUpperCase()+'<br>Button fires a visible action immediately. Canvas click repeats it.';
+ const targetX=P.chest ? P.chest.x-18 : W*.48;
+ doSelected(targetX);
+});
+document.getElementById('stopBtn').onclick=()=>{frozen=true;say('Paused.');};
+document.getElementById('playBtn').onclick=()=>{frozen=false;say('Live again.');};
+document.getElementById('restoreBtn').onclick=()=>{
+ const old={blackEye,stained,sooty,computerFried,damage,bruises:[...bruises],cuts:[...cuts],swelling,tornSuit,scorchMarks:[...scorchMarks],spills:[...spills],used:props.map(p=>p.used)};
+ makePose(true);
+ blackEye=old.blackEye;stained=old.stained;sooty=old.sooty;computerFried=old.computerFried;damage=old.damage;bruises=old.bruises;cuts=old.cuts;swelling=old.swelling;tornSuit=old.tornSuit;scorchMarks=old.scorchMarks;spills=old.spills;props.forEach((p,i)=>p.used=old.used[i]);
+ say('Pose reset. Damage and used-item history preserved.');
+};
+document.getElementById('resetBtn').onclick=()=>{
+ score=0;scoreEl.textContent='0';levelEl.textContent='1';hits=0;blackEye=false;stained=false;sooty=false;computerFried=false;damage=0;bruises=[];cuts=[];swelling=0;tornSuit=0;scorchMarks=[];spills=[];particles=[];trails=[];impactRings=[];actionFx=[];frozen=false;
+ makePose(true);resetProps();say('Full reset complete.');
+};
+document.getElementById('slowBtn').onclick=e=>{slowMo=!slowMo;e.currentTarget.classList.toggle('active',slowMo);say(slowMo?'Slow motion on.':'Slow motion off.');};
+document.getElementById('gravityBtn').onclick=e=>{lowGrav=!lowGrav;e.currentTarget.classList.toggle('active',lowGrav);say(lowGrav?'Low gravity on.':'Normal gravity.');};
+document.getElementById('physicsBtn').onclick=e=>{physicsView=!physicsView;e.currentTarget.classList.toggle('active',physicsView);say(physicsView?'Physics view on: joints and velocity vectors visible.':'Physics view off.');};
+document.getElementById('whistleBtn').onclick=()=>{P.head.addImpulse((Math.random()-.5)*10,-5);say('Recruiter: “Yes?”');};
+
+function interpret(){
+ const q=input.value.trim().toLowerCase();if(!q)return;
+ if(q.includes('black eye')||q.includes('punch')||q.includes('hit')){selectedTool='punch';doPunch(P.head.x-20)}
+ else if(q.includes('kick'))doKick(P.hip.x-30);
+ else if(q.includes('uppercut'))doUppercut();
+ else if(q.includes('shove'))doShove(P.chest.x-30);
+ else if(q.includes('coffee')||q.includes('spill'))doCoffee();
+ else if(q.includes('fry')||q.includes('computer')||q.includes('monitor'))fryComputer();
+ else if(q.includes('explode')||q.includes('explosion')||q.includes('bomb')||q.includes('blow up'))doExplosion();
+ else{
+   const p=props.find(x=>q.includes(x.kind)&&!x.used);
+   if(p)hitWithProp(p,P.chest.x-30);else say('Try a physical action or office object from the arsenal.');
+ }
+ input.value='';
+}
+document.getElementById('doBtn').onclick=interpret;
+input.addEventListener('keydown',e=>{if(e.key==='Enter')interpret()});
+
+resize();resetProps();say('Seated and ready. Tool buttons fire immediately. Dragging releases the ragdoll.');requestAnimationFrame(loop);
+})();
+</script>
+
+<style>
+#fsDownloadGame{position:fixed;top:12px;right:14px;z-index:999999;background:#0174F3;color:#fff;border:0;border-radius:10px;padding:11px 15px;font:700 13px/1.1 Arial,sans-serif;box-shadow:0 6px 20px rgba(0,0,0,.28);cursor:pointer}
+#fsDownloadGame:hover{filter:brightness(1.08)}
+</style>
+<button id="fsDownloadGame" type="button">DOWNLOAD GAME</button>
+<script>
+document.getElementById('fsDownloadGame').addEventListener('click',function(){
+  const html='<!doctype html>\n'+document.documentElement.outerHTML;
+  const blob=new Blob([html],{type:'text/html'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='Kick-the-Recruiter-v1.0.html';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+});
+</script>
+
+</body>
+</html>
