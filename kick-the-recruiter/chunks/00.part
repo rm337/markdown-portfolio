@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>KICK THE RECRUITER · Physics Playground</title>
+<style>
+*{box-sizing:border-box}
+:root{
+  --bg:#050a10;--panel:#0b1622;--panel2:#102134;--line:#294866;--blue:#0174F3;
+  --text:#edf5ff;--muted:#9eb2c4;--danger:#8e2525
+}
+html,body{margin:0;height:100%;overflow:hidden;background:var(--bg);font-family:Arial,Helvetica,sans-serif;color:var(--text)}
+button,input{font:inherit}
+.app{height:100%;display:grid;grid-template-rows:58px 1fr}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:0 14px 0 18px;background:#07111d;border-bottom:1px solid #1f3850}
+.brand{font-weight:950;letter-spacing:.02em}
+.brand span{font-size:11px;color:#8fa7bc;font-weight:700;margin-left:8px}
+.hud{font-size:12px;color:#bcd0e1}
+.main{position:relative;min-height:0;display:grid;grid-template-columns:88px 1fr 260px;gap:10px;padding:10px}
+.leftbar,.rightbar{background:rgba(9,21,33,.97);border:1px solid #28455f;border-radius:16px;padding:10px;overflow:auto}
+.leftbar{display:flex;flex-direction:column;gap:8px}
+.leftbar button{height:46px;border-radius:11px;border:1px solid #315573;background:#10243a;color:#fff;font-weight:850;font-size:10px;cursor:pointer}
+.leftbar button.danger{background:#7c2020;border-color:#ad3b3b}
+.leftbar button.active{outline:2px solid var(--blue);background:#153b5e}
+.scene{position:relative;border:1px solid #385a74;border-radius:18px;overflow:hidden;background:#0a1521;min-width:0}
+canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none}
+.sceneHint{position:absolute;left:14px;top:12px;z-index:5;background:rgba(5,13,22,.74);border:1px solid #2d4d68;border-radius:10px;padding:7px 10px;font-size:11px;color:#c8d7e4;pointer-events:none}
+.dialog{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);z-index:6;width:min(640px,74%);padding:10px 14px;border:1px solid #315774;border-radius:13px;background:rgba(5,15,25,.93);text-align:center;font-size:12px}
+.command{position:absolute;left:50%;bottom:58px;transform:translateX(-50%);z-index:6;width:min(640px,74%);display:flex;gap:6px}
+.command input{flex:1;border:1px solid #31516c;border-radius:10px;background:#081522;color:white;padding:9px 12px;outline:none}
+.command button{border:1px solid #356186;border-radius:10px;background:#13314a;color:white;font-weight:900;padding:0 14px}
+.rightbar h2{font-size:15px;margin:0 0 4px}
+.rightbar p{font-size:10px;line-height:1.35;color:var(--muted);margin:0 0 10px}
+.section{margin:10px 0 6px;font-size:10px;color:#8eabc2;font-weight:900;letter-spacing:.09em}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.tool{min-height:46px;border:1px solid #335673;border-radius:10px;background:#10263b;color:#fff;font-size:10px;font-weight:850;cursor:pointer;padding:5px}
+.tool:hover{background:#17324c}
+.tool.active{outline:2px solid var(--blue);background:#153d60}
+.tool.wide{grid-column:1/-1}
+.tool.red{background:#702020;border-color:#a43a3a}
+.status{margin-top:10px;padding:9px;border-radius:10px;background:#081522;border:1px solid #243f57;font-size:10px;line-height:1.45;color:#c9d9e7}
+@media(max-width:900px){
+ .main{grid-template-columns:66px 1fr 180px}
+ .rightbar{padding:7px}.leftbar{padding:7px}
+ .grid{grid-template-columns:1fr}
+ .tool.wide{grid-column:auto}
+ .brand span{display:none}
+}
+@media(max-width:650px){
+ .main{grid-template-columns:52px 1fr 118px;gap:5px;padding:5px}
+ .leftbar button{height:40px;font-size:8px}
+ .rightbar h2{font-size:11px}.rightbar p{display:none}
+ .tool{min-height:38px;font-size:8px}
+ .dialog,.command{width:72%}
+ .sceneHint{font-size:9px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <div class="brand">KICK THE RECRUITER <span>Kick the AI™ · Recruiter Edition</span></div>
+    <div class="hud">RELIEF <b id="score">0</b> · LVL <b id="level">1</b> · DAMAGE <b id="damageMeter">0%</b></div>
+  </div>
+
+  <div class="main">
+    <aside class="leftbar">
+      <button class="danger" id="stopBtn">STOP</button>
+      <button id="playBtn">PLAY</button>
+      <button id="restoreBtn">POSE RESET</button>
+      <button id="resetBtn">RESET ALL</button>
+      <button id="slowBtn">SLOW MO</button>
+      <button id="gravityBtn">LOW GRAV</button>
+      <button id="physicsBtn">PHYSICS VIEW</button>
+      <button id="whistleBtn">WHISTLE</button>
+    </aside>
+
+    <section class="scene">
+      <canvas id="game"></canvas>
+      <div class="sceneHint">Actions are visible now: fists, feet, shove hands, uppercut, coffee arc, thrown props and explosion all animate on screen.</div>
+      <div class="command">
+        <input id="commandInput" placeholder="Anything else? Try: black eye, coffee, fry computer, explosion">
+        <button id="doBtn">DO IT</button>
+      </div>
+      <div class="dialog" id="dialog">Live physics. The whole body reacts, not just the head.</div>
+    </section>
+
+    <aside class="rightbar">
+      <h2>ARSENAL</h2>
+      <p>Select a tool, then click the recruiter. Or throw physical props from the room.</p>
+
+      <div class="section">BODY</div>
+      <div class="grid">
+        <button class="tool active" data-tool="punch">PUNCH</button>
+        <button class="tool" data-tool="kick">KICK</button>
+        <button class="tool" data-tool="shove">SHOVE</button>
+        <button class="tool" data-tool="uppercut">UPPERCUT</button>
+      </div>
+
+      <div class="section">OFFICE OBJECTS</div>
+      <div class="grid">
+        <button class="tool" data-tool="coffee">COFFEE</button>
+        <button class="tool" data-tool="stapler">STAPLER</button>
+        <button class="tool" data-tool="phone">PHONE</button>
+        <button class="tool" data-tool="keyboard">KEYBOARD</button>
+        <button class="tool" data-tool="folder">FOLDER</button>
+        <button class="tool" data-tool="clipboard">CLIPBOARD</button>
+        <button class="tool" data-tool="bottle">BOTTLE</button>
+        <button class="tool" data-tool="plant">PLANT</button>
+        <button class="tool" data-tool="trash">TRASH CAN</button>
+      </div>
+
+      <div class="section">ROOM EVENTS</div>
+      <div class="grid">
+        <button class="tool wide" data-tool="fry">FRY COMPUTER</button>
+        <button class="tool red wide" data-tool="explosion">EXPLOSION</button>
+      </div>
+
+      <div class="status" id="status">Selected: PUNCH<br>Damage stays until RESET ALL.</div>
+    </aside>
+  </div>
+</div>
+
+<script>
+(() => {
+'use strict';
+const canvas=document.getElementById('game');
+const ctx=canvas.getContext('2d');
+const scene=canvas.parentElement;
+const scoreEl=document.getElementById('score');
+const levelEl=document.getElementById('level');
+const dialog=document.getElementById('dialog');
+const status=document.getElementById('status');
+const input=document.getElementById('commandInput');
+
+let W=1000,H=700,dpr=1;
+let selectedTool='punch',score=0,frozen=false,slowMo=false,lowGrav=false,physicsView=false;
+let pointer={x:0,y:0,down:false,lastX:0,lastY:0,vx:0,vy:0,t:0};
+let grabbed=null;
+let hits=0, blackEye=false, stained=false, sooty=false, computerFried=false, damage=0, bruises=[], cuts=[], swelling=0, tornSuit=0;
+let scorchMarks=[], spills=[], particles=[], trails=[], impactRings=[], actionFx=[];
+
+function resize(){
+ const r=scene.getBoundingClientRect();
+ dpr=Math.min(2,window.devicePixelRatio||1);
+ W=Math.max(320,r.width);H=Math.max(300,r.height);
+ canvas.width=W*dpr;canvas.height=H*dpr;
+ canvas.style.width=W+'px';canvas.style.height=H+'px';
+ ctx.setTransform(dpr,0,0,dpr,0,0);
+ makePose(true);
+}
+window.addEventListener('resize',resize);
+
+class Point{
+ constructor(x,y,m=1,rad=12){this.x=x;this.y=y;this.px=x;this.py=y;this.m=m;this.rad=rad;this.pin=null}
+ addImpulse(ix,iy){this.px-=ix/this.m;this.py-=iy/this.m}
+}
+class Stick{
+ constructor(a,b,len,stiff=.93){this.a=a;this.b=b;this.len=len;this.stiff=stiff}
+ solve(){
+  let dx=this.b.x-this.a.x,dy=this.b.y-this.a.y,d=Math.hypot(dx,dy)||.001;
+  let diff=(d-this.len)/d*this.stiff*.5;
+  let ox=dx*diff,oy=dy*diff;
+  if(!this.a.pin){this.a.x+=ox;this.a.y+=oy}
+  if(!this.b.pin){this.b.x-=ox;this.b.y-=oy}
+ }
+}
+let P={},sticks=[];
+
+let seated=true;
+let recoveryTimer=null;
+function makePose(force=false){
+ const cx=W*.50, cy=H*.28;
+ if(!force && Object.keys(P).length)return;
+ P={
+  head:new Point(cx,cy,1.2,28),
+  neck:new Point(cx,cy+55,1.3,11),
+  chest:new Point(cx,cy+108,2.2,23),
+  hip:new Point(cx,cy+195,2.5,24),
+  shL:new Point(cx-50,cy+98,1.5,14),
+  elL:new Point(cx-72,cy+158,1.25,13),
+  handL:new Point(cx-66,cy+212,1,14),
+  shR:new Point(cx+50,cy+98,1.5,14),
+  elR:new Point(cx+72,cy+158,1.25,13),
+  handR:new Point(cx+66,cy+212,1,14),
+  kneeL:new Point(cx-42,cy+245,1.7,16),
+  footL:new Point(cx-52,cy+315,1.4,17),
+  kneeR:new Point(cx+42,cy+245,1.7,16),
+  footR:new Point(cx+52,cy+315,1.4,17)
+ };
+ const s=(a,b,k=.94)=>sticks.push(new Stick(P[a],P[b],Math.hypot(P[a].x-P[b].x,P[a].y-P[b].y),k));
+ sticks=[];
+ s('head','neck',.96);s('neck','chest',.98);s('chest','hip',.98);
+ s('chest','shL');s('shL','elL');s('elL','handL');
+ s('chest','shR');s('shR','elR');s('elR','handR');
+ s('hip','kneeL');s('kneeL','footL');s('hip','kneeR');s('kneeR','footR');
+ s('shL','shR',.9);s('kneeL','kneeR',.85);
+ seated=true;
+ // Pin torso into a seated idle pose until the first interaction.
+ P.chest.pin={x:P.chest.x,y:P.chest.y};
+ P.hip.pin={x:P.hip.x,y:P.hip.y};
+}
+function releaseSeat(){
+ if(!seated)return;
+ seated=false;
+ P.chest.pin=null;P.hip.pin=null;
+}
+function scheduleRecovery(delay=2200){
+ clearTimeout(recoveryTimer);
+ recoveryTimer=setTimeout(()=>{
+   if(frozen || grabbed)return;
+   makePose(true);
+   if(damage>55){P.head.x+=10;P.chest.x+=6;} say('Recruiter recovered to the chair. Damage stays and keeps accumulating.');
+ },delay);
+}
+
+const props=[
+ {kind:'coffee',x:.72,y:.70,w:42,h:30,used:false,vx:0,vy:0,drag:false,rot:0,vr:0,thrown:false},
+ {kind:'stapler',x:.66,y:.76,w:62,h:18,used:false,vx:0,vy:0,drag:false,rot:0,v
