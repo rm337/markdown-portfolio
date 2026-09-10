@@ -45,7 +45,7 @@ document.getElementById('resetBtn').onclick=()=>{
 document.getElementById('slowBtn').onclick=e=>{slowMo=!slowMo;e.currentTarget.classList.toggle('active',slowMo);say(slowMo?'Slow motion on.':'Slow motion off.');};
 document.getElementById('gravityBtn').onclick=e=>{lowGrav=!lowGrav;e.currentTarget.classList.toggle('active',lowGrav);say(lowGrav?'Low gravity on.':'Normal gravity.');};
 document.getElementById('physicsBtn').onclick=e=>{physicsView=!physicsView;e.currentTarget.classList.toggle('active',physicsView);say(physicsView?'Physics view on: joints and velocity vectors visible.':'Physics view off.');};
-document.getElementById('whistleBtn').onclick=()=>{P.head.addImpulse((Math.random()-.5)*10,-5);say('Recruiter: “Yes?”');};
+document.getElementById('whistleBtn').onclick=()=>{sfx('whistle');P.head.addImpulse((Math.random()-.5)*10,-5);say('Recruiter: “Yes?”');};
 
 function interpret(){
  const q=input.value.trim().toLowerCase();if(!q)return;
