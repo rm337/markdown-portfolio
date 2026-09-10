@@ -736,7 +736,13 @@ function render(){
    ctx.beginPath();ctx.arc(r.x,r.y,r.r,0,Math.PI*2);ctx.stroke();
    ctx.restore();
  });
- ensurePropPos();props.forEach(drawProp);drawPerson();drawAction()}
+ ensurePropPos();props.forEach(drawProp);drawPerson();drawActionFx();
+ if(physicsView){
+   ctx.save();
+   ctx.strokeStyle='rgba(120,210,255,.68)';ctx.lineWidth=1.5;
+   for(const s of sticks){ctx.beginPath();ctx.moveTo(s.a.x,s.a.y);ctx.lineTo(s.b.x,s.b.y);ctx.stroke()}
+   ctx.fillStyle='rgba(120,210,255,.8)';
+   for(const p of Object.values(P)){ctx.beginPath();ctx.arc(p.x,p.y,4,0,Math.PI*2);ctx.fill()}
    for(const p of props){
      if(p.used)continue;
      const sp=Math.hypot(p.vx,p.vy);
@@ -797,26 +803,13 @@ function interpret(){
 document.getElementById('doBtn').onclick=interpret;
 input.addEventListener('keydown',e=>{if(e.key==='Enter')interpret()});
 
-resize();resetProps();say('Seated and ready. Tool buttons fire immediately. Dragging releases the ragdoll.');render();requestAnimationFrame(loop);
+resize();resetProps();say('Seated and ready. Tool buttons fire immediately. Dragging releases the ragdoll.');requestAnimationFrame(loop);
 })();
 </script>
 
-<style>
-#fsDownloadGame{position:fixed;top:12px;right:14px;z-index:999999;background:#0174F3;color:#fff;border:0;border-radius:10px;padding:11px 15px;font:700 13px/1.1 Arial,sans-serif;box-shadow:0 6px 20px rgba(0,0,0,.28);cursor:pointer}
-#fsDownloadGame:hover{filter:brightness(1.08)}
-</style>
-<button id="fsDownloadGame" type="button">DOWNLOAD GAME</button>
-<script>
-document.getElementById('fsDownloadGame').addEventListener('click',function(){
-  const html='<!doctype html>\n'+document.documentElement.outerHTML;
-  const blob=new Blob([html],{type:'text/html'});
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);
-  a.download='Kick-the-Recruiter-v1.0.html';
-  document.body.appendChild(a); a.click(); a.remove();
-  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
-});
+<button id="downloadGameBtn" type="button">DOWNLOAD GAME</button>
+<script id="download-script">
+(()=>{const b=document.getElementById('downloadGameBtn');if(!b)return;b.addEventListener('click',()=>{const clone=document.documentElement.cloneNode(true);const html='<!doctype html>\n'+clone.outerHTML;const blob=new Blob([html],{type:'text/html'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Kick-the-Recruiter-v1.0.html';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);});})();
 </script>
-
 </body>
 </html>
