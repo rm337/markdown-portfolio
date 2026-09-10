@@ -1,4 +1,9 @@
-.down)return;pointer.down=false;
+er.lastX=x;pointer.lastY=y;pointer.t=now;pointer.x=x;pointer.y=y;
+ if(grabbed?.type==='body'){grabbed.obj.x=x;grabbed.obj.y=y;grabbed.obj.px=x-pointer.vx*.012;grabbed.obj.py=y-pointer.vy*.012}
+ if(grabbed?.type==='prop'){let p=grabbed.obj;p.px=x-grabbed.offX;p.py=y-grabbed.offY}
+});
+canvas.addEventListener('pointerup',e=>{
+ if(!pointer.down)return;pointer.down=false;
  if(grabbed?.type==='body'){grabbed.obj.addImpulse(pointer.vx*.025,pointer.vy*.025)}
  if(grabbed?.type==='prop'){
   const p=grabbed.obj;p.drag=false;p.thrown=true;p.vx=pointer.vx*.75;p.vy=pointer.vy*.75;p.vr=(pointer.vx*.012)+(Math.random()-.5)*5;
@@ -61,15 +66,7 @@ function simulate(dt){
 }
 
 function roundedRect(x,y,w,h,r,fill,stroke){
- r=Math.max(0,Math.min(r,Math.abs(w)/2,Math.abs(h)/2));
- ctx.beginPath();
- ctx.moveTo(x+r,y);
- ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);
- ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
- ctx.lineTo(x+r,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-r);
- ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);
- ctx.closePath();
- ctx.fillStyle=fill;ctx.fill();
+ ctx.beginPath();ctx.roundRect(x,y,w,h,r);ctx.fillStyle=fill;ctx.fill();
  if(stroke){ctx.strokeStyle=stroke;ctx.stroke()}
 }
 function limb(a,b,width,c1,c2){
@@ -117,13 +114,4 @@ function drawProp(p){
  ctx.save();
  ctx.globalAlpha=.24;
  ctx.fillStyle='#000';
- ctx.beginPath();ctx.ellipse(x+p.w/2,floorY-2,Math.max(10,p.w*.45*shadowScale),Math.max(4,p.h*.12*shadowScale),0,0,Math.PI*2);ctx.fill();
- ctx.restore();
-
- ctx.save();
- ctx.translate(x+p.w/2,y+p.h/2);
- ctx.rotate(p.rot);
- ctx.translate(-(x+p.w/2),-(y+p.h/2));
- ctx.shadowColor='rgba(0,0,0,.45)';ctx.shadowBlur=p.thrown?12:6;ctx.shadowOffsetY=p.thrown?8:4;
- switch(p.kind){
-  case'co
+ ctx.beginPath();ctx.ellipse(x+p.w/2,floorY-2
