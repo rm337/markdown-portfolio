@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-09-09",
+  "updated": "2026-09-10",
   "entries": [
     {
       "word": "Crologic",
@@ -110,6 +110,14 @@
       "definition": "The hidden weave of circumstances that makes the same words mean something different depending on where they land.",
       "category": "semantic-blend",
       "date": "2026-09-09",
+      "status": "active"
+    },
+    {
+      "word": "Lexcursion",
+      "type": "noun",
+      "definition": "An unplanned journey away from the original thought because one irresistible word opened a better road.",
+      "category": "language-collision",
+      "date": "2026-09-10",
       "status": "active"
     }
   ]
