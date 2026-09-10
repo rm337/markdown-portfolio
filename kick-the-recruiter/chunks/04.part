@@ -1,4 +1,13 @@
-ffee':
+,Math.max(10,p.w*.45*shadowScale),Math.max(4,p.h*.12*shadowScale),0,0,Math.PI*2);ctx.fill();
+ ctx.restore();
+
+ ctx.save();
+ ctx.translate(x+p.w/2,y+p.h/2);
+ ctx.rotate(p.rot);
+ ctx.translate(-(x+p.w/2),-(y+p.h/2));
+ ctx.shadowColor='rgba(0,0,0,.45)';ctx.shadowBlur=p.thrown?12:6;ctx.shadowOffsetY=p.thrown?8:4;
+ switch(p.kind){
+  case'coffee':
    roundedRect(x,y,p.w-6,p.h,5,'#eceae6','#d7d7d2');ctx.strokeStyle='#eae8e4';ctx.lineWidth=4;ctx.beginPath();ctx.arc(x+p.w-5,y+15,8,-Math.PI/2,Math.PI/2);ctx.stroke();ctx.fillStyle='#5c321f';ctx.beginPath();ctx.ellipse(x+(p.w-6)/2,y+4,12,3,0,0,Math.PI*2);ctx.fill();break;
   case'stapler':roundedRect(x,y,p.w,p.h,8,'#20272d');ctx.fillStyle='#69747c';ctx.fillRect(x+4,y+p.h-5,p.w-8,5);break;
   case'phone':roundedRect(x,y,p.w,p.h,7,'#242b31');ctx.lineWidth=7;ctx.strokeStyle='#394249';ctx.beginPath();ctx.arc(x+p.w/2,y,18,.2,Math.PI-.2);ctx.stroke();break;
@@ -75,10 +84,4 @@ function drawPerson(){
  for(const ex of [-19,19]){
    ctx.fillStyle='#f4ece7';ctx.beginPath();ctx.ellipse(ex,-2,11,5.5,0,0,Math.PI*2);ctx.fill();
    ctx.fillStyle='#5a4637';ctx.beginPath();ctx.arc(ex,-2,4.1,0,Math.PI*2);ctx.fill();
-   ctx.fillStyle='#111618';ctx.beginPath();ctx.arc(ex,-2,2,0,Math.PI*2);ctx.fill();
-   ctx.fillStyle='white';ctx.beginPath();ctx.arc(ex-1,-3,0.8,0,Math.PI*2);ctx.fill();
- }
- // nose
- ctx.strokeStyle='rgba(120,72,58,.45)';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(0,-2);ctx.lineTo(-2,16);ctx.quadraticCurveTo(2,20,8,16);ctx.stroke();
- // mouth
- ctx.strokeStyle='#76443f';
+   ctx.fillStyle='#111618';ctx.beg
