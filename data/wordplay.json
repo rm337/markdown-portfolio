@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-09-10",
+  "updated": "2026-09-11",
   "entries": [
     {
       "word": "Crologic",
@@ -118,6 +118,14 @@
       "definition": "An unplanned journey away from the original thought because one irresistible word opened a better road.",
       "category": "language-collision",
       "date": "2026-09-10",
+      "status": "active"
+    },
+    {
+      "word": "Nounshine",
+      "type": "noun",
+      "definition": "The sudden clarity that appears when you finally find a name for the thing you've been circling around.",
+      "category": "word-combo",
+      "date": "2026-09-11",
       "status": "active"
     }
   ]
