@@ -46,26 +46,37 @@ jobs:
                 try{await page.evaluate(()=>sessionStorage.clear())}catch{}
               }
               await page.goto('https://oceanofink.com/resume-tester-clean/?hosted-readiness-e2e='+Date.now(),{waitUntil:'networkidle',timeout:30000});
-              const smart=page.getByText('OPEN SMART RESUME',{exact:true});
-              if(await smart.isVisible().catch(()=>false)) return;
               const gate=page.locator('#testerCode');
-              await gate.waitFor({state:'visible',timeout:10000});
-              const code=await page.evaluate(()=>{const src=[...document.scripts].map(s=>s.textContent||'').join('\n');const m=src.match(/TESTER_CODE='([^']+)'/);return m?m[1]:''});
-              if(!code) throw new Error('Tester code could not be read from hosted gate');
-              await gate.fill(code);
-              await page.locator('#enterTester').click();
-              await smart.waitFor({state:'visible',timeout:20000});
+              if(await gate.isVisible().catch(()=>false)){
+                const code=await page.evaluate(()=>{const src=[...document.scripts].map(s=>s.textContent||'').join('\n');const m=src.match(/TESTER_CODE='([^']+)'/);return m?m[1]:''});
+                if(!code) throw new Error('Tester code could not be read from hosted gate');
+                await gate.fill(code);
+                await page.locator('#enterTester').click();
+              }
+              await page.locator('button[data-route="resume"]').waitFor({state:'visible',timeout:20000});
+            }
+            async function openResume(){
+              await page.locator('button[data-route="resume"]').click();
+              await page.locator('#app').getByText('Resume Workspace',{exact:true}).waitFor({state:'visible',timeout:10000});
             }
             await enterTester(true);
-            await page.getByText('OPEN SMART RESUME',{exact:true}).click();
-            const chooserPromise=page.waitForEvent('filechooser');
-            await page.getByText('UPLOAD RESUME',{exact:true}).first().click();
-            const chooser=await chooserPromise;
-            await chooser.setFiles('/tmp/qa-resume.txt');
-            await page.getByText('qa-resume.txt',{exact:true}).first().waitFor({state:'visible',timeout:10000});
+            await openResume();
+            if(await page.getByText('UPLOAD RESUME',{exact:true}).first().isVisible().catch(()=>false)){
+              const chooserPromise=page.waitForEvent('filechooser');
+              await page.getByText('UPLOAD RESUME',{exact:true}).first().click();
+              const chooser=await chooserPromise;
+              await chooser.setFiles('/tmp/qa-resume.txt');
+              await page.getByText('qa-resume.txt',{exact:true}).first().waitFor({state:'visible',timeout:10000});
+            } else if(!await page.getByText('qa-resume.txt',{exact:true}).first().isVisible().catch(()=>false)){
+              const chooserPromise=page.waitForEvent('filechooser');
+              await page.getByText('REPLACE RESUME',{exact:true}).click();
+              const chooser=await chooserPromise;
+              await chooser.setFiles('/tmp/qa-resume.txt');
+              await page.getByText('qa-resume.txt',{exact:true}).first().waitFor({state:'visible',timeout:10000});
+            }
 
             await enterTester(true);
-            await page.getByText('OPEN SMART RESUME',{exact:true}).click();
+            await openResume();
             await page.getByText('qa-resume.txt',{exact:true}).first().waitFor({state:'visible',timeout:10000});
             const editor=page.locator('#editor');
             const original=await editor.inputValue();
@@ -75,7 +86,7 @@ jobs:
             await page.getByText('Automatic backup before edit',{exact:false}).first().waitFor({state:'visible',timeout:10000});
             await page.screenshot({path:'/tmp/hosted-readiness-backup.png',fullPage:true});
             await page.getByText('RESTORE',{exact:true}).first().click();
-            await page.locator('button[data-route="resume"]').click();
+            await openResume();
             const restored=await page.locator('#editor').inputValue();
             if(restored.includes('PERSISTENCE MARKER')) throw new Error('Backup restore did not restore the pre-edit resume');
 
@@ -96,10 +107,7 @@ jobs:
             if(errors.length) throw new Error(errors.join(' | '));
             console.log('HOSTED READINESS PASS: resume persistence -> edit backup -> restore -> job intake without URL/company/title -> job persistence');
             await browser.close();
-          })().catch(async e=>{
-            console.error('HOSTED READINESS EXACT FAILURE: '+e.message);
-            process.exit(1)
-          });
+          })().catch(e=>{console.error('HOSTED READINESS EXACT FAILURE: '+e.message);process.exit(1)});
           EOF
           node readiness-e2e.js
       - name: Upload readiness evidence
