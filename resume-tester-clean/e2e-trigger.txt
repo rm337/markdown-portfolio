@@ -1,0 +1,1 @@
+Trigger browser E2E after launcher script execution fix.
