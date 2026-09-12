@@ -1,0 +1,65 @@
+on.'};
+}
+function passFailBanner(a){
+ const r=technicalPass(a);
+ return `<div class="passfail ${r.pass?'pass':'fail'}"><div class="row between"><div><label class="cap">ATS READABILITY</label><div class="password">${r.pass?'PASS':'FAIL'}</div></div><span class="modebadge">${currentMode().toUpperCase()} MODE</span></div><div class="small">${esc(r.why)} This is a technical readability result, not a judgment of your career or experience.</div></div>`;
+}
+function ownerAccessPanel(){
+ if(currentMode()!=='owner')return '';
+ const a=getAuth();
+ return `<div class="card span12"><h2>Tester Access</h2><p class="small">Create or replace a separate tester code. Tester work is stored in an isolated workspace and does not overwrite owner résumé/job data. This local HTML gate is for controlled testing, not production-grade authentication.</p>
+ <div class="row"><input id="testerCodeNew" type="password" placeholder="${a.testerCodeHash?'Replace tester access code':'Create tester access code'}" style="max-width:320px"><button class="btn setTesterCode">${a.testerCodeHash?'REPLACE TESTER CODE':'CREATE TESTER CODE'}</button>${a.testerCodeHash?'<button class="btn ghost disableTester">DISABLE TESTER ACCESS</button>':''}</div></div>`;
+}
+
+const fresh=()=>({route:'home',resume:{name:'',type:'',text:'',loadedAt:'',analysis:null},backups:[],backupDefault:true,jobs:[],applications:[],selectedApplicationId:null});
+let state;
+try{state=Object.assign(fresh(),JSON.parse(localStorage.getItem(storageKey())||'{}'));state.resume=Object.assign(fresh().resume,state.resume||{});state.backups=Array.isArray(state.backups)?state.backups:[];state.jobs=Array.isArray(state.jobs)?state.jobs:[];state.applications=Array.isArray(state.applications)?state.applications:[]}catch{state=fresh()}
+const save=()=>localStorage.setItem(storageKey(),JSON.stringify(state));
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const $=q=>document.querySelector(q);
+function backup(reason){if(!state.backupDefault||!state.resume.text)return;state.backups.unshift({...state.resume,id:Date.now(),reason,backedAt:new Date().toLocaleString()});save()}
+function status(){
+ const r=state.resume;
+ if(!r.text)return `<div class="card emptybar span12"><div class="row between"><div><label class="cap">ACTIVE RESUME</label><h2>NO RESUME LOADED</h2><div class="small">PDF • DOCX • TXT • MD • RTF</div></div><button class="btn upload">UPLOAD RESUME</button></div></div>`;
+ return `<div class="card activebar span12"><div class="row between"><div><label class="cap">ACTIVE RESUME • CURRENTLY LOADED</label><h2>${esc(r.name)}</h2><div class="small">${esc(r.loadedAt)} • ${r.text.split(/\s+/).filter(Boolean).length.toLocaleString()} words • BACKUP COPY ON ✓</div></div><div class="row"><button class="btn secondary upload">REPLACE RESUME</button><button class="btn ghost clear">CLEAR RESUME</button></div></div></div>`;
+}
+
+
+function professionalResumeExplanation(a){
+ if(!a||!a.intelligence)return '';
+ const i=a.intelligence;
+ const strengths=[];
+ if(i.seniority.includes('EXECUTIVE')) strengths.push('senior creative leadership');
+ else if(i.seniority.includes('SENIOR')) strengths.push('senior-level responsibility');
+ if(i.strategy.length>=5) strengths.push('strategic thinking');
+ if(i.leadership.length>=2) strengths.push('leadership and ownership');
+ if(i.strong.length) strengths.push('specific high-value experience');
+ if(!strengths.length) strengths.push('a broad range of professional capabilities');
+
+ const proof=[];
+ if(i.measured.length) proof.push('measurable results');
+ if(i.impact.length) proof.push('outcome language');
+ if(i.leadership.length) proof.push('leadership evidence');
+ if(i.strategy.length) proof.push('strategic evidence');
+
+ let opening=`Your résumé presents you as a professional with ${strengths.join(', ').replace(/, ([^,]*)$/, ' and $1')}. It communicates the kind of work you perform and the level of responsibility you have held.`;
+ let improvement='';
+ if(!i.measured.length && !i.impact.length){
+   improvement=`The main opportunity is to show more clearly what changed because of your work. The résumé currently explains your capabilities more strongly than it documents their outcomes. Where accurate, examples such as project scale, audience growth, sales or revenue influence, engagement, time saved, turnaround improvements, team size, volume of work, or other concrete results would make the existing experience more persuasive.`;
+ }else if(!i.measured.length){
+   improvement=`The résumé contains outcome-oriented language, but relatively little quantified proof. Where accurate, adding scale, percentages, dollar impact, audience size, team size, volume, time saved, or similar measures would make those outcomes easier to evaluate.`;
+ }else{
+   improvement=`The résumé contains measurable evidence as well as broader leadership and strategic signals. The next opportunity is to make sure the strongest results are easy to find and directly connected to the work that produced them.`;
+ }
+ let clarification=`This does not mean the résumé lacks experience or value. It means the current document ${(!i.measured.length&&!i.impact.length)?'describes your capabilities more clearly than it demonstrates their results':'has evidence that can be presented more deliberately and prominently'}.`;
+ let job='';
+ if(i.jobMatch){
+   job=`For the saved target role, the résumé currently reflects ${i.jobMatch.matched.length?'several':'few'} of the recurring concepts found in the posting. The comparison should be used to locate relevant experience that may be buried or described differently, not to add claims that are not true.`;
+ }
+ return {opening,improvement,clarification,job};
+}
+
+function resumeIntelligence(text){
+ const normalized=(text||'').replace(/\r/g,'').replace(/\u00a0/g,' ');
+ const lines=normalized.split('\n').map(x=>x.trim()).filter(Boolean);
+ const contentLines=lines.filter(l=>l.length>35 && !/^[A-Z0-9 &/|.,'’()-]{3,45
