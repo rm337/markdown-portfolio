@@ -57,7 +57,7 @@ jobs:
             }
             async function openResume(){
               await page.locator('button[data-route="resume"]').click();
-              await page.locator('#app').getByText('Resume Workspace',{exact:true}).waitFor({state:'visible',timeout:10000});
+              await page.getByRole('heading',{name:'Resume Workspace',exact:true}).waitFor({state:'visible',timeout:10000});
             }
             await enterTester(true);
             await openResume();
