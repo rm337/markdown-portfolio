@@ -1,0 +1,32 @@
+<button class="btn ghost logoutBtn">SIGN OUT</button></div></div>`;
+}
+
+function render(){document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.route===state.route));$('#app').innerHTML=state.route==='resume'?resume():state.route==='ats'?ats():state.route==='backups'?backups():state.route==='jobs'?jobs():state.route==='tracker'?tracker():state.route==='access'?access():home();bind()}
+function bind(){
+ const jr=document.querySelector('.jumpResume'); if(jr) jr.onclick=()=>{state.route='resume';save();render()};
+ const jf=document.querySelector('.jumpFSTT'); if(jf) jf.onclick=()=>{state.route='tracker';save();render()};
+
+ document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{state.route=b.dataset.go;save();render()});
+ document.querySelectorAll('.upload').forEach(b=>b.onclick=()=>$('#filePicker').click());
+ document.querySelectorAll('.clear').forEach(b=>b.onclick=()=>{if(confirm('Clear ACTIVE resume? A backup copy will be created first.')){backup('Automatic backup before clear');state.resume=fresh().resume;save();render()}});
+ document.querySelectorAll('.restore').forEach(b=>b.onclick=()=>{let x=state.backups.find(v=>v.id==b.dataset.id);if(x){if(state.resume.text)backup('Automatic backup before restore');state.resume={name:x.name,type:x.type,text:x.text,loadedAt:new Date().toLocaleString(),analysis:analyze(x.text)};save();render()}});
+ let se=$('.saveEdit');if(se)se.onclick=()=>{let t=$('#editor').value.trim();if(state.resume.text&&t!==state.resume.text)backup('Automatic backup before edit');state.resume={name:state.resume.name||'Pasted resume',type:state.resume.type||'text',text:t,loadedAt:new Date().toLocaleString(),analysis:t?analyze(t):null};save();render()};
+ let p=$('.paste');if(p)p.onclick=()=>{$('#editor').focus()};
+ let aj=$('.analyzeJob');if(aj)aj.onclick=saveDetectedJob;
+ let cj=$('.clearJobForm');if(cj)cj.onclick=()=>{if($('#jobText'))$('#jobText').value='';if($('#jobUrl'))$('#jobUrl').value='';if($('#jobCompany'))$('#jobCompany').value='';if($('#jobTitle'))$('#jobTitle').value='';};
+
+ let at=$('.addTrack');if(at)at.onclick=addTrackedOpportunity;
+ document.querySelectorAll('.journeyStage').forEach(el=>el.onchange=()=>{let a=state.applications.find(x=>x.id==el.dataset.id);if(a){a.journeyStage=Number(el.value);a.status=FSTT_STAGES[a.journeyStage]||a.status;state.selectedApplicationId=a.id;save();render()}});
+ document.querySelectorAll('.selectTrack').forEach(el=>el.onclick=()=>{state.selectedApplicationId=Number(el.dataset.id);save();render()});
+ document.querySelectorAll('.deleteTrack').forEach(el=>el.onclick=()=>{if(confirm('Delete this tracked journey?')){state.applications=state.applications.filter(x=>x.id!=el.dataset.id);if(String(state.selectedApplicationId)===String(el.dataset.id))state.selectedApplicationId=state.applications[0]?.id||null;save();render()}});
+ let tc=$('.setTesterCode');if(tc)tc.onclick=async()=>{const v=$('#testerCodeNew').value.trim();if(v.length<4){alert('Use at least 4 characters for the tester code.');return}let a=getAuth();a.testerCodeHash=await hashText(v);setAuth(a);alert('Tester access code created.');render()};
+ let dt=$('.disableTester');if(dt)dt.onclick=()=>{let a=getAuth();a.testerCodeHash='';setAuth(a);alert('Tester access disabled.');render()};
+ let lo=$('.logoutBtn');if(lo)lo.onclick=()=>{sessionStorage.removeItem('fs_srcc_v45_session');location.reload()};
+
+
+}
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{state.route=b.dataset.route;save();render()});
+$('#filePicker').onchange=e=>{let f=e.target.files[0];if(f)loadFile(f);e.target.value=''};
+document.addEventListener('dragover',e=>e.preventDefault());document.addEventListener('drop',e=>{e.preventDefault();let f=e.dataTransfer.files[0];if(f)loadFile(f)});
+if(!authState().loggedIn){authScreen()}else{render()}
+</script></body></html>
