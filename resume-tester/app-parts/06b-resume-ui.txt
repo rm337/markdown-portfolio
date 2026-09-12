@@ -1,0 +1,22 @@
+
+function resume(){
+ const r=state.resume;
+ return `<h1>Resume Workspace</h1><p class="small">Load, review, edit, replace, or clear the active résumé.</p><div class="grid">${status()}<div class="card span12"><h2>Résumé Text</h2>${r.text?`<textarea id="editor">${esc(r.text)}</textarea><div class="row" style="margin-top:10px"><button class="btn saveEdit">SAVE EDITS</button><button class="btn secondary upload">REPLACE RESUME</button></div>`:`<div class="drop"><h2>ADD OR UPLOAD RESUME</h2><p class="small">PDF • DOCX • TXT • MD • RTF</p><button class="btn upload">UPLOAD RESUME</button></div>`}</div></div>`;
+}
+function ats(){
+ const a=state.resume?.analysis;
+ return `<h1>ATS Parse</h1><p class="small">Technical readability and résumé intelligence based only on the résumé actually loaded.</p>${passFailBanner(a)}<div class="grid">${status()}<div class="card span12"><h2>Parse Details</h2>${a?`<div class="analysis">${esc(a.report)}</div>`:'<div class="small">Upload a résumé to run ATS Parse.</div>'}</div></div>`;
+}
+function backups(){
+ return `<h1>Backup Copies</h1><p class="small">Automatic copies protect the résumé before replacement, clearing, editing, or restoring.</p><div class="grid"><div class="card span12"><div class="row between"><div><h2>Backup protection</h2><div class="small">Default: ON</div></div><span class="pill good">${state.backupDefault?'ON':'OFF'}</span></div></div><div class="card span12"><h2>Saved Copies</h2>${state.backups.length?state.backups.map(x=>`<div class="backup"><div class="row between"><div><b>${esc(x.name||'Résumé backup')}</b><div class="small">${esc(x.reason||'Backup')} • ${esc(x.backedAt||'')}</div></div><button class="btn secondary restore" data-id="${x.id}">RESTORE</button></div></div>`).join(''):'<div class="small">No backup copies yet.</div>'}</div></div>`;
+}
+function detectJobFromText(text,url=''){
+ const lines=String(text||'').split(/\n/).map(x=>x.trim()).filter(Boolean);
+ const salary=(String(text).match(/\$\s?\d[\d,]*(?:\s*[-–]\s*\$?\s*\d[\d,]*)?(?:\s*(?:per year|annually|\/year|yearly))?/i)||[])[0]||'';
+ const location=(String(text).match(/\b(?:Remote|Hybrid|On-site|Onsite)\b/i)||[])[0]||'';
+ let title=lines.find(l=>/\b(?:director|manager|designer|writer|strategist|lead|engineer|specialist|coordinator|executive|president|officer)\b/i.test(l)&&l.length<100)||'';
+ let company='';
+ const companyLine=lines.find(l=>/^(?:company|organization|employer)\s*:/i.test(l));
+ if(companyLine) company=companyLine.replace(/^[^:]+:\s*/, '').trim();
+ return {description:String(text||''),url:String(url||''),title,company,location,salary};
+}
