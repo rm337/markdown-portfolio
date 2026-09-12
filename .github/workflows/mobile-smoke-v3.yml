@@ -15,11 +15,11 @@ jobs:
       - run: npm install playwright@1.55.0 && npx playwright install --with-deps chromium
       - name: Test
         run: |
-          cat > /tmp/t.js <<'EOF'
+          cat > t.js <<'EOF'
           const {chromium}=require('playwright'); const fs=require('fs');
           (async()=>{fs.writeFileSync('/tmp/r.txt','ROBERT\nrobert@example.com\nPROFESSIONAL SUMMARY\nCreative leader\nEXPERIENCE\nCreative Director\nLed brand systems\nEDUCATION\nOakland Community College'); const b=await chromium.launch({headless:true}); const c=await b.newContext({viewport:{width:390,height:844}}); const p=await c.newPage(); p.on('dialog',d=>d.accept()); await p.goto('https://oceanofink.com/resume-tester-clean/?mobile-v3='+Date.now(),{waitUntil:'networkidle'}); const code=await p.locator('#testerCode').evaluate(el=>el.closest('body').innerHTML.match(/FSTT\d+/)?.[0]||''); await p.locator('#testerCode').fill(code); await p.locator('#enterTester').click(); await p.locator('button[data-route="resume"]').waitFor({state:'visible'}); await p.locator('button[data-route="resume"]').click(); await p.locator('#filePicker').setInputFiles('/tmp/r.txt'); await p.getByText('r.txt',{exact:true}).first().waitFor(); await p.getByText('CLEAR RESUME',{exact:true}).first().click(); await p.getByText('NO RESUME LOADED',{exact:true}).waitFor(); await p.locator('button[data-route="backups"]').click(); await p.getByText('Automatic backup before clear',{exact:false}).first().waitFor(); await p.screenshot({path:'/tmp/mobile-backup.png',fullPage:true}); await p.locator('button[data-route="tracker"]').click(); await p.locator('#trCompany').fill('Mobile QA Company'); await p.locator('#trTitle').fill('Mobile QA Role'); await p.getByText('PUT TRUCKSTER ON THE ROAD',{exact:true}).click(); await p.getByText('Mobile QA Role • Mobile QA Company',{exact:true}).waitFor(); await p.screenshot({path:'/tmp/mobile-fstt-before.png',fullPage:true}); await p.getByText('DELETE',{exact:true}).first().click(); await p.screenshot({path:'/tmp/mobile-fstt-after.png',fullPage:true}); if(await p.evaluate(()=>document.documentElement.scrollWidth>document.documentElement.clientWidth+2)) throw Error('horizontal overflow'); console.log('MOBILE V3 PASS'); await b.close();})().catch(e=>{console.error(e.message);process.exit(1)});
           EOF
-          node /tmp/t.js
+          node t.js
       - uses: actions/upload-artifact@v4
         if: always()
         with:
