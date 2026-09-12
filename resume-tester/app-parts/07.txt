@@ -1,5 +1,4 @@
-y to roll.',
-  'On the road. Application submitted.',
+'On the road. Application submitted.',
   'Pulling into the company careers site.',
   'ATS checkpoint detected.',
   'Chugging along… Next stop: Human Review?',
