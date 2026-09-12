@@ -1,0 +1,60 @@
+name: Resume Tester Desktop Gate E2E
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'resume-tester/**'
+      - 'resume-tester-clean/**'
+      - '.github/workflows/resume-tester-desktop-gate-e2e.yml'
+jobs:
+  desktop-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: |
+          npm init -y >/dev/null 2>&1
+          npm install playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Browser test desktop gate
+        run: |
+          cat > desktop-gate.js <<'EOF'
+          const {chromium}=require('playwright');
+          (async()=>{
+            const browser=await chromium.launch({headless:true});
+            const page=await browser.newPage({viewport:{width:1365,height:900}});
+            const errors=[];
+            page.on('console',m=>{if(m.type()==='error')errors.push(m.text())});
+            page.on('pageerror',e=>errors.push(e.message));
+            await page.goto('https://oceanofink.com/resume-tester-clean/?desktop-gate='+Date.now(),{waitUntil:'networkidle',timeout:30000});
+            const html=await page.content();
+            const match=html.match(/FSTT\d+/);
+            if(!match) throw new Error('Tester code not found in gate');
+            await page.locator('#testerCode').fill('BAD-CODE');
+            await page.locator('#enterTester').click();
+            await page.getByText('Tester code not recognized.',{exact:true}).waitFor({state:'visible',timeout:10000});
+            if(await page.locator('button[data-route="resume"]').isVisible().catch(()=>false)) throw new Error('Invalid code entered app');
+            await page.locator('#testerCode').fill(match[0]);
+            await page.locator('#enterTester').click();
+            await page.locator('button[data-route="resume"]').waitFor({state:'visible',timeout:20000});
+            await page.locator('button[data-route="tracker"]').waitFor({state:'visible',timeout:10000});
+            await page.getByText('OPEN SMART RESUME',{exact:true}).waitFor({state:'visible',timeout:10000});
+            const overflow=await page.evaluate(()=>document.documentElement.scrollWidth>document.documentElement.clientWidth+2);
+            if(overflow) throw new Error('Desktop horizontal overflow');
+            if(errors.length) throw new Error(errors.join(' | '));
+            await page.screenshot({path:'/tmp/desktop-gate-command-center.png',fullPage:true});
+            console.log('DESKTOP GATE PASS: bad code rejected; tester code accepted; Command Center and FSTT nav visible; no overflow/errors');
+            await browser.close();
+          })().catch(e=>{console.error('DESKTOP GATE FAILURE: '+e.message);process.exit(1)});
+          EOF
+          node desktop-gate.js
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: resume-tester-desktop-gate-evidence
+          path: /tmp/desktop-gate-command-center.png
+          if-no-files-found: ignore
