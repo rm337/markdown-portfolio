@@ -1,0 +1,104 @@
+name: Resume Tester Hosted Destructive Mobile E2E
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'resume-tester/**'
+      - 'resume-tester-clean/**'
+      - '.github/workflows/resume-tester-hosted-destructive-mobile-e2e.yml'
+  workflow_dispatch:
+
+jobs:
+  hosted-destructive-mobile-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install Playwright
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Browser-test clear backup FSTT delete and mobile layout
+        run: |
+          cat > destructive-mobile-e2e.js <<'EOF'
+          const {chromium}=require('playwright');
+          const fs=require('fs');
+          (async()=>{
+            fs.writeFileSync('/tmp/qa-clear-resume.txt',[
+              'ROBERT CLEAR TEST','robert@example.com','PROFESSIONAL SUMMARY',
+              'Creative leader.','EXPERIENCE','Creative Director',
+              'Led brand systems.','EDUCATION','Oakland Community College'
+            ].join('\n'));
+            const browser=await chromium.launch({headless:true});
+            const context=await browser.newContext({viewport:{width:390,height:844}});
+            const page=await context.newPage();
+            const errors=[];
+            page.on('console',m=>{if(m.type()==='error')errors.push('console: '+m.text())});
+            page.on('pageerror',e=>errors.push('pageerror: '+e.message));
+            page.on('dialog',async d=>await d.accept());
+            async function enterTester(){
+              try{await page.evaluate(()=>sessionStorage.clear())}catch{}
+              await page.goto('https://oceanofink.com/resume-tester-clean/?hosted-destructive-mobile-e2e='+Date.now(),{waitUntil:'networkidle',timeout:30000});
+              const gate=page.locator('#testerCode');
+              if(await gate.isVisible().catch(()=>false)){
+                await gate.fill('FSTT2026');
+                await page.locator('#enterTester').click();
+              }
+              await page.locator('button[data-route="resume"]').waitFor({state:'visible',timeout:20000});
+            }
+            await enterTester();
+
+            await page.locator('button[data-route="resume"]').click();
+            await page.getByText('Resume Workspace',{exact:true}).waitFor({state:'visible',timeout:10000});
+            const uploadLabel=page.getByText('UPLOAD RESUME',{exact:true}).first();
+            if(await uploadLabel.isVisible().catch(()=>false)){
+              const chooserPromise=page.waitForEvent('filechooser');
+              await uploadLabel.click();
+              (await chooserPromise).setFiles('/tmp/qa-clear-resume.txt');
+            } else {
+              const chooserPromise=page.waitForEvent('filechooser');
+              await page.getByText('REPLACE RESUME',{exact:true}).first().click();
+              (await chooserPromise).setFiles('/tmp/qa-clear-resume.txt');
+            }
+            await page.getByText('qa-clear-resume.txt',{exact:true}).first().waitFor({state:'visible',timeout:10000});
+            await page.getByText('CLEAR RESUME',{exact:true}).first().click();
+            await page.getByText('NO RESUME LOADED',{exact:true}).waitFor({state:'visible',timeout:10000});
+            await page.locator('button[data-route="backups"]').click();
+            await page.getByText('Automatic backup before clear',{exact:false}).first().waitFor({state:'visible',timeout:10000});
+            await page.screenshot({path:'/tmp/hosted-mobile-clear-backup.png',fullPage:true});
+
+            await page.locator('button[data-route="tracker"]').click();
+            await page.locator('#trCompany').fill('Mobile QA Company');
+            await page.locator('#trTitle').fill('Mobile QA Role');
+            await page.getByText('PUT TRUCKSTER ON THE ROAD',{exact:true}).click();
+            await page.getByText('Mobile QA Role • Mobile QA Company',{exact:true}).waitFor({state:'visible',timeout:10000});
+            await page.screenshot({path:'/tmp/hosted-mobile-fstt-before-delete.png',fullPage:true});
+            await page.getByText('DELETE',{exact:true}).first().click();
+            if(await page.getByText('Mobile QA Role • Mobile QA Company',{exact:true}).isVisible().catch(()=>false)) throw new Error('FSTT journey still visible after delete');
+            await page.screenshot({path:'/tmp/hosted-mobile-fstt-after-delete.png',fullPage:true});
+
+            const overflow=await page.evaluate(()=>document.documentElement.scrollWidth>document.documentElement.clientWidth+2);
+            if(overflow) throw new Error('Mobile viewport has horizontal page overflow');
+            if(errors.length) throw new Error(errors.join(' | '));
+            console.log('HOSTED DESTRUCTIVE MOBILE PASS: clear -> backup -> FSTT add/delete -> 390px no horizontal overflow');
+            await browser.close();
+          })().catch(e=>{console.error('HOSTED DESTRUCTIVE MOBILE EXACT FAILURE: '+e.message);process.exit(1)});
+          EOF
+          node destructive-mobile-e2e.js
+      - name: Upload destructive mobile evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: resume-tester-hosted-destructive-mobile-evidence
+          path: |
+            /tmp/hosted-mobile-clear-backup.png
+            /tmp/hosted-mobile-fstt-before-delete.png
+            /tmp/hosted-mobile-fstt-after-delete.png
+          if-no-files-found: ignore
