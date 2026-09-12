@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fluid Systems • Smart Resume Command Center V4</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs" type="module"></script>
+<style>
+:root{--blue:#0174F3;--ink:#132238;--muted:#64748b;--line:#dbe4ee;--bg:#f6f9fc;--card:#fff;--good:#087a55;--warn:#a15c00}
+*{box-sizing:border-box}body{margin:0;font:15px/1.45 Arial,sans-serif;color:var(--ink);background:var(--bg)}
+header{height:74px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 24px;position:sticky;top:0;z-index:5}
+.brand b{font-size:20px;letter-spacing:.08em}.brand small{display:block;color:var(--blue);font-weight:700}
+.shell{display:grid;grid-template-columns:250px minmax(0,1fr);min-height:calc(100vh - 74px)}
+nav{background:#fff;border-right:1px solid var(--line);padding:22px 14px}nav h4{font-size:11px;letter-spacing:.12em;color:#8190a4;margin:18px 10px 7px}
+nav button{width:100%;text-align:left;border:0;background:transparent;padding:11px 12px;border-radius:10px;font-weight:700;color:#334155;cursor:pointer}
+nav button.active,nav button:hover{background:#eef6ff;color:var(--blue)}
+main{padding:24px;max-width:1500px;width:100%}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}.span12{grid-column:span 12}.span8{grid-column:span 8}.span4{grid-column:span 4}.span6{grid-column:span 6}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 2px 8px #1231  }
+h1{font-size:30px;margin:0 0 4px}h2{font-size:18px;margin:0 0 12px}.small{font-size:13px;color:var(--muted)}
+.row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.between{justify-content:space-between}
+.btn{border:1px solid var(--blue);background:var(--blue);color:#fff;border-radius:9px;padding:10px 13px;font-weight:800;cursor:pointer}.btn.secondary{background:#fff;color:var(--blue)}.btn.ghost{background:#fff;color:#475569;border-color:var(--line)}
+.pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:5px 9px;font-size:12px;font-weight:800}.good{color:var(--good);border-color:#a8ddcb;background:#effbf7}.warn{color:var(--warn);background:#fff7e8}
+.activebar{border:2px solid var(--blue);background:#f7fbff}.emptybar{border:2px dashed #aab7c7;background:#fff}
+textarea,input{width:100%;border:1px solid #cbd5e1;border-radius:9px;padding:11px;font:inherit}textarea{min-height:360px;resize:vertical}
+label.cap{font-size:12px;font-weight:800;color:#64748b;display:block;margin:0 0 6px;letter-spacing:.04em}
+.metric{font-size:28px;font-weight:900}.analysis{white-space:pre-wrap;background:#0e1726;color:#e7edf5;border-radius:10px;padding:16px;min-height:360px;overflow:auto}
+.drop{border:2px dashed #9db4cc;border-radius:14px;padding:26px;text-align:center;background:#fbfdff}.drop.drag{border-color:var(--blue);background:#eef6ff}
+.backup{border-top:1px solid var(--line);padding:10px 0}.error{background:#fff1f1;border:1px solid #efb1b1;padding:12px;border-radius:10px;color:#8b1d1d}
+
+.loginwrap{min-height:calc(100vh - 74px);display:grid;place-items:center;padding:24px;background:linear-gradient(180deg,#f7fbff,#eef4f9)}
+.loginbox{width:min(520px,100%);background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px;box-shadow:0 18px 50px #1232}
+.passfail{border:2px solid #b8c7d9;border-radius:14px;padding:16px 18px;background:#fff;margin-bottom:16px}
+.passfail.pass{border-color:#78c9a8;background:#f0fbf6}.passfail.fail{border-color:#e7a4a4;background:#fff4f4}
+.password{font-size:30px;font-weight:900;letter-spacing:.03em}.passfail.pass .password{color:#087a55}.passfail.fail .password{color:#a12a2a}
+.modebadge{font-size:12px;font-weight:800;border:1px solid var(--line);border-radius:999px;padding:5px 9px}
+
+
+.fstt-road{position:relative;min-height:180px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:linear-gradient(#eef7ff 0 55%,#dbe7ef 55% 66%,#26384b 66% 100%);padding:18px 18px 50px}
+.fstt-stops{display:grid;grid-template-columns:repeat(8,1fr);gap:8px;position:relative;z-index:2}
+.fstt-stop{text-align:center;font-size:11px;font-weight:800;color:#526277;min-width:0}.fstt-stop b{display:grid;place-items:center;margin:auto auto 6px;width:28px;height:28px;border-radius:50%;background:#fff;border:2px solid #aab9c9}.fstt-stop.done b{border-color:#55b992;color:#087a55;background:#effbf7}.fstt-stop.current b{border-color:var(--blue);color:var(--blue);box-shadow:0 0 0 5px #0174f31a}.fstt-stop.future{opacity:.55}
+.fstt-lane{position:absolute;left:5%;right:5%;bottom:36px;height:4px;background:repeating-linear-gradient(90deg,#fff 0 26px,transparent 26px 48px)}
+.truckster{position:absolute;bottom:21px;width:72px;height:38px;transition:left .55s ease;z-index:4;filter:drop-shadow(0 4px 3px #0004)}
+.truckster .cab{position:absolute;right:0;bottom:0;width:27px;height:25px;background:#0174F3;border-radius:5px 7px 3px 3px}.truckster .cab:before{content:"";position:absolute;right:3px;top:4px;width:11px;height:8px;background:#dff3ff;border-radius:2px}
+.truckster .wagon{position:absolute;left:0;bottom:3px;width:48px;height:28px;background:#fff;border:3px solid #0174F3;border-radius:5px}.truckster .wagon:after{content:"FSTT";position:absolute;inset:0;display:grid;place-items:center;font-size:11px;font-weight:900;color:#0174F3}
+.truckster .wheel{position:absolute;bottom:-5px;width:12px;height:12px;border-radius:50%;background:#152536;border:3px solid #91a5b9}.truckster .w1{left:9px}.truckster .w2{right:6px}
+.trucktalk{position:absolute;bottom:72px;transform:translateX(-20%);background:#fff;border:1px solid var(--line);border-radius:10px;padding:7px 9px;font-size:11px;font-weight:800;white-space:nowrap;box-shadow:0 3px 10px #1232;z-index:5}
+.confidence{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.confidence span{font-size:11px;font-weight:900;border-radius:
