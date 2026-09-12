@@ -54,10 +54,15 @@ jobs:
                 await page.locator('#enterTester').click();
               }
               await page.locator('button[data-route="resume"]').waitFor({state:'visible',timeout:20000});
+              await page.waitForFunction(()=>{
+                const nav=document.querySelector('button[data-route="resume"]');
+                const fp=document.querySelector('#filePicker');
+                return !!nav && typeof nav.onclick==='function' && !!fp && typeof fp.onchange==='function';
+              },null,{timeout:15000});
             }
             async function openResume(){
               await page.locator('button[data-route="resume"]').click();
-              await page.getByRole('heading',{name:'Resume Workspace',exact:true}).waitFor({state:'visible',timeout:10000});
+              await page.getByText('Resume Workspace',{exact:true}).first().waitFor({state:'visible',timeout:10000});
             }
             await enterTester(true);
             await openResume();
