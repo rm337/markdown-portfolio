@@ -32,7 +32,13 @@ jobs:
               await p.locator('#testerCode').fill(code);
               await p.locator('#enterTester').click();
               await p.locator('button[data-route="resume"]').waitFor({state:'visible'});
+              await p.waitForFunction(()=>{
+                const nav=document.querySelector('button[data-route="resume"]');
+                const fp=document.querySelector('#filePicker');
+                return !!nav && typeof nav.onclick==='function' && !!fp && typeof fp.onchange==='function';
+              },null,{timeout:15000});
               await p.locator('button[data-route="resume"]').click();
+              await p.getByText('Resume Workspace',{exact:true}).first().waitFor({state:'visible'});
               await p.locator('#filePicker').setInputFiles('/tmp/r.txt');
               await p.waitForFunction(()=>{try{const s=JSON.parse(localStorage.getItem('fs_srcc_v45_tester')||'{}'); return s?.resume?.name==='r.txt'}catch{return false}},null,{timeout:15000});
               await p.screenshot({path:'/tmp/mobile-upload.png',fullPage:true});
