@@ -1,0 +1,110 @@
+,text='';
+   if(state.resume.text)backup('Automatic backup before replace');
+   if(ext==='pdf')text=await extractPDF(file);
+   else if(ext==='docx')text=await extractDOCX(file);
+   else if(['txt','md'].includes(ext)||file.type.startsWith('text/'))text=await file.text();
+   else if(ext==='rtf')text=(await file.text()).replace(/\\par[d]?/g,'\n').replace(/\\'[0-9a-fA-F]{2}/g,' ').replace(/\\[a-zA-Z]+-?\d* ?/g,'').replace(/[{}]/g,' ');
+   else throw new Error('Unsupported file type.');
+   text=text.trim();if(!text)throw new Error('No readable résumé text was extracted.');
+   state.resume={name:file.name,type:ext,text,loadedAt:new Date().toLocaleString(),analysis:analyze(text)};save();render();
+ }catch(e){alert('Resume load failed: '+e.message)}
+}
+function home(){
+ const who=sessionStorage.getItem('fs_srcc_session')==='tester'?'TESTER':'OWNER';
+ const apps=state.applications||[];
+ return `<h1>Command Center</h1>
+ <p class="small"><b>${who} WORKSPACE</b> • Both products are available here for testing.</p>
+
+ <div class="grid">
+   <div class="card span6" style="border:2px solid #0174F3">
+     <div class="cap">PRODUCT 1</div>
+     <h2>Smart Resume Command Center</h2>
+     <p>Load a résumé, run ATS Parse + Resume Intelligence, analyze job postings, and protect the active résumé with backups.</p>
+     <button class="btn jumpResume">OPEN SMART RESUME</button>
+   </div>
+
+   <div class="card span6" style="border:2px solid #0174F3;background:linear-gradient(180deg,#fbfdff,#eef6ff)">
+     <div class="cap">PRODUCT 2</div>
+     <h2>🚛 FSTT • Fluid Soul Tracker Truckster™</h2>
+     <p><b>This is the Tracker Truckster.</b> Follow an application from Resume Depot through the job board, company site, ATS, screening, human review, hiring manager, and disposition.</p>
+     <div class="fstt-road" style="min-height:135px;margin:12px 0">
+       <div class="fstt-stops">
+         ${FSTT_STAGES.map((s,i)=>`<div class="fstt-stop ${i<3?'done':i===3?'current':'future'}"><b>${i<3?'✓':i+1}</b>${esc(s)}</div>`).join('')}
+       </div>
+       <div class="trucktalk" style="left:40%">Truckster is ready to roll.</div>
+       <div class="truckster" style="left:40%"><div class="wagon"></div><div class="cab"></div><i class="wheel w1"></i><i class="wheel w2"></i></div>
+       <div class="fstt-lane"></div>
+     </div>
+     <button class="btn jumpFSTT">OPEN TRACKER TRUCKSTER</button>
+   </div>
+
+   <div class="card span12">
+     <div class="row between"><div><div class="cap">TESTING STATUS</div><h2 style="margin:3px 0">Both halves are in this build</h2></div><span class="pill good">${apps.length} FSTT JOURNEY${apps.length===1?'':'S'}</span></div>
+     <p class="small">Tester login uses its own résumé, jobs, backups, and FSTT journeys. Owner data stays separate.</p>
+   </div>
+ </div>`;
+}
+function jobs(){
+ const last=state.jobs[0];
+ return `<h1>Jobs</h1><p class="small">Start with whatever you actually have. URL, company and title are optional.</p>
+ <div class="grid">
+   <div class="card span8">
+     <h2>Add a job</h2>
+     <div class="field"><label class="cap">JOB POSTING / DESCRIPTION</label>
+       <textarea id="jobText" placeholder="Paste the job posting here. This is enough to start.">${esc(last?.description||'')}</textarea>
+     </div>
+     <div class="row" style="margin-top:10px">
+       <button class="btn analyzeJob">ANALYZE JOB POSTING</button>
+       <button class="btn secondary clearJobForm">CLEAR</button>
+     </div>
+   </div>
+   <div class="card span4">
+     <h2>Optional details</h2>
+     <label class="cap">URL (OPTIONAL)</label>
+     <input id="jobUrl" placeholder="https://..." value="${esc(last?.url||'')}">
+     <div style="height:12px"></div>
+     <label class="cap">COMPANY (OPTIONAL)</label>
+     <input id="jobCompany" placeholder="Auto-detect if possible" value="${esc(last?.company||'')}">
+     <div style="height:12px"></div>
+     <label class="cap">JOB TITLE (OPTIONAL)</label>
+     <input id="jobTitle" placeholder="Auto-detect if possible" value="${esc(last?.title||'')}">
+     <p class="small" style="margin-top:14px">Nothing here blocks analysis. Paste the posting and go.</p>
+   </div>
+   <div class="card span12">
+     <h2>Detected job</h2>
+     ${last?`<div class="row"><span class="pill good">TITLE: ${esc(last.title||'Not detected')}</span><span class="pill good">COMPANY: ${esc(last.company||'Not detected')}</span>${last.location?`<span class="pill">LOCATION: ${esc(last.location)}</span>`:''}${last.salary?`<span class="pill">SALARY: ${esc(last.salary)}</span>`:''}</div><p class="small">Detected values are editable. The description remains the source of truth.</p>`:'<div class="small">No job analyzed yet.</div>'}
+   </div>
+ </div>`;
+}
+function saveDetectedJob(){
+ const text=$('#jobText')?.value||'';
+ const url=$('#jobUrl')?.value||'';
+ if(!text.trim()&&!url.trim()){alert('Paste a job posting or enter a URL. Company and title are not required.');return}
+ const d=detectJobFromText(text,url);
+ const manualCompany=$('#jobCompany')?.value.trim();
+ const manualTitle=$('#jobTitle')?.value.trim();
+ if(manualCompany)d.company=manualCompany;
+ if(manualTitle)d.title=manualTitle;
+ d.id=Date.now();d.savedAt=new Date().toLocaleString();
+ state.jobs.unshift(d);save();render();
+}
+
+
+
+
+const FSTT_STAGES=['Resume Depot','Job Board','Company Careers Site','ATS','Screening','Human Review','Hiring Manager','Disposition'];
+function trackerStatusClass(s){return /offer|human review|hiring manager/i.test(s)?'good':/disposition|closed|rejected/i.test(s)?'warn':''}
+function fsttStageIndex(a){
+ const map={'Interested':0,'Preparing':0,'Applied':1,'Follow-Up':4,'Interview':5,'Offer':6,'Closed':7};
+ if(Number.isInteger(a.journeyStage)) return Math.max(0,Math.min(7,a.journeyStage));
+ return map[a.status] ?? 0;
+}
+function fsttConfidence(i,current){
+ if(i<current) return 'CONFIRMED';
+ if(i===current) return current<=1?'CONFIRMED':'DETECTED';
+ if(i===current+1) return 'INFERRED';
+ return 'UNKNOWN';
+}
+function fsttMessage(i){
+ return [
+  'Loaded up. Read
