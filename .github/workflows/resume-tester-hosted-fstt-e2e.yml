@@ -35,8 +35,10 @@ jobs:
             const errors=[];
             page.on('console',m=>{if(m.type()==='error')errors.push('console: '+m.text())});
             page.on('pageerror',e=>errors.push('pageerror: '+e.message));
-            await page.goto('https://oceanofink.com/resume-tester-clean/?hosted-fstt-e2e=1',{waitUntil:'networkidle',timeout:30000});
-            await page.locator('#testerCode').fill('FSTT2026');
+            await page.goto('https://oceanofink.com/resume-tester-clean/?hosted-fstt-e2e=2',{waitUntil:'networkidle',timeout:30000});
+            const code=await page.evaluate(()=>{const src=[...document.scripts].map(s=>s.textContent||'').join('\n');const m=src.match(/TESTER_CODE='([^']+)'/);return m?m[1]:''});
+            if(!code) throw new Error('Tester code could not be read from hosted gate');
+            await page.locator('#testerCode').fill(code);
             await page.locator('#enterTester').click();
             await page.getByText('OPEN TRACKER TRUCKSTER',{exact:true}).waitFor({state:'visible',timeout:20000});
             await page.getByText('OPEN TRACKER TRUCKSTER',{exact:true}).click();
@@ -48,14 +50,17 @@ jobs:
             await page.getByText('Creative Director • Fluid Systems QA',{exact:true}).waitFor({state:'visible',timeout:10000});
             const selector=page.locator('.journeyStage').first();
             await selector.selectOption('3');
-            await page.getByText('ATS',{exact:true}).first().waitFor({state:'visible',timeout:10000});
+            await page.waitForFunction(()=>document.querySelector('.journeyStage')?.value==='3',{timeout:10000});
+            const statusCard=page.locator('.card.span6').filter({hasText:'Current Status'}).first();
+            const statusText=await statusCard.innerText();
+            if(!statusText.includes('ATS')) throw new Error('Rendered Current Status did not update to ATS');
             const body=await page.locator('#app').innerText();
             if(!body.includes('Human Tester')) throw new Error('Human contact missing');
             if(!body.includes('Confirm human review')) throw new Error('Next action missing');
             if(!body.includes('CONFIRMED')||!body.includes('DETECTED')||!body.includes('INFERRED')||!body.includes('UNKNOWN')) throw new Error('Confidence labels missing');
             if(errors.length) throw new Error(errors.join(' | '));
             await page.screenshot({path:'/tmp/hosted-fstt-journey.png',fullPage:true});
-            console.log('HOSTED FSTT PASS: login -> tracker -> add journey -> move to ATS -> confidence labels -> screenshot');
+            console.log('HOSTED FSTT PASS: login -> tracker -> add journey -> move to ATS -> rendered Current Status ATS -> confidence labels -> screenshot');
             await browser.close();
           })().catch(e=>{console.error('HOSTED FSTT EXACT FAILURE: '+e.message);process.exit(1)});
           EOF
