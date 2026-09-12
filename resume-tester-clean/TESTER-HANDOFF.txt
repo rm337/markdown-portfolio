@@ -16,6 +16,30 @@ TESTER QUICK START
 7. Open FSTT Tracker Truckster to create and follow an application journey.
 8. Use SIGN OUT when finished. Tester data remains in that browser for the tester workspace.
 
+WHAT TO TEST
+- Use a real resume if you are comfortable doing so.
+- Try at least one real job posting.
+- Create at least one FSTT application journey.
+- Move through the app naturally instead of trying to follow a perfect script.
+- Note anything confusing, slow, unclear, unnecessary, missing, or surprisingly useful.
+
+FEEDBACK CHECKLIST
+Please report:
+- Anything that did not work
+- Anything that worked but was confusing
+- Any wording that felt unclear
+- Any feature you expected but could not find
+- Any feature that felt unnecessary
+- Whether ATS Parse made sense without explanation
+- Whether FSTT made the application journey easier to understand
+- Whether you would use either tool again on a real application
+- Desktop or mobile issues, if any
+
+A screenshot plus a short description is ideal when reporting a bug.
+
+TESTER ARRANGEMENT
+This is a tester build. There is no payment required from the tester and no payment offered for testing. The exchange is access to the tester edition in return for candid product feedback. A practical test period is approximately 30 days, with one or two real applications providing enough material for useful feedback.
+
 VERIFIED TESTER FLOWS
 - Fresh public tester gate and login
 - Wrong-code rejection
@@ -32,8 +56,12 @@ VERIFIED TESTER FLOWS
 - FSTT journey deletion
 - 390px mobile navigation and destructive-flow checks
 - No horizontal mobile overflow in the validated mobile flow
+- Desktop tester-gate validation at 1365x900 with no horizontal overflow or browser/page errors
 
 IMPORTANT
 ATS READABILITY PASS/FAIL is a technical readability check, not a universal hiring score or guarantee. FSTT does not claim access to an employer's internal ATS. It distinguishes confirmed, detected, inferred, and unknown journey information.
+
+PRIVACY / STORAGE NOTE
+Tester workspace data is stored in the tester browser's local storage for this build. Signing out does not erase that tester data from that browser. Use Clear Resume or the relevant delete controls if you want to remove test content from the app.
 
 Build: Smart Resume Command Center V5.2 FSTT Visible Tester Edition
