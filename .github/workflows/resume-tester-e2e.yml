@@ -54,7 +54,7 @@ jobs:
           Creative Writing
           EOF
 
-          cat > /tmp/e2e.js <<'EOF'
+          cat > e2e.js <<'EOF'
           const { chromium } = require('playwright');
           const fs = require('fs');
           (async()=>{
@@ -91,7 +91,7 @@ jobs:
           })().catch(e=>{console.error(e);process.exit(1)});
           EOF
 
-          node /tmp/e2e.js
+          node e2e.js
 
       - name: Upload E2E evidence
         if: always()
