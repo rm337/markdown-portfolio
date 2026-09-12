@@ -1,0 +1,63 @@
+name: Mobile Viewport Visual E2E
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  mobile-visual:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install playwright@1.55.0 && npx playwright install --with-deps chromium
+      - name: Verify real mobile viewport without full-page stitching artifacts
+        run: |
+          cat > mobile-viewport.js <<'EOF'
+          const {chromium}=require('playwright');
+          (async()=>{
+            const browser=await chromium.launch({headless:true});
+            const context=await browser.newContext({viewport:{width:390,height:844}});
+            const page=await context.newPage();
+            const errors=[];
+            page.on('console',m=>{if(m.type()==='error')errors.push('console: '+m.text())});
+            page.on('pageerror',e=>errors.push('pageerror: '+e.message));
+            const url='https://oceanofink.com/resume-tester-clean/?mobile-viewport='+Date.now();
+            await page.goto(url,{waitUntil:'networkidle'});
+            const code=await page.locator('#testerCode').evaluate(el=>el.closest('body').innerHTML.match(/FSTT\d+/)?.[0]||'');
+            if(!code) throw new Error('Tester code not discoverable from gate');
+            await page.locator('#testerCode').fill(code);
+            await page.locator('#enterTester').click();
+            await page.locator('button[data-route="tracker"]').waitFor({state:'visible'});
+            await page.waitForFunction(()=>{const b=document.querySelector('button[data-route="tracker"]');return !!b&&typeof b.onclick==='function'},null,{timeout:15000});
+            await page.locator('button[data-route="tracker"]').click();
+            await page.locator('#trCompany').fill('Viewport QA Company');
+            await page.locator('#trTitle').fill('Viewport QA Role');
+            await page.getByText('PUT TRUCKSTER ON THE ROAD',{exact:true}).click();
+            await page.getByText('Viewport QA Role • Viewport QA Company',{exact:true}).waitFor();
+
+            const dims=await page.evaluate(()=>({sw:document.documentElement.scrollWidth,cw:document.documentElement.clientWidth}));
+            if(dims.sw>dims.cw+2) throw new Error(`Horizontal overflow: ${dims.sw} > ${dims.cw}`);
+
+            await page.screenshot({path:'/tmp/mobile-viewport-top.png'});
+            const journey=page.getByText('Viewport QA Role • Viewport QA Company',{exact:true});
+            await journey.scrollIntoViewIfNeeded();
+            await page.screenshot({path:'/tmp/mobile-viewport-journey.png'});
+            const current=page.getByText('Current Status',{exact:true});
+            await current.scrollIntoViewIfNeeded();
+            await page.screenshot({path:'/tmp/mobile-viewport-status.png'});
+
+            if(errors.length) throw new Error(errors.join(' | '));
+            console.log('MOBILE VIEWPORT PASS: 390x844 tracker rendered, no horizontal overflow, journey and status reachable');
+            await browser.close();
+          })().catch(e=>{console.error(e);process.exit(1)});
+          EOF
+          node mobile-viewport.js
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mobile-viewport-visual-evidence
+          path: /tmp/mobile-viewport-*.png
+          if-no-files-found: error
