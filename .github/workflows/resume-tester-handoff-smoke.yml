@@ -1,0 +1,61 @@
+name: Resume Tester Handoff Smoke
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'resume-tester/**'
+      - 'resume-tester-clean/**'
+      - '.github/workflows/resume-tester-handoff-smoke.yml'
+
+jobs:
+  handoff-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install Chromium
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Test exact public handoff URL from a fresh browser
+        run: |
+          cat > handoff-smoke.js <<'EOF'
+          const { chromium } = require('playwright');
+          (async()=>{
+            const browser=await chromium.launch({headless:true});
+            const context=await browser.newContext({viewport:{width:1365,height:900}});
+            const page=await context.newPage();
+            const errors=[];
+            page.on('console',m=>{if(m.type()==='error')errors.push('console: '+m.text())});
+            page.on('pageerror',e=>errors.push('pageerror: '+e.message));
+            await page.goto('https://oceanofink.com/resume-tester-clean/',{waitUntil:'networkidle',timeout:30000});
+            await page.locator('#testerCode').waitFor({state:'visible',timeout:15000});
+            await page.screenshot({path:'/tmp/handoff-gate.png',fullPage:true});
+            await page.locator('#testerCode').fill('FSTT2026');
+            await page.locator('#enterTester').click();
+            await page.getByText('Smart Resume Command Center',{exact:false}).first().waitFor({state:'visible',timeout:20000});
+            await page.getByText('FSTT',{exact:false}).first().waitFor({state:'visible',timeout:20000});
+            if(await page.getByRole('button',{name:'Access',exact:true}).count()) throw new Error('Owner Access control is visible in tester build');
+            await page.getByRole('button',{name:'SIGN OUT',exact:true}).waitFor({state:'visible',timeout:10000});
+            await page.screenshot({path:'/tmp/handoff-home.png',fullPage:true});
+            if(errors.length) throw new Error(errors.join(' | '));
+            console.log('HANDOFF PASS: exact public URL -> tester gate -> tester workspace -> resume + FSTT visible -> owner Access hidden -> sign out visible');
+            await browser.close();
+          })().catch(e=>{console.error('HANDOFF EXACT FAILURE: '+e.message);process.exit(1)});
+          EOF
+          node handoff-smoke.js
+      - name: Upload handoff evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: resume-tester-handoff-evidence
+          path: |
+            /tmp/handoff-gate.png
+            /tmp/handoff-home.png
+          if-no-files-found: ignore
