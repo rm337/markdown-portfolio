@@ -1,132 +1,23 @@
 {
   "version": 1,
-  "updated": "2026-09-11",
+  "updated": "2026-09-12",
   "entries": [
-    {
-      "word": "Crologic",
-      "type": "noun",
-      "definition": "Logic that is technically crooked but somehow still gets where it was going.",
-      "category": "word-combo",
-      "date": "2026-08-28",
-      "status": "active"
-    },
-    {
-      "word": "Re-cursive",
-      "type": "verb",
-      "definition": "To rewrite the same line you just wrote, only in cursive.",
-      "category": "word-combo",
-      "status": "active"
-    },
-    {
-      "word": "WordPlay in EveryWay helps 2 keep the Dr. away!",
-      "type": "graffiti",
-      "definition": "",
-      "category": "ink-pun",
-      "status": "active"
-    },
-    {
-      "word": "Trendle",
-      "type": "verb",
-      "definition": "To follow a tiny cultural signal before it grows loud enough to be called a trend.",
-      "category": "word-combo",
-      "date": "2026-08-30",
-      "status": "active"
-    },
-    {
-      "word": "Punipelago",
-      "type": "noun",
-      "definition": "A chain of related puns that keeps branching from one word into a whole island system of wordplay.",
-      "category": "word-combo",
-      "date": "2026-08-31",
-      "status": "active"
-    },
-    {
-      "word": "Inklinguist",
-      "type": "noun",
-      "definition": "A person who catches the faintest hint of a word and follows it until language starts drawing its own conclusions.",
-      "category": "ink-pun",
-      "date": "2026-09-01",
-      "status": "active"
-    },
-    {
-      "word": "Draftodactyl",
-      "type": "noun",
-      "definition": "An ancient version of an idea that keeps lumbering back into the newest draft.",
-      "category": "word-combo",
-      "date": "2026-09-02",
-      "status": "active"
-    },
-    {
-      "word": "Metaphorbit",
-      "type": "noun",
-      "definition": "The path an idea takes when one metaphor pulls it into the gravity of another.",
-      "category": "language-collision",
-      "date": "2026-09-03",
-      "status": "active"
-    },
-    {
-      "word": "Typothesis",
-      "type": "noun",
-      "definition": "A visual idea tested by changing the typography until the words prove what they mean.",
-      "category": "typography-collision",
-      "date": "2026-09-04",
-      "status": "active"
-    },
-    {
-      "word": "Semantick",
-      "type": "noun",
-      "definition": "A tiny change in meaning that latches onto a sentence and refuses to let go.",
-      "category": "language-collision",
-      "date": "2026-09-05",
-      "status": "active"
-    },
-    {
-      "word": "Quirkulation",
-      "type": "noun",
-      "definition": "The movement of an odd little idea from one mind to another until it becomes shared creative currency.",
-      "category": "word-combo",
-      "date": "2026-09-06",
-      "status": "active"
-    },
-    {
-      "word": "Idecho",
-      "type": "noun",
-      "definition": "A thought that returns from someone else's mind carrying a meaning you never put into it.",
-      "category": "concept-collision",
-      "date": "2026-09-07",
-      "status": "active"
-    },
-    {
-      "word": "Phraseprint",
-      "type": "noun",
-      "definition": "The distinctive verbal trace a person leaves behind when their way of arranging words becomes unmistakably their own.",
-      "category": "language-collision",
-      "date": "2026-09-08",
-      "status": "active"
-    },
-    {
-      "word": "Contexture",
-      "type": "noun",
-      "definition": "The hidden weave of circumstances that makes the same words mean something different depending on where they land.",
-      "category": "semantic-blend",
-      "date": "2026-09-09",
-      "status": "active"
-    },
-    {
-      "word": "Lexcursion",
-      "type": "noun",
-      "definition": "An unplanned journey away from the original thought because one irresistible word opened a better road.",
-      "category": "language-collision",
-      "date": "2026-09-10",
-      "status": "active"
-    },
-    {
-      "word": "Nounshine",
-      "type": "noun",
-      "definition": "The sudden clarity that appears when you finally find a name for the thing you've been circling around.",
-      "category": "word-combo",
-      "date": "2026-09-11",
-      "status": "active"
-    }
+    {"word":"Crologic","type":"noun","definition":"Logic that is technically crooked but somehow still gets where it was going.","category":"word-combo","date":"2026-08-28","status":"active"},
+    {"word":"Re-cursive","type":"verb","definition":"To rewrite the same line you just wrote, only in cursive.","category":"word-combo","status":"active"},
+    {"word":"WordPlay in EveryWay helps 2 keep the Dr. away!","type":"graffiti","definition":"","category":"ink-pun","status":"active"},
+    {"word":"Trendle","type":"verb","definition":"To follow a tiny cultural signal before it grows loud enough to be called a trend.","category":"word-combo","date":"2026-08-30","status":"active"},
+    {"word":"Punipelago","type":"noun","definition":"A chain of related puns that keeps branching from one word into a whole island system of wordplay.","category":"word-combo","date":"2026-08-31","status":"active"},
+    {"word":"Inklinguist","type":"noun","definition":"A person who catches the faintest hint of a word and follows it until language starts drawing its own conclusions.","category":"ink-pun","date":"2026-09-01","status":"active"},
+    {"word":"Draftodactyl","type":"noun","definition":"An ancient version of an idea that keeps lumbering back into the newest draft.","category":"word-combo","date":"2026-09-02","status":"active"},
+    {"word":"Metaphorbit","type":"noun","definition":"The path an idea takes when one metaphor pulls it into the gravity of another.","category":"language-collision","date":"2026-09-03","status":"active"},
+    {"word":"Typothesis","type":"noun","definition":"A visual idea tested by changing the typography until the words prove what they mean.","category":"typography-collision","date":"2026-09-04","status":"active"},
+    {"word":"Semantick","type":"noun","definition":"A tiny change in meaning that latches onto a sentence and refuses to let go.","category":"language-collision","date":"2026-09-05","status":"active"},
+    {"word":"Quirkulation","type":"noun","definition":"The movement of an odd little idea from one mind to another until it becomes shared creative currency.","category":"word-combo","date":"2026-09-06","status":"active"},
+    {"word":"Idecho","type":"noun","definition":"A thought that returns from someone else's mind carrying a meaning you never put into it.","category":"concept-collision","date":"2026-09-07","status":"active"},
+    {"word":"Phraseprint","type":"noun","definition":"The distinctive verbal trace a person leaves behind when their way of arranging words becomes unmistakably their own.","category":"language-collision","date":"2026-09-08","status":"active"},
+    {"word":"Contexture","type":"noun","definition":"The hidden weave of circumstances that makes the same words mean something different depending on where they land.","category":"semantic-blend","date":"2026-09-09","status":"active"},
+    {"word":"Lexcursion","type":"noun","definition":"An unplanned journey away from the original thought because one irresistible word opened a better road.","category":"language-collision","date":"2026-09-10","status":"active"},
+    {"word":"Nounshine","type":"noun","definition":"The sudden clarity that appears when you finally find a name for the thing you've been circling around.","category":"word-combo","date":"2026-09-11","status":"active"},
+    {"word":"Afterthink","type":"noun","definition":"The better idea that arrives just after you were certain the thinking was finished.","category":"semantic-compound","date":"2026-09-12","status":"active"}
   ]
 }
