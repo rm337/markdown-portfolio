@@ -41,15 +41,22 @@ jobs:
             const errors=[];
             page.on('console',m=>{if(m.type()==='error')errors.push('console: '+m.text())});
             page.on('pageerror',e=>errors.push('pageerror: '+e.message));
-            async function enterTester(){
+            async function enterTester(forceFreshSession=false){
+              if(forceFreshSession){
+                try{await page.evaluate(()=>sessionStorage.clear())}catch{}
+              }
               await page.goto('https://oceanofink.com/resume-tester-clean/?hosted-readiness-e2e='+Date.now(),{waitUntil:'networkidle',timeout:30000});
+              const smart=page.getByText('OPEN SMART RESUME',{exact:true});
+              if(await smart.isVisible().catch(()=>false)) return;
+              const gate=page.locator('#testerCode');
+              await gate.waitFor({state:'visible',timeout:10000});
               const code=await page.evaluate(()=>{const src=[...document.scripts].map(s=>s.textContent||'').join('\n');const m=src.match(/TESTER_CODE='([^']+)'/);return m?m[1]:''});
               if(!code) throw new Error('Tester code could not be read from hosted gate');
-              await page.locator('#testerCode').fill(code);
+              await gate.fill(code);
               await page.locator('#enterTester').click();
-              await page.getByText('OPEN SMART RESUME',{exact:true}).waitFor({state:'visible',timeout:20000});
+              await smart.waitFor({state:'visible',timeout:20000});
             }
-            await enterTester();
+            await enterTester(true);
             await page.getByText('OPEN SMART RESUME',{exact:true}).click();
             const chooserPromise=page.waitForEvent('filechooser');
             await page.getByText('UPLOAD RESUME',{exact:true}).first().click();
@@ -57,7 +64,7 @@ jobs:
             await chooser.setFiles('/tmp/qa-resume.txt');
             await page.getByText('qa-resume.txt',{exact:true}).first().waitFor({state:'visible',timeout:10000});
 
-            await enterTester();
+            await enterTester(true);
             await page.getByText('OPEN SMART RESUME',{exact:true}).click();
             await page.getByText('qa-resume.txt',{exact:true}).first().waitFor({state:'visible',timeout:10000});
             const editor=page.locator('#editor');
@@ -82,14 +89,17 @@ jobs:
             }
             await page.screenshot({path:'/tmp/hosted-readiness-job.png',fullPage:true});
 
-            await enterTester();
+            await enterTester(true);
             await page.locator('button[data-route="jobs"]').click();
             jobsText=await page.locator('#app').innerText();
             if(!jobsText.includes('Fluid Systems QA')||!jobsText.includes('Creative Director')) throw new Error('Detected job did not persist across reload/login');
             if(errors.length) throw new Error(errors.join(' | '));
             console.log('HOSTED READINESS PASS: resume persistence -> edit backup -> restore -> job intake without URL/company/title -> job persistence');
             await browser.close();
-          })().catch(e=>{console.error('HOSTED READINESS EXACT FAILURE: '+e.message);process.exit(1)});
+          })().catch(async e=>{
+            console.error('HOSTED READINESS EXACT FAILURE: '+e.message);
+            process.exit(1)
+          });
           EOF
           node readiness-e2e.js
       - name: Upload readiness evidence
