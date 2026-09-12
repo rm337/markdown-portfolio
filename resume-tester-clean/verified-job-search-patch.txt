@@ -1,0 +1,26 @@
+function jobAvenues(){
+ const resumeText=(state.resume?.text||'').toLowerCase();
+ const inferred=[];
+ if(/creative director|creative leadership/.test(resumeText)) inferred.push('Creative Director');
+ if(/product|ui\/ux|experience design/.test(resumeText)) inferred.push('Product / Experience Design');
+ if(/brand|strategy/.test(resumeText)) inferred.push('Brand / Experience Strategy');
+ if(!inferred.length) inferred.push('Creative Leadership','Design Leadership');
+ const q=encodeURIComponent(inferred.join(' OR '));
+ const safeOpen=(url)=>`<a class="btn secondary" href="${url}" target="_blank" rel="noopener noreferrer">OPEN</a>`;
+ return `<h1>Verified Job Search</h1>
+ <p class="small"><b>NO-DEAD-END MODE.</b> This lane favors direct employers, established platforms, and identifiable humans. It deliberately rejects pay-to-advance schemes, suspicious recruiter funnels, unverifiable postings, and résumé-service upsells.</p>
+ <div class="grid">
+   <div class="card span12" style="border:2px solid #0174F3;background:linear-gradient(180deg,#fbfdff,#eef6ff)">
+     <div class="row between"><div><div class="cap">SEARCH INTELLIGENCE</div><h2 style="margin:4px 0">Best-fit lanes from the active résumé</h2></div><span class="pill good">TRUST FILTER ON</span></div>
+     <p>${inferred.map(x=>`<span class="pill" style="margin:4px 6px 0 0">${esc(x)}</span>`).join('')}</p>
+     <p class="small">The résumé suggests these directions. Use them as search targets, then confirm every opportunity on the employer's own domain before treating it as real.</p>
+   </div>
+   <div class="card span6"><div class="cap">#1 • STRONGEST PATH</div><h2>Direct Employer Career Pages</h2><p>Start at the company itself. This avoids copied listings, stale reposts, and mystery intermediaries.</p><ul class="small"><li>Confirm the role exists on the employer's official domain.</li><li>Apply through the employer's ATS or careers portal.</li><li>Then identify a real hiring leader or recruiter by name.</li></ul><span class="pill good">HIGHEST TRUST</span></div>
+   <div class="card span6"><div class="cap">#2 • NETWORK + JOBS</div><h2>LinkedIn Jobs</h2><p>Useful for discovery and direct human outreach, but a LinkedIn listing is a lead until it is cross-checked with the employer.</p><div class="row">${safeOpen('https://www.linkedin.com/jobs/search/?keywords='+q)}<span class="pill">CROSS-CHECK REQUIRED</span></div></div>
+   <div class="card span6"><div class="cap">#3 • BROAD MARKET</div><h2>Indeed</h2><p>Good for volume and discovery. Prefer employer-posted listings and verify the same opening on the company's careers page before applying.</p><div class="row">${safeOpen('https://www.indeed.com/jobs?q='+q)}<span class="pill">VERIFY EMPLOYER</span></div></div>
+   <div class="card span6"><div class="cap">#4 • TECH + PRODUCT COMPANIES</div><h2>Built In</h2><p>Useful for creative, product, design, brand, and experience roles at technology companies. Treat the company page as the final source of truth.</p><div class="row">${safeOpen('https://builtin.com/jobs')}<span class="pill">ESTABLISHED PLATFORM</span></div></div>
+   <div class="card span6"><div class="cap">#5 • STARTUPS</div><h2>Wellfound</h2><p>Best when startup or growth-company roles fit the target. Favor companies with complete profiles, named leadership, and a verifiable public footprint.</p><div class="row">${safeOpen('https://wellfound.com/jobs')}<span class="pill">IDENTITY CHECK</span></div></div>
+   <div class="card span6"><div class="cap">#6 • HUMAN RECRUITING</div><h2>Verified Recruiter Outreach</h2><p>Only proceed when the recruiter has a real name, company affiliation, professional history, and a role that can be independently verified.</p><ul class="small"><li>No paid dossier or résumé purchase.</li><li>No gift cards, crypto, equipment checks, or money transfer.</li><li>No undisclosed bots or fake personas.</li><li>No pressure to leave normal hiring channels without a verifiable reason.</li></ul><span class="pill good">REAL HUMANS ONLY</span></div>
+   <div class="card span12"><div class="cap">TRUCKSTER GATE</div><h2>Before an opportunity gets on the road</h2><div class="grid"><div class="card span4" style="box-shadow:none"><b>1. SOURCE</b><p class="small">Official employer domain or established platform?</p></div><div class="card span4" style="box-shadow:none"><b>2. HUMAN</b><p class="small">Can the recruiter or hiring contact be identified?</p></div><div class="card span4" style="box-shadow:none"><b>3. MATCH</b><p class="small">Does the title, company, location, and description agree across sources?</p></div></div><p class="small" style="margin-bottom:0"><b>Rule:</b> If the source cannot survive those three checks, it does not enter the application tracker.</p></div>
+ </div>`;
+}
