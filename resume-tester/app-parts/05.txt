@@ -1,0 +1,108 @@
+ucation','projects','certifications','awards','selected achievements'];
+ const headings=[...new Set(headingNames.filter(h=>lines.some(l=>{
+   const clean=l.toLowerCase().replace(/[|:•·\-–—]+/g,' ').replace(/\s+/g,' ').trim();
+   return clean===h || clean.startsWith(h+' ');
+ })))];
+ const metricPatterns=[
+   /\b\d+(?:\.\d+)?\s*%/g,
+   /\$\s?\d[\d,.]*(?:\s?[KMB])?/gi,
+   /\b\d+(?:\.\d+)?\s?(?:x|times|users|clients|customers|projects|campaigns|teams|people|employees|stores|locations|markets|countries|years|months|days|hours|units|assets|pieces|deliverables|accounts|leads|views|impressions|followers|subscribers|sales|revenue)\b/gi,
+   /\b(?:increased|grew|reduced|cut|improved|boosted|raised|lowered|saved|generated|delivered|managed|led)\b[^.\n]{0,90}\b\d[\d,.]*/gi
+ ];
+ const metrics=[...new Set(metricPatterns.flatMap(rx=>normalized.match(rx)||[]))];
+ const verbs=(normalized.match(/\b(?:led|built|created|launched|grew|increased|reduced|improved|managed|directed|developed|designed|delivered|generated|sold|trained|mentored|implemented|optimized|produced|strategized|wrote|positioned|transformed|oversaw|established|drove|shaped|crafted|executed)\b/gi)||[]);
+ const bulletLines=lines.filter(l=>/^[•▪◦‣∙·\-*]/.test(l));
+ const longBullets=bulletLines.filter(l=>l.length>180).length;
+ const weak=(normalized.match(/\b(?:responsible for|helped with|worked on|duties included|assisted with)\b/gi)||[]).length;
+ const suspiciousLongLines=lines.filter(l=>l.length>260).length;
+ const intelligence=resumeIntelligence(normalized);
+ return {lines:lines.length,words:normalized.split(/\s+/).filter(Boolean).length,email,phone,headings,metrics,verbs:verbs.length,longBullets,weak,suspiciousLongLines,intelligence,
+ report:`ATS PARSE • DEEP READ
+
+CONTACT SIGNALS
+Email: ${email}
+Phone: ${phone}
+
+STRUCTURE
+Lines read: ${lines.length}
+Words read: ${normalized.split(/\s+/).filter(Boolean).length}
+Recognized section signals: ${headings.length?headings.join(', '):'Few standard headings detected'}
+Suspiciously flattened long lines: ${suspiciousLongLines}
+
+EVIDENCE DENSITY
+Quantified-result signals: ${metrics.length}
+Action-verb signals: ${verbs.length}
+Leadership signals: ${intelligence.leadership.length}
+Strategy signals: ${intelligence.strategy.length}
+Impact signals: ${intelligence.impact.length}
+Evidence coverage index: ${intelligence.evidenceCoverage}/100
+Weak/passive phrase signals: ${intelligence.passive.length}
+Potentially vague-claim signals: ${intelligence.vague.length}
+Very long bullet signals: ${longBullets}
+
+SENIORITY READ
+${intelligence.seniority}
+This is inferred from the work language, not merely the job title.
+
+HUMAN-EYE-PLUS FLAGS
+${metrics.length?'✓ Quantified evidence is present.':'• Quantified evidence is scarce. Look for truthful scale, percentages, revenue, volume, time, team size, or frequency.'}
+${intelligence.unproved.length?'• Strong-scope statements exist without nearby proof. These are candidates for evidence strengthening.':'✓ Major scope statements generally carry proof or outcome language.'}
+${intelligence.duplicates.length?'• Similar ideas appear in multiple places. Consolidation may create room for stronger evidence.':'✓ No strong duplicate-idea clusters detected.'}
+${intelligence.buried.length?'• Some strong evidence appears buried inside long statements.':'✓ Strong evidence is not obviously buried in long statements.'}
+${intelligence.passive.length?'• Passive/low-ownership wording detected.':'✓ No obvious weak-ownership phrases detected.'}
+${suspiciousLongLines?'• Some lines still look flattened.':'✓ Extracted text is segmented into normal reading lines.'}
+
+No fake universal ATS score is generated. This screen separates observable parsing from local semantic heuristics.`};
+}
+async function extractPDF(file){
+ const pdfjs=await import('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs');
+ pdfjs.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.worker.min.mjs';
+ const pdf=await pdfjs.getDocument({data:new Uint8Array(await file.arrayBuffer())}).promise;
+ let pages=[];
+ for(let pageNo=1;pageNo<=pdf.numPages;pageNo++){
+   const page=await pdf.getPage(pageNo);
+   const content=await page.getTextContent({includeMarkedContent:false});
+   const items=(content.items||[]).filter(it=>typeof it.str==='string'&&it.str.trim().length);
+   const rows=[];
+   const yTolerance=3.5;
+   for(const it of items){
+     const x=Number(it.transform?.[4]||0);
+     const y=Number(it.transform?.[5]||0);
+     const w=Number(it.width||0);
+     let row=rows.find(r=>Math.abs(r.y-y)<=yTolerance);
+     if(!row){row={y,items:[]};rows.push(row)}
+     row.items.push({x,y,w,str:it.str});
+   }
+   rows.sort((a,b)=>b.y-a.y);
+   const lines=[];
+   for(const row of rows){
+     row.items.sort((a,b)=>a.x-b.x);
+     let line='',lastEnd=null;
+     for(const it of row.items){
+       const txt=it.str.replace(/\s+/g,' ').trim();
+       if(!txt) continue;
+       if(lastEnd!==null){
+         const gap=it.x-lastEnd;
+         if(gap>1.8) line+=' ';
+       }
+       line+=txt;
+       lastEnd=it.x+Math.max(it.w,txt.length*2.5);
+     }
+     line=line.replace(/\s{2,}/g,' ').trim();
+     if(line) lines.push(line);
+   }
+   // Preserve page boundaries while keeping ATS-friendly text structure.
+   pages.push(lines.join('\n'));
+ }
+ return pages.join('\n\n').replace(/\n{3,}/g,'\n\n').trim();
+}
+function xmlText(xml){return xml.replace(/<w:tab\/>/g,'\t').replace(/<\/w:p>/g,'\n').replace(/<[^>]+>/g,'').replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>')}
+async function extractDOCX(file){
+ // Minimal ZIP reader using browser DecompressionStream cannot read ZIP containers reliably.
+ // Use Mammoth from CDN only when DOCX is selected.
+ const mammoth=await import('https://cdn.jsdelivr.net/npm/mammoth@1.8.0/+esm');
+ const r=await mammoth.extractRawText({arrayBuffer:await file.arrayBuffer()});return r.value;
+}
+async function loadFile(file){
+ try{
+   let ext=(file.name.split('.').pop()||'').toLowerCase()
