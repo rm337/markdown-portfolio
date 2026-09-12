@@ -19,7 +19,16 @@ jobs:
       - name: Assemble one normal HTML file
         run: |
           mkdir -p resume-tester-monolithic
-          cat resume-tester/app-parts/01.txt resume-tester/app-parts/02.txt resume-tester/app-parts/03.txt resume-tester/app-parts/04.txt resume-tester/app-parts/05.txt resume-tester/app-parts/06.txt resume-tester/app-parts/06b-resume-ui.txt resume-tester/app-parts/07.txt resume-tester/app-parts/08.txt > resume-tester-monolithic/index.html
+          cat resume-tester/app-parts/01.txt resume-tester/app-parts/02.txt resume-tester/app-parts/03.txt resume-tester/app-parts/04.txt resume-tester/app-parts/05.txt resume-tester/app-parts/06.txt resume-tester/app-parts/07.txt resume-tester/app-parts/08.txt > /tmp/base.html
+          python3 - <<'PY'
+          from pathlib import Path
+          base=Path('/tmp/base.html').read_text()
+          extra=Path('resume-tester/app-parts/06b-resume-ui.txt').read_text()
+          marker='function render()'
+          assert marker in base, 'safe insertion marker missing'
+          base=base.replace(marker, extra+'\n'+marker, 1)
+          Path('resume-tester-monolithic/index.html').write_text(base)
+          PY
           test -s resume-tester-monolithic/index.html
           grep -q 'function resume()' resume-tester-monolithic/index.html
           grep -q 'function ats()' resume-tester-monolithic/index.html
