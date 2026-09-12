@@ -1,0 +1,65 @@
+name: Resume Tester Access Session E2E
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/resume-tester-access-session-e2e.yml','resume-tester/**','resume-tester-clean/**']
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm install playwright@1.55.0 && npx playwright install --with-deps chromium
+      - name: Test access rejection signout and persisted tester data
+        run: |
+          cat > access-session.js <<'EOF'
+          const {chromium}=require('playwright');
+          (async()=>{
+            const browser=await chromium.launch({headless:true});
+            const context=await browser.newContext({viewport:{width:1280,height:900}});
+            const page=await context.newPage();
+            const errors=[];
+            page.on('console',m=>{if(m.type()==='error')errors.push('console: '+m.text())});
+            page.on('pageerror',e=>errors.push('pageerror: '+e.message));
+            const url='https://oceanofink.com/resume-tester-clean/?access-session='+Date.now();
+            await page.goto(url,{waitUntil:'networkidle'});
+            await page.locator('#testerCode').fill('WRONG-CODE');
+            await page.locator('#enterTester').click();
+            await page.getByText('Tester code not recognized.',{exact:true}).waitFor({state:'visible'});
+            await page.screenshot({path:'/tmp/access-wrong-code.png',fullPage:true});
+            const code=await page.locator('#testerCode').evaluate(el=>el.closest('body').innerHTML.match(/FSTT\d+/)?.[0]||'');
+            await page.locator('#testerCode').fill(code);
+            await page.locator('#enterTester').click();
+            await page.locator('button[data-route="tracker"]').waitFor({state:'visible'});
+            await page.waitForFunction(()=>{const b=document.querySelector('button[data-route="tracker"]');return !!b&&typeof b.onclick==='function'},null,{timeout:15000});
+            await page.locator('button[data-route="tracker"]').click();
+            await page.locator('#trCompany').fill('Session Persistence QA');
+            await page.locator('#trTitle').fill('Tester Session Role');
+            await page.getByText('PUT TRUCKSTER ON THE ROAD',{exact:true}).click();
+            await page.getByText('Tester Session Role • Session Persistence QA',{exact:true}).waitFor();
+            await page.locator('.logoutBtn').click();
+            await page.locator('#testerCode').waitFor({state:'visible'});
+            if(await page.locator('text=Tester Session Role • Session Persistence QA').count()) throw new Error('Tester workspace remained visible after sign out');
+            await page.screenshot({path:'/tmp/access-after-signout.png',fullPage:true});
+            await page.locator('#testerCode').fill(code);
+            await page.locator('#enterTester').click();
+            await page.locator('button[data-route="tracker"]').waitFor({state:'visible'});
+            await page.waitForFunction(()=>{const b=document.querySelector('button[data-route="tracker"]');return !!b&&typeof b.onclick==='function'},null,{timeout:15000});
+            await page.locator('button[data-route="tracker"]').click();
+            await page.getByText('Tester Session Role • Session Persistence QA',{exact:true}).waitFor();
+            await page.screenshot({path:'/tmp/access-relogin-persisted.png',fullPage:true});
+            if(errors.length) throw new Error(errors.join(' | '));
+            console.log('ACCESS SESSION PASS: wrong code rejected -> correct login -> journey saved -> sign out -> gate restored -> relogin -> journey persisted');
+            await browser.close();
+          })().catch(e=>{console.error(e);process.exit(1)});
+          EOF
+          node access-session.js
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: resume-tester-access-session-evidence
+          path: /tmp/access-*.png
+          if-no-files-found: error
