@@ -56,7 +56,7 @@ jobs:
             await enterTester();
 
             await page.locator('button[data-route="resume"]').click();
-            await page.getByText('Resume Workspace',{exact:true}).waitFor({state:'visible',timeout:10000});
+            await page.getByRole('heading',{name:'Resume Workspace',exact:true}).waitFor({state:'visible',timeout:10000});
             const uploadLabel=page.getByText('UPLOAD RESUME',{exact:true}).first();
             if(await uploadLabel.isVisible().catch(()=>false)){
               const chooserPromise=page.waitForEvent('filechooser');
