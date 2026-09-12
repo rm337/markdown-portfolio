@@ -1,0 +1,80 @@
+:999px;padding:5px 8px;border:1px solid var(--line)}.confirmed{color:#087a55;background:#effbf7}.detected{color:#0174F3;background:#eef6ff}.inferred{color:#6b7280;background:#f6f7f9}.unknown{color:#7c8795;background:#fff}
+.journeylog{border-left:2px solid #dbe4ee;margin-left:7px;padding-left:16px}.journeyitem{position:relative;padding:0 0 13px}.journeyitem:before{content:"";position:absolute;left:-22px;top:4px;width:10px;height:10px;border-radius:50%;background:#aab7c7}.journeyitem.done:before{background:#087a55}.journeyitem.current:before{background:#0174F3;box-shadow:0 0 0 4px #0174f31a}
+
+@media(max-width:900px){.shell{grid-template-columns:1fr}nav{display:none}.span8,.span4,.span6{grid-column:span 12}main{padding:14px}}
+</style>
+</head>
+<body>
+<header><div class="brand"><b>FLUID SYSTEMS</b><small>Smart Resume Command Center™ • V5.2 FSTT Visible Tester Edition</small></div><div class="small">A Little Ink. A Lot of Soul. The Color Blue.</div></header>
+<div class="shell"><nav>
+<h4>START</h4><button data-route="home">Command Center</button><button data-route="jobs">Jobs</button><button data-route="tracker" style="font-weight:900;border:2px solid #0174F3;background:#eef6ff;color:#0174F3">🚛 FSTT • TRACKER TRUCKSTER</button>
+<h4>SMART RESUME</h4><button data-route="resume">Resume Workspace</button><button data-route="ats">ATS Parse</button><button data-route="backups">Backup Copies</button><h4>SYSTEM</h4><button data-route="access">Access</button>
+</nav><main id="app"></main></div>
+<input id="filePicker" type="file" accept=".pdf,.docx,.txt,.md,.rtf,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain" hidden>
+<script type="module">
+const KEY='fs_srcc_v4';
+
+const AUTHKEY='fs_srcc_v45_auth';
+function getAuth(){try{return JSON.parse(localStorage.getItem(AUTHKEY)||'{}')}catch{return {}}}
+function setAuth(v){localStorage.setItem(AUTHKEY,JSON.stringify(v))}
+function authState(){
+ let a=getAuth();
+ if(!a.ownerPinHash){return {loggedIn:false,mode:null,setup:true}}
+ const sess=sessionStorage.getItem('fs_srcc_v45_session');
+ return {loggedIn:!!sess,mode:sess||null,setup:false};
+}
+async function hashText(t){
+ const d=new TextEncoder().encode(String(t));
+ const b=await crypto.subtle.digest('SHA-256',d);
+ return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');
+}
+function authScreen(){
+ const a=getAuth();
+ const setup=!a.ownerPinHash;
+ document.body.innerHTML=`<header><div class="brand"><b>FLUID SYSTEMS</b><small>Smart Resume Command Center™ • V5.2 FSTT Visible Tester Edition</small></div><div class="small">A Little Ink. A Lot of Soul. The Color Blue.</div></header>
+ <div class="loginwrap"><div class="loginbox">
+ <h1>${setup?'Set Up Owner Access':'Sign In'}</h1>
+ <p class="small">${setup?'Create an owner PIN. You can then create a separate tester access code from inside the app.':'Two separate entrances are available below: OWNER uses the Owner PIN; TESTER uses the Tester Access Code. Tester sessions have their own résumé, jobs and FSTT journeys and cannot overwrite the Owner workspace.'}</p>
+ ${setup?`
+ <label class="cap">OWNER PIN</label><input id="ownerPin" type="password" inputmode="numeric" placeholder="Create PIN">
+ <div style="height:10px"></div><label class="cap">CONFIRM PIN</label><input id="ownerPin2" type="password" inputmode="numeric" placeholder="Confirm PIN">
+ <div class="row" style="margin-top:14px"><button class="btn createOwner">CREATE OWNER ACCESS</button></div>`:`
+ <div class="row" style="margin-bottom:14px"><button class="btn authMode" data-mode="owner">OWNER</button><button class="btn secondary authMode" data-mode="tester">TESTER</button></div>
+ <label class="cap" id="authLabel">OWNER PIN</label><input id="authCode" type="password" placeholder="Enter code">
+ <div class="row" style="margin-top:14px"><button class="btn loginBtn">SIGN IN</button></div>
+ <p class="small" id="authHelp">${a.testerCodeHash?'Tester access is enabled.':'Tester access has not been created yet.'}</p>`}
+ </div></div>`;
+ if(setup){
+   document.querySelector('.createOwner').onclick=async()=>{
+     const p=document.querySelector('#ownerPin').value.trim(),p2=document.querySelector('#ownerPin2').value.trim();
+     if(p.length<4){alert('Use at least 4 characters for the owner PIN.');return}
+     if(p!==p2){alert('PINs do not match.');return}
+     setAuth({ownerPinHash:await hashText(p),testerCodeHash:''});
+     sessionStorage.setItem('fs_srcc_v45_session','owner'); location.reload();
+   };
+ }else{
+   let mode='owner';
+   document.querySelectorAll('.authMode').forEach(b=>b.onclick=()=>{
+     mode=b.dataset.mode;
+     document.querySelector('#authLabel').textContent=mode==='owner'?'OWNER PIN':'TESTER ACCESS CODE';
+     document.querySelector('#authCode').value='';
+   });
+   document.querySelector('.loginBtn').onclick=async()=>{
+     const code=document.querySelector('#authCode').value;
+     const a=getAuth(),h=await hashText(code);
+     const ok=mode==='owner'?h===a.ownerPinHash:(!!a.testerCodeHash&&h===a.testerCodeHash);
+     if(!ok){alert('Access code not recognized.');return}
+     sessionStorage.setItem('fs_srcc_v45_session',mode); location.reload();
+   };
+ }
+}
+function currentMode(){return sessionStorage.getItem('fs_srcc_v45_session')||'owner'}
+function storageKey(){return currentMode()==='tester'?'fs_srcc_v45_tester':'fs_srcc_v4'}
+function technicalPass(a){
+ if(!a)return {pass:false,why:'No résumé is loaded.'};
+ const failures=[];
+ if(a.lines<20) failures.push('too few readable lines were extracted');
+ if(a.suspiciousLongLines>0) failures.push('the text still contains flattened lines');
+ if(a.email==='Not detected') failures.push('email was not detected');
+ if(a.headings.length<2) failures.push('too few recognizable résumé sections were detected');
+ return {pass:failures.length===0,why:failures.length?`Technical readability issue: ${failures.join('; ')}.`:'The résumé was extracted into readable lines with recognizable sections and contact informati
