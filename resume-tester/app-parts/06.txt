@@ -10,7 +10,7 @@
  }catch(e){alert('Resume load failed: '+e.message)}
 }
 function home(){
- const who=sessionStorage.getItem('fs_srcc_session')==='tester'?'TESTER':'OWNER';
+ const who=sessionStorage.getItem('fs_srcc_v45_session')==='tester'?'TESTER':'OWNER';
  const apps=state.applications||[];
  return `<h1>Command Center</h1>
  <p class="small"><b>${who} WORKSPACE</b> • Both products are available here for testing.</p>
@@ -107,4 +107,4 @@ function fsttConfidence(i,current){
 }
 function fsttMessage(i){
  return [
-  'Loaded up. Read
+  'Loaded up. Ready to roll.',
