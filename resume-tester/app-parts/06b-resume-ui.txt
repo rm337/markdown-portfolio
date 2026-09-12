@@ -20,7 +20,7 @@ function detectJobFromText(text,url=''){
  if(companyLine) company=companyLine.replace(/^[^:]+:\s*/, '').trim();
  return {description:String(text||''),url:String(url||''),title,company,location,salary};
 }
-async function extractDOCX(file){
+extractDOCX = async function(file){
  if(!window.mammoth||typeof window.mammoth.extractRawText!=='function'){
    await new Promise((resolve,reject)=>{
      const s=document.createElement('script');
@@ -34,4 +34,4 @@ async function extractDOCX(file){
  if(!window.mammoth||typeof window.mammoth.extractRawText!=='function') throw new Error('DOCX parser failed to initialize');
  const r=await window.mammoth.extractRawText({arrayBuffer:await file.arrayBuffer()});
  return (r&&r.value)||'';
-}
+};
