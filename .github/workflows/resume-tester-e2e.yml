@@ -67,6 +67,8 @@ jobs:
             await page.goto('http://127.0.0.1:4173/resume-tester-clean/', {waitUntil:'networkidle'});
             await page.fill('#testerCode','FSTT2026');
             await page.click('#enterTester');
+            await page.waitForSelector('text=OPEN SMART RESUME', {timeout:15000});
+            await page.getByText('OPEN SMART RESUME', {exact:true}).click();
             await page.waitForSelector('text=UPLOAD RESUME', {timeout:15000});
 
             const chooserPromise = page.waitForEvent('filechooser');
@@ -87,7 +89,7 @@ jobs:
             fs.writeFileSync('/tmp/browser-errors.txt', errors.join('\n'));
             if(errors.length) throw new Error('Browser errors detected:\n'+errors.join('\n'));
             await browser.close();
-            console.log('E2E PASS: login -> upload -> active resume -> ATS Parse');
+            console.log('E2E PASS: login -> Smart Resume -> upload -> active resume -> ATS Parse');
           })().catch(e=>{console.error(e);process.exit(1)});
           EOF
 
