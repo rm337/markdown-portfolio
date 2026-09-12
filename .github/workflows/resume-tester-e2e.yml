@@ -19,8 +19,10 @@ jobs:
       - name: Assemble one normal HTML file
         run: |
           mkdir -p resume-tester-monolithic
-          cat resume-tester/app-parts/01.txt resume-tester/app-parts/02.txt resume-tester/app-parts/03.txt resume-tester/app-parts/04.txt resume-tester/app-parts/05.txt resume-tester/app-parts/06.txt resume-tester/app-parts/07.txt resume-tester/app-parts/08.txt > resume-tester-monolithic/index.html
+          cat resume-tester/app-parts/01.txt resume-tester/app-parts/02.txt resume-tester/app-parts/03.txt resume-tester/app-parts/04.txt resume-tester/app-parts/05.txt resume-tester/app-parts/06.txt resume-tester/app-parts/06b-resume-ui.txt resume-tester/app-parts/07.txt resume-tester/app-parts/08.txt > resume-tester-monolithic/index.html
           test -s resume-tester-monolithic/index.html
+          grep -q 'function resume()' resume-tester-monolithic/index.html
+          grep -q 'function ats()' resume-tester-monolithic/index.html
           grep -q 'OPEN SMART RESUME' resume-tester-monolithic/index.html
           grep -q 'filePicker' resume-tester-monolithic/index.html
 
@@ -39,27 +41,23 @@ jobs:
         run: |
           python3 -m http.server 4173 >/tmp/fs-http.log 2>&1 &
           sleep 2
-          curl -f http://127.0.0.1:4173/resume-tester-monolithic/
+          curl -f http://127.0.0.1:4173/resume-tester-monolithic/ >/dev/null
 
       - name: Browser-test monolithic app
         run: |
           cat > /tmp/qa-resume.txt <<'EOF'
           ROBERT TESTER
           robert@example.com
-
           PROFESSIONAL SUMMARY
           Creative director and brand leader with experience directing campaigns, teams, and digital products.
-
           EXPERIENCE
           Creative Director
           Led brand strategy, campaign development, creative systems, and cross-functional production.
           Increased campaign engagement by 35 percent through clearer creative direction and testing.
-
           EDUCATION
           Oakland Community College
           Creative Writing
           EOF
-
           cat > e2e.js <<'EOF'
           const { chromium } = require('playwright');
           const fs = require('fs');
@@ -74,28 +72,27 @@ jobs:
             const errors=[];
             page.on('console',m=>{ if(m.type()==='error') errors.push('console: '+m.text()); });
             page.on('pageerror',e=>errors.push('pageerror: '+e.message));
-
-            await page.goto('http://127.0.0.1:4173/resume-tester-monolithic/', {waitUntil:'networkidle'});
-            await page.getByText('OPEN SMART RESUME', {exact:true}).waitFor({state:'visible',timeout:15000});
-            await page.getByText('OPEN SMART RESUME', {exact:true}).click();
-            await page.getByText('UPLOAD RESUME', {exact:true}).first().waitFor({state:'visible',timeout:15000});
-
-            const chooserPromise = page.waitForEvent('filechooser');
-            await page.getByText('UPLOAD RESUME', {exact:true}).first().click();
-            const chooser = await chooserPromise;
-            await chooser.setFiles('/tmp/qa-resume.txt');
-
-            await page.getByText('qa-resume.txt', {exact:true}).first().waitFor({state:'visible',timeout:15000});
-            await page.locator('button[data-route="ats"]').click();
-            await page.waitForTimeout(500);
-            const ats = await page.locator('#app').innerText();
-            if(!/PASS|FAIL/.test(ats)) throw new Error('ATS Parse did not render PASS or FAIL');
-
-            await page.screenshot({path:'/tmp/resume-tester-e2e.png', fullPage:true});
-            fs.writeFileSync('/tmp/browser-errors.txt', errors.join('\n'));
-            if(errors.length) throw new Error('Browser errors detected:\n'+errors.join('\n'));
-            await browser.close();
-            console.log('E2E PASS: monolithic app -> Smart Resume -> upload -> ATS Parse');
+            try {
+              await page.goto('http://127.0.0.1:4173/resume-tester-monolithic/', {waitUntil:'networkidle'});
+              await page.getByText('OPEN SMART RESUME', {exact:true}).waitFor({state:'visible',timeout:15000});
+              await page.getByText('OPEN SMART RESUME', {exact:true}).click();
+              await page.getByText('UPLOAD RESUME', {exact:true}).first().waitFor({state:'visible',timeout:15000});
+              const chooserPromise = page.waitForEvent('filechooser');
+              await page.getByText('UPLOAD RESUME', {exact:true}).first().click();
+              const chooser = await chooserPromise;
+              await chooser.setFiles('/tmp/qa-resume.txt');
+              await page.getByText('qa-resume.txt', {exact:true}).first().waitFor({state:'visible',timeout:15000});
+              await page.locator('button[data-route="ats"]').click();
+              const ats = await page.locator('#app').innerText();
+              if(!/PASS|FAIL/.test(ats)) throw new Error('ATS Parse did not render PASS or FAIL');
+              if(errors.length) throw new Error('Browser errors detected:\n'+errors.join('\n'));
+              console.log('E2E PASS: monolithic app -> Smart Resume -> upload -> active resume -> ATS Parse');
+            } finally {
+              await page.screenshot({path:'/tmp/resume-tester-e2e.png', fullPage:true}).catch(()=>{});
+              fs.writeFileSync('/tmp/browser-errors.txt', errors.join('\n'));
+              fs.writeFileSync('/tmp/body.txt', await page.locator('body').innerText().catch(()=>''));
+              await browser.close();
+            }
           })().catch(e=>{console.error(e);process.exit(1)});
           EOF
           node e2e.js
@@ -108,6 +105,7 @@ jobs:
           path: |
             /tmp/resume-tester-e2e.png
             /tmp/browser-errors.txt
+            /tmp/body.txt
             /tmp/fs-http.log
             resume-tester-monolithic/index.html
           if-no-files-found: ignore
