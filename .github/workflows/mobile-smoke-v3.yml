@@ -17,7 +17,51 @@ jobs:
         run: |
           cat > t.js <<'EOF'
           const {chromium}=require('playwright'); const fs=require('fs');
-          (async()=>{fs.writeFileSync('/tmp/r.txt','ROBERT\nrobert@example.com\nPROFESSIONAL SUMMARY\nCreative leader\nEXPERIENCE\nCreative Director\nLed brand systems\nEDUCATION\nOakland Community College'); const b=await chromium.launch({headless:true}); const c=await b.newContext({viewport:{width:390,height:844}}); const p=await c.newPage(); p.on('dialog',d=>d.accept()); await p.goto('https://oceanofink.com/resume-tester-clean/?mobile-v3='+Date.now(),{waitUntil:'networkidle'}); const code=await p.locator('#testerCode').evaluate(el=>el.closest('body').innerHTML.match(/FSTT\d+/)?.[0]||''); await p.locator('#testerCode').fill(code); await p.locator('#enterTester').click(); await p.locator('button[data-route="resume"]').waitFor({state:'visible'}); await p.locator('button[data-route="resume"]').click(); await p.locator('#filePicker').setInputFiles('/tmp/r.txt'); await p.getByText('r.txt',{exact:true}).first().waitFor(); await p.getByText('CLEAR RESUME',{exact:true}).first().click(); await p.getByText('NO RESUME LOADED',{exact:true}).waitFor(); await p.locator('button[data-route="backups"]').click(); await p.getByText('Automatic backup before clear',{exact:false}).first().waitFor(); await p.screenshot({path:'/tmp/mobile-backup.png',fullPage:true}); await p.locator('button[data-route="tracker"]').click(); await p.locator('#trCompany').fill('Mobile QA Company'); await p.locator('#trTitle').fill('Mobile QA Role'); await p.getByText('PUT TRUCKSTER ON THE ROAD',{exact:true}).click(); await p.getByText('Mobile QA Role • Mobile QA Company',{exact:true}).waitFor(); await p.screenshot({path:'/tmp/mobile-fstt-before.png',fullPage:true}); await p.getByText('DELETE',{exact:true}).first().click(); await p.screenshot({path:'/tmp/mobile-fstt-after.png',fullPage:true}); if(await p.evaluate(()=>document.documentElement.scrollWidth>document.documentElement.clientWidth+2)) throw Error('horizontal overflow'); console.log('MOBILE V3 PASS'); await b.close();})().catch(e=>{console.error(e.message);process.exit(1)});
+          (async()=>{
+            fs.writeFileSync('/tmp/r.txt','ROBERT\nrobert@example.com\nPROFESSIONAL SUMMARY\nCreative leader\nEXPERIENCE\nCreative Director\nLed brand systems\nEDUCATION\nOakland Community College');
+            const b=await chromium.launch({headless:true});
+            const c=await b.newContext({viewport:{width:390,height:844}});
+            const p=await c.newPage();
+            const dialogs=[]; const errors=[];
+            p.on('dialog',async d=>{dialogs.push(d.message()); await d.accept()});
+            p.on('console',m=>{if(m.type()==='error')errors.push('console: '+m.text())});
+            p.on('pageerror',e=>errors.push('pageerror: '+e.message));
+            try{
+              await p.goto('https://oceanofink.com/resume-tester-clean/?mobile-v3='+Date.now(),{waitUntil:'networkidle'});
+              const code=await p.locator('#testerCode').evaluate(el=>el.closest('body').innerHTML.match(/FSTT\d+/)?.[0]||'');
+              await p.locator('#testerCode').fill(code);
+              await p.locator('#enterTester').click();
+              await p.locator('button[data-route="resume"]').waitFor({state:'visible'});
+              await p.locator('button[data-route="resume"]').click();
+              await p.locator('#filePicker').setInputFiles('/tmp/r.txt');
+              await p.waitForFunction(()=>{try{const s=JSON.parse(localStorage.getItem('fs_srcc_v45_tester')||'{}'); return s?.resume?.name==='r.txt'}catch{return false}},null,{timeout:15000});
+              await p.screenshot({path:'/tmp/mobile-upload.png',fullPage:true});
+              await p.getByText('CLEAR RESUME',{exact:true}).first().click();
+              await p.getByText('NO RESUME LOADED',{exact:true}).waitFor();
+              await p.locator('button[data-route="backups"]').click();
+              await p.getByText('Automatic backup before clear',{exact:false}).first().waitFor();
+              await p.screenshot({path:'/tmp/mobile-backup.png',fullPage:true});
+              await p.locator('button[data-route="tracker"]').click();
+              await p.locator('#trCompany').fill('Mobile QA Company');
+              await p.locator('#trTitle').fill('Mobile QA Role');
+              await p.getByText('PUT TRUCKSTER ON THE ROAD',{exact:true}).click();
+              await p.getByText('Mobile QA Role • Mobile QA Company',{exact:true}).waitFor();
+              await p.screenshot({path:'/tmp/mobile-fstt-before.png',fullPage:true});
+              await p.getByText('DELETE',{exact:true}).first().click();
+              await p.screenshot({path:'/tmp/mobile-fstt-after.png',fullPage:true});
+              if(await p.evaluate(()=>document.documentElement.scrollWidth>document.documentElement.clientWidth+2)) throw Error('horizontal overflow');
+              if(errors.length) throw Error(errors.join(' | '));
+              console.log('MOBILE V3 PASS');
+            }catch(e){
+              await p.screenshot({path:'/tmp/mobile-failure.png',fullPage:true}).catch(()=>{});
+              const state=await p.evaluate(()=>localStorage.getItem('fs_srcc_v45_tester')).catch(()=>null);
+              console.error('MOBILE V3 EXACT FAILURE: '+e.message);
+              console.error('DIALOGS: '+JSON.stringify(dialogs));
+              console.error('BROWSER ERRORS: '+JSON.stringify(errors));
+              console.error('TESTER STATE: '+state);
+              throw e;
+            }finally{await b.close()}
+          })().catch(e=>{process.exit(1)});
           EOF
           node t.js
       - uses: actions/upload-artifact@v4
