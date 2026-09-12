@@ -17,42 +17,7 @@ ucation','projects','certifications','awards','selected achievements'];
  const suspiciousLongLines=lines.filter(l=>l.length>260).length;
  const intelligence=resumeIntelligence(normalized);
  return {lines:lines.length,words:normalized.split(/\s+/).filter(Boolean).length,email,phone,headings,metrics,verbs:verbs.length,longBullets,weak,suspiciousLongLines,intelligence,
- report:`ATS PARSE • DEEP READ
-
-CONTACT SIGNALS
-Email: ${email}
-Phone: ${phone}
-
-STRUCTURE
-Lines read: ${lines.length}
-Words read: ${normalized.split(/\s+/).filter(Boolean).length}
-Recognized section signals: ${headings.length?headings.join(', '):'Few standard headings detected'}
-Suspiciously flattened long lines: ${suspiciousLongLines}
-
-EVIDENCE DENSITY
-Quantified-result signals: ${metrics.length}
-Action-verb signals: ${verbs.length}
-Leadership signals: ${intelligence.leadership.length}
-Strategy signals: ${intelligence.strategy.length}
-Impact signals: ${intelligence.impact.length}
-Evidence coverage index: ${intelligence.evidenceCoverage}/100
-Weak/passive phrase signals: ${intelligence.passive.length}
-Potentially vague-claim signals: ${intelligence.vague.length}
-Very long bullet signals: ${longBullets}
-
-SENIORITY READ
-${intelligence.seniority}
-This is inferred from the work language, not merely the job title.
-
-HUMAN-EYE-PLUS FLAGS
-${metrics.length?'✓ Quantified evidence is present.':'• Quantified evidence is scarce. Look for truthful scale, percentages, revenue, volume, time, team size, or frequency.'}
-${intelligence.unproved.length?'• Strong-scope statements exist without nearby proof. These are candidates for evidence strengthening.':'✓ Major scope statements generally carry proof or outcome language.'}
-${intelligence.duplicates.length?'• Similar ideas appear in multiple places. Consolidation may create room for stronger evidence.':'✓ No strong duplicate-idea clusters detected.'}
-${intelligence.buried.length?'• Some strong evidence appears buried inside long statements.':'✓ Strong evidence is not obviously buried in long statements.'}
-${intelligence.passive.length?'• Passive/low-ownership wording detected.':'✓ No obvious weak-ownership phrases detected.'}
-${suspiciousLongLines?'• Some lines still look flattened.':'✓ Extracted text is segmented into normal reading lines.'}
-
-No fake universal ATS score is generated. This screen separates observable parsing from local semantic heuristics.`};
+ report:`ATS PARSE • DEEP READ\n\nCONTACT SIGNALS\nEmail: ${email}\nPhone: ${phone}\n\nSTRUCTURE\nLines read: ${lines.length}\nWords read: ${normalized.split(/\s+/).filter(Boolean).length}\nRecognized section signals: ${headings.length?headings.join(', '):'Few standard headings detected'}\nSuspiciously flattened long lines: ${suspiciousLongLines}\n\nEVIDENCE DENSITY\nQuantified-result signals: ${metrics.length}\nAction-verb signals: ${verbs.length}\nLeadership signals: ${intelligence.leadership.length}\nStrategy signals: ${intelligence.strategy.length}\nImpact signals: ${intelligence.impact.length}\nEvidence coverage index: ${intelligence.evidenceCoverage}/100\nWeak/passive phrase signals: ${intelligence.passive.length}\nPotentially vague-claim signals: ${intelligence.vague.length}\nVery long bullet signals: ${longBullets}\n\nSENIORITY READ\n${intelligence.seniority}\nThis is inferred from the work language, not merely the job title.\n\nHUMAN-EYE-PLUS FLAGS\n${metrics.length?'✓ Quantified evidence is present.':'• Quantified evidence is scarce. Look for truthful scale, percentages, revenue, volume, time, team size, or frequency.'}\n${intelligence.unproved.length?'• Strong-scope statements exist without nearby proof. These are candidates for evidence strengthening.':'✓ Major scope statements generally carry proof or outcome language.'}\n${intelligence.duplicates.length?'• Similar ideas appear in multiple places. Consolidation may create room for stronger evidence.':'✓ No strong duplicate-idea clusters detected.'}\n${intelligence.buried.length?'• Some strong evidence appears buried inside long statements.':'✓ Strong evidence is not obviously buried in long statements.'}\n${intelligence.passive.length?'• Passive/low-ownership wording detected.':'✓ No obvious weak-ownership phrases detected.'}\n${suspiciousLongLines?'• Some lines still look flattened.':'✓ Extracted text is segmented into normal reading lines.'}\n\nNo fake universal ATS score is generated. This screen separates observable parsing from local semantic heuristics.`};
 }
 async function extractPDF(file){
  const pdfjs=await import('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs');
@@ -91,17 +56,17 @@ async function extractPDF(file){
      line=line.replace(/\s{2,}/g,' ').trim();
      if(line) lines.push(line);
    }
-   // Preserve page boundaries while keeping ATS-friendly text structure.
    pages.push(lines.join('\n'));
  }
  return pages.join('\n\n').replace(/\n{3,}/g,'\n\n').trim();
 }
 function xmlText(xml){return xml.replace(/<w:tab\/>/g,'\t').replace(/<\/w:p>/g,'\n').replace(/<[^>]+>/g,'').replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>')}
 async function extractDOCX(file){
- // Minimal ZIP reader using browser DecompressionStream cannot read ZIP containers reliably.
- // Use Mammoth from CDN only when DOCX is selected.
- const mammoth=await import('https://cdn.jsdelivr.net/npm/mammoth@1.8.0/+esm');
- const r=await mammoth.extractRawText({arrayBuffer:await file.arrayBuffer()});return r.value;
+ const mod=await import('https://cdn.jsdelivr.net/npm/mammoth@1.8.0/+esm');
+ const mammoth=mod.default||mod;
+ if(!mammoth||typeof mammoth.extractRawText!=='function') throw new Error('DOCX parser failed to initialize');
+ const r=await mammoth.extractRawText({arrayBuffer:await file.arrayBuffer()});
+ return (r&&r.value)||'';
 }
 async function loadFile(file){
  try{
