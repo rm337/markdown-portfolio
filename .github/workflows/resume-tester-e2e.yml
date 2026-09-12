@@ -12,7 +12,7 @@ on:
 jobs:
   browser-test:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 12
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -22,11 +22,34 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install Playwright
+      - name: Install Playwright and document generators
         run: |
           npm init -y >/dev/null 2>&1
-          npm install playwright@1.55.0
+          npm install playwright@1.55.0 pdfkit docx
           npx playwright install --with-deps chromium
+
+      - name: Create real PDF and DOCX resumes
+        run: |
+          cat > make-docs.js <<'EOF'
+          const fs=require('fs');
+          const PDFDocument=require('pdfkit');
+          const {Document,Packer,Paragraph}=require('docx');
+          const lines=[
+            'ROBERT TESTER','robert@example.com','PROFESSIONAL SUMMARY',
+            'Creative director and brand leader with experience directing campaigns, teams, and digital products.',
+            'EXPERIENCE','Creative Director',
+            'Led brand strategy, campaign development, creative systems, and cross-functional production.',
+            'Increased campaign engagement by 35 percent through clearer creative direction and testing.',
+            'EDUCATION','Oakland Community College','Creative Writing'
+          ];
+          const pdf=new PDFDocument(); pdf.pipe(fs.createWriteStream('/tmp/qa-resume.pdf')); lines.forEach(x=>pdf.text(x)); pdf.end();
+          const doc=new Document({sections:[{children:lines.map(x=>new Paragraph(x))}]});
+          Packer.toBuffer(doc).then(b=>fs.writeFileSync('/tmp/qa-resume.docx',b));
+          EOF
+          node make-docs.js
+          for i in {1..20}; do [ -s /tmp/qa-resume.docx ] && break; sleep 1; done
+          test -s /tmp/qa-resume.pdf
+          test -s /tmp/qa-resume.docx
 
       - name: Start exact deployed repository site
         run: |
@@ -34,31 +57,18 @@ jobs:
           sleep 2
           curl -f http://127.0.0.1:4173/resume-tester-clean/ >/dev/null
 
-      - name: Browser-test tester gate and resume flow
+      - name: Browser-test FSTT login plus PDF and DOCX uploads
         run: |
-          cat > /tmp/qa-resume.txt <<'EOF'
-          ROBERT TESTER
-          robert@example.com
-          PROFESSIONAL SUMMARY
-          Creative director and brand leader with experience directing campaigns, teams, and digital products.
-          EXPERIENCE
-          Creative Director
-          Led brand strategy, campaign development, creative systems, and cross-functional production.
-          Increased campaign engagement by 35 percent through clearer creative direction and testing.
-          EDUCATION
-          Oakland Community College
-          Creative Writing
-          EOF
           cat > e2e.js <<'EOF'
           const { chromium } = require('playwright');
           const fs = require('fs');
           (async()=>{
-            const browser = await chromium.launch({headless:true});
-            const page = await browser.newPage();
+            const browser=await chromium.launch({headless:true});
             const errors=[];
-            page.on('console',m=>{if(m.type()==='error') errors.push('console: '+m.text())});
-            page.on('pageerror',e=>errors.push('pageerror: '+e.message));
-            try {
+            async function testFile(path,name){
+              const page=await browser.newPage();
+              page.on('console',m=>{if(m.type()==='error') errors.push(name+' console: '+m.text())});
+              page.on('pageerror',e=>errors.push(name+' pageerror: '+e.message));
               await page.goto('http://127.0.0.1:4173/resume-tester-clean/',{waitUntil:'networkidle'});
               await page.locator('#testerCode').fill('FSTT2026');
               await page.locator('#enterTester').click();
@@ -68,17 +78,22 @@ jobs:
               const chooserPromise=page.waitForEvent('filechooser');
               await page.getByText('UPLOAD RESUME',{exact:true}).first().click();
               const chooser=await chooserPromise;
-              await chooser.setFiles('/tmp/qa-resume.txt');
-              await page.getByText('qa-resume.txt',{exact:true}).first().waitFor({state:'visible',timeout:15000});
+              await chooser.setFiles(path);
+              await page.getByText(name,{exact:true}).first().waitFor({state:'visible',timeout:30000});
               await page.locator('button[data-route="ats"]').click();
               const ats=await page.locator('#app').innerText();
-              if(!/PASS|FAIL/.test(ats)) throw new Error('ATS Parse did not render PASS or FAIL');
+              if(!/PASS|FAIL/.test(ats)) throw new Error(name+': ATS Parse did not render PASS or FAIL');
+              await page.screenshot({path:'/tmp/'+name+'.png',fullPage:true});
+              console.log('UPLOAD PASS: '+name+' -> active resume -> ATS Parse');
+              await page.close();
+            }
+            try{
+              await testFile('/tmp/qa-resume.pdf','qa-resume.pdf');
+              await testFile('/tmp/qa-resume.docx','qa-resume.docx');
               if(errors.length) throw new Error('Browser errors detected:\n'+errors.join('\n'));
-              console.log('E2E PASS: FSTT2026 login -> Command Center -> Smart Resume -> upload -> active resume -> ATS Parse');
-            } finally {
-              await page.screenshot({path:'/tmp/resume-tester-e2e.png',fullPage:true}).catch(()=>{});
+              console.log('E2E PASS: FSTT2026 login + real PDF + real DOCX uploads + ATS Parse');
+            }finally{
               fs.writeFileSync('/tmp/browser-errors.txt',errors.join('\n'));
-              fs.writeFileSync('/tmp/body.txt',await page.locator('body').innerText().catch(()=>''));
               await browser.close();
             }
           })().catch(e=>{console.error(e);process.exit(1)});
@@ -91,8 +106,8 @@ jobs:
         with:
           name: resume-tester-e2e-evidence
           path: |
-            /tmp/resume-tester-e2e.png
+            /tmp/qa-resume.pdf.png
+            /tmp/qa-resume.docx.png
             /tmp/browser-errors.txt
-            /tmp/body.txt
             /tmp/fs-http.log
           if-no-files-found: ignore
