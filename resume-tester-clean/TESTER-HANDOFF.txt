@@ -1,0 +1,39 @@
+FLUID SYSTEMS SMART RESUME COMMAND CENTER + FSTT TESTER HANDOFF
+
+Public tester URL:
+https://oceanofink.com/resume-tester-clean/
+
+Tester access code:
+FSTT2026
+
+TESTER QUICK START
+1. Open the public tester URL in a normal web browser.
+2. Enter tester code FSTT2026.
+3. Open Smart Resume Command Center.
+4. Upload a PDF, DOCX, TXT, MD, or RTF resume.
+5. Open ATS Parse to review technical readability and resume intelligence.
+6. Open Jobs and paste a job posting. URL, company, and title are optional.
+7. Open FSTT Tracker Truckster to create and follow an application journey.
+8. Use SIGN OUT when finished. Tester data remains in that browser for the tester workspace.
+
+VERIFIED TESTER FLOWS
+- Fresh public tester gate and login
+- Wrong-code rejection
+- Owner Access control hidden from tester workspace
+- Sign out and relogin
+- Tester data persistence
+- PDF resume upload and ATS Parse
+- DOCX resume upload and ATS Parse
+- TXT resume upload
+- Resume backup, clear, and restore
+- Job-description-only intake and detection
+- FSTT journey creation and stage movement
+- FSTT confidence labels: CONFIRMED, DETECTED, INFERRED, UNKNOWN
+- FSTT journey deletion
+- 390px mobile navigation and destructive-flow checks
+- No horizontal mobile overflow in the validated mobile flow
+
+IMPORTANT
+ATS READABILITY PASS/FAIL is a technical readability check, not a universal hiring score or guarantee. FSTT does not claim access to an employer's internal ATS. It distinguishes confirmed, detected, inferred, and unknown journey information.
+
+Build: Smart Resume Command Center V5.2 FSTT Visible Tester Edition
