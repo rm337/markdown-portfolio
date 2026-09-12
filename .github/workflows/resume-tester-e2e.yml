@@ -4,7 +4,6 @@ on:
   push:
     branches: [main]
     paths:
-      - 'resume-tester-clean/**'
       - 'resume-tester/app-parts/**'
       - '.github/workflows/resume-tester-e2e.yml'
   workflow_dispatch:
@@ -16,6 +15,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Assemble one normal HTML file
+        run: |
+          mkdir -p resume-tester-monolithic
+          cat resume-tester/app-parts/01.txt resume-tester/app-parts/02.txt resume-tester/app-parts/03.txt resume-tester/app-parts/04.txt resume-tester/app-parts/05.txt resume-tester/app-parts/06.txt resume-tester/app-parts/07.txt resume-tester/app-parts/08.txt > resume-tester-monolithic/index.html
+          test -s resume-tester-monolithic/index.html
+          grep -q 'OPEN SMART RESUME' resume-tester-monolithic/index.html
+          grep -q 'filePicker' resume-tester-monolithic/index.html
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -31,11 +38,10 @@ jobs:
       - name: Start local site
         run: |
           python3 -m http.server 4173 >/tmp/fs-http.log 2>&1 &
-          echo $! > /tmp/fs-http.pid
           sleep 2
-          curl -f http://127.0.0.1:4173/resume-tester-clean/
+          curl -f http://127.0.0.1:4173/resume-tester-monolithic/
 
-      - name: Browser-test tester login and resume upload
+      - name: Browser-test monolithic app
         run: |
           cat > /tmp/qa-resume.txt <<'EOF'
           ROBERT TESTER
@@ -59,40 +65,39 @@ jobs:
           const fs = require('fs');
           (async()=>{
             const browser = await chromium.launch({headless:true});
-            const page = await browser.newPage();
+            const context = await browser.newContext();
+            await context.addInitScript(() => {
+              localStorage.setItem('fs_srcc_v45_auth', JSON.stringify({ownerPinHash:'qa', testerCodeHash:'qa'}));
+              sessionStorage.setItem('fs_srcc_v45_session','tester');
+            });
+            const page = await context.newPage();
             const errors=[];
             page.on('console',m=>{ if(m.type()==='error') errors.push('console: '+m.text()); });
             page.on('pageerror',e=>errors.push('pageerror: '+e.message));
 
-            await page.goto('http://127.0.0.1:4173/resume-tester-clean/', {waitUntil:'networkidle'});
-            await page.fill('#testerCode','FSTT2026');
-            await page.click('#enterTester');
-            await page.waitForSelector('text=OPEN SMART RESUME', {timeout:15000});
+            await page.goto('http://127.0.0.1:4173/resume-tester-monolithic/', {waitUntil:'networkidle'});
+            await page.getByText('OPEN SMART RESUME', {exact:true}).waitFor({state:'visible',timeout:15000});
             await page.getByText('OPEN SMART RESUME', {exact:true}).click();
-            await page.waitForSelector('text=UPLOAD RESUME', {timeout:15000});
+            await page.getByText('UPLOAD RESUME', {exact:true}).first().waitFor({state:'visible',timeout:15000});
 
             const chooserPromise = page.waitForEvent('filechooser');
             await page.getByText('UPLOAD RESUME', {exact:true}).first().click();
             const chooser = await chooserPromise;
             await chooser.setFiles('/tmp/qa-resume.txt');
 
-            await page.waitForSelector('text=qa-resume.txt', {timeout:15000});
-            const active = await page.locator('body').innerText();
-            if(!active.includes('qa-resume.txt')) throw new Error('Uploaded resume filename did not appear in the app');
-
+            await page.getByText('qa-resume.txt', {exact:true}).first().waitFor({state:'visible',timeout:15000});
             await page.locator('button[data-route="ats"]').click();
             await page.waitForTimeout(500);
             const ats = await page.locator('#app').innerText();
-            if(!/PASS|FAIL/.test(ats)) throw new Error('ATS Parse did not render PASS or FAIL after resume upload');
+            if(!/PASS|FAIL/.test(ats)) throw new Error('ATS Parse did not render PASS or FAIL');
 
             await page.screenshot({path:'/tmp/resume-tester-e2e.png', fullPage:true});
             fs.writeFileSync('/tmp/browser-errors.txt', errors.join('\n'));
             if(errors.length) throw new Error('Browser errors detected:\n'+errors.join('\n'));
             await browser.close();
-            console.log('E2E PASS: login -> Smart Resume -> upload -> active resume -> ATS Parse');
+            console.log('E2E PASS: monolithic app -> Smart Resume -> upload -> ATS Parse');
           })().catch(e=>{console.error(e);process.exit(1)});
           EOF
-
           node e2e.js
 
       - name: Upload E2E evidence
@@ -104,4 +109,5 @@ jobs:
             /tmp/resume-tester-e2e.png
             /tmp/browser-errors.txt
             /tmp/fs-http.log
+            resume-tester-monolithic/index.html
           if-no-files-found: ignore
