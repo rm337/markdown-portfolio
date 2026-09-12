@@ -1,7 +1,22 @@
 :999px;padding:5px 8px;border:1px solid var(--line)}.confirmed{color:#087a55;background:#effbf7}.detected{color:#0174F3;background:#eef6ff}.inferred{color:#6b7280;background:#f6f7f9}.unknown{color:#7c8795;background:#fff}
 .journeylog{border-left:2px solid #dbe4ee;margin-left:7px;padding-left:16px}.journeyitem{position:relative;padding:0 0 13px}.journeyitem:before{content:"";position:absolute;left:-22px;top:4px;width:10px;height:10px;border-radius:50%;background:#aab7c7}.journeyitem.done:before{background:#087a55}.journeyitem.current:before{background:#0174F3;box-shadow:0 0 0 4px #0174f31a}
 
-@media(max-width:900px){.shell{grid-template-columns:1fr}nav{display:none}.span8,.span4,.span6{grid-column:span 12}main{padding:14px}}
+@media(max-width:900px){
+ header{height:auto;min-height:74px;padding:10px 12px;gap:8px;flex-wrap:wrap}
+ header>.small{display:none}
+ .brand{min-width:0}.brand b{font-size:18px}.brand small{font-size:11px;line-height:1.25}
+ .shell{grid-template-columns:1fr;min-height:calc(100vh - 74px)}
+ nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;position:sticky;top:0;z-index:4;padding:8px;background:#fff;border-right:0;border-bottom:1px solid var(--line);box-shadow:0 2px 8px #1231}
+ nav h4{display:none}
+ nav button{width:100%;min-width:0;padding:9px 7px;font-size:11px;line-height:1.2;text-align:center;white-space:normal}
+ nav button[data-route="tracker"]{grid-column:1/-1}
+ .span8,.span4,.span6{grid-column:span 12}
+ main{padding:12px;min-width:0}
+ .card{padding:14px}
+ h1{font-size:24px}
+ .fstt-stops{grid-template-columns:repeat(4,1fr);row-gap:12px}
+ .trucktalk{white-space:normal;max-width:180px}
+}
 </style>
 </head>
 <body>
