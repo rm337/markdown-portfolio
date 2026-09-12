@@ -1,0 +1,23 @@
+async function extractDOCX(file){
+  if(!window.mammoth||typeof window.mammoth.extractRawText!=='function'){
+    await new Promise((resolve,reject)=>{
+      const existing=document.querySelector('script[data-mammoth-browser]');
+      if(existing){
+        if(window.mammoth&&typeof window.mammoth.extractRawText==='function') return resolve();
+        existing.addEventListener('load',()=>resolve(),{once:true});
+        existing.addEventListener('error',()=>reject(new Error('DOCX parser failed to load')),{once:true});
+        return;
+      }
+      const s=document.createElement('script');
+      s.src='https://cdn.jsdelivr.net/npm/mammoth@1.8.0/mammoth.browser.min.js';
+      s.async=true;
+      s.dataset.mammothBrowser='1';
+      s.onload=()=>resolve();
+      s.onerror=()=>reject(new Error('DOCX parser failed to load'));
+      document.head.appendChild(s);
+    });
+  }
+  if(!window.mammoth||typeof window.mammoth.extractRawText!=='function') throw new Error('DOCX parser failed to initialize');
+  const r=await window.mammoth.extractRawText({arrayBuffer:await file.arrayBuffer()});
+  return (r&&r.value)||'';
+}
