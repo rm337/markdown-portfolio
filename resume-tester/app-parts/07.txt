@@ -1,0 +1,56 @@
+y to roll.',
+  'On the road. Application submitted.',
+  'Pulling into the company careers site.',
+  'ATS checkpoint detected.',
+  'Chugging along… Next stop: Human Review?',
+  'A human may have the wheel now.',
+  'Hiring Manager is the next destination.',
+  'Journey disposition recorded.'
+ ][i] || 'Keep rolling.';
+}
+function tracker(){
+ const apps=state.applications||[];
+ const selected=apps.find(a=>String(a.id)===String(state.selectedApplicationId)) || apps[0] || null;
+ const current=selected?fsttStageIndex(selected):0;
+ const left=Math.max(5,Math.min(88,5+(current/7)*83));
+ return `<h1>FSTT</h1><p class="small"><b>FLUID SOUL TRACKER TRUCKSTER™</b> • Track the résumé journey, not just a status field.</p>
+ <div class="grid">
+ <div class="card span12">
+   <div class="row between"><div><h2 style="margin-bottom:3px">${selected?esc(selected.title||'Untitled role'):'No journey selected'}</h2><div class="small">${selected?esc(selected.company||'Unknown company'):'Add an opportunity below to put Truckster on the road.'}</div></div>${selected?`<span class="pill good">IN TRANSIT • FSTT-${String(selected.id).slice(-4)}</span>`:''}</div>
+   <div class="fstt-road" style="margin-top:14px">
+     <div class="fstt-stops">${FSTT_STAGES.map((s,i)=>`<div class="fstt-stop ${i<current?'done':i===current?'current':'future'}"><b>${i<current?'✓':i+1}</b>${esc(s)}</div>`).join('')}</div>
+     ${selected?`<div class="trucktalk" style="left:${left}%">${esc(fsttMessage(current))}</div><div class="truckster" style="left:${left}%"><div class="wagon"></div><div class="cab"></div><i class="wheel w1"></i><i class="wheel w2"></i></div>`:''}
+     <div class="fstt-lane"></div>
+   </div>
+   ${selected?`<div class="confidence">${FSTT_STAGES.map((s,i)=>`<span class="${fsttConfidence(i,current).toLowerCase()}">${esc(s)} • ${fsttConfidence(i,current)}</span>`).join('')}</div>`:''}
+ </div>
+
+ <div class="card span4"><h2>Add Journey</h2>
+ <label class="cap">COMPANY</label><input id="trCompany" placeholder="Company">
+ <div style="height:10px"></div><label class="cap">ROLE / TITLE</label><input id="trTitle" placeholder="Role">
+ <div style="height:10px"></div><label class="cap">POSTING URL</label><input id="trUrl" placeholder="Optional">
+ <div style="height:10px"></div><label class="cap">RECRUITER / HUMAN CONTACT</label><input id="trContact" placeholder="Name or contact">
+ <div style="height:10px"></div><label class="cap">FOLLOW-UP DATE</label><input id="trFollow" type="date">
+ <div style="height:10px"></div><label class="cap">NEXT ACTION</label><input id="trNext" placeholder="What happens next?">
+ <div style="height:10px"></div><label class="cap">SALARY / RANGE</label><input id="trSalary" placeholder="Optional">
+ <div style="height:10px"></div><label class="cap">NOTES</label><textarea id="trNotes" style="min-height:100px" placeholder="Notes"></textarea>
+ <button class="btn addTrack" style="margin-top:10px">PUT TRUCKSTER ON THE ROAD</button></div>
+
+ <div class="card span8"><h2>Tracked Journeys</h2>
+ ${apps.length?apps.map(a=>{const si=fsttStageIndex(a);return `<div class="backup"><div class="row between"><div><b>${esc(a.title||'Untitled role')} • ${esc(a.company||'Unknown company')}</b><div class="small">${esc(FSTT_STAGES[si])} • ${esc(fsttConfidence(si,si))}${a.followUp?' • Follow-up '+esc(a.followUp):''}</div></div><div class="row"><button class="btn secondary selectTrack" data-id="${a.id}">VIEW JOURNEY</button><button class="btn ghost deleteTrack" data-id="${a.id}">DELETE</button></div></div>
+ <div style="margin-top:8px"><label class="cap">MOVE TRUCKSTER</label><select class="journeyStage" data-id="${a.id}" style="width:100%;padding:9px;border:1px solid #cbd5e1;border-radius:8px">${FSTT_STAGES.map((s,i)=>`<option value="${i}" ${i===si?'selected':''}>${s}</option>`).join('')}</select></div>
+ <div class="small" style="margin-top:7px"><b>Résumé aboard:</b> ${esc(a.resumeName||'None recorded')}<br><b>Human contact:</b> ${esc(a.contact||'Not recorded')}<br><b>Next:</b> ${esc(a.nextAction||'Not set')}${a.salary?`<br><b>Salary:</b> ${esc(a.salary)}`:''}${a.notes?`<br><b>Notes:</b> ${esc(a.notes)}`:''}</div></div>`}).join(''):'<div class="small">No journeys yet.</div>'}
+ </div>
+
+ ${selected?`<div class="card span6"><h2>Live Journey Log</h2><div class="journeylog">${FSTT_STAGES.map((s,i)=>`<div class="journeyitem ${i<current?'done':i===current?'current':''}"><b>${esc(s)}</b><div class="small">${i<current?'Confirmed passage':i===current?'Current detected stage':i===current+1?'Potential next destination':'Not yet detected'} • ${fsttConfidence(i,current)}</div></div>`).join('')}</div></div>
+ <div class="card span6"><h2>Current Status</h2><div class="metric">${esc(FSTT_STAGES[current])}</div><p>${esc(fsttMessage(current))}</p><p class="small">FSTT distinguishes what is confirmed, detected, inferred, and still unknown. It does not pretend to see inside an employer's system when no signal exists.</p><div class="card" style="box-shadow:none;background:#fbfdff"><b>Truckster Messages</b><p style="margin-bottom:0">“Keep rolling. Good things are still ahead!” 🚛</p></div></div>`:''}
+ </div>`;
+}
+function addTrackedOpportunity(){
+ const a={id:Date.now(),company:$('#trCompany').value.trim(),title:$('#trTitle').value.trim(),url:$('#trUrl').value.trim(),status:'Applied',journeyStage:1,contact:$('#trContact').value.trim(),followUp:$('#trFollow').value,nextAction:$('#trNext').value.trim(),salary:$('#trSalary').value.trim(),notes:$('#trNotes').value.trim(),resumeName:state.resume?.name||'',createdAt:new Date().toLocaleString()};
+ if(!a.company&&!a.title){alert('Enter at least a company or role.');return}
+ state.applications.unshift(a);state.selectedApplicationId=a.id;save();render();
+}
+
+function access(){
+ return `<h1>Access</h1><p class="small">Owner and tester access for this local demonstration build.</p><div class="grid">${ownerAccessPanel()}<div class="card span12"><h2>Current Session</h2><p>You are signed in as <b>${currentMode().toUpperCase()}</b>.</p>
