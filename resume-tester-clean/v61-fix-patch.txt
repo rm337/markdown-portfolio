@@ -1,0 +1,94 @@
+/* V6.1 tester parity patch: DOCX structure ATS + writing-check normalization */
+function technicalPass(a){
+ if(!a)return {pass:false,why:'No résumé is loaded.'};
+ const failures=[],warnings=[],sm=a.sourceMeta||{};
+ if(a.email==='Not detected') failures.push('email was not detected');
+ if((a.headings||[]).length<2) failures.push('too few recognizable résumé sections were detected');
+ if(sm.kind==='docx'){
+   if(!sm.xmlReadable) failures.push('the DOCX document structure could not be read');
+   if((sm.paragraphs||0)<8) failures.push('too few document paragraphs were detected');
+   if((sm.textBoxes||0)>0) warnings.push(`${sm.textBoxes} text box${sm.textBoxes===1?'':'es'} detected; some ATS platforms can read these inconsistently`);
+   if((sm.columns||1)>1) warnings.push(`${sm.columns}-column layout detected; simpler single-column layouts are generally safer`);
+   if((sm.tables||0)>0) warnings.push(`${sm.tables} table${sm.tables===1?'':'s'} detected; readable text was still extracted`);
+ } else {
+   if((a.lines||0)<12) failures.push('too few readable lines were extracted');
+   if((a.suspiciousLongLines||0)>2) warnings.push('some extracted lines are unusually long; this may be an extraction artifact');
+ }
+ const why=failures.length?`Technical readability issue: ${failures.join('; ')}.`:`The résumé structure was read successfully, with recognizable sections and contact information.${warnings.length?' Review note: '+warnings.join('; ')+'.':''}`;
+ return {pass:failures.length===0,why,warnings};
+}
+function passFailBanner(a){
+ const r=technicalPass(a);
+ return `<div class="passfail span12 ${r.pass?'pass':'fail'}" style="grid-column:1/-1;width:auto"><div class="row between"><div><label class="cap">ATS READABILITY</label><div class="password">${r.pass?'PASS':'FAIL'}</div></div><span class="modebadge">TESTER MODE</span></div><div class="small">${esc(r.why)} This checks technical résumé readability only, not career strength or experience.</div></div>`;
+}
+function analyze(text,sourceMeta={}){
+ const normalized=String(text||'').replace(/\r/g,'').replace(/\u00a0/g,' ');
+ const lines=normalized.split('\n').map(x=>x.trim()).filter(Boolean);
+ const email=(normalized.match(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i)||[])[0]||'Not detected';
+ const phone=(normalized.match(/(?:\+?1[\s.-]?)?(?:\(?\d{3}\)?[\s.-]?)\d{3}[\s.-]?\d{4}/)||[])[0]||'Not detected';
+ const headingNames=['summary','professional summary','executive profile','profile','experience','professional experience','employment','work experience','skills','core capabilities','core competencies','education','projects','certifications','awards','selected achievements'];
+ const headings=[...new Set(headingNames.filter(h=>lines.some(l=>{const clean=l.toLowerCase().replace(/[|:•·\-–—]+/g,' ').replace(/\s+/g,' ').trim();return clean===h||clean.startsWith(h+' ')})))];
+ const suspiciousLongLines=lines.filter(l=>l.length>260).length;
+ const intelligence=resumeIntelligence(normalized);
+ const metrics=[...new Set((normalized.match(/\b\d+(?:\.\d+)?\s*%|\$\s?\d[\d,.]*/g)||[]))];
+ const verbs=(normalized.match(/\b(?:led|built|created|launched|grew|increased|reduced|improved|managed|directed|developed|designed|delivered|generated|sold|trained|mentored|implemented|optimized|produced|strategized|wrote|positioned|transformed|oversaw|established|drove|shaped|crafted|executed)\b/gi)||[]);
+ return {lines:lines.length,words:normalized.split(/\s+/).filter(Boolean).length,email,phone,headings,metrics,verbs:verbs.length,longBullets:0,weak:0,suspiciousLongLines,intelligence,sourceMeta,
+ report:`ATS PARSE • DEEP READ\n\nCONTACT SIGNALS\nEmail: ${email}\nPhone: ${phone}\n\nSTRUCTURE\nLines read: ${lines.length}\nWords read: ${normalized.split(/\s+/).filter(Boolean).length}\nRecognized section signals: ${headings.length?headings.join(', '):'Few standard headings detected'}\n${sourceMeta.kind==='docx'?`DOCX paragraphs detected: ${sourceMeta.paragraphs||0}\nColumns detected: ${sourceMeta.columns||1}\nTables detected: ${sourceMeta.tables||0}\nText boxes detected: ${sourceMeta.textBoxes||0}`:`Suspiciously flattened long lines: ${suspiciousLongLines}`}\n\nEVIDENCE DENSITY\nQuantified-result signals: ${metrics.length}\nAction-verb signals: ${verbs.length}\nLeadership signals: ${intelligence.leadership.length}\nStrategy signals: ${intelligence.strategy.length}\nImpact signals: ${intelligence.impact.length}\nEvidence coverage index: ${intelligence.evidenceCoverage}/100\n\nNo fake universal ATS score is generated. PASS/FAIL is limited to observable technical readability.`};
+}
+function xmlTextV61(xml){return xml.replace(/<w:tab\/>/g,'\t').replace(/<\/w:p>/g,'\n').replace(/<w:br\s*\/>/g,'\n').replace(/<[^>]+>/g,'').replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&apos;/g,"'")}
+async function unzipEntryV61(ab,wanted){
+ const u8=new Uint8Array(ab),dv=new DataView(ab);let eocd=-1;
+ for(let i=u8.length-22;i>=Math.max(0,u8.length-65557);i--){if(dv.getUint32(i,true)===0x06054b50){eocd=i;break}}
+ if(eocd<0) throw new Error('DOCX ZIP directory was not found.');
+ const count=dv.getUint16(eocd+10,true),cdOffset=dv.getUint32(eocd+16,true);let pos=cdOffset;
+ for(let n=0;n<count;n++){
+   if(dv.getUint32(pos,true)!==0x02014b50)break;
+   const method=dv.getUint16(pos+10,true),csize=dv.getUint32(pos+20,true),nlen=dv.getUint16(pos+28,true),xlen=dv.getUint16(pos+30,true),clen=dv.getUint16(pos+32,true),loff=dv.getUint32(pos+42,true);
+   const name=new TextDecoder().decode(u8.slice(pos+46,pos+46+nlen));
+   if(name===wanted){
+     if(dv.getUint32(loff,true)!==0x04034b50)throw new Error('DOCX local ZIP header is invalid.');
+     const ln=dv.getUint16(loff+26,true),lx=dv.getUint16(loff+28,true),start=loff+30+ln+lx,data=u8.slice(start,start+csize);
+     if(method===0)return data;
+     if(method===8){if(typeof DecompressionStream==='undefined')throw new Error('This browser cannot unpack DOCX files.');const ds=new DecompressionStream('deflate-raw');return new Uint8Array(await new Response(new Blob([data]).stream().pipeThrough(ds)).arrayBuffer())}
+     throw new Error('Unsupported DOCX compression method.');
+   }
+   pos+=46+nlen+xlen+clen;
+ }
+ throw new Error('word/document.xml was not found inside this DOCX.');
+}
+extractDOCX=async function(file){
+ const ab=await file.arrayBuffer(),xmlBytes=await unzipEntryV61(ab,'word/document.xml'),xml=new TextDecoder('utf-8').decode(xmlBytes),text=xmlTextV61(xml);
+ const paragraphCount=(xml.match(/<w:p(?:\s|>)/g)||[]).length,tableCount=(xml.match(/<w:tbl(?:\s|>)/g)||[]).length,textBoxCount=(xml.match(/<w:txbxContent(?:\s|>)/g)||[]).length,drawingCount=(xml.match(/<w:drawing(?:\s|>)/g)||[]).length;
+ const colNums=[...xml.matchAll(/<w:cols[^>]*w:num="(\d+)"/g)].map(m=>Number(m[1])||1),columns=colNums.length?Math.max(...colNums):1;
+ return {text,meta:{kind:'docx',xmlReadable:true,paragraphs:paragraphCount,tables:tableCount,textBoxes:textBoxCount,drawings:drawingCount,columns}};
+};
+loadFile=async function(file){
+ try{
+   let ext=(file.name.split('.').pop()||'').toLowerCase(),text='',sourceMeta={kind:ext};
+   if(state.resume.text)backup('Automatic backup before replace');
+   if(ext==='pdf'){text=await extractPDF(file);sourceMeta={kind:'pdf',extracted:true};}
+   else if(ext==='docx'){const docx=await extractDOCX(file);text=docx.text;sourceMeta=docx.meta;}
+   else if(['txt','md'].includes(ext)||file.type.startsWith('text/')){text=await file.text();sourceMeta={kind:ext||'text',extracted:true};}
+   else if(ext==='rtf')text=(await file.text()).replace(/\\par[d]?/g,'\n').replace(/\\'[0-9a-fA-F]{2}/g,' ').replace(/\\[a-zA-Z]+-?\d* ?/g,'').replace(/[{}]/g,' ');
+   else throw new Error('Unsupported file type.');
+   text=text.trim();if(!text)throw new Error('No readable résumé text was extracted.');
+   state.resume={name:file.name,type:ext,text,loadedAt:new Date().toLocaleString(),analysis:analyze(text,sourceMeta),sourceMeta};save();render();
+ }catch(e){console.error(e);alert('Resume load failed: '+e.message)}
+};
+function writingCheck(text){
+ const raw=String(text||'').trim();if(!raw)return {alerts:[],suggestions:[]};
+ const t=raw.replace(/[ \t]{2,}/g,' ').replace(/\n{3,}/g,'\n\n');
+ const alerts=[],suggestions=[],sentences=t.split(/(?<=[.!?])(?:\s+|\n+)/).filter(x=>/[A-Za-z]/.test(x));
+ const repeats=[...t.matchAll(/\b([A-Za-z][A-Za-z'-]*)\s+\1\b/gi)].map(m=>m[0]);if(repeats.length)alerts.push('Repeated word'+(repeats.length>1?'s':'')+': '+[...new Set(repeats)].slice(0,5).join(', '));
+ const passive=(t.match(/\b(responsible for|duties included|helped with|worked on|assisted with)\b/gi)||[]).length;if(passive)suggestions.push(passive+' weaker phrase'+(passive>1?'s':'')+' worth reviewing where accurate.');
+ const long=sentences.filter(x=>x.split(/\s+/).filter(Boolean).length>35);if(long.length)suggestions.push(long.length+' longer sentence'+(long.length>1?'s':'')+' found. This is a style suggestion only, not an ATS problem.');
+ return {alerts,suggestions};
+}
+function resume(){
+ const r=state.resume||{},wc=writingCheck(r.text||'');
+ return `<h1>Resume Workspace</h1><p class="small"><b>TESTER WORKSPACE</b> • Load, review, edit, replace, or clear the active résumé.</p><div class="grid">${status()}${r.analysis?passFailBanner(r.analysis):''}<div class="card span8"><h2>Résumé Text</h2>${r.text?`<textarea id="editor" spellcheck="true">${esc(r.text)}</textarea><div class="row" style="margin-top:10px"><button class="btn saveEdit">SAVE EDITS</button><button class="btn secondary upload">REPLACE RESUME</button></div><p class="small">Browser spellcheck is ON.</p>`:`<div class="drop"><h2>ADD OR UPLOAD RESUME</h2><p class="small">PDF • DOCX • TXT • MD • RTF</p><button class="btn upload">UPLOAD RESUME</button></div>`}</div><div class="card span4"><div class="cap">WRITING INTELLIGENCE</div><h2>Sentence Check</h2>${!r.text?'<p class="small">Load a résumé to run the writing check.</p>':wc.alerts.length?`<span class="pill warn">${wc.alerts.length} WRITING ALERT${wc.alerts.length===1?'':'S'}</span><ul class="small">${wc.alerts.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:'<span class="pill good">NO WRITING ERRORS FOUND</span>'}${r.text&&wc.suggestions.length?`<div style="margin-top:14px"><div class="cap">OPTIONAL STYLE SUGGESTIONS</div><ul class="small">${wc.suggestions.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`:''}<p class="small"><b>ATS PASS/FAIL is separate.</b> DOCX extraction spacing is normalized before this check.</p></div></div>`;
+}
+function ats(){
+ const a=state.resume?.analysis;
+ return `<h1>ATS Parse</h1><p class="small">Technical readability and résumé intelligence based only on the résumé actually loaded.</p><div class="grid">${status()}${a?passFailBanner(a):''}<div class="card span12"><h2>Parse Details</h2>${a?`<div class="analysis">${esc(a.report)}</div>`:'<div class="small">Upload a résumé to run ATS Parse.</div>'}</div></div>`;
+}
