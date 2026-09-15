@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-09-14",
+  "updated": "2026-09-15",
   "entries": [
     {"word":"Crologic","type":"noun","definition":"Logic that is technically crooked but somehow still gets where it was going.","category":"word-combo","date":"2026-08-28","status":"active"},
     {"word":"Re-cursive","type":"verb","definition":"To rewrite the same line you just wrote, only in cursive.","category":"word-combo","status":"active"},
@@ -20,6 +20,7 @@
     {"word":"Nounshine","type":"noun","definition":"The sudden clarity that appears when you finally find a name for the thing you've been circling around.","category":"word-combo","date":"2026-09-11","status":"active"},
     {"word":"Afterthink","type":"noun","definition":"The better idea that arrives just after you were certain the thinking was finished.","category":"semantic-compound","date":"2026-09-12","status":"active"},
     {"word":"Misunderstory","type":"noun","definition":"The private explanation you invent for someone else's actions before the real story has had a chance to arrive.","category":"narrative-blend","date":"2026-09-13","status":"active"},
-    {"word":"Thinkubator","type":"noun","definition":"A mental holding place where an unfinished idea stays warm until it develops enough structure to survive outside your head.","category":"concept-collision","date":"2026-09-14","status":"active"}
+    {"word":"Thinkubator","type":"noun","definition":"A mental holding place where an unfinished idea stays warm until it develops enough structure to survive outside your head.","category":"concept-collision","date":"2026-09-14","status":"active"},
+    {"word":"Commaflage","type":"noun","definition":"Punctuation placed so cleverly that a sentence hides a second meaning in plain sight.","category":"punctuation-collision","date":"2026-09-15","status":"active"}
   ]
 }
