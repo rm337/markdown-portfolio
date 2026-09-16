@@ -1,0 +1,26 @@
+{
+  "updated": "2026-09-16",
+  "entries": [
+    {
+      "date": "2026-09-16",
+      "status": "emerging",
+      "signal": "The interface is becoming a permission system",
+      "what_is_changing": "Agentic AI is moving beyond generation and assistance into delegated action. The emerging design problem is no longer only what an interface shows a user, but what software may do for them, under which permissions, with what checkpoints, and how it recovers when an autonomous action goes wrong. The same shift is beginning to appear in advertising, where seller and buyer agents are being developed to connect briefs, inventory and sponsorship opportunities.",
+      "why_it_matters": "As agents gain authority to act, trust becomes part of the product architecture rather than a layer of messaging added afterward. Delegation, scope, proof of action, reversibility, escalation and human override may become core UX primitives. This is earlier than the broader 'AI agents' trend: the weak signal is a new design discipline forming around governing delegated behavior.",
+      "creative_opportunity": "Design an 'action receipt' language for agentic systems: a compact visual and semantic system showing what an agent was allowed to do, what it actually did, what evidence supports the action, what remains uncertain, and what can still be reversed. This could become a reusable trust layer across creative tools, commerce, advertising, workflow automation and personal agents.",
+      "classification": {
+        "emerging": true,
+        "established": false,
+        "saturated": false,
+        "fading": false,
+        "resurfacing": false
+      },
+      "signals": [
+        "Agentic UX discussions are centering delegation, control, trust, oversight, guardrails, errors and recovery.",
+        "Advertising industry groups are beginning to discuss seller agents and agentic buying as operational workflows rather than demos.",
+        "Large consultancies are deploying forward-deployed engineers specifically to embed AI agents into enterprise workflows."
+      ],
+      "source_dates": ["2026-09-15", "2026-09-16", "2026-09-10"]
+    }
+  ]
+}
