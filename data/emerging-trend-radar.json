@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-17",
+  "updated": "2026-09-18",
   "entries": [
     {
       "date": "2026-09-16",
@@ -22,6 +22,17 @@
       "classification": {"emerging": true, "established": false, "saturated": false, "fading": false, "resurfacing": false},
       "signals": ["New York Fashion Week designers are beta-testing AI specifically for pre-show styling and runway visualization rather than replacing fittings or final photography.", "Film previsualization tools are increasingly packaging script breakdown, shot planning and visual iteration as a pre-production workflow.", "AI-assisted cinema is mixing archival or human-shot material with generated reconstruction, further separating synthetic visualization from an all-or-nothing AI production model."],
       "source_dates": ["2026-09-14", "2026-09-10", "2026-09-17"]
+    },
+    {
+      "date": "2026-09-18",
+      "status": "emerging",
+      "signal": "Vertical is becoming story grammar, not a screen shape",
+      "what_is_changing": "Vertical storytelling is beginning to detach from the phone and from dedicated microdrama apps. In 2026 it has spread into major streaming services, public broadcasters, sports-team media, brand-funded fiction and even movie-theater preshows. The important weak signal is not simply that 9:16 video is popular. Creators and distributors are carrying its native grammar with it: immediate hooks, compressed scenes, serial cliffhangers, recurring daily touchpoints and stories designed to continue rather than merely end.",
+      "why_it_matters": "Once a format survives migration to screens and institutions it was not designed for, the format can become a narrative language rather than a device constraint. Microdrama itself is already a fast-growing established category; the emerging layer is the portability of its storytelling mechanics across entertainment, sports, advertising, streaming and physical venues.",
+      "creative_opportunity": "Develop 'portable serial worlds' for brands, artists, teams and creators: one story architecture whose episodes can live in feeds, apps, venue screens, email, product packaging or physical spaces without becoming identical cutdowns. Design continuity, cliffhangers and audience participation as reusable components so the story travels across surfaces while each surface contributes something unique.",
+      "classification": {"emerging": true, "established": false, "saturated": false, "fading": false, "resurfacing": false},
+      "signals": ["The Chicago Cubs launched a 17-episode scripted vertical romantic comedy through the club's own production arm in September 2026.", "aTwist launched in September after arranging distribution of microseries through National CineMedia movie-theater preshows, extending phone-native storytelling into shared physical screens.", "Western streaming services and public broadcasters are adding vertical feeds or commissioning native vertical series, while brands increasingly fund stories from conception rather than inserting sponsorship after production."],
+      "source_dates": ["2026-08-31", "2026-09-03", "2026-06-22", "2026-07-22"]
     }
   ]
 }
