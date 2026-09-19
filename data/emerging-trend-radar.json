@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-18",
+  "updated": "2026-09-19",
   "entries": [
     {
       "date": "2026-09-16",
@@ -33,6 +33,17 @@
       "classification": {"emerging": true, "established": false, "saturated": false, "fading": false, "resurfacing": false},
       "signals": ["The Chicago Cubs launched a 17-episode scripted vertical romantic comedy through the club's own production arm in September 2026.", "aTwist launched in September after arranging distribution of microseries through National CineMedia movie-theater preshows, extending phone-native storytelling into shared physical screens.", "Western streaming services and public broadcasters are adding vertical feeds or commissioning native vertical series, while brands increasingly fund stories from conception rather than inserting sponsorship after production."],
       "source_dates": ["2026-08-31", "2026-09-03", "2026-06-22", "2026-07-22"]
+    },
+    {
+      "date": "2026-09-19",
+      "status": "emerging",
+      "signal": "Creative provenance is becoming part of the product",
+      "what_is_changing": "The anti-AI-slop backlash itself is no longer an early signal. The newer layer is that provenance is moving from an invisible technical or compliance record into something audiences can see, judge and sometimes buy into. Local businesses are publicly promising human-made promotion, music projects are experimenting with human-authorship certification, ad platforms are exposing how ads were made, and new AI transparency rules are making origin metadata part of publishing workflows. The creative object is beginning to arrive with a story about how it came into existence.",
+      "why_it_matters": "Handmade aesthetics are a resurfacing response, not a new trend, and generic '100% human' claims are already becoming familiar. What is still emerging is proof as a creative layer: process evidence, authorship records and provenance signals that travel with the work. As synthetic and human-made output become harder to distinguish by appearance alone, origin can become a feature of brand trust rather than fine print.",
+      "creative_opportunity": "Turn provenance into expressive media instead of a compliance badge. Create a compact 'creative receipt' that can accompany an ad, song, image, product or campaign and reveal the human decisions, tools, collaborators, source materials and transformations behind it. Make the making-of record visually interesting enough to become part of the experience, giving creators a new surface for storytelling while allowing mixed human-and-AI work to describe itself precisely rather than pretending to be all-human or all-machine.",
+      "classification": {"emerging": true, "established": false, "saturated": false, "fading": false, "resurfacing": false},
+      "signals": ["September backlash against AI-generated flyers at local businesses and art classes is pushing some businesses to make human production itself an explicit promise.", "Human-authorship certification is appearing in music, while brands increasingly treat production evidence as part of the campaign rather than merely claiming authenticity.", "AI-origin disclosure is moving into advertising interfaces and regulation, while machine-readable provenance systems such as C2PA and watermarking are expanding across media types."],
+      "source_dates": ["2026-09-14", "2026-09-17", "2026-09-18", "2026-07-31", "2026-07-01"]
     }
   ]
 }
