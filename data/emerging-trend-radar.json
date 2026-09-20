@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-19",
+  "updated": "2026-09-20",
   "entries": [
     {
       "date": "2026-09-16",
@@ -44,6 +44,17 @@
       "classification": {"emerging": true, "established": false, "saturated": false, "fading": false, "resurfacing": false},
       "signals": ["September backlash against AI-generated flyers at local businesses and art classes is pushing some businesses to make human production itself an explicit promise.", "Human-authorship certification is appearing in music, while brands increasingly treat production evidence as part of the campaign rather than merely claiming authenticity.", "AI-origin disclosure is moving into advertising interfaces and regulation, while machine-readable provenance systems such as C2PA and watermarking are expanding across media types."],
       "source_dates": ["2026-09-14", "2026-09-17", "2026-09-18", "2026-07-31", "2026-07-01"]
+    },
+    {
+      "date": "2026-09-20",
+      "status": "emerging",
+      "signal": "Performance is becoming a licensable touring asset",
+      "what_is_changing": "Avatar concerts themselves are established, from virtual idols to ABBA Voyage. The newer signal is portability: companies are beginning to package an artist's authorized performance identity as an asset that can move among ordinary venues instead of requiring one bespoke destination. Unit1 is developing scalable shows built from archive material, motion capture and live musicians, while Hyperreal is explicitly building a progression from residencies to retrofitted venues and global tours. At the same time, likeness-licensing systems are making consent, usage rules and provenance machine-readable.",
+      "why_it_matters": "This separates the performer from the logistics of a conventional tour without reducing the experience to a stream. A rights-cleared digital performance can potentially be staged repeatedly, combined with live local musicians, adapted to different venues and extended beyond an artist's touring years. The emerging layer is not the avatar itself but a new entertainment object: performance as licensed, portable IP with venue, rights and experience infrastructure around it.",
+      "creative_opportunity": "Design 'living performance editions' rather than replicas: authorized digital performances that deliberately change by city, collaborator, audience or era. Give each edition a provenance trail and bounded creative permissions, then let local musicians, designers or venues add a sanctioned layer. That could turn digital doubles from nostalgia machines into a new collaborative format with collectible variations and transparent authorship.",
+      "classification": {"emerging": true, "established": false, "saturated": false, "fading": false, "resurfacing": false},
+      "signals": ["Unit1 announced $20 million in funding on September 20 to build scalable avatar concert experiences that can run in multiple venues without ABBA Voyage-style dedicated infrastructure.", "Hyperreal is positioning authenticated artist avatars as touring assets, moving from fixed residencies toward retrofitted venues and global tours.", "New likeness-licensing systems and 2026 synthetic-performer rules are turning consent, permitted uses and provenance into operational infrastructure for digital doubles."],
+      "source_dates": ["2026-09-20", "2026-09-19", "2026-09-02", "2026-06-09"]
     }
   ]
 }
