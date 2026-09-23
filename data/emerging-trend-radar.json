@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-22",
+  "updated": "2026-09-23",
   "entries": [
     {
       "date": "2026-09-16",
@@ -77,6 +77,17 @@
       "classification": {"emerging": true, "established": false, "saturated": false, "fading": false, "resurfacing": false},
       "signals": ["Shopify announced support for Meta Muse purchases through Shop Pay on September 22, turning an external conversational agent into a checkout surface for participating merchants.", "Amazon is blocking Muse and demanding transparent agent identification, opt-outs and mutual value, showing that machine access itself is becoming a governed distribution decision.", "Merchant infrastructure is emerging to expose product details, pricing, availability and fulfillment across AI models while letting merchants retain control over how the data is used."],
       "source_dates": ["2026-09-22", "2026-09-21", "2026-09-09"]
+    },
+    {
+      "date": "2026-09-23",
+      "status": "emerging",
+      "signal": "Creative direction is becoming systems architecture",
+      "what_is_changing": "Generative production itself is established. The weaker signal is a new layer of creative work forming above individual tools: people are beginning to design the system that connects audience intelligence, brand knowledge, models, agents, human judgment, production and review. DMEXCO is explicitly introducing the term 'Creative AI Architect'; Runway has launched a marketplace for AI-native creative talent after finding AI skills in a meaningful share of creative job postings; and WPP's new production hub physically combines agentic AI, virtual production, creator studios and traditional craft.",
+      "why_it_matters": "The valuable creative skill may shift from mastering one generator toward orchestrating an accountable creative system. That is distinct from prompt engineering, which is already fading as a differentiator, and from generic AI-assisted design, which is established. The emerging role owns how intelligence, taste, automation, tools and human checkpoints fit together across the entire creative process.",
+      "creative_opportunity": "Develop a 'creative system score' and portfolio format that documents not just finished work but the architecture behind it: which signals entered, which agents or models handled each stage, where human judgment intervened, what was rejected, how brand rules propagated, and what the system learned. This could turn workflow design itself into a visible creative discipline and give independent creators a way to demonstrate orchestration skill rather than merely displaying AI outputs.",
+      "classification": {"emerging": true, "established": false, "saturated": false, "fading": false, "resurfacing": false},
+      "signals": ["DMEXCO's September 23 program explicitly names an emerging 'Creative AI Architect' responsible for designing how people, agents, data and creative infrastructure work together.", "Runway launched DIFFUSE on September 22 to connect AI-native creatives with brands, agencies and studios, citing its analysis of more than 1,000 creative job postings across nearly 400 companies.", "WPP opened Devon's Point on September 23 as the first of a planned global network combining agentic and generative AI, virtual production, creator collaboration and human craft in one production system."],
+      "source_dates": ["2026-09-23", "2026-09-22", "2026-09-23"]
     }
   ]
 }
