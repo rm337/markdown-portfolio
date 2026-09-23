@@ -3,6 +3,16 @@
 
   const rooms = [
     {
+      id: "coffee-room",
+      title: "Coffee Room / Java Jive™",
+      subtitle: "Bean Artistic meets a caffeinated word machine.",
+      description: "A warm coffee-colored room for Java Jive™, Bean Artistic, coffee wordplay, creative experiments, and the ideas brewing around them.",
+      url: "java-jive/index.html",
+      accent: "#C49A73",
+      category: "Coffee + Wordplay",
+      status: "Open"
+    },
+    {
       id: "idea-fabricator",
       title: "Idea Fabricator",
       subtitle: "The thought engine behind the studio.",
