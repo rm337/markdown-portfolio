@@ -12,68 +12,770 @@
 <meta name="twitter:card" content="summary">
 <link rel="canonical" href="https://oceanofink.com/java-jive/">
 <style>
-:root{--espresso:#21140F;--coffee:#5A3828;--latte:#C49A73;--cream:#F4E6D2;--foam:#FFF8EB;--blue:#0174F3;--soft-blue:#63A9F8;--deep-blue:#073B72}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 85% 5%,rgba(1,116,243,.13),transparent 28%),linear-gradient(180deg,var(--cream),#E8D3BA);color:var(--espresso);font-family:Arial,Helvetica,sans-serif}
+:root{--espresso:#2B1B14;--coffee:#6F4E37;--cream:#F5E6CF;--foam:#FFF8EB;--blue:#0174F3}
+*{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--espresso);font-family:Arial,Helvetica,sans-serif}
 .app{max-width:980px;margin:auto;padding:24px 16px 60px}.brand{text-align:center}.brand h1{margin:0;font-size:clamp(42px,8vw,78px);font-weight:1000;letter-spacing:-4px}.brand .blue{color:var(--blue)}.brand p{font-weight:800}.demo-badge{display:inline-block;margin-bottom:10px;padding:7px 11px;border:2px solid var(--blue);border-radius:999px;color:var(--blue);font-size:11px;font-weight:950;letter-spacing:.9px;background:#eef6ff}
-.panel{background:linear-gradient(145deg,var(--foam),#F6E8D5);border:3px solid var(--espresso);border-radius:22px;padding:20px;margin-top:18px;box-shadow:0 9px 0 rgba(33,20,15,.14),0 0 0 1px rgba(1,116,243,.08)}
+.panel{background:var(--foam);border:3px solid var(--espresso);border-radius:22px;padding:20px;margin-top:18px;box-shadow:0 9px 0 rgba(43,27,20,.12)}
 .row{display:flex;gap:10px;flex-wrap:wrap}.input{flex:1;min-width:220px;border:3px solid var(--espresso);border-radius:14px;padding:13px 14px;font-size:17px}
 button{border:3px solid var(--espresso);border-radius:999px;background:var(--foam);padding:11px 15px;font-weight:950;cursor:pointer}button.primary{background:var(--blue);border-color:var(--blue);color:white}.active{background:var(--blue)!important;color:#fff!important;border-color:var(--blue)!important}
-.prompt-box{margin-bottom:12px}.prompt-label{font-size:14px;font-weight:1000;letter-spacing:1.5px;color:var(--blue);margin-bottom:4px}.prompt-hint{font-size:13px;line-height:1.35;color:var(--coffee);margin-bottom:10px}.composer{display:grid;grid-template-columns:minmax(0,1fr) auto auto auto;gap:10px;align-items:center}.quick-picks{margin-top:10px}.quick-picks summary{cursor:pointer;list-style:none;display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:950;letter-spacing:.8px;color:var(--coffee);border:2px solid var(--espresso);border-radius:999px;padding:7px 11px;background:var(--foam)}.quick-picks summary::-webkit-details-marker{display:none}.quick-picks summary span{color:var(--blue);font-weight:900}.ingredient-list{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;padding:12px;border:2px dashed rgba(43,27,20,.25);border-radius:14px;background:rgba(255,248,235,.55)}.ingredient-chip{padding:6px 9px;font-size:9px;border-width:2px}.machine{display:grid;grid-template-columns:190px 1fr;gap:18px;align-items:center;margin-top:18px}.brewer{height:170px;position:relative;border:3px solid var(--espresso);border-radius:18px;background:linear-gradient(160deg,var(--coffee),var(--espresso));box-shadow:inset 0 0 0 2px rgba(196,154,115,.18),0 8px 18px rgba(33,20,15,.16)}.brewer:before{content:"";position:absolute;width:82px;height:66px;left:51px;top:20px;border-radius:10px;background:#222;border:3px solid #111}.spout{position:absolute;left:88px;top:85px;width:12px;height:32px;background:#111}.cup{position:absolute;left:57px;bottom:13px;width:76px;height:48px;border:4px solid var(--espresso);border-radius:0 0 18px 18px;background:#fff}.cup:after{content:"";position:absolute;right:-24px;top:8px;width:24px;height:23px;border:4px solid var(--espresso);border-left:0;border-radius:0 16px 16px 0}.stream{position:absolute;left:92px;top:117px;width:5px;height:0;background:#6F4E37;transition:.3s}.brewing .stream{height:28px}.status{font-weight:1000;color:var(--blue);font-size:19px}.steps{font-size:12px;font-weight:900;letter-spacing:1px;margin-top:8px}
-.result{margin-top:18px;padding:18px;border-radius:18px;background:linear-gradient(135deg,var(--espresso),var(--coffee) 70%,var(--deep-blue));color:var(--foam);border:1px solid rgba(99,169,248,.28)}.result h2{margin:0;color:var(--soft-blue);font-size:34px}.result .tag{font-weight:900;margin:8px 0}.result .desc{line-height:1.45}
+.prompt-box{margin-bottom:12px}.prompt-label{font-size:14px;font-weight:1000;letter-spacing:1.5px;color:var(--blue);margin-bottom:4px}.prompt-hint{font-size:13px;line-height:1.35;color:var(--coffee);margin-bottom:10px}.composer{display:grid;grid-template-columns:minmax(0,1fr) auto auto auto;gap:10px;align-items:center}.quick-picks{margin-top:10px}.quick-picks summary{cursor:pointer;list-style:none;display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:950;letter-spacing:.8px;color:var(--coffee);border:2px solid var(--espresso);border-radius:999px;padding:7px 11px;background:var(--foam)}.quick-picks summary::-webkit-details-marker{display:none}.quick-picks summary span{color:var(--blue);font-weight:900}.ingredient-list{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;padding:12px;border:2px dashed rgba(43,27,20,.25);border-radius:14px;background:rgba(255,248,235,.55)}.ingredient-chip{padding:6px 9px;font-size:9px;border-width:2px}.machine{display:grid;grid-template-columns:190px 1fr;gap:18px;align-items:center;margin-top:18px}.brewer{height:170px;position:relative;border:3px solid var(--espresso);border-radius:18px;background:#4A2C1D}.brewer:before{content:"";position:absolute;width:82px;height:66px;left:51px;top:20px;border-radius:10px;background:#222;border:3px solid #111}.spout{position:absolute;left:88px;top:85px;width:12px;height:32px;background:#111}.cup{position:absolute;left:57px;bottom:13px;width:76px;height:48px;border:4px solid var(--espresso);border-radius:0 0 18px 18px;background:#fff}.cup:after{content:"";position:absolute;right:-24px;top:8px;width:24px;height:23px;border:4px solid var(--espresso);border-left:0;border-radius:0 16px 16px 0}.stream{position:absolute;left:92px;top:117px;width:5px;height:0;background:#6F4E37;transition:.3s}.brewing .stream{height:28px}.status{font-weight:1000;color:var(--blue);font-size:19px}.steps{font-size:12px;font-weight:900;letter-spacing:1px;margin-top:8px}
+.result{margin-top:18px;padding:18px;border-radius:18px;background:var(--espresso);color:var(--foam)}.result h2{margin:0;color:#6fb2ff;font-size:34px}.result .tag{font-weight:900;margin:8px 0}.result .desc{line-height:1.45}
+.affiliate-rec{margin-top:16px;padding-top:15px;border-top:1px solid rgba(255,248,235,.28)}
+.affiliate-rec[hidden]{display:none}
+.affiliate-label{font-size:10px;letter-spacing:1.2px;font-weight:950;color:#6fb2ff}
+.affiliate-name{margin-top:6px;font-size:18px;font-weight:950}
+.affiliate-copy{margin:5px 0 10px;line-height:1.4;font-size:13px}
+.javajive-partner-button{display:inline-block;background:var(--blue);color:#fff!important;text-decoration:none;border-radius:999px;padding:9px 13px;font-weight:950}
+.affiliate-disclosure{margin-top:9px;font-size:10px;line-height:1.35;opacity:.82}
+.bear-brain{margin-top:14px;padding:14px;border:2px solid rgba(111,178,255,.45);border-radius:14px;background:rgba(255,255,255,.05)}
+.bear-brain-label{font-size:10px;letter-spacing:1.3px;font-weight:950;color:#6fb2ff}
+.bear-brain-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 14px;margin-top:9px}
+.bear-brain-item{font-size:12px;line-height:1.35}
+.bear-brain-item strong{color:#6fb2ff}
+@media(max-width:620px){.bear-brain-grid{grid-template-columns:1fr}}
+.bearista{
+  position:fixed;right:18px;bottom:18px;z-index:9999;width:min(330px,calc(100vw - 28px));
+  padding:14px 14px 12px;border:1px solid rgba(111,178,255,.42);border-radius:16px;
+  background:rgba(25,18,15,.97);box-shadow:0 12px 34px rgba(0,0,0,.34);
+  transform:translateY(18px);opacity:0;pointer-events:none;transition:.28s ease;
+}
+.bearista.show{transform:translateY(0);opacity:1;pointer-events:auto}
+.bearista-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.bearista-name{font-size:11px;font-weight:950;letter-spacing:1.2px;color:#6fb2ff}
+.bearista-close{border:0;background:transparent;color:#fff;font-size:20px;line-height:1;cursor:pointer;padding:2px 5px}
+.bearista-message{font-size:14px;line-height:1.45;margin:8px 0 11px}
+.bearista-actions{display:flex;gap:8px;flex-wrap:wrap}
+.bearista-actions button{padding:8px 11px;border-radius:10px;font-weight:850}
+.maker-shell{margin-top:16px}
+.maker-door{
+  width:100%;display:flex;align-items:center;justify-content:space-between;gap:14px;
+  padding:14px 16px;border:2px solid rgba(43,27,20,.45);border-radius:14px;
+  background:#FFF8EB;color:#2B1B14;font-weight:950;cursor:pointer;text-align:left
+}
+.maker-door small{display:block;font-weight:700;opacity:.72;margin-top:3px}
+.maker-door-arrow{font-size:20px;transition:transform .2s ease}
+.maker-door[aria-expanded="true"] .maker-door-arrow{transform:rotate(180deg)}
+.maker-workspace[hidden]{display:none!important}
+.maker-workspace{margin-top:12px}
+
+.bearista-primary{background:#0174F3;color:white;border:1px solid #0174F3}
+.bearista-later{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.28)}
+
+
+
 .codebar{display:flex;gap:7px;flex-wrap:wrap;margin:16px 0}.codebar button{padding:8px 10px;font-size:10px}.codehead{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:12px;font-weight:950;color:var(--blue)}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#111;color:#e9f3ff;border-radius:14px;padding:16px;min-height:180px;max-height:420px;overflow:auto}
 .teleport-status{text-align:center;font-weight:950;color:var(--blue);min-height:24px;margin-top:10px}
 #spitter{display:none;position:fixed;inset:0;z-index:50;background:var(--cream);overflow:auto}.spitwrap{max-width:920px;margin:auto;padding:24px 16px 60px}.spitbrand{text-align:center;font-size:clamp(42px,8vw,78px);font-weight:1000;letter-spacing:-4px}.spitbrand span{color:var(--blue)}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.card{background:var(--foam);border:3px solid var(--espresso);border-radius:20px;padding:18px}.shirtstage{min-height:360px;background:#ece3d8;border-radius:16px;display:flex;align-items:center;justify-content:center}.shirt{position:relative;width:260px;height:300px;background:white;border:3px solid var(--espresso);clip-path:polygon(22% 0,36% 7%,64% 7%,78% 0,100% 17%,87% 39%,78% 32%,78% 100%,22% 100%,22% 32%,13% 39%,0 17%)}.print{position:absolute;left:48px;right:48px;top:98px;text-align:center;color:var(--blue);font-size:24px;line-height:.95;font-weight:1000;text-transform:uppercase;overflow-wrap:anywhere}.kicker{font-size:11px;letter-spacing:1.4px;font-weight:950;color:var(--coffee);margin:12px 0 7px}
-.footer{text-align:center;margin-top:64px;padding-top:26px;font-size:12px;font-weight:800;border-top:1px solid rgba(90,56,40,.2)}.signature-tagline{color:#0174F3;font-weight:950}
+.footer{text-align:center;margin-top:64px;padding-top:26px;font-size:12px;font-weight:800}.signature-tagline{color:#0174F3;font-weight:950}
 @media(max-width:720px){.composer{grid-template-columns:1fr 1fr}.composer .input{grid-column:1/-1}.machine,.grid{grid-template-columns:1fr}.brewer{max-width:220px;margin:auto;width:100%}}
-.placement-controls{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}.placement-controls button{padding:8px 10px;font-size:10px;border-width:2px}.mockup-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.mockup-grid.single{grid-template-columns:1fr}.mockup-grid.single #backSide{display:none}.mockup-side{min-width:0}.side-label{text-align:center;font-size:10px;font-weight:950;letter-spacing:1.3px;color:var(--coffee);margin-bottom:5px}.shirt-code{position:absolute;left:38px;right:38px;top:76px;bottom:48px;margin:0;padding:0;background:transparent;color:#111;border-radius:0;min-height:0;max-height:none;overflow:hidden;white-space:pre-wrap;overflow-wrap:anywhere;font-family:Consolas,monospace;font-size:8px;line-height:1.12;text-align:left}.words-print{display:none}.shirt-code{display:none}.shirt.show-words .words-print{display:block}.shirt.show-code .shirt-code{display:block}.spitter-note{text-align:center;font-size:10px;font-weight:800;color:var(--coffee);margin-top:10px}@media(max-width:720px){.mockup-grid{grid-template-columns:1fr}}
 
-.coffee-nav{max-width:980px;margin:0 auto;padding:14px 16px 0;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.coffee-nav a{color:var(--espresso);text-decoration:none;font-weight:950;font-size:12px;letter-spacing:.06em}.coffee-nav .home{color:var(--blue)}.coffee-links{display:flex;gap:14px;flex-wrap:wrap}.coffee-links a:hover,.coffee-links a:focus{color:var(--blue)}.explore{margin-top:22px;padding:18px;border:2px solid rgba(90,56,40,.24);border-radius:18px;background:rgba(255,248,235,.7)}.explore h3{margin:0 0 10px;color:var(--espresso)}.explore-links{display:flex;gap:9px;flex-wrap:wrap}.explore-links a{display:inline-flex;padding:9px 12px;border:2px solid var(--coffee);border-radius:999px;color:var(--espresso);font-weight:900;text-decoration:none;font-size:11px}.explore-links a:hover,.explore-links a:focus{border-color:var(--blue);color:var(--blue)}
+.placement-controls{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}
+.placement-controls button{padding:8px 10px;font-size:10px;border-width:2px}
+.mockup-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mockup-grid.single{grid-template-columns:1fr}
+.mockup-grid.single #backSide{display:none}
+.mockup-side{min-width:0}
+.side-label{text-align:center;font-size:10px;font-weight:950;letter-spacing:1.3px;color:var(--coffee);margin-bottom:5px}
+.shirt-code{position:absolute;left:38px;right:38px;top:76px;bottom:48px;margin:0;padding:0;background:transparent;color:#111;border-radius:0;min-height:0;max-height:none;overflow:hidden;white-space:pre-wrap;overflow-wrap:anywhere;font-family:Consolas,monospace;font-size:8px;line-height:1.12;text-align:left}
+.words-print{display:none}
+.shirt-code{display:none}
+.shirt.show-words .words-print{display:block}
+.shirt.show-code .shirt-code{display:block}
+.spitter-note{text-align:center;font-size:10px;font-weight:800;color:var(--coffee);margin-top:10px}
+@media(max-width:720px){.mockup-grid{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
-<nav class="coffee-nav" aria-label="Coffee Room navigation"><a class="home" href="../index.html">FLUID SOUL</a><div class="coffee-links"><a href="../rooms.html">ALL ROOMS</a><a href="../ocean-of-ink.html">OCEAN OF INK</a><a href="../gallery/index.html">GALLERY</a><a href="../shop.html">SHOP</a></div></nav>
 <main class="app" id="jive">
   <div class="brand">
     <div class="demo-badge">INTERACTIVE DEMO • BEAN ARTISTIC EDITION</div>
     <h1>JAVA <span class="blue">JIVE™</span></h1>
     <p>Give it a flavor. I’ll make it alive. ☕⚡</p>
   </div>
+
   <section class="panel">
-    <div class="prompt-box"><div class="prompt-label">WHAT ARE WE BREWING?</div><div class="prompt-hint">Type a flavor or your own idea. Example: <strong>salted caramel</strong> or <strong>blueberry + vanilla</strong>.</div><div class="composer"><input id="flavor" class="input" placeholder="Type a flavor, ingredient, or mix…" value="caramel"><button id="brew" class="primary">BREW IT</button><button id="surprise" title="Build a random 2–4 ingredient mix">SURPRISE ME</button><button id="comboToggle" type="button" aria-pressed="false">COMBO: OFF</button></div></div>
-    <details class="quick-picks"><summary>QUICK PICKS <span>22 ingredients</span></summary><div class="ingredient-list" id="ingredientList"><button type="button" class="ingredient-chip" data-flavor="caramel">CARAMEL</button><button type="button" class="ingredient-chip" data-flavor="mocha">MOCHA</button><button type="button" class="ingredient-chip" data-flavor="hazelnut">HAZELNUT</button><button type="button" class="ingredient-chip" data-flavor="vanilla">VANILLA</button><button type="button" class="ingredient-chip" data-flavor="cinnamon">CINNAMON</button><button type="button" class="ingredient-chip" data-flavor="chocolate">CHOCOLATE</button><button type="button" class="ingredient-chip" data-flavor="pumpkin">PUMPKIN</button><button type="button" class="ingredient-chip" data-flavor="espresso">ESPRESSO</button><button type="button" class="ingredient-chip" data-flavor="butter pecan">BUTTER PECAN</button><button type="button" class="ingredient-chip" data-flavor="french vanilla">FRENCH VANILLA</button><button type="button" class="ingredient-chip" data-flavor="irish cream">IRISH CREAM</button><button type="button" class="ingredient-chip" data-flavor="salted caramel">SALTED CARAMEL</button><button type="button" class="ingredient-chip" data-flavor="maple">MAPLE</button><button type="button" class="ingredient-chip" data-flavor="coconut">COCONUT</button><button type="button" class="ingredient-chip" data-flavor="peppermint">PEPPERMINT</button><button type="button" class="ingredient-chip" data-flavor="toffee">TOFFEE</button><button type="button" class="ingredient-chip" data-flavor="brown sugar">BROWN SUGAR</button><button type="button" class="ingredient-chip" data-flavor="almond">ALMOND</button><button type="button" class="ingredient-chip" data-flavor="cookie butter">COOKIE BUTTER</button><button type="button" class="ingredient-chip" data-flavor="birthday cake">BIRTHDAY CAKE</button><button type="button" class="ingredient-chip" data-flavor="blueberry">BLUEBERRY</button><button type="button" class="ingredient-chip" data-flavor="java">JAVA</button></div></details>
-    <div class="machine"><div class="brewer" id="brewer"><div class="spout"></div><div class="stream"></div><div class="cup"></div></div><div><div class="status" id="brewStatus">READY TO JIVE.</div><div class="steps">GRIND → BREW → MIX → JIVE</div></div></div>
-    <div class="result"><div class="kicker">FRESH FROM THE MACHINE</div><h2 id="title">Caramel Me Maybe</h2><div class="tag" id="tagline">Call me, brew-be.</div><div class="desc" id="description">Caramel walks into the roast and leaves with the chorus stuck in its head.</div></div>
-    <div class="codebar" id="codebar"><button data-mode="html" class="active">HTML</button><button data-mode="text">TEXT</button><button data-mode="json">JFS DATA</button><button data-mode="jsx">JSX</button><button data-mode="css">CSS</button><button data-mode="js">JS</button><button data-mode="svg">SVG</button><button data-mode="markdown">MARKDOWN</button><button data-mode="csv">CSV</button><button data-mode="spitter">SPITTER PACK</button></div>
-    <div class="codehead"><span>CODE BLUE • <span id="modeLabel">HTML</span></span><span id="stardate"></span></div><pre id="code"></pre>
-    <div class="row"><button id="copyCode">COPY CODE</button><button id="downloadCode">DOWNLOAD CODE</button><button id="teleport" class="primary">⚡ TELEPORT TO SPITTER</button></div><div class="teleport-status" id="teleportStatus"></div>
+    <div class="prompt-box">
+      <div class="prompt-label">WHAT ARE WE BREWING?</div>
+      <div class="prompt-hint">Type a flavor or your own idea. Example: <strong>salted caramel</strong> or <strong>blueberry + vanilla</strong>.</div>
+      <div class="composer">
+        <input id="flavor" class="input" placeholder="Type a flavor, ingredient, or mix…" value="caramel">
+        <button id="brew" class="primary">BREW IT</button>
+        <button id="surprise" title="Build a random 2–4 ingredient mix">SURPRISE ME</button><button id="comboToggle" type="button" aria-pressed="false">COMBO: OFF</button>
+      </div>
+    </div>
+
+    <details class="quick-picks">
+      <summary>QUICK PICKS <span>22 ingredients</span></summary>
+      <div class="ingredient-list" id="ingredientList"><button type="button" class="ingredient-chip" data-flavor="caramel">CARAMEL</button><button type="button" class="ingredient-chip" data-flavor="mocha">MOCHA</button><button type="button" class="ingredient-chip" data-flavor="hazelnut">HAZELNUT</button><button type="button" class="ingredient-chip" data-flavor="vanilla">VANILLA</button><button type="button" class="ingredient-chip" data-flavor="cinnamon">CINNAMON</button><button type="button" class="ingredient-chip" data-flavor="chocolate">CHOCOLATE</button><button type="button" class="ingredient-chip" data-flavor="pumpkin">PUMPKIN</button><button type="button" class="ingredient-chip" data-flavor="espresso">ESPRESSO</button><button type="button" class="ingredient-chip" data-flavor="butter pecan">BUTTER PECAN</button><button type="button" class="ingredient-chip" data-flavor="french vanilla">FRENCH VANILLA</button><button type="button" class="ingredient-chip" data-flavor="irish cream">IRISH CREAM</button><button type="button" class="ingredient-chip" data-flavor="salted caramel">SALTED CARAMEL</button><button type="button" class="ingredient-chip" data-flavor="maple">MAPLE</button><button type="button" class="ingredient-chip" data-flavor="coconut">COCONUT</button><button type="button" class="ingredient-chip" data-flavor="peppermint">PEPPERMINT</button><button type="button" class="ingredient-chip" data-flavor="toffee">TOFFEE</button><button type="button" class="ingredient-chip" data-flavor="brown sugar">BROWN SUGAR</button><button type="button" class="ingredient-chip" data-flavor="almond">ALMOND</button><button type="button" class="ingredient-chip" data-flavor="cookie butter">COOKIE BUTTER</button><button type="button" class="ingredient-chip" data-flavor="birthday cake">BIRTHDAY CAKE</button><button type="button" class="ingredient-chip" data-flavor="blueberry">BLUEBERRY</button><button type="button" class="ingredient-chip" data-flavor="java">JAVA</button></div>
+    </details>
+    <div class="machine">
+      <div class="brewer" id="brewer"><div class="spout"></div><div class="stream"></div><div class="cup"></div></div>
+      <div><div class="status" id="brewStatus">READY TO JIVE.</div><div class="steps">GRIND → BREW → MIX → JIVE</div></div>
+    </div>
+
+    <div class="result">
+      <div class="kicker">FRESH FROM THE MACHINE</div>
+      <h2 id="title">Caramel Me Maybe</h2>
+      <div class="tag" id="tagline">Call me, brew-be.</div>
+      <div class="desc" id="description">Caramel walks into the roast and leaves with the chorus stuck in its head.</div>
+      <div class="bear-brain" id="bearBrainPanel" hidden>
+        <div class="bear-brain-label">BeAr BRAIN™ • COFFEE INTELLIGENCE</div>
+        <div class="bear-brain-grid">
+          <div class="bear-brain-item"><strong>FLAVOR FAMILY</strong><br><span id="bearFamilies"></span></div>
+          <div class="bear-brain-item"><strong>RELATED NOTES</strong><br><span id="bearNotes"></span></div>
+          <div class="bear-brain-item"><strong>CHARACTER</strong><br><span id="bearCharacter"></span></div>
+          <div class="bear-brain-item"><strong>DRINK FIT</strong><br><span id="bearDrinks"></span></div>
+          <div class="bear-brain-item"><strong>COMMERCE SIGNALS</strong><br><span id="bearSignals"></span></div>
+          <div class="bear-brain-item"><strong>CONFIDENCE</strong><br><span id="bearConfidence"></span></div>
+        </div>
+      </div>
+
+      <div class="affiliate-rec" id="affiliateRec" hidden>
+        <div class="affiliate-label">CURRENT COFFEE PARTNER</div>
+        <div class="affiliate-name" id="affiliateName"></div>
+        <div class="affiliate-copy" id="affiliateCopy"></div>
+        <a class="javajive-partner-button" id="javaJivePartnerButton"
+           href="https://tidd.ly/3VtIABf"
+           target="_blank"
+           rel="sponsored noopener noreferrer"
+           style="display:inline-block;margin-top:12px;background:#0174F3;color:#fff!important;text-decoration:none;border-radius:999px;padding:12px 16px;font-weight:950;">
+          EXPLORE STUMPTOWN COFFEE →
+        </a>
+        <div class="affiliate-disclosure" id="affiliateDisclosure">AFFILIATE DISCLOSURE: Bean Artistic may earn a commission if you purchase through this link, at no additional cost to you.</div>
+      </div>
+    </div>
+
+    <div class="maker-shell">
+  <button class="maker-door" id="makerDoor" type="button" aria-expanded="false" aria-controls="makerWorkspace">
+    <span>⚡ MAKE SOMETHING WITH THIS<small>Open formats, code, JFS data, and Spitter tools</small></span>
+    <span class="maker-door-arrow" aria-hidden="true">⌄</span>
+  </button>
+  <div class="maker-workspace" id="makerWorkspace" hidden>
+<div class="codebar" id="codebar">
+      <button data-mode="html" class="active">HTML</button>
+      <button data-mode="text">TEXT</button>
+      <button data-mode="json">JFS DATA</button>
+      <button data-mode="jsx">JSX</button>
+      <button data-mode="css">CSS</button>
+      <button data-mode="js">JS</button>
+      <button data-mode="svg">SVG</button>
+      <button data-mode="markdown">MARKDOWN</button>
+      <button data-mode="csv">CSV</button>
+      <button data-mode="spitter">SPITTER PACK</button>
+    </div>
+
+    <div class="codehead"><span>CODE BLUE • <span id="modeLabel">HTML</span></span><span id="stardate"></span></div>
+    <pre id="code"></pre>
+
+    <div class="row">
+      <button id="copyCode">COPY CODE</button>
+      <button id="downloadCode">DOWNLOAD CODE</button>
+      <button id="teleport" class="primary">⚡ TELEPORT TO SPITTER</button>
+    </div>
+    <div class="teleport-status" id="teleportStatus"></div>
   </section>
-  <section class="explore"><h3>Keep exploring Fluid Soul</h3><div class="explore-links"><a href="../rooms.html">ALL ROOMS</a><a href="../ocean-of-ink.html">OCEAN OF INK</a><a href="../gallery/index.html">GALLERY</a><a href="../gadgets.html">GADGETS</a><a href="../shop.html">SHOP</a><a href="../index.html">FLUID SOUL HOME</a></div></section>
+
   <div class="footer">A Fluid Systems Gadget<br><span class="signature-tagline">A Little Ink. A Lot of Soul. The Color Blue.</span></div>
 </main>
-<section id="spitter"><div class="spitwrap"><div class="row" style="justify-content:space-between"><button id="back">← JAVA JIVE</button><strong id="spitStatus" style="color:var(--blue)">JFS RECEIVER STANDBY</strong></div><div class="spitbrand">T-SHIRT <span>SPITTER</span></div><div style="text-align:center;font-weight:900;margin-bottom:18px">JFS RECEIVING CHAMBER ⚡</div><div class="grid"><div class="card"><div class="kicker">INCOMING READY ITEM</div><div id="spitDate" style="font-family:Consolas,monospace;font-weight:900"></div><h2 id="spitTitle" style="color:var(--blue);font-size:34px"></h2><div id="spitTag" style="font-weight:900"></div><p id="spitDesc"></p><div class="kicker">INGREDIENTS / RECIPE</div><div id="spitIngredients"></div><button id="spitIt" class="primary" style="width:100%;margin-top:18px">SPIT IT! 👕💨</button></div><div class="card"><div class="kicker">PLACEMENT</div><div class="placement-controls" id="placementControls"><button type="button" data-place="code" class="active">CODE ONLY</button><button type="button" data-place="words">WORDS ONLY</button><button type="button" data-place="frontback">FRONT / BACK</button><button type="button" id="swapSides">SWAP SIDES</button></div><div class="kicker">VISUAL MOCKUP</div><div class="mockup-grid single" id="mockupGrid"><div class="mockup-side" id="frontSide"><div class="side-label">FRONT</div><div class="shirtstage"><div class="shirt"><div class="print words-print" id="frontWords"></div><pre class="shirt-code" id="frontCode"></pre></div></div></div><div class="mockup-side" id="backSide"><div class="side-label">BACK</div><div class="shirtstage"><div class="shirt"><div class="print words-print" id="backWords"></div><pre class="shirt-code" id="backCode"></pre></div></div></div></div><div class="spitter-note" id="mockupNote">Local placement proof • provider-generated product mockup comes later.</div></div></div></div></section>
+
+<section id="spitter">
+  <div class="spitwrap">
+    <div class="row" style="justify-content:space-between"><button id="back">← JAVA JIVE</button><strong id="spitStatus" style="color:var(--blue)">JFS RECEIVER STANDBY</strong></div>
+  </div>
+</div>
+    <div class="spitbrand">T-SHIRT <span>SPITTER</span></div>
+    <div style="text-align:center;font-weight:900;margin-bottom:18px">JFS RECEIVING CHAMBER ⚡</div>
+    <div class="grid">
+      <div class="card">
+        <div class="kicker">INCOMING READY ITEM</div>
+        <div id="spitDate" style="font-family:Consolas,monospace;font-weight:900"></div>
+        <h2 id="spitTitle" style="color:var(--blue);font-size:34px"></h2>
+        <div id="spitTag" style="font-weight:900"></div>
+        <p id="spitDesc"></p>
+        <div class="kicker">INGREDIENTS / RECIPE</div><div id="spitIngredients"></div>
+        <button id="spitIt" class="primary" style="width:100%;margin-top:18px">SPIT IT! 👕💨</button>
+      </div>
+      <div class="card">
+        <div class="kicker">PLACEMENT</div>
+        <div class="placement-controls" id="placementControls">
+          <button type="button" data-place="code" class="active">CODE ONLY</button>
+          <button type="button" data-place="words">WORDS ONLY</button>
+          <button type="button" data-place="frontback">FRONT / BACK</button>
+          <button type="button" id="swapSides">SWAP SIDES</button>
+        </div>
+
+        <div class="kicker">VISUAL MOCKUP</div>
+        <div class="mockup-grid single" id="mockupGrid">
+          <div class="mockup-side" id="frontSide">
+            <div class="side-label">FRONT</div>
+            <div class="shirtstage">
+              <div class="shirt">
+                <div class="print words-print" id="frontWords"></div>
+                <pre class="shirt-code" id="frontCode"></pre>
+              </div>
+            </div>
+          </div>
+          <div class="mockup-side" id="backSide">
+            <div class="side-label">BACK</div>
+            <div class="shirtstage">
+              <div class="shirt">
+                <div class="print words-print" id="backWords"></div>
+                <pre class="shirt-code" id="backCode"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="spitter-note" id="mockupNote">Local placement proof. Real fulfillment-provider mockup replaces this stage when connected.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <script>
-(()=>{
+(function(){
   const $=id=>document.getElementById(id);
-  const library={"caramel":["Caramel Me Maybe","Call me, brew-be.","Caramel walks into the roast and leaves with the chorus stuck in its head."],"mocha":["Mocha Me Crazy","Chocolate made me do it.","Coffee and cocoa have entered a deliciously questionable agreement."],"hazelnut":["HazelNUTS","Nut your average cup.","Hazelnut has officially lost its shell."],"vanilla":["Vanilla Be Back","This cup has unfinished business.","Smooth vanilla keeps returning to the scene of the grind."],"cinnamon":["Cinna-Minute","Spice needs a second.","Warm cinnamon wakes up the roast before the alarm gets a chance."],"chocolate":["Choc and Awe","Shockingly brew-tiful.","Chocolate and coffee settle their differences over a very persuasive mug."],"pumpkin":["Gourd Morning","Rise and spice.","Pumpkin spice reports for duty before you do."],"espresso":["Espresso Yourself","Repression is exhausting.","A tiny cup with absolutely enormous opinions."],"butter pecan":["Pecan You Believe It","Butter late than never.","Butter pecan turns the cup into a nutty little plot twist."],"french vanilla":["Oui Need Coffee","Crème de la brew.","French vanilla brings café confidence with a passport."],"irish cream":["Irish You Were Here","Dublin down on flavor.","Irish cream arrives with luck of the roast."],"salted caramel":["Assaulted Caramel","Salty but sweet.","Caramel got a grain of salt and took it personally."],"maple":["Maple It Happen","Syrup and running.","Maple joins the roast and immediately takes over breakfast."],"coconut":["Shell Yeah","Coco-nut about coffee.","Coconut gives the roast a tropical alibi."],"peppermint":["Mint to Bean","Mint condition.","Peppermint freshens the evidence."],"toffee":["Toffee or Not Toffee","That is the confection.","Toffee turns the roast into a sticky philosophical problem."],"brown sugar":["Brown Sugar Rush","Sweet grounds of mine.","Brown sugar walks in and the coffee gets ideas."],"almond":["Almond My Business","Almond you glad?","Almond keeps things nutty without filing paperwork."],"cookie butter":["Dough You Jive","Butter believe it.","Cookie butter brings crumbs to the creative meeting."],"birthday cake":["Happy Brewthday","Party grounds.","Birthday cake decided the mug needed sprinkles and attention."],"blueberry":["Blue Brew","Berry awake.","Blueberry blue the roast's mind."],"java":["Java Nice Day","Java nuther cup.","Java is speaking its own language again."]};
+  const library={
+    caramel:["Caramel Me Maybe","Call me, brew-be.","Caramel walks into the roast and leaves with the chorus stuck in its head."],
+    mocha:["Mocha Me Crazy","One sip over the line.","A mocha with enough rhythm to make the mug apply for backup vocals."],
+    hazelnut:["HazelNUTS","Nut your average cup.","Hazelnut has officially left the sensible side of the saucer."],
+    vanilla:["Vanilla Be Back","Plainly dangerous.","Vanilla shows up quiet, then steals the whole roast."],
+    cinnamon:["Cinna-Man","Spice witness.","Cinnamon enters the cup with absolutely no intention of behaving."],
+    chocolate:["Choc and Awe","Cocoa Loco.","Chocolate came to roast and refused to leave quietly."],
+    pumpkin:["Gourd Morning","Pump up the jam.","Pumpkin wandered into the brew and turned autumn into a punchline."],
+    espresso:["Espresso Yourself","Depresso no more.","A tiny shot with a full-size opinion."],
+    "butter pecan":["Pecan You Believe It","Butter late than never.","Butter pecan showed up smooth, nutty, and suspiciously confident."],
+    "french vanilla":["Oui Need Coffee","Crème de la Brew.","French vanilla put a beret on the mug and called it breakfast."],
+    "irish cream":["Irish You Were Here","Dublin down.","Irish cream brought luck, roast, and absolutely no restraint."],
+    "salted caramel":["Assaulted Caramel","Salty but sweet.","Salted caramel entered the cup with a grain of salt and a whole lot of attitude."],
+    maple:["Maple It Happen","Syrup and running.","Maple turned the roast into a sticky little decision engine."],
+    coconut:["Coco-Nut About Coffee","Shell yeah.","Coconut took the mug on vacation without asking permission."],
+    peppermint:["Mint to Bean","Mint condition.","Peppermint walked in cool and left the roast wide awake."],
+    toffee:["Toffee or Not Toffee","Toffee talk.","Toffee turned the brew into a question with a very sweet answer."],
+    "brown sugar":["Brown Sugar Rush","Sugar coat it.","Brown sugar brought sweetness, swagger, and zero interest in subtlety."],
+    almond:["Almond Joyride","Almond my business.","Almond took the scenic route straight through the roast."],
+    "cookie butter":["Cookie Call","Dough you jive?","Cookie butter crumbled into the cup and somehow made it everybody's business."],
+    "birthday cake":["Happy Brewthday","Piece of cake.","Birthday cake put candles on the coffee and called the whole thing productivity."],
+    blueberry:["Blue Brew","Berry awake.","Blueberry slipped into the roast and blue everybody's mind."],
+    java:["Java Nice Day","Brew can do it.","Java woke up and chose wordplay."]
+  };
+
+  // BeAr Brain™ v1 — coffee intelligence layer.
+  // This analyzes flavor concepts independently of affiliate eligibility.
+  const bearKnowledge={
+    caramel:{families:["sweet","caramelized"],notes:["brown sugar","vanilla","chocolate"],character:["rich","round"],drinks:["latte","espresso","brewed coffee"],signals:["caramel","sweet","rich"]},
+    mocha:{families:["chocolate","roasted"],notes:["cocoa","espresso","caramel"],character:["rich","bold"],drinks:["mocha","latte","espresso"],signals:["chocolate","espresso","rich"]},
+    hazelnut:{families:["nutty","sweet"],notes:["cocoa","caramel","vanilla"],character:["round","toasty"],drinks:["latte","brewed coffee","espresso"],signals:["nutty","toasty","sweet"]},
+    vanilla:{families:["sweet","aromatic"],notes:["caramel","cream","brown sugar"],character:["soft","smooth"],drinks:["latte","cold brew","brewed coffee"],signals:["vanilla","sweet","smooth"]},
+    cinnamon:{families:["spice","aromatic"],notes:["brown sugar","chocolate","vanilla"],character:["warming","lively"],drinks:["latte","cappuccino","brewed coffee"],signals:["spice","warming","aromatic"]},
+    chocolate:{families:["chocolate","sweet"],notes:["caramel","nutty","roasted"],character:["rich","deep"],drinks:["mocha","espresso","latte"],signals:["chocolate","rich","roasted"]},
+    pumpkin:{families:["earthy","sweet"],notes:["cinnamon","brown sugar","vanilla"],character:["warming","seasonal"],drinks:["latte","brewed coffee"],signals:["pumpkin","spice","seasonal"]},
+    espresso:{families:["roasted","coffee-forward"],notes:["chocolate","caramel","nutty"],character:["bold","concentrated"],drinks:["espresso","americano","cappuccino"],signals:["espresso","bold","roasted"]},
+    "butter pecan":{families:["nutty","sweet"],notes:["butter","caramel","vanilla"],character:["rich","toasty"],drinks:["latte","brewed coffee"],signals:["pecan","nutty","rich"]},
+    "french vanilla":{families:["sweet","creamy"],notes:["vanilla","caramel","cream"],character:["smooth","soft"],drinks:["latte","brewed coffee","cold brew"],signals:["vanilla","creamy","smooth"]},
+    "irish cream":{families:["creamy","sweet"],notes:["cocoa","vanilla","caramel"],character:["rich","smooth"],drinks:["latte","brewed coffee"],signals:["cream","sweet","rich"]},
+    "salted caramel":{families:["sweet","caramelized"],notes:["caramel","brown sugar","salt"],character:["rich","contrasting"],drinks:["latte","cold brew","espresso"],signals:["caramel","sweet","rich"]},
+    maple:{families:["sweet","caramelized"],notes:["brown sugar","vanilla","toasted sugar"],character:["round","warming"],drinks:["latte","brewed coffee"],signals:["maple","sweet","warming"]},
+    coconut:{families:["tropical","nutty"],notes:["vanilla","chocolate","cream"],character:["soft","aromatic"],drinks:["cold brew","latte","iced coffee"],signals:["coconut","tropical","creamy"]},
+    peppermint:{families:["mint","aromatic"],notes:["chocolate","cocoa","vanilla"],character:["cool","bright"],drinks:["mocha","latte","iced coffee"],signals:["mint","bright","seasonal"]},
+    toffee:{families:["sweet","caramelized"],notes:["caramel","butter","nutty"],character:["rich","toasty"],drinks:["latte","espresso","brewed coffee"],signals:["toffee","caramel","rich"]},
+    "brown sugar":{families:["sweet","caramelized"],notes:["molasses","caramel","vanilla"],character:["deep","round"],drinks:["latte","cold brew","brewed coffee"],signals:["brown sugar","sweet","deep"]},
+    almond:{families:["nutty","aromatic"],notes:["vanilla","cocoa","caramel"],character:["toasty","clean"],drinks:["latte","brewed coffee","espresso"],signals:["almond","nutty","toasty"]},
+    "cookie butter":{families:["sweet","spice"],notes:["brown sugar","cinnamon","caramel"],character:["rich","warming"],drinks:["latte","brewed coffee"],signals:["cookie","spice","sweet"]},
+    "birthday cake":{families:["sweet","dessert"],notes:["vanilla","cream","sugar"],character:["playful","soft"],drinks:["latte","iced coffee"],signals:["vanilla","dessert","sweet"]},
+    blueberry:{families:["fruit","bright"],notes:["berry","vanilla","cocoa"],character:["juicy","lively"],drinks:["pour-over","cold brew","brewed coffee"],signals:["blueberry","fruit","bright"]},
+    java:{families:["coffee-forward"],notes:["roasted","cocoa","caramel"],character:["balanced","classic"],drinks:["brewed coffee","espresso","americano"],signals:["coffee","roasted","classic"]}
+  };
+
+  function unique(values){return [...new Set(values.filter(Boolean))]}
+
+  function bearBrainAnalyze(parts){
+    const profiles=parts.map(part=>{
+      const key=Object.keys(bearKnowledge).find(k=>part.includes(k));
+      return key ? bearKnowledge[key] : null;
+    }).filter(Boolean);
+
+    if(!profiles.length){
+      return {
+        families:["custom / unclassified"],
+        notes:[],
+        character:["open profile"],
+        drinks:["brewed coffee"],
+        signals:parts,
+        confidence:"CUSTOM INPUT • NEEDS KNOWLEDGE EXPANSION"
+      };
+    }
+
+    const collect=field=>unique(profiles.flatMap(p=>p[field]||[]));
+    return {
+      families:collect("families"),
+      notes:collect("notes"),
+      character:collect("character"),
+      drinks:collect("drinks"),
+      signals:unique([...collect("signals"),...parts]),
+      confidence:profiles.length===parts.length ? "KNOWN PROFILE" : "PARTIAL PROFILE"
+    };
+  }
+
+  function renderBearBrain(parts){
+    const profile=bearBrainAnalyze(parts);
+    $("bearFamilies").textContent=profile.families.join(" • ");
+    $("bearNotes").textContent=profile.notes.length ? profile.notes.join(" • ") : "Profile developing";
+    $("bearCharacter").textContent=profile.character.join(" • ");
+    $("bearDrinks").textContent=profile.drinks.join(" • ");
+    $("bearSignals").textContent=profile.signals.join(" • ");
+    $("bearConfidence").textContent=profile.confidence;
+    $("bearBrainPanel").hidden=false;
+    return profile;
+  }
+
+  // Coffee Affiliate Recommendation Engine
+  // Add a partner only after approval, channel/terms verification, and javajive-partner-button verification.
+  const coffeeAffiliates=[
+    {
+      id:"stumptown",
+      brand:"Stumptown Coffee Roasters",
+      affiliateUrl:"https://tidd.ly/3VtIABf",
+      active:true,
+      allowedContexts:["java-jive"],
+      tags:["java","espresso","chocolate","caramel","vanilla","hazelnut","almond","toffee","brown sugar","cinnamon","maple"],
+      copy:"An active Java Jive coffee partner. Explore Stumptown's coffee collection."
+    }
+  ];
+
+  function affiliateScore(partner,profile){
+    const haystack=[
+      ...profile.families,
+      ...profile.notes,
+      ...profile.character,
+      ...profile.drinks,
+      ...profile.signals
+    ].join(" ").toLowerCase();
+    return partner.tags.reduce((score,tag)=>score+(haystack.includes(tag)?1:0),0);
+  }
+
+  function selectCoffeeAffiliate(parts){
+    const eligible=coffeeAffiliates.filter(p=>p.active && p.allowedContexts.includes("java-jive"));
+    if(!eligible.length) return null;
+    const profile=bearBrainAnalyze(parts);
+    return eligible
+      .map(p=>({partner:p,score:affiliateScore(p,profile)}))
+      .sort((a,b)=>b.score-a.score || a.partner.brand.localeCompare(b.partner.brand))[0].partner;
+  }
+
+  function renderCoffeeAffiliate(parts){
+    const partner=selectCoffeeAffiliate(parts);
+    const box=$("affiliateRec");
+    if(!partner){
+      box.hidden=true;
+      return;
+    }
+    $("affiliateName").textContent=partner.brand;
+    $("affiliateCopy").textContent=partner.copy;
+    $("javaJivePartnerButton").href=partner.affiliateUrl;
+    box.hidden=false;
+  }
   let mode="html";
-  function esc(s){return s.replace(/[&<>\"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'\"':"&quot;"}[m]))}
-  function ingredients(){return $("flavor").value.toLowerCase().split(/\s*(?:\+|,|&|\band\b)\s*/).map(x=>x.trim()).filter(Boolean)}
-  function packet(){return {protocol:"JFS-READY-ITEM/1.0",source:"Java Jive",destination:"T-Shirt Spitter",stardate:new Date().toISOString(),creative:{ingredients:ingredients(),title:$("title").textContent,tagline:$("tagline").textContent,description:$("description").textContent},code:{mode,label:mode==="spitter"?"SPITTER PACK":mode.toUpperCase(),content:$("code").textContent},commerce:null}}
-  function codeFor(m,p){const c=p.creative;if(m==="text") return `${c.title}\n${c.tagline}\n\n${c.description}`;if(m==="json") return JSON.stringify(p,null,2);if(m==="jsx") return `export default function JavaJivePun(){\n  return (\n    <article className="java-jive-pun">\n      <h1>${esc(c.title)}</h1>\n      <p className="tagline">${esc(c.tagline)}</p>\n      <p>${esc(c.description)}</p>\n    </article>\n  );\n}`;if(m==="css") return `.java-jive-pun{--fluid-blue:#0174F3;text-align:center;font-family:system-ui,sans-serif}\n.java-jive-pun h1{color:var(--fluid-blue);font-weight:900}\n.java-jive-pun .tagline{font-weight:700}`;if(m==="js") return `const javaJiveItem=${JSON.stringify(c,null,2)};\ndocument.querySelector("[data-java-jive-title]").textContent=javaJiveItem.title;`;if(m==="svg") return `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200">\n  <rect width="1200" height="1200" fill="#FFF8EB"/>\n  <text x="600" y="560" text-anchor="middle" font-size="82" font-weight="900" fill="#0174F3">${esc(c.title)}</text>\n</svg>`;if(m==="markdown") return `# ${c.title}\n\n**${c.tagline}**\n\n${c.description}\n\nIngredients: ${c.ingredients.join(", ")}`;if(m==="csv") return `"title","tagline","description","ingredients"\n"${c.title.replace(/"/g,'""')}","${c.tagline.replace(/"/g,'""')}","${c.description.replace(/"/g,'""')}","${c.ingredients.join(" + ").replace(/"/g,'""')}"`;if(m==="spitter") return JSON.stringify({protocol:"JFS-SPITTER-PACK/1.0",stardate:p.stardate,ready_item:{verbage:{title:c.title,tagline:c.tagline,description:c.description},ingredients:c.ingredients,layout:{preserve_line_breaks:true,editable:true}},commerce:null},null,2);return `<div class="java-jive-pun">\n  <h1>${esc(c.title)}</h1>\n  <p class="tagline">${esc(c.tagline)}</p>\n  <p class="description">${esc(c.description)}</p>\n</div>`}
-  function renderCode(){const p=packet();$("code").textContent=codeFor(mode,p);$("modeLabel").textContent=mode==="spitter"?"SPITTER PACK":mode.toUpperCase();$("stardate").textContent="STARDATE "+p.stardate}
-  const comboOpeners=["Grounds for Celebration","Brewed Awakening","Cup to Something","Roast Together Now","Blend It Like You Mean It","Mixed Grounds Department","Full Cup Collision","Flavor Traffic Jam","Caffeine Conspiracy","Bean There, Mixed That"];const comboTags=["One cup. Several bad influences.","Too many flavors? Exactly enough.","A little chaos in every sip.","This mix did not ask permission.","Multiple suspects. One mug.","The roast got crowded.","Proof that coffee can multitask.","A committee meeting worth attending."];
-  function titleCase(v){return v.replace(/\b\w/g,m=>m.toUpperCase())}
-  function comboResult(parts){const known=parts.map(p=>{const k=Object.keys(library).find(x=>p.includes(x));return k?library[k][0]:titleCase(p)});const opener=comboOpeners[Math.floor(Math.random()*comboOpeners.length)],tag=comboTags[Math.floor(Math.random()*comboTags.length)],short=known.length===2?`${known[0]} × ${known[1]}`:known.slice(0,-1).join(" + ")+" + "+known[known.length-1];return {title:`${opener}: ${short}`,tagline:tag,description:`A ${parts.length}-ingredient surprise brew featuring ${parts.join(", ")}. Java Jive mixed the whole recipe instead of picking a single flavor.`}}
-  function brew(){const raw=$("flavor").value.trim().toLowerCase()||"java",parts=raw.split(/\s*(?:\+|,|&|\band\b)\s*/).map(x=>x.trim()).filter(Boolean),key=parts.length===1?Object.keys(library).find(k=>parts[0].includes(k)):null;$("brewer").classList.add("brewing");$("brewStatus").textContent="GRINDING THE WORD BEANS…";setTimeout(()=>$("brewStatus").textContent=parts.length>1?"MIXING THE FLAVOR COLLISION…":"PULLING A PUN SHOT…",250);setTimeout(()=>{if(parts.length>1){const mix=comboResult(parts);$("title").textContent=mix.title;$("tagline").textContent=mix.tagline;$("description").textContent=mix.description}else if(key){const x=library[key];$("title").textContent=x[0];$("tagline").textContent=x[1];$("description").textContent=x[2]}else{const pretty=$("flavor").value.trim()||"Custom Brew";$("title").textContent=titleCase(pretty)+" Jive";$("tagline").textContent="Fresh grounds for a new idea.";$("description").textContent="Custom input received. Java Jive is treating this as an original flavor prompt."}$("brewStatus").textContent="JIVE COMPLETE.";$("brewer").classList.remove("brewing");renderCode()},600)}
-  let comboMode=false;$("comboToggle").addEventListener("click",()=>{comboMode=!comboMode;$("comboToggle").setAttribute("aria-pressed",String(comboMode));$("comboToggle").textContent=comboMode?"COMBO: ON":"COMBO: OFF";$("comboToggle").classList.toggle("active",comboMode);$("flavor").focus()});
-  $("ingredientList").addEventListener("click",e=>{const b=e.target.closest("[data-flavor]");if(!b)return;const flavor=b.dataset.flavor;if(comboMode){const current=$("flavor").value.split(/\s*\+\s*/).map(x=>x.trim()).filter(Boolean);if(!current.includes(flavor))current.push(flavor);$("flavor").value=current.join(" + ")}else{$("flavor").value=flavor}$("flavor").focus()});
-  $("brew").onclick=brew;$("surprise").onclick=()=>{comboMode=true;$("comboToggle").setAttribute("aria-pressed","true");$("comboToggle").textContent="COMBO: ON";$("comboToggle").classList.add("active");const keys=Object.keys(library),count=2+Math.floor(Math.random()*3),pool=[...keys],picks=[];while(picks.length<count&&pool.length){const i=Math.floor(Math.random()*pool.length);picks.push(pool.splice(i,1)[0])}$("flavor").value=picks.join(" + ");$("brewStatus").textContent=`SURPRISE MIX: ${count} INGREDIENTS…`;brew()};
-  $("flavor").addEventListener("keydown",e=>{if(e.key==="Enter")brew()});$("codebar").addEventListener("click",e=>{const b=e.target.closest("[data-mode]");if(!b)return;mode=b.dataset.mode;document.querySelectorAll("[data-mode]").forEach(x=>x.classList.toggle("active",x===b));renderCode()});$("copyCode").onclick=async()=>{try{await navigator.clipboard.writeText($("code").textContent);$("copyCode").textContent="COPIED ✓";setTimeout(()=>$("copyCode").textContent="COPY CODE",900)}catch(e){}};$("downloadCode").onclick=()=>{const ex={html:"html",text:"txt",json:"json",jsx:"jsx",css:"css",js:"js",svg:"svg",markdown:"md",csv:"csv",spitter:"json"},a=document.createElement("a");a.href=URL.createObjectURL(new Blob([$("code").textContent],{type:"text/plain"}));a.download=`java-jive-${mode}.${ex[mode]||"txt"}`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)};
-  let incomingPacket=null,placement="code",swapped=false;function clearShirt(side){const shirt=side.querySelector(".shirt");shirt.classList.remove("show-code","show-words");side.querySelector(".words-print").textContent="";side.querySelector(".shirt-code").textContent=""}function putWords(side,c){clearShirt(side);side.querySelector(".shirt").classList.add("show-words");side.querySelector(".words-print").textContent=c.title}function putCode(side,p){clearShirt(side);side.querySelector(".shirt").classList.add("show-code");side.querySelector(".shirt-code").textContent=p.code.content}
-  function renderPlacement(){if(!incomingPacket)return;const p=incomingPacket,c=p.creative,front=$("frontSide"),back=$("backSide"),grid=$("mockupGrid");document.querySelectorAll("[data-place]").forEach(b=>b.classList.toggle("active",b.dataset.place===placement));clearShirt(front);clearShirt(back);if(placement==="code"){grid.classList.add("single");putCode(front,p);$("mockupNote").textContent=`CODE ONLY • ${p.code.label} • regular wording intentionally left off the shirt.`}else if(placement==="words"){grid.classList.add("single");putWords(front,c);$("mockupNote").textContent="WORDS ONLY • code intentionally left off the shirt."}else{grid.classList.remove("single");if(!swapped){putWords(front,c);putCode(back,p);$("mockupNote").textContent=`FRONT: WORDS • BACK: ${p.code.label}`}else{putCode(front,p);putWords(back,c);$("mockupNote").textContent=`FRONT: ${p.code.label} • BACK: WORDS`}}}
-  $("placementControls").addEventListener("click",e=>{const b=e.target.closest("[data-place]");if(!b)return;placement=b.dataset.place;renderPlacement()});$("swapSides").onclick=()=>{if(placement!=="frontback")placement="frontback";swapped=!swapped;renderPlacement()};
-  $("teleport").onclick=()=>{const p=packet();$("teleportStatus").textContent="DEMATERIALIZING READY ITEM…";setTimeout(()=>$("teleportStatus").textContent="TRANSPORTING VIA JFS…",250);setTimeout(()=>{incomingPacket=p;placement=p.code.mode==="text"?"words":"code";swapped=false;const c=p.creative;$("spitDate").textContent="STARDATE "+p.stardate;$("spitTitle").textContent=c.title;$("spitTag").textContent=`Incoming design mode: ${p.code.label}`;$("spitDesc").textContent=c.description;$("spitIngredients").textContent=c.ingredients.join(" + ")||"Custom brew";$("spitStatus").textContent="⚡ MATERIALIZED • READY TO PLACE";$("spitter").style.display="block";$("teleportStatus").textContent="MATERIALIZED FOR SPITTER.";renderPlacement()},650)};$("back").onclick=()=>$("spitter").style.display="none";$("spitIt").onclick=()=>{$("spitStatus").textContent=`👕💨 SPIT COMPLETE • ${placement.toUpperCase()} MOCKUP READY`;$("spitIt").textContent="SPIT AGAIN 👕💨"};renderCode();
+
+  function nowStar(){
+    const d=new Date(),start=new Date(d.getFullYear(),0,0),day=Math.floor((d-start)/86400000);
+    return `${d.getFullYear()}.${String(day).padStart(3,"0")}.${String(d.getHours()).padStart(2,"0")}${String(d.getMinutes()).padStart(2,"0")}`;
+  }
+  function packet(){
+    const ingredients=parseIngredients($("flavor").value);
+    return {
+      protocol:"JFS-READY-ITEM/1.0",
+      source:"Java Jive",
+      destination:"T-Shirt Spitter",
+      stardate:nowStar(),
+      creative:{
+        ingredients,
+        title:$("title").textContent,
+        tagline:$("tagline").textContent,
+        description:$("description").textContent
+      },
+      code:{
+        mode,
+        label:mode==="spitter"?"SPITTER PACK":mode.toUpperCase(),
+        content:$("code").textContent
+      },
+      commerce:(()=>{
+        const parts=parseIngredients($("flavor").value);
+        const partner=selectCoffeeAffiliate(parts);
+        return partner ? {
+          type:"affiliate",
+          partner:partner.brand,
+          affiliateUrl:partner.affiliateUrl,
+          disclosure:"Bean Artistic may earn a commission if you purchase through this link, at no additional cost to you."
+        } : null;
+      })()
+    };
+  }
+  function esc(v){return String(v).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+  function codeFor(m,p){
+    const c=p.creative;
+    if(m==="text") return [c.title,c.tagline,c.description].join("\n");
+    if(m==="json") return JSON.stringify(p,null,2);
+    if(m==="jsx") return `export default function JavaJivePun(){\n  return (\n    <article className="java-jive-pun">\n      <h1>${esc(c.title)}</h1>\n      <p className="tagline">${esc(c.tagline)}</p>\n      <p>${esc(c.description)}</p>\n    </article>\n  );\n}`;
+    if(m==="css") return `.java-jive-pun{--fluid-blue:#0174F3;text-align:center;font-family:system-ui,sans-serif}\n.java-jive-pun h1{color:var(--fluid-blue);font-weight:900}\n.java-jive-pun .tagline{font-weight:700}`;
+    if(m==="js") return `const javaJiveItem=${JSON.stringify(c,null,2)};\ndocument.querySelector("[data-java-jive-title]").textContent=javaJiveItem.title;`;
+    if(m==="svg") return `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200">\n  <rect width="1200" height="1200" fill="#FFF8EB"/>\n  <text x="600" y="560" text-anchor="middle" font-size="82" font-weight="900" fill="#0174F3">${esc(c.title)}</text>\n</svg>`;
+    if(m==="markdown") return `# ${c.title}\n\n**${c.tagline}**\n\n${c.description}\n\nIngredients: ${c.ingredients.join(", ")}`;
+    if(m==="csv") return `"title","tagline","description","ingredients"\n"${c.title.replace(/"/g,'""')}","${c.tagline.replace(/"/g,'""')}","${c.description.replace(/"/g,'""')}","${c.ingredients.join(" + ").replace(/"/g,'""')}"`;
+    if(m==="spitter") return JSON.stringify({protocol:"JFS-SPITTER-PACK/1.0",stardate:p.stardate,ready_item:{verbage:{title:c.title,tagline:c.tagline,description:c.description},ingredients:c.ingredients,layout:{preserve_line_breaks:true,editable:true}},commerce:null},null,2);
+    return `<div class="java-jive-pun">\n  <h1>${esc(c.title)}</h1>\n  <p class="tagline">${esc(c.tagline)}</p>\n  <p class="description">${esc(c.description)}</p>\n</div>`;
+  }
+  function renderCode(){
+    const p=packet();
+    $("code").textContent=codeFor(mode,p);
+    $("modeLabel").textContent=mode==="spitter"?"SPITTER PACK":mode.toUpperCase();
+    $("stardate").textContent="STARDATE "+p.stardate;
+  }
+
+  const comboOpeners=[
+    "Grounds for Celebration",
+    "Brewed Awakening",
+    "Cup to Something",
+    "Roast Together Now",
+    "Blend It Like You Mean It",
+    "Mixed Grounds Department",
+    "Full Cup Collision",
+    "Flavor Traffic Jam",
+    "Caffeine Conspiracy",
+    "Bean There, Mixed That"
+  ];
+  const comboTags=[
+    "One cup. Several bad influences.",
+    "Too many flavors? Exactly enough.",
+    "A little chaos in every sip.",
+    "This mix did not ask permission.",
+    "Multiple suspects. One mug.",
+    "The roast got crowded.",
+    "Proof that coffee can multitask.",
+    "A committee meeting worth attending."
+  ];
+
+  function titleCase(v){
+    return v.replace(/\b\w/g,m=>m.toUpperCase());
+  }
+
+  function parseIngredients(value){
+    return String(value||"")
+      .toLowerCase()
+      .split(/\s*(?:\+|,|&|\band\b)\s*/)
+      .map(x=>x.trim())
+      .filter(Boolean);
+  }
+
+  function comboResult(parts){
+    const known=parts.map(p=>{
+      const k=Object.keys(library).find(x=>p.includes(x));
+      return k ? library[k][0] : titleCase(p);
+    });
+    const opener=comboOpeners[Math.floor(Math.random()*comboOpeners.length)];
+    const tag=comboTags[Math.floor(Math.random()*comboTags.length)];
+    const short=known.length===2 ? `${known[0]} × ${known[1]}` : known.slice(0,-1).join(" + ")+" + "+known[known.length-1];
+    return {
+      title:`${opener}: ${short}`,
+      tagline:tag,
+      description:`A ${parts.length}-ingredient surprise brew featuring ${parts.join(", ")}. Java Jive mixed the whole recipe instead of picking a single flavor.`
+    };
+  }
+
+  function brew(){
+    const raw=$("flavor").value.trim().toLowerCase()||"java";
+    const parts=parseIngredients(raw);
+    const key=parts.length===1 ? Object.keys(library).find(k=>parts[0].includes(k)) : null;
+    $("brewer").classList.add("brewing");$("brewStatus").textContent="GRINDING THE WORD BEANS…";
+    setTimeout(()=>$("brewStatus").textContent=parts.length>1?"MIXING THE FLAVOR COLLISION…":"PULLING A PUN SHOT…",250);
+    setTimeout(()=>{
+      if(parts.length>1){
+        const mix=comboResult(parts);
+        $("title").textContent=mix.title;$("tagline").textContent=mix.tagline;$("description").textContent=mix.description;
+      }else if(key){
+        const x=library[key];
+        $("title").textContent=x[0];$("tagline").textContent=x[1];$("description").textContent=x[2];
+      }else{
+        const pretty=$("flavor").value.trim()||"Custom Brew";
+        $("title").textContent=titleCase(pretty)+" Jive";
+        $("tagline").textContent="Fresh grounds for a new idea.";
+        $("description").textContent="Custom input received. Java Jive is treating this as an original flavor prompt.";
+      }
+      $("brewStatus").textContent="JIVE COMPLETE.";
+      $("brewer").classList.remove("brewing");
+      renderBearBrain(parts);
+      renderCoffeeAffiliate(parts);
+      renderCode();
+    },600);
+  }
+
+  let comboMode=false;
+  $("comboToggle").addEventListener("click",()=>{
+    comboMode=!comboMode;
+    $("comboToggle").setAttribute("aria-pressed",String(comboMode));
+    $("comboToggle").textContent=comboMode?"COMBO: ON":"COMBO: OFF";
+    $("comboToggle").classList.toggle("active",comboMode);
+    $("flavor").focus();
+  });
+
+  $("ingredientList").addEventListener("click",e=>{
+    const b=e.target.closest("[data-flavor]");
+    if(!b)return;
+    const flavor=b.dataset.flavor;
+    if(comboMode){
+      const current=parseIngredients($("flavor").value);
+      if(!current.includes(flavor)) current.push(flavor);
+      $("flavor").value=current.join(" + ");
+    }else{
+      $("flavor").value=flavor;
+    }
+    $("flavor").focus();
+  });
+  $("brew").onclick=brew;
+  $("surprise").onclick=()=>{
+    comboMode=true;$("comboToggle").setAttribute("aria-pressed","true");$("comboToggle").textContent="COMBO: ON";$("comboToggle").classList.add("active");
+    const keys=Object.keys(library);
+    const count=2+Math.floor(Math.random()*3);
+    const pool=[...keys];
+    const picks=[];
+    while(picks.length<count && pool.length){
+      const i=Math.floor(Math.random()*pool.length);
+      picks.push(pool.splice(i,1)[0]);
+    }
+    $("flavor").value=picks.join(" + ");
+    $("brewStatus").textContent=`SURPRISE MIX: ${count} INGREDIENTS…`;
+    brew();
+  };
+  $("flavor").addEventListener("keydown",e=>{if(e.key==="Enter")brew()});
+  $("codebar").addEventListener("click",e=>{
+    const b=e.target.closest("[data-mode]"); if(!b)return;
+    mode=b.dataset.mode; document.querySelectorAll("[data-mode]").forEach(x=>x.classList.toggle("active",x===b)); renderCode();
+  });
+  $("copyCode").onclick=async()=>{try{await navigator.clipboard.writeText($("code").textContent);$("copyCode").textContent="COPIED ✓";setTimeout(()=>$("copyCode").textContent="COPY CODE",900)}catch(e){}};
+  $("downloadCode").onclick=()=>{const ex={html:"html",text:"txt",json:"json",jsx:"jsx",css:"css",js:"js",svg:"svg",markdown:"md",csv:"csv",spitter:"json"};const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([$("code").textContent],{type:"text/plain"}));a.download=`java-jive-${mode}.${ex[mode]||"txt"}`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)};
+  let incomingPacket=null;
+  let placement="code";
+  let swapped=false;
+
+  function clearShirt(side){
+    const shirt=side.querySelector(".shirt");
+    shirt.classList.remove("show-code","show-words");
+    side.querySelector(".words-print").textContent="";
+    side.querySelector(".shirt-code").textContent="";
+  }
+
+  function putWords(side,c){
+    clearShirt(side);
+    side.querySelector(".shirt").classList.add("show-words");
+    side.querySelector(".words-print").textContent=c.title;
+  }
+
+  function putCode(side,p){
+    clearShirt(side);
+    side.querySelector(".shirt").classList.add("show-code");
+    side.querySelector(".shirt-code").textContent=p.code.content;
+  }
+
+  function renderPlacement(){
+    if(!incomingPacket) return;
+    const p=incomingPacket, c=p.creative;
+    const front=$("frontSide"), back=$("backSide"), grid=$("mockupGrid");
+    document.querySelectorAll("[data-place]").forEach(b=>b.classList.toggle("active",b.dataset.place===placement));
+
+    clearShirt(front); clearShirt(back);
+
+    if(placement==="code"){
+      grid.classList.add("single");
+      putCode(front,p);
+      $("mockupNote").textContent=`CODE ONLY • ${p.code.label} • regular wording intentionally left off the shirt.`;
+    }else if(placement==="words"){
+      grid.classList.add("single");
+      putWords(front,c);
+      $("mockupNote").textContent="WORDS ONLY • code intentionally left off the shirt.";
+    }else{
+      grid.classList.remove("single");
+      if(!swapped){
+        putWords(front,c); putCode(back,p);
+        $("mockupNote").textContent=`FRONT: WORDS • BACK: ${p.code.label}`;
+      }else{
+        putCode(front,p); putWords(back,c);
+        $("mockupNote").textContent=`FRONT: ${p.code.label} • BACK: WORDS`;
+      }
+    }
+  }
+
+  $("placementControls").addEventListener("click",e=>{
+    const b=e.target.closest("[data-place]");
+    if(!b) return;
+    placement=b.dataset.place;
+    renderPlacement();
+  });
+
+  $("swapSides").onclick=()=>{
+    if(placement!=="frontback") placement="frontback";
+    swapped=!swapped;
+    renderPlacement();
+  };
+
+  $("teleport").onclick=()=>{
+    const p=packet();
+    $("teleportStatus").textContent="DEMATERIALIZING READY ITEM…";
+    setTimeout(()=>$("teleportStatus").textContent="TRANSPORTING VIA JFS…",250);
+    setTimeout(()=>{
+      incomingPacket=p;
+      placement=p.code.mode==="text" ? "words" : "code";
+      swapped=false;
+      const c=p.creative;
+      $("spitDate").textContent="STARDATE "+p.stardate;
+      $("spitTitle").textContent=c.title;
+      $("spitTag").textContent=`Incoming design mode: ${p.code.label}`;
+      $("spitDesc").textContent=c.description;
+      $("spitIngredients").textContent=c.ingredients.join(" + ")||"Custom brew";
+      $("spitStatus").textContent="⚡ MATERIALIZED • READY TO PLACE";
+      $("spitter").style.display="block";
+      $("teleportStatus").textContent="MATERIALIZED FOR SPITTER.";
+      renderPlacement();
+    },650);
+  };
+
+  $("back").onclick=()=>$("spitter").style.display="none";
+  $("spitIt").onclick=()=>{
+    $("spitStatus").textContent=`👕💨 SPIT COMPLETE • ${placement.toUpperCase()} MOCKUP READY`;
+    $("spitIt").textContent="SPIT AGAIN 👕💨";
+  };
+
+  // Maker workspace: keep every export/code option, but reveal it only when requested.
+  const makerDoor=$("makerDoor");
+  const makerWorkspace=$("makerWorkspace");
+  if(makerDoor && makerWorkspace){
+    makerDoor.addEventListener("click",()=>{
+      const opening=makerWorkspace.hidden;
+      makerWorkspace.hidden=!opening;
+      makerDoor.setAttribute("aria-expanded",String(opening));
+      if(opening) makerWorkspace.scrollIntoView({behavior:"smooth",block:"nearest"});
+    });
+  }
+
+  // BeArista™ v1 — polite, local-only Java Jive concierge.
+  // Learns only from Java Jive interactions stored in this browser.
+  const bearistaKey="javaJive.bearista.v1";
+
+  function bearistaLoad(){
+    try{
+      return JSON.parse(localStorage.getItem(bearistaKey)) || {};
+    }catch(e){ return {}; }
+  }
+  function bearistaSave(state){
+    try{ localStorage.setItem(bearistaKey,JSON.stringify(state)); }catch(e){}
+  }
+  function bearistaDaypart(hour){
+    if(hour<12) return "morning";
+    if(hour<17) return "afternoon";
+    if(hour<22) return "evening";
+    return "late";
+  }
+  function bearistaSeason(month){
+    if([11,0,1].includes(month)) return "winter";
+    if([2,3,4].includes(month)) return "spring";
+    if([5,6,7].includes(month)) return "summer";
+    return "fall";
+  }
+  const bearistaLines={
+    morning:[
+      "Good morning! Ready to espresso yourself?",
+      "Good morning! What flavor is brewing in your imagination?"
+    ],
+    afternoon:[
+      "Good afternoon! You've bean busy. Fancy a quick Java Jive?",
+      "Good afternoon! A little flavor break?"
+    ],
+    evening:[
+      "Good evening! It's getting latte. Want a gentle Java Jive?",
+      "Good evening! BeAr Brain has room for one more flavor idea."
+    ],
+    late:[
+      "Still up? I'll keep it quiet. Want a cozy little Java Jive?",
+      "Late-night grounds department checking in. One gentle Jive?"
+    ]
+  };
+  const seasonalHints={
+    winter:"Chocolate, peppermint, vanilla, and caramel are hanging around the counter.",
+    spring:"Something bright might fit the season. Blueberry or vanilla?",
+    summer:"Feeling lighter? Blueberry, coconut, or an iced-coffee kind of Jive?",
+    fall:"Cinnamon, maple, caramel, and pecan are back in the conversation."
+  };
+
+  function bearistaPickFresh(lines,state){
+    const recent=state.recentLines||[];
+    const choices=lines.filter(x=>!recent.includes(x));
+    const pool=choices.length?choices:lines;
+    const chosen=pool[Math.floor(Math.random()*pool.length)];
+    state.recentLines=[...recent,chosen].slice(-4);
+    return chosen;
+  }
+
+  function bearistaEligible(state){
+    const now=Date.now();
+    if(state.sessionDismissed) return false;
+    if(state.snoozeUntil && now<state.snoozeUntil) return false;
+    if(state.lastShown && now-state.lastShown < 1000*60*60*6) return false; // max once per 6h
+    return true;
+  }
+
+  function bearistaShow(){
+    const state=bearistaLoad();
+    if(!bearistaEligible(state)) return;
+    const now=new Date();
+    const part=bearistaDaypart(now.getHours());
+    const season=bearistaSeason(now.getMonth());
+    const line=bearistaPickFresh(bearistaLines[part],state);
+    const name=state.name ? `, ${state.name}` : "";
+    let message=line.replace(/^(Good (?:morning|afternoon|evening))!/,`$1${name}!`);
+    // Seasonal hint is occasional, not every appearance.
+    if((state.shownCount||0)%2===1) message += " " + seasonalHints[season];
+    $("bearistaMessage").textContent=message;
+    $("bearista").classList.add("show");
+    state.lastShown=Date.now();
+    state.shownCount=(state.shownCount||0)+1;
+    bearistaSave(state);
+  }
+
+  function bearistaHide(mode){
+    $("bearista").classList.remove("show");
+    const state=bearistaLoad();
+    if(mode==="later") state.snoozeUntil=Date.now()+1000*60*60*24;
+    if(mode==="close") state.sessionDismissed=true;
+    bearistaSave(state);
+  }
+
+  $("bearistaClose").addEventListener("click",()=>bearistaHide("close"));
+  $("bearistaLater").addEventListener("click",()=>bearistaHide("later"));
+  $("bearistaJive").addEventListener("click",()=>{
+    bearistaHide("engaged");
+    $("flavor").focus();
+    $("flavor").scrollIntoView({behavior:"smooth",block:"center"});
+  });
+
+  // Friendly delay: never greet immediately on arrival.
+  setTimeout(bearistaShow,45000);
+
+  renderBearBrain(["caramel"]);
+  renderCoffeeAffiliate(["caramel"]);
+  renderCode();
 })();
 </script>
+
+<div class="bearista" id="bearista" role="status" aria-live="polite" aria-label="BeArista coffee suggestion">
+  <div class="bearista-top">
+    <div class="bearista-name">BeArista™ ☕</div>
+    <button class="bearista-close" id="bearistaClose" type="button" aria-label="Dismiss BeArista">×</button>
+  </div>
+  <div class="bearista-message" id="bearistaMessage"></div>
+  <div class="bearista-actions">
+    <button class="bearista-primary" id="bearistaJive" type="button">JIVE WITH ME</button>
+    <button class="bearista-later" id="bearistaLater" type="button">MAYBE LATER</button>
+  </div>
+</div>
 </body>
 </html>
