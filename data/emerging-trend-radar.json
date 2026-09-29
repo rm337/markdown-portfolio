@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-28",
+  "updated": "2026-09-29",
   "entries": [
     {
       "date": "2026-09-16",
@@ -254,6 +254,33 @@
         "2026-09-24",
         "2026-09-24",
         "2026-09-25"
+      ]
+    },
+    {
+      "date": "2026-09-29",
+      "status": "emerging",
+      "signal": "AI is acquiring character bodies as an interface layer",
+      "what_is_changing": "AI assistants are beginning to move beyond neutral chat boxes, abstract logos and disembodied voices into persistent characters with visible bodies, personalities and physical presence. Meta's Muse Charm gives its agent a customizable animated mascot on a pocket device; Youmio is building expressive 3D characters as the interface through which people call other AI tools; AIPI lets creators attach agent personalities to physical objects; and experimental systems such as MIT's Stochastic Parrot deliberately use a non-human creature form to change how people interpret an AI's behavior. The weak signal is not simply 'AI companions.' Character design itself is becoming part of the interaction architecture.",
+      "why_it_matters": "A character can communicate state, intent, personality and boundaries in ways a generic assistant window cannot. It can also change how users interpret interruption, disagreement, waiting and autonomous action. As agents become more capable and persistent, interface design may increasingly include casting: deciding what kind of entity the intelligence appears to be, how it moves between screens and objects, and which behaviors feel coherent for that character. Cute mascots and virtual pets are established motifs; the emerging layer is using character embodiment as a functional control surface for general-purpose AI.",
+      "creative_opportunity": "Develop a 'character contract' for embodied AI: define how an agent's appearance, motion, voice, permissions, temperament and visible working states map to what it can actually do. Let one recognizable character travel across software, wearables and physical objects while preserving behavioral rules and provenance. The creative opportunity is to make personality informative rather than decorative, so users can read an agent's capabilities and boundaries from how the character behaves.",
+      "classification": {
+        "emerging": true,
+        "established": false,
+        "saturated": false,
+        "fading": false,
+        "resurfacing": false
+      },
+      "signals": [
+        "Meta's September Muse rollout pairs a general-purpose agent with the customizable Jolly mascot and the Tamagotchi-like Muse Charm, making character and physical form part of the agent interface.",
+        "Youmio describes expressive 3D 'Mios' as a new interface species that routes multiple apps and AI tools through one persistent character and explicitly uses Tamagotchi-style relationship mechanics.",
+        "MIT's 2026 Stochastic Parrot prototype reports that a non-human animal form changed how users interpreted blunt feedback, teasing and refusal, suggesting embodiment can alter functional interaction rather than merely decorate it.",
+        "AIPI and new plush AI companions are moving agent personalities onto physical objects, extending the same character layer beyond phones and desktop chat."
+      ],
+      "source_dates": [
+        "2026-09-24",
+        "2026-09-26",
+        "2026-09-29",
+        "2026-09-03"
       ]
     }
   ]
