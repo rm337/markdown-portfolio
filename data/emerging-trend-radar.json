@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-29",
+  "updated": "2026-09-30",
   "entries": [
     {
       "date": "2026-09-16",
@@ -281,6 +281,33 @@
         "2026-09-26",
         "2026-09-29",
         "2026-09-03"
+      ]
+    },
+    {
+      "date": "2026-09-30",
+      "status": "emerging",
+      "signal": "The purchase is becoming a brief for the next service",
+      "what_is_changing": "Retail media is beginning to move beyond advertising products that sit near a purchase and toward interpreting the purchase itself as a signal for the customer's next task. Amazon's new Sponsored Services can turn a faucet purchase into a plumber quote, for example, using AI-driven intent detection and an in-ad conversational flow that can qualify the need and complete actions without sending the shopper elsewhere. The weak signal is not local-services advertising, which is established, but commerce surfaces inferring the unfinished job created by a transaction and immediately assembling the next step.",
+      "why_it_matters": "A product purchase often creates a second need: installation, assembly, repair, customization, instruction, transport or care. If commerce platforms begin treating that downstream need as structured intent, advertising can shift from interrupting attention toward completing a task. This also creates a new creative surface after checkout, where the most useful message may be a service, collaborator or experience that makes the thing just bought actually work in the customer's life.",
+      "creative_opportunity": "Design 'after-the-object' experiences: brand systems that map what a product makes newly possible or newly necessary, then offer a small, contextual next-step layer around it. Instead of generic cross-sells, a creative system could compose a useful continuation such as setup help, a local specialist, a tutorial, a complementary creator, a customization path or a community. The opportunity is to make post-purchase media feel like continuity of intent rather than another ad slot.",
+      "classification": {
+        "emerging": true,
+        "established": false,
+        "saturated": false,
+        "fading": false,
+        "resurfacing": false
+      },
+      "signals": [
+        "Amazon Ads launched Sponsored Services on September 29, placing local-service offers on product detail, order-confirmation and package-tracking surfaces when a purchase implies a follow-on need.",
+        "The format uses AI-driven intent detection plus conversational qualification and outcome-based actions such as calls and quote requests, moving the ad unit closer to task completion.",
+        "Amazon is pairing its retail-intent data with Yelp's local-business graph, connecting a product marketplace to a service marketplace at the moment a downstream need is created.",
+        "Retail media is simultaneously expanding beyond ecommerce pages into physical-store audio, screens and other point-of-purchase surfaces, suggesting that commerce context itself is becoming portable advertising infrastructure."
+      ],
+      "source_dates": [
+        "2026-09-29",
+        "2026-09-29",
+        "2026-05-05",
+        "2026-08-26"
       ]
     }
   ]
