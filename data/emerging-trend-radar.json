@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-30",
+  "updated": "2026-10-02",
   "entries": [
     {
       "date": "2026-09-16",
@@ -308,6 +308,31 @@
         "2026-09-29",
         "2026-05-05",
         "2026-08-26"
+      ]
+    },
+    {
+      "date": "2026-10-02",
+      "status": "emerging",
+      "signal": "The algorithm is becoming the creator's creative director",
+      "what_is_changing": "Platforms are beginning to translate their private performance data and ranking knowledge into conversational creative advice. Instagram's new Edits assistant can explain why one video outperformed another and recommend hooks, captions, audio, scripts and topics from a creator's own retention, views, likes and shares; YouTube has been building a similar AI guidance layer into its creator dashboard, while Facebook has tested an AI Creator Assistant around performance and audience response. Analytics are shifting from a rear-view dashboard into an active participant in what gets made next.",
+      "why_it_matters": "Creator optimization is established, as are third-party analytics and AI idea generators. The emerging layer is that the platform controlling distribution can now also coach the creative decisions intended to satisfy that distribution system. That collapses a previously important distance between artist, audience data and algorithm, potentially making platform feedback unusually useful while also increasing the risk that creators converge on the same hooks, formats and rhythms.",
+      "creative_opportunity": "Build an 'algorithm counterpoint' rather than another optimization coach: a creative layer that listens to platform advice but deliberately protects a creator's recognizable voice, tracks which recommendations were accepted or rejected, and proposes controlled experiments that can outperform without flattening identity. Treat optimization as one opinion in the room, not the director, and make divergence from platform convention a measurable creative variable.",
+      "classification": {
+        "emerging": true,
+        "established": false,
+        "saturated": false,
+        "fading": false,
+        "resurfacing": false
+      },
+      "signals": [
+        "Instagram rolled its Edits AI creative assistant to U.S. users on September 30, using account performance data to answer why content worked and suggest hooks, captions, audio, scripts and future ideas.",
+        "YouTube is expanding an AI-powered creator dashboard that combines performance guidance with optimization and testing capabilities, creating a parallel platform-native coaching model.",
+        "Facebook's revived Creator Studio has tested an AI Creator Assistant that interprets performance, recommends engagement actions and surfaces audience response, suggesting the pattern is spreading across creator surfaces rather than remaining a single-product feature."
+      ],
+      "source_dates": [
+        "2026-09-30",
+        "2026-09-30",
+        "2026-06-04"
       ]
     }
   ]
