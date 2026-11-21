@@ -115,7 +115,7 @@ function isInquirable(item) {
 function createInquiryLink(item) {
   const subject = encodeURIComponent(`Inkspirations Studios inquiry: ${item.title}`);
   const body = encodeURIComponent(`Hello Robert,\n\nI would like to ask about “${item.title}.”\n\nPlease send me more information about availability, pricing, or commissioning related work.\n\nThank you.`);
-  return `mailto:r.marleton@gmail.com?subject=${subject}&body=${body}`;
+  return "https://form.jotform.com/262514078519057";
 }
 
 const artworkPageSlugs = new Set(["between-waves","blue-current-curved-wood-study","blue-field","blue-wave-wood-panel","burned-motion-razorback","electric-love-blue-variation","electric-love","lest-we-forget","love-study-title-pending","rainline-study","release","say-no-to-provoke-and-blame","small-town-teacher","submersion","sunflower-mandala","u-r-priceless","washed-out","we-are-not-descended-from-fearful-men"]);

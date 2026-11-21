@@ -134,7 +134,7 @@
           <div class="actions">
             <button class="btn primary" type="submit">Prepare Request Email</button>
             <a class="btn" href="shop.html">Shop Prints & Products</a>
-            <a class="btn" href="mailto:r.marleton@gmail.com?subject=Inkspirations%20Studios%20Order%20Question">Ask a Question</a>
+            <a class="btn" href="https://form.jotform.com/263066671685063" target="_blank" rel="noopener noreferrer">Ask a Question</a>
           </div>
           <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
         </form>
@@ -196,8 +196,9 @@
           '',
           'I understand that the scope, schedule, and price will be confirmed in writing before custom work begins.'
         ].join('\n');
-        document.getElementById('formStatus').textContent = 'Your email app is opening with the request details prepared.';
-        location.href = `mailto:r.marleton@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        const target = /commission/i.test(value('product')) ? 'https://form.jotform.com/262514078519057' : 'https://form.jotform.com/263066671685063';
+        document.getElementById('formStatus').textContent = 'The secure request form is opening in a new tab. Please paste or retype your details there.';
+        window.open(target, '_blank', 'noopener');
       });
     })();
   </script>

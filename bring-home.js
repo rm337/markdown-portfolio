@@ -225,7 +225,7 @@
   function physicalInquiryHref(item) {
     const subject = `Inquiry about ${item.title}`;
     const body = `Hi Robert, I'm interested in ${item.title}. Is this piece available as an original, decorative tile, print, or custom physical item?`;
-    return `mailto:r.marleton@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    return "https://form.jotform.com/262514078519057";
   }
 
   function optionMarkup(product) {
@@ -338,7 +338,7 @@
 (function(){
   "use strict";
 
-  const contactEmail = "r.marleton@gmail.com";
+  const inquiryFormUrl = "https://form.jotform.com/262514078519057";
   const printPartnerUrl = "";
 
   const pathDefaults = {
@@ -432,7 +432,7 @@
   }
 
   function mailto(subject, body){
-    return `mailto:${contactEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    return inquiryFormUrl;
   }
 
   function normalizePath(path){

@@ -1,5 +1,5 @@
 (() => {
-  const email = "r.marleton@gmail.com";
+  const requestFormUrl = "https://form.jotform.com/263066671685063";
   const relayKey = "inkspirationsLeadRelayUrl";
   const outboxKey = "inkspirationsLeadOutbox";
   const configuredRelay = window.INKSPIRATIONS_LEAD_RELAY_URL || localStorage.getItem(relayKey) || "";
@@ -60,7 +60,7 @@
       "",
       lead.message || ""
     ].join("\n"));
-    return `mailto:${email}?subject=${subject}&body=${body}`;
+    return requestFormUrl;
   }
 
   async function postLead(lead){

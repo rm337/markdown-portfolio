@@ -144,7 +144,7 @@ function workText(work) {
 function askHref(work) {
   const subject = `Inquiry about ${work.title}`;
   const body = `Hi Robert, I am interested in ${work.title}. Please share the available print, original, or custom presentation options.`;
-  return `mailto:r.marleton@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  return "https://form.jotform.com/262514078519057";
 }
 
 function primaryAction(work) {

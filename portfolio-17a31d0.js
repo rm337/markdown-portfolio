@@ -286,7 +286,7 @@ function printHref(work) {
 function askHref(work) {
   const subject = `Inquiry about ${work.title}`;
   const body = `Hi Robert, I am interested in ${work.title}. Is this piece available as an original, decorative tile, print, or custom physical item?`;
-  return `mailto:r.marleton@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  return "https://form.jotform.com/262514078519057";
 }
 
 window.InkspirationsBringHomeData = Object.assign(window.InkspirationsBringHomeData || {}, {

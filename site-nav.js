@@ -4,7 +4,8 @@
   const originalScrollTo = window.scrollTo.bind(window);
   const ROBERT_PIXELS_PROFILE = "https://pixels.com/profiles/robert-marleton";
   const CONTACT_PAGE = "index.html#contact";
-  const CONTACT_ENDPOINT = "https://formsubmit.co/ajax/r.marleton@gmail.com";
+  const REQUEST_SERVICES_URL = "https://form.jotform.com/263066671685063";
+  const ORDER_ARTWORK_URL = "https://form.jotform.com/262514078519057";
 
   const isMarketplaceUrl = (value) => {
     if (!value) return false;
@@ -27,10 +28,10 @@
   };
 
   const routePersonalEmailLinksToStudio = (root = document) => {
-    root.querySelectorAll?.('a[href^="mailto:r.marleton@gmail.com"], a[href^="mailto:R.Marleton@gmail.com"]').forEach((link) => {
-      link.href = CONTACT_PAGE;
-      link.removeAttribute("target");
-      link.removeAttribute("rel");
+    root.querySelectorAll?.('a[href^="mailto:"]').forEach((link) => {
+      link.href = REQUEST_SERVICES_URL;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
       const label = link.textContent?.trim().toLowerCase() || "";
       if (label.includes("email") || label.includes("contact") || label.includes("ask about") || label.includes("inquiry")) {
         link.textContent = label.includes("ask about") ? "Ask About This Piece" : "Contact Robert";
@@ -56,6 +57,8 @@
       .studio-contact-form button{justify-self:start;border:1px solid #f4f0e8;background:#f4f0e8;color:#05131d;min-height:48px;padding:.8rem 1.15rem;font:800 .77rem/1 Inter,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
       .studio-contact-form button[disabled]{opacity:.58;cursor:wait}
       .studio-contact-status{grid-column:1/-1;min-height:1.5em;margin:0!important;color:rgba(244,240,232,.72)!important;font-size:.9rem!important}
+      .studio-contact-link{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:.8rem 1.15rem;background:#0174F3;color:#fff!important;border:1px solid #0174F3;font:800 .77rem/1 Inter,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;text-decoration:none}
+      .studio-contact-link.secondary{background:transparent;color:#f4f0e8!important;border-color:rgba(244,240,232,.5)}
       .studio-contact-honey{position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important;overflow:hidden!important}
       @media(max-width:700px){.studio-contact-form{grid-template-columns:1fr}.studio-contact-form .contact-wide{grid-column:1}}
     `;
@@ -64,58 +67,14 @@
     const oldActions = contact.querySelector(".contact-actions");
     if (oldActions) oldActions.remove();
 
-    const form = document.createElement("form");
+    const form = document.createElement("div");
     form.className = "studio-contact-form";
-    form.setAttribute("aria-label", "Contact Robert Marleton");
+    form.setAttribute("aria-label", "Contact Inkspirations Studios");
     form.innerHTML = `
-      <label>Name<input name="name" autocomplete="name" required></label>
-      <label>Email<input name="email" type="email" autocomplete="email" required></label>
-      <label class="contact-wide">What would you like to talk about?
-        <select name="topic" required>
-          <option value="" selected disabled>Choose one</option>
-          <option>Artwork</option>
-          <option>Creative Direction</option>
-          <option>Design Project</option>
-          <option>Collaboration</option>
-          <option>Professional Opportunity</option>
-          <option>General Conversation</option>
-        </select>
-      </label>
-      <label class="contact-wide">Message<textarea name="message" required placeholder="Tell Robert what brought you here."></textarea></label>
-      <label class="studio-contact-honey" aria-hidden="true">Leave this blank<input name="_honey" tabindex="-1" autocomplete="off"></label>
-      <input type="hidden" name="_subject" value="New Inkspirations Studios message">
-      <input type="hidden" name="_template" value="table">
-      <input type="hidden" name="_url" value="https://rm337.github.io/markdown-portfolio/#contact">
-      <button type="submit">Send Message</button>
-      <p class="studio-contact-status" role="status" aria-live="polite"></p>
+      <p class="contact-wide studio-contact-status">Requests go through secure forms. Robert replies with a personalized quote; no personal email needed.</p>
+      <a class="contact-wide studio-contact-link" href="${REQUEST_SERVICES_URL}" target="_blank" rel="noopener noreferrer">Request My Services</a>
+      <a class="contact-wide studio-contact-link secondary" href="${ORDER_ARTWORK_URL}" target="_blank" rel="noopener noreferrer">Order Artwork or a Commission</a>
     `;
-
-    form.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      const button = form.querySelector('button[type="submit"]');
-      const status = form.querySelector(".studio-contact-status");
-      button.disabled = true;
-      button.textContent = "Sending…";
-      status.textContent = "";
-
-      try {
-        const response = await fetch(CONTACT_ENDPOINT, {
-          method: "POST",
-          body: new FormData(form),
-          headers: { Accept: "application/json" }
-        });
-        if (!response.ok) throw new Error(`Contact form returned ${response.status}`);
-        form.reset();
-        status.textContent = "Thank you. Your message has been sent to Inkspirations Studios.";
-      } catch (error) {
-        console.error("Inkspirations contact form failed.", error);
-        status.textContent = "The message could not be sent right now. Please try again in a moment.";
-      } finally {
-        button.disabled = false;
-        button.textContent = "Send Message";
-      }
-    });
-
     contact.appendChild(form);
   };
 
@@ -126,10 +85,10 @@
 
     const modalAction = document.getElementById("modalPrimaryAction");
     if (modalAction && isMarketplaceUrl(modalAction.getAttribute("href"))) {
-      modalAction.href = CONTACT_PAGE;
+      modalAction.href = ORDER_ARTWORK_URL;
+      modalAction.target = "_blank";
       modalAction.textContent = "Ask About This Piece";
-      modalAction.removeAttribute("target");
-      modalAction.removeAttribute("rel");
+      modalAction.rel = "noopener noreferrer";
     }
   };
 
