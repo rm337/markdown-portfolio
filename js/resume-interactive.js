@@ -6,7 +6,7 @@ const resumePanels = {
   profile: {
     heading: 'Professional Profile',
     content: `<p>Creative technologist, digital content manager, and AI workflow builder who builds polished online experiences, organizes large digital collections, and creates structured documentation. Skilled at following complex written guidelines and developing reliable AI-enhanced workflows.</p>
-      <p><strong>Contact</strong> — Batesville, Arkansas · <a href="https://form.jotform.com/263066671685063" target="_blank" rel="noopener noreferrer">Contact form</a> · (870) 713-2296</p>`
+      <p><strong>Contact</strong> — Batesville, Arkansas · <a href="https://form.jotform.com/263066671685063" target="_blank" rel="noopener noreferrer">Contact form</a></p>`
   },
   competencies: {
     heading: 'Core Competencies',
