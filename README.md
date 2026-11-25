@@ -61,7 +61,7 @@ Export Lightroom selections as web JPEGs, place them in `assets/images/artwork/`
 
 Paid downloads, private agents, working copies, brush files, source packs, and archives should stay outside this public repo. They are kept locally in:
 
-`C:\Users\rmarl\OneDrive\Documents\GitHub\Inkspirations-private`
+a separate private folder outside this repository (not published here).
 
 Do not publish `.brushset`, source files, private dashboards, or downloadable paid products in this GitHub Pages repo.
 
