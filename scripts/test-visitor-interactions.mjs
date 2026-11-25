@@ -103,7 +103,7 @@ if (fs.existsSync(flightDeckPath)) {
 const portfolioSource = fs.readFileSync(path.join(root, "portfolio.js"), "utf8");
 assert.match(portfolioSource, /Shop Prints & Products/);
 assert.match(portfolioSource, /pixels\.com\/profiles\/robert-marleton/);
-assert.match(portfolioSource, /mailto:r\.marleton@gmail\.com/);
+assert.doesNotMatch(portfolioSource, /mailto:[^"'\s]*@gmail\.com/i, "Personal Gmail must not appear on the public site; use the secure contact form");
 assert.doesNotMatch(fs.readFileSync(path.join(root, "portfolio.html"), "utf8"), /protectMailLinks/);
 
 const lightboxCss = fs.readFileSync(path.join(root, "immersive-lightbox.css"), "utf8");

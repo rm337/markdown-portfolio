@@ -16,3 +16,80 @@ Thumbs.db
 desktop.ini
 *.tmp
 *.bak
+
+# ------------------------------------------------------------------
+# PRIVATE DATA - never publish (this repo is public / GitHub Pages)
+# ------------------------------------------------------------------
+
+# Complete Photo Index outputs (PhotoIndex.ps1) - full local paths of every photo
+PHOTO_INDEX_OUTPUT/
+**/PHOTO_INDEX_OUTPUT/
+**/RUN_[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]_[0-9][0-9][0-9][0-9][0-9][0-9]/
+LATEST_RUN.txt
+PHOTO_GALLERY.html
+SCAN_STATUS.log
+
+# Private contact sheets, review batches, owner-check sheets and previews (photo_review.py)
+Inkspirations_Photo_Review_PRIVATE/
+PHOTO_REVIEW_OUTPUT/
+Photo_Batch_P*
+PRIVATE_Owner_Check_*
+*_PRIVATE.*
+*_previews/
+decisions.json
+
+# Local source paths, indexes and manifests
+*.csv
+*.tsv
+*MANIFEST*
+*manifest*.csv
+probe_errors.*
+
+# Personal photographs and camera/Lightroom originals (public art lives in assets/images/ only)
+PH0T0S/
+Camera Uploads/
+Camera Roll/
+Lightroom Saved Photos/
+*.[nN][eE][fF]
+*.[dD][nN][gG]
+*.[cC][rR][23]
+*.[aA][rR][wW]
+*.[rR][aA][wW]
+*.[hH][eE][iI][cC]
+*.[hH][eE][iI][fF]
+*.[xX][mM][pP]
+*.lrcat
+*.lrcat-data/
+*.lrdata/
+DSC_[0-9]*
+IMG_[0-9]*
+IMG_[0-9A-F][0-9A-F][0-9A-F][0-9A-F][0-9A-F][0-9A-F][0-9A-F][0-9A-F]-*
+
+# Temporary previews and processing caches
+cache.sqlite
+*.sqlite
+*.sqlite3
+*.db
+lrcat_copy_*
+__pycache__/
+*.pyc
+.venv/
+venv/
+.cache/
+
+# API credentials and environment files
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+credentials*.json
+client_secret*.json
+service-account*.json
+secrets*.json
+*.token
+*token*.txt
+.airtable*
+.npmrc
